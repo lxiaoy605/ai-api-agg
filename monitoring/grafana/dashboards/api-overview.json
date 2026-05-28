@@ -1,0 +1,158 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {"limit": 100, "matchAny": false, "tags": [], "type": "dashboard"},
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "gridPos": {"h": 3, "w": 24, "x": 0, "y": 0},
+      "id": 1,
+      "title": "API Hub — Service Status",
+      "type": "row",
+      "collapsed": false
+    },
+    {
+      "datasource": {"type": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "mappings": [{"type": "value", "value": "1"}, {"type": "value", "value": "0"}],
+          "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": null}, {"color": "green", "value": 1}]},
+          "unit": "none"
+        }
+      },
+      "gridPos": {"h": 4, "w": 8, "x": 0, "y": 3},
+      "id": 2,
+      "options": {"colorMode": "background", "graphMode": "none", "justifyMode": "auto", "orientation": "horizontal", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "pluginVersion": "11.6.0",
+      "targets": [{"expr": "probe_success{job=\"ai-api-agg-oneapi\"}", "legendFormat": "OneAPI", "refId": "A"}, {"expr": "probe_success{job=\"ai-api-agg-nginx\"}", "legendFormat": "Nginx", "refId": "B"}],
+      "title": "Service Health",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "palette-classic"},
+          "custom": {"axisBorderShow": false, "axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 10, "gradientMode": "none", "hideFrom": {"legend": false, "tooltip": false, "viz": false}, "lineInterpolation": "linear", "lineWidth": 2, "pointSize": 5, "scaleDistribution": {"type": "linear"}, "showPoints": "never", "spanNulls": false, "stacking": {"group": "A", "mode": "none"}, "thresholdsStyle": {"mode": "off"}},
+          "unit": "s"
+        }
+      },
+      "gridPos": {"h": 8, "w": 16, "x": 8, "y": 3},
+      "id": 3,
+      "options": {"legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "multi", "sort": "none"}},
+      "targets": [
+        {"expr": "probe_http_duration_seconds{job=\"ai-api-agg-oneapi\", phase=\"total\"}", "legendFormat": "OneAPI", "refId": "A"},
+        {"expr": "probe_http_duration_seconds{job=\"ai-api-agg-nginx\", phase=\"total\"}", "legendFormat": "Nginx", "refId": "B"}
+      ],
+      "title": "Response Time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "mappings": [],
+          "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 200}, {"color": "red", "value": 1000}]},
+          "unit": "ms"
+        }
+      },
+      "gridPos": {"h": 4, "w": 8, "x": 0, "y": 7},
+      "id": 4,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["mean"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [
+        {"expr": "avg(probe_http_duration_seconds{job=\"ai-api-agg-oneapi\", phase=\"total\"}) * 1000", "legendFormat": "Avg", "refId": "A"}
+      ],
+      "title": "Avg Latency (OneAPI)",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "mappings": [],
+          "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 95}, {"color": "red", "value": 99}]},
+          "unit": "percent"
+        }
+      },
+      "gridPos": {"h": 4, "w": 4, "x": 0, "y": 11},
+      "id": 5,
+      "options": {"colorMode": "background", "graphMode": "none", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+      "targets": [
+        {"expr": "avg(probe_success{job=\"ai-api-agg-oneapi\"}) * 100", "legendFormat": "", "refId": "A"}
+      ],
+      "title": "Uptime %",
+      "type": "stat"
+    },
+    {
+      "gridPos": {"h": 3, "w": 24, "x": 0, "y": 15},
+      "id": 6,
+      "title": "System Resources",
+      "type": "row",
+      "collapsed": false
+    },
+    {
+      "datasource": {"type": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "palette-classic"},
+          "custom": {"axisBorderShow": false, "axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 10, "gradientMode": "none", "hideFrom": {"legend": false, "tooltip": false, "viz": false}, "lineInterpolation": "linear", "lineWidth": 2, "pointSize": 5, "scaleDistribution": {"type": "linear"}, "showPoints": "never", "spanNulls": false, "stacking": {"group": "A", "mode": "none"}, "thresholdsStyle": {"mode": "off"}},
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 18},
+      "id": 7,
+      "options": {"legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "multi", "sort": "none"}},
+      "targets": [
+        {"expr": "prometheus_tsdb_storage_blocks_bytes", "legendFormat": "Prometheus Storage", "refId": "A"}
+      ],
+      "title": "Prometheus Storage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "palette-classic"},
+          "custom": {"axisBorderShow": false, "axisCenteredZero": false, "axisColorMode": "text", "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0, "drawStyle": "line", "fillOpacity": 10, "gradientMode": "none", "hideFrom": {"legend": false, "tooltip": false, "viz": false}, "lineInterpolation": "linear", "lineWidth": 2, "pointSize": 5, "scaleDistribution": {"type": "linear"}, "showPoints": "never", "spanNulls": false, "stacking": {"group": "A", "mode": "none"}, "thresholdsStyle": {"mode": "off"}},
+          "unit": "short"
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 18},
+      "id": 8,
+      "options": {"legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "multi", "sort": "none"}},
+      "targets": [
+        {"expr": "rate(prometheus_tsdb_head_samples_appended_total[5m])", "legendFormat": "Samples/sec", "refId": "A"}
+      ],
+      "title": "Scrape Rate",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 40,
+  "tags": ["api-hub", "monitoring"],
+  "templating": {"list": []},
+  "time": {"from": "now-1h", "to": "now"},
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "API Hub — Overview",
+  "uid": "api-hub-overview",
+  "version": 1
+}
