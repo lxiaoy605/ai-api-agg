@@ -1,79 +1,36 @@
-# =============================================
 # Alertmanager 配置 — AI API 聚合平台
-# =============================================
-# 通知渠道：
-#   - Telegram Bot（生产环境配置 Bot Token + Chat ID）
-#   - 本地日志（兜底，所有告警写入 /var/log/alertmanager.log）
-# 分组策略：按 alertname 分组，避免同类告警重复通知
-# 重复间隔：30 分钟（同一告警在 30 分钟内不重复发送）
-# =============================================
+# 开发环境：无外部通知渠道，所有告警通过自身日志输出
+# 生产环境：取消注释 Telegram 配置段并填入实际 Token/Chat ID
 
 global:
-  # 在告警恢复时发送通知
-  send_resolved: true
-  # SMTP 配置（可选，用于邮件通知）
-  # smtp_smarthost: 'smtp.gmail.com:587'
-  # smtp_from: 'alert@example.com'
-  # smtp_auth_username: 'alert@example.com'
-  # smtp_auth_password: '${SMTP_PASSWORD}'
+  # 全局配置不在此层放 send_resolved
 
-# =============================================
-# 通知模板
-# =============================================
-templates:
-  - '/etc/alertmanager/templates/*.tmpl'
-
-# =============================================
-# 路由规则
-# =============================================
 route:
-  # 顶级路由：按 alertname 分组
   group_by: ['alertname']
-  # 分组等待时间：收到第一个告警后等待 10s，聚合同组后续告警
   group_wait: 10s
-  # 分组间隔：同一组告警在 5 分钟内只发一次更新通知
   group_interval: 5m
-  # 重复间隔：同一告警在 30 分钟内不重复发送
   repeat_interval: 30m
-  # 默认接收器
-  receiver: 'telegram-default'
+  receiver: 'dev-null'
 
-  # 子路由：按严重级别分流
   routes:
-    # critical 告警 — 走 Telegram 紧急通道
     - match:
         severity: critical
-      receiver: 'telegram-critical'
-      # critical 告警分组等待缩短到 5s
+      receiver: 'dev-null'
       group_wait: 5s
       group_interval: 2m
       repeat_interval: 15m
 
-    # warning 告警 — 走 Telegram 通知通道
     - match:
         severity: warning
-      receiver: 'telegram-warning'
-      repeat_interval: 30m
+      receiver: 'dev-null'
 
-    # 服务宕机类 — 单独路由，确保不被埋没
-    - match:
-        alertname: ai_api_agg_service_down
-      receiver: 'telegram-critical'
-      group_wait: 1s
-      repeat_interval: 10m
-
-# =============================================
-# 抑制规则：高优先级告警抑制低优先级
-# =============================================
 inhibit_rules:
-  # 服务宕机时抑制该服务的延迟/错误率告警
   - source_match:
       alertname: 'ai_api_agg_service_down'
     target_match_re:
       alertname: 'ai_api_agg_high_error_rate|ai_api_agg_high_latency_.*'
     equal: ['job']
 
-  # critical 延迟告警抑制 warning 延迟告警
   - source_match:
       severity: 'critical'
       alertname: 'ai_api_agg_high_latency_critical'
@@ -82,64 +39,25 @@ inhibit_rules:
       alertname: 'ai_api_agg_high_latency_warning'
     equal: ['job']
 
-# =============================================
-# 接收器定义
-# =============================================
 receivers:
-  # --- 默认 Telegram 接收器 ---
-  - name: 'telegram-default'
-    telegram_configs:
-      # Telegram Bot API — 使用 BotFather 创建 Bot 获取 token
-      # https://core.telegram.org/bots/api
-      - bot_token: '${TELEGRAM_BOT_TOKEN:-YOUR_BOT_TOKEN_HERE}'
-        chat_id: '${TELEGRAM_CHAT_ID:-YOUR_CHAT_ID_HERE}'
-        parse_mode: 'HTML'
-        message: |
-          <b>{{ if eq .Status "firing" }}🔥 FIRING{{ else }}✅ RESOLVED{{ end }}</b>
-          <b>告警:</b> {{ .CommonLabels.alertname }}
-          <b>级别:</b> {{ .CommonLabels.severity }}
-          <b>详情:</b> {{ .CommonAnnotations.description }}
+  # 开发环境：空接收器，告警仅通过 --log.level=debug 输出到日志
+  - name: 'dev-null'
 
-  # --- Critical Telegram 接收器 ---
-  - name: 'telegram-critical'
-    telegram_configs:
-      - bot_token: '${TELEGRAM_BOT_TOKEN:-YOUR_BOT_TOKEN_HERE}'
-        chat_id: '${TELEGRAM_CHAT_ID:-YOUR_CHAT_ID_HERE}'
-        parse_mode: 'HTML'
-        disable_notification: false
-        message: |
-          🚨 <b>CRITICAL ALERT</b> 🚨
-
-          <b>告警:</b> {{ .CommonLabels.alertname }}
-          <b>时间:</b> {{ .StartsAt.Format "2006-01-02 15:04:05" }}
-
-          {{ .CommonAnnotations.description }}
-
-          <i>请立即处理！</i>
-
-  # --- Warning Telegram 接收器 ---
-  - name: 'telegram-warning'
-    telegram_configs:
-      - bot_token: '${TELEGRAM_BOT_TOKEN:-YOUR_BOT_TOKEN_HERE}'
-        chat_id: '${TELEGRAM_CHAT_ID:-YOUR_CHAT_ID_HERE}'
-        parse_mode: 'HTML'
-        disable_notification: true  # warning 级别不弹出通知
-        message: |
-          ⚠️ <b>WARNING</b>
-
-          <b>告警:</b> {{ .CommonLabels.alertname }}
-          <b>时间:</b> {{ .StartsAt.Format "2006-01-02 15:04:05" }}
-
-          {{ .CommonAnnotations.description }}
-
-  # --- 本地日志接收器（兜底，所有告警写入文件）---
-  - name: 'local-log'
-    # Alertmanager 原生不支持文件输出，
-    # 使用 webhook 打到本地日志收集器或使用 --log.level=debug
-    # 此接收器作为占位，实际日志通过 Alertmanager 自身的 log 输出
-
-# =============================================
-# 全局日志（Alertmanager 自身日志）
-# =============================================
-# 启动时使用 --log.level=debug 可在 stdout 看到所有告警的详细日志
-# Docker Compose 中通过 logging driver 收集到 json-file
+  # 生产环境取消注释以下 Telegram 配置段：
+  #
+  # - name: 'telegram-critical'
+  #   telegram_configs:
+  #     - send_resolved: true
+  #       bot_token: 'YOUR_BOT_TOKEN'
+  #       chat_id: 123456789
+  #       parse_mode: 'HTML'
+  #       message: |
+  #         <b>{{ .CommonLabels.alertname }}</b>
+  #         {{ .CommonAnnotations.description }}
+  #
+  # - name: 'telegram-warning'
+  #   telegram_configs:
+  #     - send_resolved: true
+  #       bot_token: 'YOUR_BOT_TOKEN'
+  #       chat_id: 123456789
+  #       parse_mode: 'HTML'
