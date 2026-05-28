@@ -8,34 +8,9 @@ name: ai-api-agg
 
 services:
   # ========================================
-  # OneAPI 网关
+  # OneAPI 网关 — 蓝绿部署
+  # 注：仅保留蓝绿双实例，去除单实例 oneapi 服务（端口冲突）
   # ========================================
-  oneapi:
-    image: justsong/one-api:latest
-    container_name: ai-api-agg-oneapi
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    volumes:
-      - oneapi_data:/data
-    environment:
-      - TZ=Asia/Shanghai
-    env_file:
-      - ./oneapi/.env
-    networks:
-      - app-net
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/status"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-
   oneapi-blue:
     image: justsong/one-api:latest
     container_name: ai-api-agg-oneapi-blue
@@ -171,6 +146,36 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+
+  # ========================================
+  # Next.js 用户前端（挂载模式，避免构建上下文过大）
+  # ========================================
+  frontend:
+    image: node:22
+    container_name: ai-api-agg-frontend
+    restart: unless-stopped
+    # 仅内网访问，通过 Nginx 代理
+    expose:
+      - "3000"
+    working_dir: /app
+    volumes:
+      - ../frontend:/app
+    command: ["npx", "next", "start"]
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   # ========================================
   # Nginx — 反向代理 + 静态文件
