@@ -4,8 +4,9 @@ import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI API Aggregator — AI Model API Aggregation Platform",
-  description: "AI model API relay service for developers. Low-cost access to mainstream Chinese AI models.",
+  title: "API Hub — Unified AI API Platform",
+  description:
+    "One key, one API format. DeepSeek, GPT-4o, Claude, GLM and more — all through a single OpenAI-compatible endpoint.",
 };
 
 export default async function RootLayout({
@@ -17,8 +18,8 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="dark">
-      <body className="min-h-screen bg-slate-950 text-slate-200 antialiased">
+    <html lang={locale}>
+      <body className="min-h-screen bg-white text-gray-900 antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
