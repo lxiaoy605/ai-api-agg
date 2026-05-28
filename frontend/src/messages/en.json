@@ -1,0 +1,294 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied",
+    "create": "Create",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "all": "All",
+    "name": "Name",
+    "status": "Status",
+    "actions": "Actions",
+    "input": "Input",
+    "output": "Output",
+    "recommended": "Recommended"
+  },
+  "nav": {
+    "brand": "AI API Agg",
+    "dashboard": "Dashboard",
+    "apiKeys": "API Keys",
+    "models": "Model Catalog",
+    "docs": "Documentation",
+    "usage": "Usage Stats",
+    "recharge": "Recharge",
+    "settings": "Settings",
+    "collapse": "Collapse"
+  },
+  "home": {
+    "title": "AI API Aggregator",
+    "subtitle": "AI model API relay service built on OneAPI open-source gateway. Providing low-cost API access to DeepSeek, Zhipu, Xiaomi MiMo and other mainstream Chinese model providers for independent developers in markets around Armenia.",
+    "comingSoon": "MVP Phase · Coming Soon",
+    "moreProviders": "More providers coming..."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "API aggregation platform overview",
+    "activeChannels": "Active Channels",
+    "totalChannels": "{count} channels total",
+    "todayRequests": "Today's Requests",
+    "vsYesterday": "vs yesterday",
+    "remainingQuota": "Remaining Quota",
+    "remainingPercent": "{percent}% remaining",
+    "errorRate": "Error Rate",
+    "channelHealth": "Channel Health",
+    "latency": "Latency",
+    "successRate": "Success Rate",
+    "recentRequests": "Recent Requests",
+    "tableTime": "Time",
+    "tableModel": "Model",
+    "tableStatusCode": "Status Code",
+    "tableLatency": "Latency",
+    "tableCost": "Cost",
+    "modelUsageBreakdown": "Model Usage Breakdown",
+    "requestsTrend": "Request Trend",
+    "tokenTrend": "Token Consumption Trend"
+  },
+  "status": {
+    "healthy": "Healthy",
+    "degraded": "Degraded",
+    "down": "Down",
+    "active": "Active",
+    "disabled": "Disabled",
+    "available": "Available",
+    "comingSoon": "Coming Soon",
+    "maintenance": "Maintenance"
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "subtitle": "Manage your API keys",
+    "create": "Create Key",
+    "tableName": "Name",
+    "tableKey": "Key",
+    "tableCreated": "Created",
+    "tableStatus": "Status",
+    "tableLastUsed": "Last Used",
+    "tableActions": "Actions",
+    "copyKey": "Copy Key",
+    "deleteKey": "Delete Key",
+    "empty": "No API keys yet. Click the button above to create one.",
+    "usageRequests": "Requests",
+    "usageTokens": "Token Usage",
+    "usageLastUsed": "Last Used",
+    "createTitle": "Create API Key",
+    "createNameLabel": "Key Name",
+    "createNamePlaceholder": "e.g. Production Key",
+    "createSuccess": "Key Created",
+    "createWarning": "This key is shown only once. Copy it now and store it securely — the full key cannot be viewed again.",
+    "createSaved": "I've saved it, close",
+    "deleteTitle": "Delete API Key",
+    "deleteConfirm": "Are you sure you want to delete {name}?",
+    "deleteWarning": "This action cannot be undone. All applications using this key will immediately lose API access."
+  },
+  "models": {
+    "title": "Model Catalog",
+    "subtitle": "Browse all available models, view pricing and code examples",
+    "category": {
+      "chat": "Chat",
+      "code": "Code",
+      "reasoning": "Reasoning",
+      "multimodal": "Multimodal"
+    },
+    "inputPrice": "Input {price}",
+    "outputPrice": "Output {price}",
+    "contextWindow": "Context Window",
+    "maxOutput": "Max Output",
+    "inputPriceLabel": "Input Price",
+    "outputPriceLabel": "Output Price",
+    "supportedFeatures": "Supported Features",
+    "codeExample": "Code Example",
+    "details": {
+      "deepseek-v4-flash": {
+        "description": "Lightweight fast model for high-concurrency scenarios with extremely fast response",
+        "features": ["Function Calling", "JSON Mode", "Streaming", "High Concurrency"]
+      },
+      "deepseek-v4-pro": {
+        "description": "Flagship reasoning model with deep thinking mode, ideal for complex logic and code generation",
+        "features": ["Deep Thinking", "Code Generation", "Logical Reasoning", "Long Context", "Streaming"]
+      },
+      "glm-5.1": {
+        "description": "Zhipu's latest flagship model with strong all-around performance, excellent in Chinese and English",
+        "features": ["Multilingual", "Function Calling", "Tool Use", "Long Document", "Streaming"]
+      },
+      "mimo-v2.5-pro": {
+        "description": "Xiaomi multimodal flagship model supporting text/image/audio understanding and generation",
+        "features": ["Multimodal", "Image Understanding", "Text Generation", "Audio Processing", "TTS"]
+      },
+      "gpt-4o": {
+        "description": "OpenAI flagship multimodal model, all-round performer",
+        "features": ["Multimodal", "Function Calling", "JSON Mode", "Streaming", "High Precision"]
+      },
+      "gpt-4o-mini": {
+        "description": "Lightweight model with extremely low cost, ideal for simple tasks and high-throughput scenarios",
+        "features": ["Function Calling", "JSON Mode", "Streaming", "Low Cost"]
+      },
+      "claude-3.5-sonnet": {
+        "description": "Anthropic flagship model with outstanding code and reasoning capabilities",
+        "features": ["Code Generation", "Long Documents", "Safety Guardrails", "Function Calling", "Streaming"]
+      },
+      "glm-4.7-flash": {
+        "description": "Zhipu free lightweight model, ideal for prototyping and testing",
+        "features": ["Free", "Fast Response", "Streaming"]
+      }
+    }
+  },
+  "docs": {
+    "title": "Documentation",
+    "subtitle": "Quickly integrate with the AI API Aggregation Platform",
+    "quickStart": "Quick Start",
+    "quickStartDesc": "Get started in just a few steps. Our API is OpenAI-compatible — use the OpenAI SDK directly.",
+    "step1Title": "1. Get API Key",
+    "step1Desc": "Create a key on the API Keys page. Free credits on signup.",
+    "step2Title": "2. Configure Base URL",
+    "step2Desc": "Set the API endpoint to",
+    "step3Title": "3. Send Requests",
+    "step3Desc": "Use the OpenAI SDK or direct HTTP calls — just pick a model.",
+    "apiReference": "API Reference",
+    "tableMethod": "Method",
+    "tableEndpoint": "Endpoint",
+    "tableDescription": "Description",
+    "tableStatusCode": "Status Code",
+    "errorCodes": "Error Codes",
+    "modelNaming": "Model Naming Convention",
+    "modelNamingDesc": "Use the model field in requests to specify the model. Model ID format: vendor-version.",
+    "modelNamingExamples": {
+      "deepseek-v4-flash": "DeepSeek V4 Flash",
+      "deepseek-v4-pro": "DeepSeek V4 Pro",
+      "glm-5.1": "Zhipu GLM-5.1",
+      "glm-4.7-flash": "Zhipu Free Lightweight",
+      "mimo-v2.5-pro": "Xiaomi MiMo Flagship",
+      "gpt-4o": "OpenAI GPT-4o",
+      "gpt-4o-mini": "OpenAI GPT-4o Mini",
+      "claude-3.5-sonnet": "Anthropic Claude 3.5"
+    },
+    "endpoints": {
+      "chat": "Chat Completions",
+      "embeddings": "Text Embeddings",
+      "models": "List Available Models",
+      "usage": "Query Account Usage"
+    },
+    "errorDescriptions": {
+      "200": "Request processed successfully",
+      "400": "Malformed request body or missing required parameters",
+      "401": "API Key is invalid or expired",
+      "402": "Insufficient account balance for this request",
+      "429": "Rate limit exceeded, please retry later",
+      "500": "Internal server error, please retry later",
+      "503": "Model service temporarily unavailable or under maintenance"
+    },
+    "errorMessages": {
+      "200": "Success",
+      "400": "Bad Request",
+      "401": "Unauthorized",
+      "402": "Insufficient Quota",
+      "429": "Rate Limited",
+      "500": "Internal Server Error",
+      "503": "Service Unavailable"
+    }
+  },
+  "recharge": {
+    "title": "Recharge",
+    "subtitleSelect": "Select amount and pay with cryptocurrency",
+    "subtitleCreating": "Creating payment order...",
+    "subtitlePending": "Complete payment — credits will be added automatically",
+    "subtitleCompleted": "Payment successful! Credits have been added.",
+    "subtitleFailed": "Payment incomplete",
+    "subtitleFallback": "Please manually transfer to the address below",
+    "selectAmount": "Select Recharge Amount",
+    "selectNetwork": "Select Payment Network",
+    "customAmountLabel": "Enter custom amount (USD)",
+    "customAmountPlaceholder": "Enter amount",
+    "minAmountError": "Minimum recharge amount is $5.00",
+    "tokenEstimate": "Approx. {usdt} USDT, you'll receive {tokens} tokens",
+    "tokenBonus": "(includes {bonus} bonus)",
+    "trc20Recommend": "TRC-20 Recommended",
+    "trc20Detail": "Fees as low as $1, confirmation in 1-3 minutes",
+    "payNow": "Pay ${amount} now",
+    "creating": "Creating payment...",
+    "scanToPay": "Scan to pay {currency}",
+    "pendingStatus": "Awaiting Payment",
+    "scanInstructions": "Use your wallet app to scan the QR code or copy the address to transfer",
+    "addressCopied": "Address copied",
+    "orderDetails": "Order Details",
+    "orderId": "Order ID",
+    "payAmount": "Pay Amount",
+    "fiatAmount": "Fiat Amount",
+    "network": "Network",
+    "tokensReceived": "Tokens Received",
+    "remainingTime": "Time Remaining",
+    "paymentSteps": "Payment Steps",
+    "step1": "Open your exchange or wallet app",
+    "step2": "Select {network} network",
+    "step3": "Transfer {amount} {currency} to the address above",
+    "step4": "Wait for network confirmation — credits will be added automatically",
+    "pollingHint": "Waiting for on-chain confirmation... queried {count} times",
+    "backToSelect": "Go back and reselect",
+    "paySuccess": "Payment Successful!",
+    "paySuccessDesc": "{tokens} tokens have been credited to your account",
+    "orderSummary": "Order Summary",
+    "amount": "Amount",
+    "credited": "Credited",
+    "continueRecharge": "Continue Recharging",
+    "payFailed": "Payment Incomplete",
+    "payFailedMsg": "Payment expired or cancelled",
+    "retryRecharge": "Retry Recharge",
+    "fallbackTitle": "Payment gateway temporarily unavailable — please transfer manually",
+    "fallbackStep1": "Transfer USDT via {network} network to the address on the left",
+    "fallbackStep2": "Include your User ID in the Memo/Note field",
+    "fallbackStep3": "Credits will be added automatically within {time}",
+    "retry": "Retry",
+    "infoTitle": "Recharge Information",
+    "infoAutoCard": {
+      "title": "Automatic Crediting",
+      "desc": "Credits are automatically detected and added to your account — no manual review needed."
+    },
+    "infoMultiCard": {
+      "title": "Multi-Chain Support",
+      "desc": "Supports TRC-20, ERC-20, BEP-20 and more. We recommend TRC-20 for the lowest fees."
+    },
+    "infoSecureCard": {
+      "title": "Secure & Reliable",
+      "desc": "Powered by NOWPayments non-custodial payment gateway. Funds go directly to your wallet."
+    },
+    "trc20": "USDT-TRC20 (TRON Network)",
+    "erc20": "USDT-ERC20 (Ethereum Network)",
+    "bep20": "USDT-BEP20 (BSC Network)",
+    "feeLabel": "Fee",
+    "confirmTimeLabel": "approx. {time} confirmation"
+  },
+  "usage": {
+    "title": "Usage Statistics",
+    "subtitle": "Detailed API call and token consumption analysis",
+    "summary": "Usage Summary",
+    "monthlyRequests": "Monthly Requests",
+    "monthlyTokens": "Monthly Token Consumption",
+    "avgLatency": "Avg Response Latency",
+    "monthlyCost": "Monthly Cost",
+    "vsLastMonth": "vs last month"
+  },
+  "chart": {
+    "modelUsageBreakdown": "Model Usage Breakdown",
+    "percentage": "Share",
+    "requests": "Requests",
+    "tokens": "Tokens",
+    "today": "Today",
+    "last7d": "Last 7 Days",
+    "last30d": "Last 30 Days",
+    "requestCount": "Requests",
+    "tokenConsumption": "Token Consumption",
+    "time": "Time"
+  }
+}

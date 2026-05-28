@@ -1,0 +1,16 @@
+[Unit]
+Description=ai-api-agg 每日运维摘要定时器 — 每天早上 9:00
+Requires=ops-daily-report.service
+
+[Timer]
+# 每天早上 9:03 执行（偏移 3 分钟避免与其他定时任务碰撞）
+OnCalendar=*-*-* 09:03:00
+RandomizedDelaySec=120
+
+# 如果错过执行，在启动后 2 分钟内补偿
+Persistent=true
+
+Unit=ops-daily-report.service
+
+[Install]
+WantedBy=timers.target

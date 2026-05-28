@@ -1,0 +1,30 @@
+[Unit]
+Description=AI API 聚合平台 — GitOps 配置同步引擎
+Documentation=https://aiflowhub.ai
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+EnvironmentFile=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/docker/.env
+ExecStart=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/config-sync.sh --apply --force
+
+# 安全加固
+NoNewPrivileges=yes
+PrivateTmp=yes
+ReadOnlyPaths=/
+ReadWritePaths=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/logs
+ReadWritePaths=/tmp
+
+# 超时
+TimeoutStartSec=120
+TimeoutStopSec=30
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=config-sync
+
+[Install]
+WantedBy=multi-user.target

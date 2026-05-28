@@ -1,0 +1,17 @@
+[Unit]
+Description=ai-api-agg 余额监控定时器 — 每小时检查一次
+Requires=balance-monitor.service
+
+[Timer]
+# 每小时执行一次（在整点后 7 分钟执行，避免与其他定时任务碰撞）
+OnCalendar=hourly
+RandomizedDelaySec=180
+
+# 如果错过执行，在启动后 2 分钟内补偿
+Persistent=true
+
+# 超时（2 分钟）
+Unit=balance-monitor.service
+
+[Install]
+WantedBy=timers.target

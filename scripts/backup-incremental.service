@@ -1,0 +1,29 @@
+[Unit]
+Description=ai-api-agg 每小时增量备份 (v2)
+Documentation=https://github.com/ai-api-agg
+After=network.target
+
+[Service]
+Type=oneshot
+User=openclaw
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+ExecStart=/bin/bash /mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/backup.sh --incremental --upload
+
+# 环境变量 — 增量备份保留 7 天
+Environment=INCREMENTAL_RETENTION_DAYS=7
+
+# 环境变量 — 远程备份（修改为实际值以启用）
+# Environment=REMOTE_BACKUP_HOST=user@backup.example.com
+# Environment=REMOTE_BACKUP_PATH=/data/backups/ai-api-agg
+
+# 日志输出
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-api-agg-backup-incr
+
+# 安全限制
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

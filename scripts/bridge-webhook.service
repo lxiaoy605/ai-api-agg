@@ -1,0 +1,26 @@
+[Unit]
+Description=ai-api-agg 桥事件轮询 — 每 10 分钟推送 bridge 事件给 AI 助手
+Documentation=https://github.com/ai-api-agg
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=openclaw
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+ExecStart=/bin/bash /mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/bridge-webhook.sh poll --minutes 10
+
+# 环境变量（从 docker/.env 读取）
+EnvironmentFile=-/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/docker/.env
+
+# 日志输出
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-api-agg-bridge-webhook
+
+# 安全限制
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

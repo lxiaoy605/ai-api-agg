@@ -1,0 +1,37 @@
+[Unit]
+Description=AI API 聚合平台 — API Key 自动轮换服务
+Documentation=https://github.com/ai-api-agg
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=openclaw
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+
+# 执行自动轮换脚本
+# --auto 模式会扫描 docker/.env 中的 Key 变更并自动轮换
+ExecStart=/bin/bash /mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/rotate-channel-key.sh --auto
+
+# 环境变量（从 docker/.env 加载）
+EnvironmentFile=-/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/docker/.env
+
+# 超时：每个渠道轮换最多 30 分钟
+TimeoutStartSec=1800
+
+# 日志输出到 journald
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-api-agg-key-rotation
+
+# 安全限制
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+# 失败重试：最多 2 次，间隔 1 小时
+Restart=on-failure
+RestartSec=3600
+RestartMaxDelaySec=7200
+
+[Install]
+WantedBy=multi-user.target

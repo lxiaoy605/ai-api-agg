@@ -1,0 +1,19 @@
+[Unit]
+Description=ai-api-agg 健康检查定时器 — 每 30 秒执行一次
+Requires=healthcheck.service
+
+[Timer]
+# 每 30 秒执行一次
+OnUnitActiveSec=30s
+
+# 启动后 10 秒首次执行（等 OneAPI 就绪）
+OnBootSec=10s
+
+# 如果错过执行，立即补偿
+Persistent=true
+
+# 确保同一时间只有一个实例运行
+Unit=healthcheck.service
+
+[Install]
+WantedBy=timers.target

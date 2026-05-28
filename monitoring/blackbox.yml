@@ -1,0 +1,30 @@
+# =============================================
+# Blackbox Exporter 配置 — AI API 聚合平台
+# =============================================
+# 为 OneAPI 和 Nginx 提供 HTTP 级健康探测
+
+modules:
+  # HTTP/2 探测模块：期望返回 2xx 状态码
+  http_2xx:
+    prober: http
+    timeout: 10s
+    http:
+      valid_status_codes: [200, 201, 204]
+      method: GET
+      no_follow_redirects: false
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      preferred_ip_protocol: "ip4"
+
+  # TCP 探测模块：验证端口可达
+  tcp_connect:
+    prober: tcp
+    timeout: 5s
+
+  # HTTP POST 探测模块：用于 API 端点健康检查
+  http_post_2xx:
+    prober: http
+    timeout: 10s
+    http:
+      valid_status_codes: [200, 201]
+      method: POST

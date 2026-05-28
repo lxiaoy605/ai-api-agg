@@ -1,0 +1,38 @@
+[Unit]
+Description=ai-api-agg 每日全量备份 (v2)
+Documentation=https://github.com/ai-api-agg
+After=network.target
+
+[Service]
+Type=oneshot
+User=openclaw
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+ExecStart=/bin/bash /mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/backup.sh --full --upload
+
+# 环境变量 — 备份保留策略
+Environment=BACKUP_RETENTION_DAYS=30
+Environment=INCREMENTAL_RETENTION_DAYS=7
+
+# 环境变量 — 远程备份（修改为实际值以启用远程备份）
+# Environment=REMOTE_BACKUP_HOST=user@backup.example.com
+# Environment=REMOTE_BACKUP_PATH=/data/backups/ai-api-agg
+
+# 兼容旧版环境变量
+# Environment=BACKUP_RSYNC_DEST=user@backup-server:/path/to/backups/
+# Environment=BACKUP_SCP_DEST=user@backup-server:/path/to/backups/
+
+# 日志输出
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-api-agg-backup
+
+# 安全限制
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+# 失败重试
+Restart=on-failure
+RestartSec=300
+
+[Install]
+WantedBy=multi-user.target

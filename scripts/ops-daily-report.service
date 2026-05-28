@@ -1,0 +1,26 @@
+[Unit]
+Description=ai-api-agg 每日运维摘要 — 每天早上 9:00 推送
+Documentation=https://github.com/ai-api-agg
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=openclaw
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+ExecStart=/bin/bash /mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/ops-daily-report.sh
+
+# 环境变量（从 docker/.env 读取）
+EnvironmentFile=-/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/docker/.env
+
+# 日志输出
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-api-agg-daily-report
+
+# 安全限制
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

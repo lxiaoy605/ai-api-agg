@@ -1,0 +1,32 @@
+[Unit]
+Description=ai-api-agg 多渠道健康检查
+Documentation=https://github.com/ai-api-agg
+After=network.target
+
+[Service]
+Type=oneshot
+User=openclaw
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+ExecStart=/bin/bash /mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/healthcheck.sh
+
+# 环境变量文件
+EnvironmentFile=-/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/docker/.env
+
+# 可覆盖配置
+# Environment=ONEAPI_URL=http://localhost:3000
+# Environment=ONEAPI_DOMAIN=aiflowhub.ai
+
+# 日志输出（脚本自身也会写入 logs/healthcheck.log）
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-api-agg-healthcheck
+
+# 安全限制
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+# 超时（15 秒内完成，3 渠道 × 10s 超时可能不够，设宽松点）
+TimeoutStartSec=60
+
+[Install]
+WantedBy=multi-user.target

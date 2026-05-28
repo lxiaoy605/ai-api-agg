@@ -1,0 +1,19 @@
+# =============================================
+# Grafana 仪表盘自动加载配置
+# =============================================
+# Grafana 启动时自动扫描 grafana-dashboards/ 目录，
+# 加载所有 .json 仪表盘文件
+
+apiVersion: 1
+
+providers:
+  - name: 'AI API Aggregator'
+    orgId: 1
+    folder: ''
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
+      foldersFromFilesStructure: false

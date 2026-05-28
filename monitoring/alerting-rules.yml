@@ -1,0 +1,213 @@
+# =============================================
+# Prometheus 告警规则 — AI API 聚合平台
+# =============================================
+# 命名规范：ai_api_agg_<kind>
+# 预警层级：
+#   warning  — 通知（需关注，非紧急）
+#   critical — 紧急通知（需立即处理）
+# =============================================
+
+groups:
+  # ===========================================
+  # 1. 渠道故障告警
+  # ===========================================
+  - name: ai_api_agg_channel
+    rules:
+      # OneAPI 网关健康检查连续失败
+      - alert: ai_api_agg_channel_failure
+        expr: probe_success{job="ai-api-agg-oneapi"} == 0
+        for: 30s   # 15s × 3 = 45s, 连续 3 次失败后触发
+        labels:
+          severity: critical
+        annotations:
+          summary: "AI 渠道健康检查失败 — {{ $labels.service }}"
+          description: |
+            服务 {{ $labels.service }} ({{ $labels.instance }})
+            连续 3 次健康检查失败，所有经此网关的 AI 请求可能中断。
+            请立即检查 OneAPI 容器状态及上游渠道连通性。
+
+      # 上游渠道（DeepSeek/智谱/MiMo）不可用
+      - alert: ai_api_agg_upstream_channel_down
+        expr: channel_up{job="ai-api-agg-backend"} == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "上游 AI 渠道不可用 — {{ $labels.channel }}"
+          description: |
+            渠道 {{ $labels.channel }} 状态为不可用，
+            该渠道的请求将被 OneAPI 自动路由到备用渠道。
+            请确认是否需要手动充值或更换 API Key。
+
+  # ===========================================
+  # 2. API 错误率告警
+  # ===========================================
+  - name: ai_api_agg_api_errors
+    rules:
+      # 5xx 错误率 > 5% (5分钟窗口)
+      - alert: ai_api_agg_high_error_rate
+        expr: |
+          (
+            sum(rate(http_requests_total{job="ai-api-agg-backend", status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total{job="ai-api-agg-backend"}[5m]))
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "API 5xx 错误率过高 — {{ $value | humanizePercentage }}"
+          description: |
+            后端 API 在最近 5 分钟内 5xx 错误率为 {{ $value | humanizePercentage }}，
+            超过 5% 阈值。请检查后端日志、数据库连接和上游渠道状态。
+
+      # 4xx 错误率 > 20% 预警（可能是客户端问题或 Key 大面积失效）
+      - alert: ai_api_agg_high_4xx_rate
+        expr: |
+          (
+            sum(rate(http_requests_total{job="ai-api-agg-backend", status=~"4.."}[5m]))
+            /
+            sum(rate(http_requests_total{job="ai-api-agg-backend"}[5m]))
+          ) > 0.2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API 4xx 错误率偏高 — {{ $value | humanizePercentage }}"
+          description: |
+            后端 API 在最近 5 分钟内 4xx 错误率为 {{ $value | humanizePercentage }}，
+            超过 20% 预警线。可能原因：用户 API Key 大面积失效、请求格式错误。
+
+  # ===========================================
+  # 3. 延迟告警
+  # ===========================================
+  - name: ai_api_agg_latency
+    rules:
+      # P95 延迟 > 2000ms (5分钟窗口) — 预警
+      - alert: ai_api_agg_high_latency_warning
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(http_request_duration_seconds_bucket{job="ai-api-agg-backend"}[5m])) by (le)
+          ) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API P95 延迟偏高 — {{ $value }}s"
+          description: |
+            后端 API P95 延迟为 {{ $value }}s，超过 2000ms 预警阈值。
+            可能原因：上游 AI 渠道响应慢、服务器资源不足、网络波动。
+
+      # P95 延迟 > 5000ms (5分钟窗口) — 严重
+      - alert: ai_api_agg_high_latency_critical
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(http_request_duration_seconds_bucket{job="ai-api-agg-backend"}[5m])) by (le)
+          ) > 5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "API P95 延迟严重偏高 — {{ $value }}s"
+          description: |
+            后端 API P95 延迟为 {{ $value }}s，超过 5000ms 严重阈值。
+            用户体验严重受影响，请立即排查上游渠道及服务器性能。
+
+  # ===========================================
+  # 4. 余额不足告警
+  # ===========================================
+  - name: ai_api_agg_balance
+    rules:
+      # 余额 < $10 预警
+      - alert: ai_api_agg_low_balance_warning
+        expr: channel_balance_usd{job="ai-api-agg-backend"} < 10 and channel_balance_usd >= 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "渠道余额偏低 — {{ $labels.channel }}: ${{ $value }}"
+          description: |
+            渠道 {{ $labels.channel }} 当前余额 ${{ $value }}，
+            低于 $10 预警线。请尽快为该渠道充值，避免服务中断。
+
+      # 余额 < $5 紧急
+      - alert: ai_api_agg_low_balance_critical
+        expr: channel_balance_usd{job="ai-api-agg-backend"} < 5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "渠道余额严重不足 — {{ $labels.channel }}: ${{ $value }}"
+          description: |
+            渠道 {{ $labels.channel }} 当前余额仅 ${{ $value }}，
+            低于 $5 紧急线。该渠道随时可能因欠费被停用，
+            请立即充值或确认备用渠道已激活。
+
+  # ===========================================
+  # 5. 服务宕机告警
+  # ===========================================
+  - name: ai_api_agg_service
+    rules:
+      # 任何服务下线超过 1 分钟
+      - alert: ai_api_agg_service_down
+        expr: up{job=~"ai-api-agg-.*|prometheus"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "服务下线 — {{ $labels.job }}"
+          description: |
+            服务 {{ $labels.job }} ({{ $labels.service }}, {{ $labels.instance }})
+            已下线超过 1 分钟。请立即检查容器状态、网络和系统资源。
+            受影响组件: {{ $labels.component }}
+
+      # 服务频繁重启预警
+      - alert: ai_api_agg_service_flapping
+        expr: rate(process_start_time_seconds{job="ai-api-agg-backend"}[10m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "服务频繁重启 — {{ $labels.job }}"
+          description: |
+            服务 {{ $labels.job }} 在 10 分钟内重启超过 1 次，
+            可能存在不稳定因素。请检查日志排查根因。
+
+  # ===========================================
+  # 6. 系统资源告警
+  # ===========================================
+  - name: ai_api_agg_system
+    rules:
+      # 请求量突降 (> 50% 对比 1 小时前)
+      - alert: ai_api_agg_request_drop
+        expr: |
+          (
+            sum(rate(http_requests_total{job="ai-api-agg-backend"}[5m]))
+            /
+            sum(rate(http_requests_total{job="ai-api-agg-backend"}[5m] offset 1h))
+          ) < 0.5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "请求量异常下降"
+          description: |
+            当前请求量仅为 1 小时前的 {{ $value | humanizePercentage }}，
+            已下降超过 50%。请确认是正常业务波动还是服务故障。
+
+      # 请求量激增 (> 200% 对比 1 小时前)
+      - alert: ai_api_agg_request_surge
+        expr: |
+          (
+            sum(rate(http_requests_total{job="ai-api-agg-backend"}[5m]))
+            /
+            sum(rate(http_requests_total{job="ai-api-agg-backend"}[5m] offset 1h))
+          ) > 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "请求量异常激增"
+          description: |
+            当前请求量为 1 小时前的 {{ $value | humanizePercentage }}，
+            增长超过 200%。请确认是否有异常流量或攻击行为。

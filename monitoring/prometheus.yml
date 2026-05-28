@@ -1,0 +1,101 @@
+# =============================================
+# Prometheus v3.x 主配置 — AI API 聚合平台
+# =============================================
+# 环境变量注入：
+#   ${ENV} 在容器启动时通过 envsubst 替换为实际环境名
+#   默认值: production
+# =============================================
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    env: '${ENV:-production}'
+
+# Alertmanager 地址
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - 'alertmanager:9093'
+
+# 告警规则文件
+rule_files:
+  - '/etc/prometheus/alerting-rules.yml'
+
+# =============================================
+# 抓取配置
+# =============================================
+scrape_configs:
+  # -------------------------------------------
+  # Prometheus 自监控
+  # -------------------------------------------
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # -------------------------------------------
+  # 后端 API 服务 — Go 服务暴露 /metrics (promhttp)
+  # 端口 8080, 指标路径 /metrics
+  # -------------------------------------------
+  - job_name: 'ai-api-agg-backend'
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['backend:8080']
+        labels:
+          service: 'backend'
+          component: 'api'
+
+  # -------------------------------------------
+  # OneAPI 网关 — 通过 Blackbox Exporter HTTP 探测
+  # 验证 /api/status 返回 200
+  # -------------------------------------------
+  - job_name: 'ai-api-agg-oneapi'
+    metrics_path: '/probe'
+    params:
+      module: [http_2xx]
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+          - 'http://oneapi:3000/api/status'
+        labels:
+          service: 'oneapi'
+          component: 'gateway'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 'blackbox-exporter:9115'
+
+  # -------------------------------------------
+  # Nginx 反向代理 — 通过 Blackbox Exporter HTTP 探测
+  # 验证 80 端口可访问
+  # -------------------------------------------
+  - job_name: 'ai-api-agg-nginx'
+    metrics_path: '/probe'
+    params:
+      module: [http_2xx]
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+          - 'http://nginx:80/health'
+        labels:
+          service: 'nginx'
+          component: 'proxy'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 'blackbox-exporter:9115'
+
+  # -------------------------------------------
+  # Blackbox Exporter 自监控
+  # -------------------------------------------
+  - job_name: 'blackbox-exporter'
+    static_configs:
+      - targets: ['blackbox-exporter:9115']

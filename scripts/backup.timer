@@ -1,0 +1,17 @@
+[Unit]
+Description=ai-api-agg 每日全量备份定时器 — 每天凌晨 3:00
+Requires=backup.service
+
+[Timer]
+# 每天凌晨 3:00 执行全量备份
+OnCalendar=03:00
+
+# 如果错过执行，在启动后 10 分钟内补偿
+Persistent=true
+RandomizedDelaySec=600
+
+# 超时（30 分钟）
+Unit=backup.service
+
+[Install]
+WantedBy=timers.target

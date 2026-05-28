@@ -1,0 +1,17 @@
+[Unit]
+Description=ai-api-agg 每小时增量备份定时器
+Requires=backup-incremental.service
+
+[Timer]
+# 每小时执行一次（整点后 15 分钟，避免与全量备份冲突）
+OnCalendar=*:15
+
+# 如果错过执行，在启动后 5 分钟内补偿
+Persistent=true
+RandomizedDelaySec=120
+
+# 超时（15 分钟）
+Unit=backup-incremental.service
+
+[Install]
+WantedBy=timers.target

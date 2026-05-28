@@ -1,0 +1,19 @@
+[Unit]
+Description=AI API 聚合平台 — GitOps 配置同步定时器（每天凌晨 3 点）
+Documentation=https://aiflowhub.ai
+
+[Timer]
+# 每天凌晨 3:00 自动同步（OneAPI 渠道配置 → 管理 API）
+OnCalendar=*-*-* 03:00:00
+
+# 开机后延迟 5 分钟执行（避免启动时 OneAPI 未就绪）
+Persistent=true
+
+# 如果错过执行时间（如机器关机），开机后立即追赶
+RandomizedDelaySec=300
+
+# 确保同一时间只有一个实例运行
+Unit=config-sync.service
+
+[Install]
+WantedBy=timers.target

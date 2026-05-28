@@ -1,0 +1,29 @@
+[Unit]
+Description=ai-api-agg 多厂商 API 余额监控 — 每小时检查
+Documentation=https://github.com/ai-api-agg
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=openclaw
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+ExecStart=/usr/bin/python3 /mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/balance-monitor.py
+
+# 环境变量（从 docker/.env 或手动设置）
+# 最少需配置以下变量：
+#   DEEPSEEK_API_KEY、ZHIPU_API_KEY、MIMO_API_KEY
+#   TELEGRAM_BOT_TOKEN、TELEGRAM_CHAT_ID
+EnvironmentFile=-/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/docker/.env
+
+# 日志输出到 journald + 文件
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-api-agg-balance
+
+# 安全限制
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

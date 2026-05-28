@@ -1,0 +1,31 @@
+[Unit]
+Description=ai-api-agg 备份健康检查
+Documentation=https://github.com/ai-api-agg
+After=network.target
+
+[Service]
+Type=oneshot
+User=openclaw
+WorkingDirectory=/mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg
+ExecStart=/bin/bash /mnt/d/WSL/openclawWorkspace/workspace/projects/ai-api-agg/scripts/backup-health.sh
+
+# 环境变量
+Environment=BACKUP_ALERT_HOURS=25
+Environment=TELEGRAM_BOT_TOKEN=8812183039:AAHOB6OkhQVrSQy40ijeE_GHwoqz-FlELK8
+Environment=TELEGRAM_CHAT_ID=123456789
+
+# 环境变量 — 远程备份检查
+# Environment=REMOTE_BACKUP_HOST=user@backup.example.com
+# Environment=REMOTE_BACKUP_PATH=/data/backups/ai-api-agg
+
+# 日志输出
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ai-api-agg-backup-health
+
+# 安全限制
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

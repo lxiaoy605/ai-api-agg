@@ -1,0 +1,18 @@
+[Unit]
+Description=ai-api-agg 备份健康检查定时器 — 每天上午 9:00 和下午 21:00
+Requires=backup-health.service
+
+[Timer]
+# 每天上午 9:00 和下午 21:00
+OnCalendar=09:00
+OnCalendar=21:00
+
+# 如果错过执行，在启动后 5 分钟内补偿
+Persistent=true
+RandomizedDelaySec=300
+
+# 超时（5 分钟）
+Unit=backup-health.service
+
+[Install]
+WantedBy=timers.target

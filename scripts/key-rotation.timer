@@ -1,0 +1,20 @@
+[Unit]
+Description=AI API 聚合平台 — API Key 90 天自动轮换定时器
+Documentation=https://github.com/ai-api-agg
+
+[Timer]
+# 每 90 天触发一次
+# OnCalendar=*-*-01 00:00:00 表示每月 1 号触发，实际间隔由 Persistent 控制
+# 使用 OnUnitActiveSec 保证从上一次运行完成算起 90 天后再次触发
+OnUnitActiveSec=90d
+# 首次启动后 5 分钟触发（给管理员配置时间）
+OnBootSec=5min
+
+# 持久化：如果系统在定时器触发时处于关机状态，启动后立即补触发
+Persistent=true
+
+# 随机延迟 ±2 小时，避免与其它定时任务同时运行
+RandomizedDelaySec=7200
+
+[Install]
+WantedBy=timers.target

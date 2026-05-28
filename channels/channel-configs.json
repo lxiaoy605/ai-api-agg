@@ -1,0 +1,294 @@
+{
+  "version": "2.0",
+  "description": "AI API 聚合平台 — OneAPI 渠道批量导入配置（多账号池版）",
+  "weight_strategy": {
+    "ratio": "2:2:2 (每厂商 2 个 Key 各权重 1，总计 DeepSeek 2 : 智谱 2 : MiMo 2)",
+    "deepseek": [1, 1],
+    "zhipu_z_ai": [1, 1],
+    "mimo": [1, 1],
+    "note": "每厂商 2 个 Key 轮询，同权重均分。OneAPI 按权重轮询分发请求。原 3:3:2 比例取整为 2:2:2。"
+  },
+  "channels": [
+    {
+      "type": 3,
+      "type_name": "custom (OpenAI 兼容)",
+      "name": "DeepSeek-1",
+      "base_url": "https://api.deepseek.com",
+      "keys": ["${DEEPSEEK_API_KEY}"],
+      "models": "deepseek-v4-flash,deepseek-v4-pro",
+      "model_mapping": "",
+      "groups": ["default", "chat"],
+      "status": 1,
+      "priority": 1,
+      "weight": 1,
+      "response_time": 0,
+      "test_model": "deepseek-v4-flash",
+      "description": "DeepSeek 官方 API (Key 1/2) — MVP 首选，海外用户友好，新用户赠送 500 万 tokens。2026/07/24 后 deepseek-chat/deepseek-reasoner 旧名废弃。",
+      "models_detail": {
+        "deepseek-v4-flash": {
+          "display_name": "DeepSeek V4 Flash",
+          "type": "chat",
+          "context_window": 65536,
+          "description": "非思考模式，快速响应，适合通用对话",
+          "input_price_per_1m": 0.27,
+          "output_price_per_1m": 1.10,
+          "cache_hit_price_per_1m": 0.07
+        },
+        "deepseek-v4-pro": {
+          "display_name": "DeepSeek V4 Pro",
+          "type": "reasoning",
+          "context_window": 65536,
+          "description": "思考模式（CoT），深度推理，适合复杂问题",
+          "input_price_per_1m": 0.55,
+          "output_price_per_1m": 2.19,
+          "note": "输出价格含推理 token"
+        }
+      }
+    },
+    {
+      "type": 3,
+      "type_name": "custom (OpenAI 兼容)",
+      "name": "DeepSeek-2",
+      "base_url": "https://api.deepseek.com",
+      "keys": ["${DEEPSEEK_API_KEY_2}"],
+      "models": "deepseek-v4-flash,deepseek-v4-pro",
+      "model_mapping": "",
+      "groups": ["default", "chat"],
+      "status": 1,
+      "priority": 1,
+      "weight": 1,
+      "response_time": 0,
+      "test_model": "deepseek-v4-flash",
+      "description": "DeepSeek 官方 API (Key 2/2) — 备用 Key，与 DeepSeek-1 轮询均分流量。",
+      "models_detail": {
+        "deepseek-v4-flash": {
+          "display_name": "DeepSeek V4 Flash",
+          "type": "chat",
+          "context_window": 65536,
+          "description": "非思考模式，快速响应，适合通用对话",
+          "input_price_per_1m": 0.27,
+          "output_price_per_1m": 1.10,
+          "cache_hit_price_per_1m": 0.07
+        },
+        "deepseek-v4-pro": {
+          "display_name": "DeepSeek V4 Pro",
+          "type": "reasoning",
+          "context_window": 65536,
+          "description": "思考模式（CoT），深度推理，适合复杂问题",
+          "input_price_per_1m": 0.55,
+          "output_price_per_1m": 2.19,
+          "note": "输出价格含推理 token"
+        }
+      }
+    },
+    {
+      "type": 3,
+      "type_name": "custom (OpenAI 兼容)",
+      "name": "智谱 Z.ai-1",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "alt_base_url": "https://api.z.ai/api/paas/v4",
+      "base_url_note": "当前使用国内站地址，若需走国际站请改用 alt_base_url",
+      "keys": ["${ZHIPU_ZAI_API_KEY}"],
+      "models": "GLM-5.1,GLM-5,GLM-4.7-Flash",
+      "model_mapping": "",
+      "groups": ["default", "chat"],
+      "status": 1,
+      "priority": 1,
+      "weight": 1,
+      "response_time": 0,
+      "test_model": "GLM-4.7-Flash",
+      "description": "智谱 Z.ai (Key 1/2) — 国际站支持邮箱/Google 注册，Stripe 美元支付。国内站需 +86 手机号。",
+      "models_detail": {
+        "GLM-5.1": {
+          "display_name": "GLM-5.1",
+          "type": "chat",
+          "context_window": 131072,
+          "description": "最新旗舰模型，MoE 架构，7450 亿参数",
+          "input_price_per_1m": 1.40,
+          "output_price_per_1m": 4.40
+        },
+        "GLM-5": {
+          "display_name": "GLM-5",
+          "type": "chat",
+          "context_window": 131072,
+          "description": "高性能模型，性价比之选",
+          "input_price_per_1m": 1.00,
+          "output_price_per_1m": 3.20
+        },
+        "GLM-4.7-Flash": {
+          "display_name": "GLM-4.7 Flash",
+          "type": "chat",
+          "context_window": 131072,
+          "description": "轻量快速模型，免费使用",
+          "input_price_per_1m": 0,
+          "output_price_per_1m": 0,
+          "note": "免费模型，适合高并发低成本场景"
+        }
+      }
+    },
+    {
+      "type": 3,
+      "type_name": "custom (OpenAI 兼容)",
+      "name": "智谱 Z.ai-2",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "alt_base_url": "https://api.z.ai/api/paas/v4",
+      "base_url_note": "当前使用国内站地址，若需走国际站请改用 alt_base_url",
+      "keys": ["${ZHIPU_ZAI_API_KEY_2}"],
+      "models": "GLM-5.1,GLM-5,GLM-4.7-Flash",
+      "model_mapping": "",
+      "groups": ["default", "chat"],
+      "status": 1,
+      "priority": 1,
+      "weight": 1,
+      "response_time": 0,
+      "test_model": "GLM-4.7-Flash",
+      "description": "智谱 Z.ai (Key 2/2) — 备用 Key，与智谱 Z.ai-1 轮询均分流量。",
+      "models_detail": {
+        "GLM-5.1": {
+          "display_name": "GLM-5.1",
+          "type": "chat",
+          "context_window": 131072,
+          "description": "最新旗舰模型，MoE 架构，7450 亿参数",
+          "input_price_per_1m": 1.40,
+          "output_price_per_1m": 4.40
+        },
+        "GLM-5": {
+          "display_name": "GLM-5",
+          "type": "chat",
+          "context_window": 131072,
+          "description": "高性能模型，性价比之选",
+          "input_price_per_1m": 1.00,
+          "output_price_per_1m": 3.20
+        },
+        "GLM-4.7-Flash": {
+          "display_name": "GLM-4.7 Flash",
+          "type": "chat",
+          "context_window": 131072,
+          "description": "轻量快速模型，免费使用",
+          "input_price_per_1m": 0,
+          "output_price_per_1m": 0,
+          "note": "免费模型，适合高并发低成本场景"
+        }
+      }
+    },
+    {
+      "type": 3,
+      "type_name": "custom (OpenAI 兼容)",
+      "name": "小米 MiMo-1",
+      "base_url": "https://token-plan-sgp.xiaomimimo.com/v1",
+      "keys": ["${MIMO_API_KEY}"],
+      "models": "MiMo-V2.5-Pro,MiMo-V2-Pro,MiMo-V2-Omni,MiMo-V2-Flash",
+      "model_mapping": "",
+      "groups": ["default", "chat"],
+      "status": 1,
+      "priority": 1,
+      "weight": 1,
+      "response_time": 0,
+      "test_model": "MiMo-V2-Flash",
+      "description": "小米 MiMo (Key 1/2) — 海外友好，国际信用卡支付。Base URL 使用 Token Plan SGP 端点。",
+      "models_detail": {
+        "MiMo-V2.5-Pro": {
+          "display_name": "MiMo V2.5 Pro",
+          "type": "chat",
+          "context_window": 131072,
+          "description": "旗舰模型，综合能力最强",
+          "input_price_per_1m": null,
+          "output_price_per_1m": null,
+          "pricing_note": "Token Plan 订阅制 ($6/月起)，非按量计费"
+        },
+        "MiMo-V2-Pro": {
+          "display_name": "MiMo V2 Pro",
+          "type": "chat",
+          "context_window": 32768,
+          "description": "专业版，平衡性能与速度",
+          "input_price_per_1m": null,
+          "output_price_per_1m": null,
+          "pricing_note": "Token Plan 订阅制"
+        },
+        "MiMo-V2-Omni": {
+          "display_name": "MiMo V2 Omni",
+          "type": "multimodal",
+          "context_window": 32768,
+          "description": "多模态模型，支持文本+图像+音频",
+          "input_price_per_1m": null,
+          "output_price_per_1m": null,
+          "pricing_note": "Token Plan 订阅制"
+        },
+        "MiMo-V2-Flash": {
+          "display_name": "MiMo V2 Flash",
+          "type": "chat",
+          "context_window": 32768,
+          "description": "快速轻量模型，适合简单任务",
+          "input_price_per_1m": null,
+          "output_price_per_1m": null,
+          "pricing_note": "Token Plan 订阅制"
+        }
+      }
+    },
+    {
+      "type": 3,
+      "type_name": "custom (OpenAI 兼容)",
+      "name": "小米 MiMo-2",
+      "base_url": "https://token-plan-sgp.xiaomimimo.com/v1",
+      "keys": ["${MIMO_API_KEY_2}"],
+      "models": "MiMo-V2.5-Pro,MiMo-V2-Pro,MiMo-V2-Omni,MiMo-V2-Flash",
+      "model_mapping": "",
+      "groups": ["default", "chat"],
+      "status": 1,
+      "priority": 1,
+      "weight": 1,
+      "response_time": 0,
+      "test_model": "MiMo-V2-Flash",
+      "description": "小米 MiMo (Key 2/2) — 备用 Key，与小米 MiMo-1 轮询均分流量。",
+      "models_detail": {
+        "MiMo-V2.5-Pro": {
+          "display_name": "MiMo V2.5 Pro",
+          "type": "chat",
+          "context_window": 131072,
+          "description": "旗舰模型，综合能力最强",
+          "input_price_per_1m": null,
+          "output_price_per_1m": null,
+          "pricing_note": "Token Plan 订阅制 ($6/月起)，非按量计费"
+        },
+        "MiMo-V2-Pro": {
+          "display_name": "MiMo V2 Pro",
+          "type": "chat",
+          "context_window": 32768,
+          "description": "专业版，平衡性能与速度",
+          "input_price_per_1m": null,
+          "output_price_per_1m": null,
+          "pricing_note": "Token Plan 订阅制"
+        },
+        "MiMo-V2-Omni": {
+          "display_name": "MiMo V2 Omni",
+          "type": "multimodal",
+          "context_window": 32768,
+          "description": "多模态模型，支持文本+图像+音频",
+          "input_price_per_1m": null,
+          "output_price_per_1m": null,
+          "pricing_note": "Token Plan 订阅制"
+        },
+        "MiMo-V2-Flash": {
+          "display_name": "MiMo V2 Flash",
+          "type": "chat",
+          "context_window": 32768,
+          "description": "快速轻量模型，适合简单任务",
+          "input_price_per_1m": null,
+          "output_price_per_1m": null,
+          "pricing_note": "Token Plan 订阅制"
+        }
+      }
+    }
+  ],
+  "usage_notes": {
+    "import_method": "通过 channel-setup.sh 脚本自动导入，或手动在 OneAPI 管理面板导入",
+    "env_vars_required": [
+      "DEEPSEEK_API_KEY", "DEEPSEEK_API_KEY_2",
+      "ZHIPU_ZAI_API_KEY", "ZHIPU_ZAI_API_KEY_2",
+      "MIMO_API_KEY", "MIMO_API_KEY_2"
+    ],
+    "multi_key_note": "每厂商 2 个 Key 创建独立渠道，OneAPI 按权重轮询。若单 Key 限流，另一 Key 自动承接。",
+    "api_endpoint": "POST /api/channel/",
+    "auth_header": "Authorization: Bearer <ONEAPI_ROOT_TOKEN>"
+  }
+}

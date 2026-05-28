@@ -1,0 +1,2 @@
+// shadcn/ui 组件占位 — 后续通过 npx shadcn-ui@latest add 安装具体组件
+export {};

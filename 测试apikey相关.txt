@@ -1,0 +1,12 @@
+T1.2:
+Z.ai  key:8296db62bbd3491094c96d40a61bc0cf.l1ROUTvGXd4WHzFl
+mimo-key：sk-sk0fq36gp0av5l3eqnmcntaaehhsnjeldqm2o4x1m6oka1dg
+T3.5:
+TRC20:TFdzo1emymQeSB9s5su3vZg4zNBYpFR7fS
+ERC20:0xA6e474c3B8755a1FC01921dcC3D758Fa1f5E6120
+
+techflow.ai  £35.99
+devstation.ai £35.99
+79.98$
+
+支付渠道https://account.nowpayments.io/ 的双重服务码：677020044262

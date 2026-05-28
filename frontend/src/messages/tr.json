@@ -1,0 +1,294 @@
+{
+  "common": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "close": "Kapat",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "create": "Oluştur",
+    "delete": "Sil",
+    "confirm": "Onayla",
+    "loading": "Yükleniyor...",
+    "all": "Tümü",
+    "name": "Ad",
+    "status": "Durum",
+    "actions": "İşlemler",
+    "input": "Giriş",
+    "output": "Çıkış",
+    "recommended": "Önerilen"
+  },
+  "nav": {
+    "brand": "AI API Agg",
+    "dashboard": "Kontrol Paneli",
+    "apiKeys": "API Anahtarları",
+    "models": "Model Kataloğu",
+    "docs": "Dokümantasyon",
+    "usage": "Kullanım İstatistikleri",
+    "recharge": "Bakiye Yükle",
+    "settings": "Ayarlar",
+    "collapse": "Daralt"
+  },
+  "home": {
+    "title": "AI API Aggregator",
+    "subtitle": "OneAPI açık kaynak ağ geçidi üzerine kurulu AI model API aktarım hizmeti. Ermenistan ve çevre pazarlardaki bağımsız geliştiriciler için DeepSeek, Zhipu, Xiaomi MiMo ve diğer Çinli model sağlayıcılarına düşük maliyetli API erişimi.",
+    "comingSoon": "MVP Aşaması · Yakında Yayında",
+    "moreProviders": "Daha fazla sağlayıcı ekleniyor..."
+  },
+  "dashboard": {
+    "title": "Kontrol Paneli",
+    "subtitle": "API toplama platformu genel görünümü",
+    "activeChannels": "Aktif Kanallar",
+    "totalChannels": "Toplam {count} kanal",
+    "todayRequests": "Bugünkü İstekler",
+    "vsYesterday": "düne göre",
+    "remainingQuota": "Kalan Kota",
+    "remainingPercent": "%{percent} kaldı",
+    "errorRate": "Hata Oranı",
+    "channelHealth": "Kanal Durumu",
+    "latency": "Gecikme",
+    "successRate": "Başarı Oranı",
+    "recentRequests": "Son İstekler",
+    "tableTime": "Zaman",
+    "tableModel": "Model",
+    "tableStatusCode": "Durum Kodu",
+    "tableLatency": "Gecikme",
+    "tableCost": "Maliyet",
+    "modelUsageBreakdown": "Model Kullanım Dağılımı",
+    "requestsTrend": "İstek Trendi",
+    "tokenTrend": "Token Tüketim Trendi"
+  },
+  "status": {
+    "healthy": "Sağlıklı",
+    "degraded": "Düşük Performans",
+    "down": "Kapalı",
+    "active": "Aktif",
+    "disabled": "Devre Dışı",
+    "available": "Kullanılabilir",
+    "comingSoon": "Yakında",
+    "maintenance": "Bakımda"
+  },
+  "apiKeys": {
+    "title": "API Anahtarları",
+    "subtitle": "API anahtarlarınızı yönetin",
+    "create": "Anahtar Oluştur",
+    "tableName": "Ad",
+    "tableKey": "Anahtar",
+    "tableCreated": "Oluşturulma",
+    "tableStatus": "Durum",
+    "tableLastUsed": "Son Kullanım",
+    "tableActions": "İşlemler",
+    "copyKey": "Anahtarı Kopyala",
+    "deleteKey": "Anahtarı Sil",
+    "empty": "Henüz API anahtarı yok. Oluşturmak için yukarıdaki düğmeye tıklayın.",
+    "usageRequests": "İstekler",
+    "usageTokens": "Token Kullanımı",
+    "usageLastUsed": "Son Kullanım",
+    "createTitle": "API Anahtarı Oluştur",
+    "createNameLabel": "Anahtar Adı",
+    "createNamePlaceholder": "örn. Prodüksiyon Anahtarı",
+    "createSuccess": "Anahtar Oluşturuldu",
+    "createWarning": "Bu anahtar yalnızca bir kez gösterilir. Şimdi kopyalayın ve güvenli bir yerde saklayın — tam anahtar tekrar görüntülenemez.",
+    "createSaved": "Kaydettim, kapat",
+    "deleteTitle": "API Anahtarını Sil",
+    "deleteConfirm": "{name} anahtarını silmek istediğinize emin misiniz?",
+    "deleteWarning": "Bu işlem geri alınamaz. Bu anahtarı kullanan tüm uygulamalar API erişimini hemen kaybeder."
+  },
+  "models": {
+    "title": "Model Kataloğu",
+    "subtitle": "Tüm kullanılabilir modelleri görüntüleyin, fiyatlandırma ve kod örneklerini inceleyin",
+    "category": {
+      "chat": "Sohbet",
+      "code": "Kod",
+      "reasoning": "Akıl Yürütme",
+      "multimodal": "Çok Modlu"
+    },
+    "inputPrice": "Giriş {price}",
+    "outputPrice": "Çıkış {price}",
+    "contextWindow": "Bağlam Penceresi",
+    "maxOutput": "Maks. Çıktı",
+    "inputPriceLabel": "Giriş Fiyatı",
+    "outputPriceLabel": "Çıkış Fiyatı",
+    "supportedFeatures": "Desteklenen Özellikler",
+    "codeExample": "Kod Örneği",
+    "details": {
+      "deepseek-v4-flash": {
+        "description": "Yüksek eşzamanlılık senaryoları için hafif ve hızlı model, son derece hızlı yanıt",
+        "features": ["Fonksiyon Çağrısı", "JSON Modu", "Akış Çıktısı", "Yüksek Eşzamanlılık"]
+      },
+      "deepseek-v4-pro": {
+        "description": "Karmaşık mantık ve kod üretimi için derin düşünme moduna sahip amiral gemisi akıl yürütme modeli",
+        "features": ["Derin Düşünme", "Kod Üretimi", "Mantıksal Çıkarım", "Uzun Bağlam", "Akış Çıktısı"]
+      },
+      "glm-5.1": {
+        "description": "Zhipu'nun en yeni amiral gemisi modeli, güçlü çok yönlü performans, Çince ve İngilizcede mükemmel",
+        "features": ["Çok Dilli", "Fonksiyon Çağrısı", "Araç Kullanımı", "Uzun Doküman", "Akış Çıktısı"]
+      },
+      "mimo-v2.5-pro": {
+        "description": "Metin, görüntü ve ses anlama ve üretimini destekleyen Xiaomi çok modlu amiral gemisi modeli",
+        "features": ["Çok Modlu", "Görüntü Anlama", "Metin Üretimi", "Ses İşleme", "TTS"]
+      },
+      "gpt-4o": {
+        "description": "OpenAI amiral gemisi çok modlu model, çok yönlü performans",
+        "features": ["Çok Modlu", "Fonksiyon Çağrısı", "JSON Modu", "Akış Çıktısı", "Yüksek Hassasiyet"]
+      },
+      "gpt-4o-mini": {
+        "description": "Basit görevler ve yüksek verim senaryoları için son derece düşük maliyetli hafif model",
+        "features": ["Fonksiyon Çağrısı", "JSON Modu", "Akış Çıktısı", "Düşük Maliyet"]
+      },
+      "claude-3.5-sonnet": {
+        "description": "Üstün kod yazma ve akıl yürütme yeteneklerine sahip Anthropic amiral gemisi modeli",
+        "features": ["Kod Üretimi", "Uzun Dokümanlar", "Güvenlik Koruması", "Fonksiyon Çağrısı", "Akış Çıktısı"]
+      },
+      "glm-4.7-flash": {
+        "description": "Prototipleme ve test için Zhipu ücretsiz hafif modeli",
+        "features": ["Ücretsiz", "Hızlı Yanıt", "Akış Çıktısı"]
+      }
+    }
+  },
+  "docs": {
+    "title": "Dokümantasyon",
+    "subtitle": "AI API Toplama Platformuna hızlı entegrasyon",
+    "quickStart": "Hızlı Başlangıç",
+    "quickStartDesc": "Sadece birkaç adımda başlayın. API'miz OpenAI formatıyla uyumludur — OpenAI SDK'yı doğrudan kullanabilirsiniz.",
+    "step1Title": "1. API Anahtarı Alın",
+    "step1Desc": "API Keys sayfasından bir anahtar oluşturun. Kayıtta ücretsiz kredi.",
+    "step2Title": "2. Base URL'yi Yapılandırın",
+    "step2Desc": "API uç noktasını şu adrese ayarlayın",
+    "step3Title": "3. İstek Gönderin",
+    "step3Desc": "OpenAI SDK veya doğrudan HTTP çağrıları kullanın — bir model seçmeniz yeterli.",
+    "apiReference": "API Referansı",
+    "tableMethod": "Yöntem",
+    "tableEndpoint": "Uç Nokta",
+    "tableDescription": "Açıklama",
+    "tableStatusCode": "Durum Kodu",
+    "errorCodes": "Hata Kodları",
+    "modelNaming": "Model Adlandırma Kuralı",
+    "modelNamingDesc": "Modeli belirtmek için isteklerde model alanını kullanın. Model ID formatı: sağlayıcı-sürüm.",
+    "modelNamingExamples": {
+      "deepseek-v4-flash": "DeepSeek V4 Flash",
+      "deepseek-v4-pro": "DeepSeek V4 Pro",
+      "glm-5.1": "Zhipu GLM-5.1",
+      "glm-4.7-flash": "Zhipu Ücretsiz Hafif",
+      "mimo-v2.5-pro": "Xiaomi MiMo Amiral Gemisi",
+      "gpt-4o": "OpenAI GPT-4o",
+      "gpt-4o-mini": "OpenAI GPT-4o Mini",
+      "claude-3.5-sonnet": "Anthropic Claude 3.5"
+    },
+    "endpoints": {
+      "chat": "Sohbet Tamamlama (Chat Completions)",
+      "embeddings": "Metin Gömme (Embeddings)",
+      "models": "Kullanılabilir Modelleri Listele",
+      "usage": "Hesap Kullanımını Sorgula"
+    },
+    "errorDescriptions": {
+      "200": "İstek başarıyla işlendi",
+      "400": "Hatalı istek gövdesi veya eksik zorunlu parametreler",
+      "401": "API Anahtarı geçersiz veya süresi dolmuş",
+      "402": "Bu istek için hesap bakiyesi yetersiz",
+      "429": "Hız limiti aşıldı, lütfen daha sonra tekrar deneyin",
+      "500": "Dahili sunucu hatası, lütfen daha sonra tekrar deneyin",
+      "503": "Model hizmeti geçici olarak kullanılamıyor veya bakımda"
+    },
+    "errorMessages": {
+      "200": "Başarılı",
+      "400": "Hatalı İstek",
+      "401": "Yetkisiz",
+      "402": "Yetersiz Kota",
+      "429": "Hız Sınırı Aşıldı",
+      "500": "Dahili Sunucu Hatası",
+      "503": "Hizmet Kullanılamıyor"
+    }
+  },
+  "recharge": {
+    "title": "Bakiye Yükle",
+    "subtitleSelect": "Tutar seçin ve kripto para ile ödeme yapın",
+    "subtitleCreating": "Ödeme emri oluşturuluyor...",
+    "subtitlePending": "Ödemeyi tamamlayın — krediler otomatik eklenecek",
+    "subtitleCompleted": "Ödeme başarılı! Krediler hesabınıza eklendi.",
+    "subtitleFailed": "Ödeme tamamlanmadı",
+    "subtitleFallback": "Lütfen aşağıdaki adrese manuel transfer yapın",
+    "selectAmount": "Yükleme Tutarı Seçin",
+    "selectNetwork": "Ödeme Ağı Seçin",
+    "customAmountLabel": "Özel tutar girin (USD)",
+    "customAmountPlaceholder": "Tutar girin",
+    "minAmountError": "Minimum yükleme tutarı $5.00",
+    "tokenEstimate": "Yaklaşık {usdt} USDT, hesabınıza {tokens} token eklenecek",
+    "tokenBonus": "(bonus dahil {bonus})",
+    "trc20Recommend": "TRC-20 Önerilir",
+    "trc20Detail": "İşlem ücreti $1'den başlar, 1-3 dakikada onaylanır",
+    "payNow": "${amount} Öde",
+    "creating": "Ödeme oluşturuluyor...",
+    "scanToPay": "Ödemek için {currency} tara",
+    "pendingStatus": "Ödeme Bekleniyor",
+    "scanInstructions": "QR kodu taramak veya adresi kopyalayıp transfer etmek için cüzdan uygulamanızı kullanın",
+    "addressCopied": "Adres kopyalandı",
+    "orderDetails": "Sipariş Detayları",
+    "orderId": "Sipariş No",
+    "payAmount": "Ödeme Tutarı",
+    "fiatAmount": "Fiat Tutarı",
+    "network": "Ağ",
+    "tokensReceived": "Alınan Token",
+    "remainingTime": "Kalan Süre",
+    "paymentSteps": "Ödeme Adımları",
+    "step1": "Borsa veya cüzdan uygulamanızı açın",
+    "step2": "{network} ağını seçin",
+    "step3": "Yukarıdaki adrese {amount} {currency} transfer edin",
+    "step4": "Ağ onayını bekleyin — krediler otomatik eklenecek",
+    "pollingHint": "Zincir üstü onay bekleniyor... {count} kez sorgulandı",
+    "backToSelect": "Geri dön ve yeniden seç",
+    "paySuccess": "Ödeme Başarılı!",
+    "paySuccessDesc": "Hesabınıza {tokens} token eklendi",
+    "orderSummary": "Sipariş Özeti",
+    "amount": "Tutar",
+    "credited": "Eklenen",
+    "continueRecharge": "Yüklemeye Devam Et",
+    "payFailed": "Ödeme Tamamlanmadı",
+    "payFailedMsg": "Ödeme süresi doldu veya iptal edildi",
+    "retryRecharge": "Yeniden Yükle",
+    "fallbackTitle": "Ödeme ağ geçidi geçici olarak kullanılamıyor — lütfen manuel transfer yapın",
+    "fallbackStep1": "Soldaki adrese {network} ağı üzerinden USDT transfer edin",
+    "fallbackStep2": "Memo/Not alanına Kullanıcı ID'nizi yazın",
+    "fallbackStep3": "Krediler {time} içinde otomatik eklenecek",
+    "retry": "Yeniden Dene",
+    "infoTitle": "Yükleme Bilgisi",
+    "infoAutoCard": {
+      "title": "Otomatik Ekleme",
+      "desc": "Krediler otomatik olarak algılanır ve hesabınıza eklenir — manuel inceleme gerekmez."
+    },
+    "infoMultiCard": {
+      "title": "Çoklu Zincir Desteği",
+      "desc": "TRC-20, ERC-20, BEP-20 ve daha fazlasını destekler. En düşük işlem ücreti için TRC-20'yi öneririz."
+    },
+    "infoSecureCard": {
+      "title": "Güvenli ve Güvenilir",
+      "desc": "NOWPayments emanetsiz ödeme ağ geçidi ile çalışır. Fonlar doğrudan cüzdanınıza gider."
+    },
+    "trc20": "USDT-TRC20 (TRON Ağı)",
+    "erc20": "USDT-ERC20 (Ethereum Ağı)",
+    "bep20": "USDT-BEP20 (BSC Ağı)",
+    "feeLabel": "İşlem Ücreti",
+    "confirmTimeLabel": "yaklaşık {time} onay"
+  },
+  "usage": {
+    "title": "Kullanım İstatistikleri",
+    "subtitle": "Detaylı API çağrı ve token tüketim analizi",
+    "summary": "Kullanım Özeti",
+    "monthlyRequests": "Aylık İstekler",
+    "monthlyTokens": "Aylık Token Tüketimi",
+    "avgLatency": "Ort. Yanıt Gecikmesi",
+    "monthlyCost": "Aylık Maliyet",
+    "vsLastMonth": "geçen aya göre"
+  },
+  "chart": {
+    "modelUsageBreakdown": "Model Kullanım Dağılımı",
+    "percentage": "Pay",
+    "requests": "İstekler",
+    "tokens": "Tokenlar",
+    "today": "Bugün",
+    "last7d": "Son 7 Gün",
+    "last30d": "Son 30 Gün",
+    "requestCount": "İstekler",
+    "tokenConsumption": "Token Tüketimi",
+    "time": "Zaman"
+  }
+}

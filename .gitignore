@@ -1,0 +1,55 @@
+# 二进制文件
+backend/server
+backend/cmd/server/server
+*.exe
+
+# Go
+backend/vendor/
+
+# Node
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 环境变量（含敏感信息）
+.env
+.env.local
+.env.production
+stack/oneapi/.env
+
+# 配置（本地覆盖）
+config/config.yaml
+
+# 日志
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+stack/nginx/logs/
+
+# 数据库文件（含用户数据）
+*.db
+*.db-shm
+*.db-wal
+backend/data/
+
+# 环境变量（含密钥）
+stack/.env
+docker/.env
+
+# 构建产物
+frontend/.next/
+frontend/out/
+
+# 备份
+backups/
+*.tsbuildinfo

@@ -1,0 +1,20 @@
+[Unit]
+Description=ai-api-agg 支付对账定时器 — 每日凌晨 2:00 执行
+Requires=reconcile-payments.service
+
+[Timer]
+# 每日凌晨 2:00
+OnCalendar=daily
+OnCalendar=*-*-* 02:00:00
+
+# 如果错过执行，立即补偿
+Persistent=true
+
+# 随机延迟 ±5 分钟避免 API 限流峰值
+RandomizedDelaySec=300
+
+# 确保同一时间只有一个实例运行
+Unit=reconcile-payments.service
+
+[Install]
+WantedBy=timers.target

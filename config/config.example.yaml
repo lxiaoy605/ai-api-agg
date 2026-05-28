@@ -1,0 +1,46 @@
+# =============================================
+# AI API 聚合平台 — 应用配置模板
+# =============================================
+# 复制此文件为 config.yaml 并修改
+
+server:
+  port: 8080
+  host: "0.0.0.0"
+  # 开发模式启用详细日志
+  debug: true
+
+database:
+  # SQLite 文件路径（WAL 模式）
+  path: "./data/app.db"
+  # 连接池配置
+  max_open_conns: 25
+  max_idle_conns: 5
+
+jwt:
+  # 签名密钥（生产环境务必更换为随机字符串）
+  secret: "change-me-in-production-please"
+  # Token 过期时间（小时）
+  expire_hours: 24
+
+oneapi:
+  # OneAPI 网关地址
+  base_url: "http://localhost:3000"
+  # OneAPI Root Token（管理员 Token）
+  root_token: ""
+
+payment:
+  # Stripe 配置（生产环境填入真实密钥）
+  stripe_secret_key: ""
+  stripe_webhook_secret: ""
+  # USDT TRC-20 收款地址
+  usdt_address: ""
+
+cors:
+  # 允许的前端域名
+  allowed_origins:
+    - "http://localhost:3001"
+    - "http://localhost:3000"
+
+rate_limit:
+  # 每 IP 每分钟最大请求数
+  requests_per_minute: 60

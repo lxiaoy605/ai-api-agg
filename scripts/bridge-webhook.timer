@@ -1,0 +1,16 @@
+[Unit]
+Description=ai-api-agg 桥事件轮询定时器 — 每 10 分钟检查一次
+Requires=bridge-webhook.service
+
+[Timer]
+# 每 10 分钟执行一次（在 7 分偏移，避免整点碰撞）
+OnCalendar=*:0/10
+RandomizedDelaySec=30
+
+# 如果错过执行，在启动后 1 分钟内补偿
+Persistent=true
+
+Unit=bridge-webhook.service
+
+[Install]
+WantedBy=timers.target
