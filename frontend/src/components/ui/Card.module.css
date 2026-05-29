@@ -1,0 +1,57 @@
+/* ============================================================
+ * Card — DESIGN.md §5.2
+ * Uses globals.css CSS custom properties; no Tailwind utilities.
+ * ============================================================ */
+
+/* ---------- Base card ---------- */
+
+.card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-neutral-600);
+  border-radius: var(--radius-xl); /* 12px */
+  overflow: hidden;
+}
+
+/* ---------- Hover variant ---------- */
+
+.hover {
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.hover:hover {
+  border-color: var(--color-neutral-500);
+  box-shadow: 0 4px 24px rgba(59, 47, 206, 0.08);
+}
+
+/* ---------- Glass variant ---------- */
+
+.glass {
+  background: var(--surface-glass);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-2xl); /* 16px */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ---------- Sub-components (DESIGN §5.2: 24px padding) ---------- */
+
+.header {
+  padding: 24px 24px 0;
+}
+
+.content {
+  padding: 24px;
+}
+
+.footer {
+  padding: 0 24px 24px;
+}
+
+/* When header and content are adjacent, reduce top padding of content */
+.header + .content {
+  padding-top: 12px;
+}
+
+/* When content and footer are adjacent, reduce top padding of footer */
+.content + .footer {
+  padding-top: 0;
+}
