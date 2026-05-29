@@ -9,16 +9,29 @@ import {
   Zap,
   Brain,
   Layers,
-  Wallet,
   Globe,
   ArrowRight,
+  Sparkles,
+  Star,
+  Check,
 } from "lucide-react";
 
 const providers = [
   { name: "DeepSeek", icon: Brain },
-  { name: "Zhipu AI", icon: Cpu },
-  { name: "MiMo", icon: Zap },
+  { name: "GLM", icon: Cpu },
+  { name: "Qwen", icon: Sparkles },
+  { name: "MiniMax", icon: Zap },
+  { name: "Moonshot", icon: Star },
 ];
+
+const whyItems = [
+  "whyItem1",
+  "whyItem2",
+  "whyItem3",
+  "whyItem4",
+  "whyItem5",
+  "whyItem6",
+] as const;
 
 export default function Home() {
   const t = useTranslations("home");
@@ -65,7 +78,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 模型展示区 — 图标卡片 */}
+      {/* 模型展示区 — 5 models */}
       <section className="border-t border-neutral-600 py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h2 className="text-sm font-semibold text-neutral-100 tracking-wide uppercase">
@@ -97,7 +110,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 特性区 — 三列图标 */}
+      {/* 特性区 — 三列 */}
       <section className="border-t border-neutral-600 py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <h2 className="text-sm font-semibold text-neutral-100 tracking-wide uppercase">
@@ -110,21 +123,21 @@ export default function Home() {
                 <Layers className="h-6 w-6 text-brand-600" />
               </div>
               <h3 className="text-sm font-semibold text-neutral-100">
-                One API, All Models
+                {t("featureUnifiedTitle")}
               </h3>
               <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
-                Unified API format compatible with all providers
+                {t("featureUnifiedDesc")}
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-4">
-                <Wallet className="h-6 w-6 text-error" />
+              <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4">
+                <Zap className="h-6 w-6 text-brand-600" />
               </div>
               <h3 className="text-sm font-semibold text-neutral-100">
-                Pay What You Use
+                {t("featureLatencyTitle")}
               </h3>
               <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
-                No fixed costs, pay only for the tokens you consume
+                {t("featureLatencyDesc")}
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -132,12 +145,34 @@ export default function Home() {
                 <Globe className="h-6 w-6 text-brand-600" />
               </div>
               <h3 className="text-sm font-semibold text-neutral-100">
-                Global Access
+                {t("featureCompatibleTitle")}
               </h3>
               <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
-                Deployed globally with low-latency access from anywhere
+                {t("featureCompatibleDesc")}
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why AiflowHub — 六大卖点 */}
+      <section className="border-t border-neutral-600 py-16">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <h2 className="text-sm font-semibold text-neutral-100 tracking-wide uppercase text-center">
+            {t("whySectionTitle")}
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {whyItems.map((key) => (
+              <div
+                key={key}
+                className="flex items-start gap-3 rounded-lg border border-neutral-700 bg-neutral-800/50 px-4 py-3"
+              >
+                <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-600" />
+                <span className="text-sm text-neutral-200">
+                  {t(key)}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
