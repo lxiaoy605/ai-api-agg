@@ -91,18 +91,18 @@ const endpoints = [
 const modelIds = [
   "deepseek-v4-flash",
   "deepseek-v4-pro",
-  "glm-4.5",
-  "glm-4.5-air",
-  "glm-4.6",
-  "glm-4.7",
+  "glm-4_5",
+  "glm-4_5-air",
+  "glm-4_6",
+  "glm-4_7",
   "glm-5",
   "glm-5-turbo",
-  "glm-5.1",
+  "glm-5_1",
   "mimo-v2-flash",
   "mimo-v2-omni",
   "mimo-v2-pro",
-  "mimo-v2.5",
-  "mimo-v2.5-pro",
+  "mimo-v2_5",
+  "mimo-v2_5-pro",
 ];
 
 export default function DocsPage() {

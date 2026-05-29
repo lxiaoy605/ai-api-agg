@@ -119,11 +119,11 @@
         "description": "Karmaşık mantık ve kod üretimi için derin düşünme moduna sahip amiral gemisi akıl yürütme modeli",
         "features": ["Derin Düşünme", "Kod Üretimi", "Mantıksal Çıkarım", "Uzun Bağlam", "Akış Çıktısı"]
       },
-      "glm-5.1": {
+      "glm-5_1": {
         "description": "Zhipu'nun en yeni amiral gemisi modeli, güçlü çok yönlü performans, Çince ve İngilizcede mükemmel",
         "features": ["Çok Dilli", "Fonksiyon Çağrısı", "Araç Kullanımı", "Uzun Doküman", "Akış Çıktısı"]
       },
-      "mimo-v2.5-pro": {
+      "mimo-v2_5-pro": {
         "description": "Metin, görüntü ve ses anlama ve üretimini destekleyen Xiaomi çok modlu amiral gemisi modeli",
         "features": ["Çok Modlu", "Görüntü Anlama", "Metin Üretimi", "Ses İşleme", "TTS"]
       },
@@ -139,7 +139,7 @@
         "description": "Üstün kod yazma ve akıl yürütme yeteneklerine sahip Anthropic amiral gemisi modeli",
         "features": ["Kod Üretimi", "Uzun Dokümanlar", "Güvenlik Koruması", "Fonksiyon Çağrısı", "Akış Çıktısı"]
       },
-      "glm-4.7-flash": {
+      "glm-4_7-flash": {
         "description": "Prototipleme ve test için Zhipu ücretsiz hafif modeli",
         "features": ["Ücretsiz", "Hızlı Yanıt", "Akış Çıktısı"]
       }
@@ -167,9 +167,9 @@
     "modelNamingExamples": {
       "deepseek-v4-flash": "DeepSeek V4 Flash",
       "deepseek-v4-pro": "DeepSeek V4 Pro",
-      "glm-5.1": "Zhipu GLM-5.1",
-      "glm-4.7-flash": "Zhipu Ücretsiz Hafif",
-      "mimo-v2.5-pro": "Xiaomi MiMo Amiral Gemisi",
+      "glm-5_1": "Zhipu GLM-5.1",
+      "glm-4_7-flash": "Zhipu Ücretsiz Hafif",
+      "mimo-v2_5-pro": "Xiaomi MiMo Amiral Gemisi",
       "gpt-4o": "OpenAI GPT-4o",
       "gpt-4o-mini": "OpenAI GPT-4o Mini",
       "claude-3.5-sonnet": "Anthropic Claude 3.5"

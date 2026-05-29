@@ -156,31 +156,31 @@
         "description": "Premium reasoning model. Deep thinking mode for complex logic and code.",
         "features": ["Deep reasoning", "Code generation", "Logic inference", "Long context", "Streaming"]
       },
-      "glm-5.1": {
+      "glm-5_1": {
         "description": "Zhipu's latest flagship. Strong bilingual performance in Chinese and English.",
         "features": ["Multilingual", "Function calling", "Tool use", "Long document", "Streaming"]
       },
-      "mimo-v2.5-pro": {
+      "mimo-v2_5-pro": {
         "description": "Xiaomi's multimodal flagship. Text, image and audio understanding and generation.",
         "features": ["Multimodal", "Image understanding", "Text generation", "Audio processing", "TTS"]
       },
-      "glm-4.5": {
+      "glm-4_5": {
         "description": "Zhipu GLM-4.5. Stable and cost-effective, ideal for production workloads.",
         "features": ["Multilingual", "Function calling", "Streaming", "Budget-friendly"]
       },
-      "glm-4.5-air": {
+      "glm-4_5-air": {
         "description": "Zhipu GLM-4.5 lightweight variant. Fast and efficient.",
         "features": ["Fast responses", "Low cost", "Streaming", "High throughput"]
       },
-      "glm-4.6": {
+      "glm-4_6": {
         "description": "Zhipu GLM-4.6. Balanced performance for general-purpose tasks.",
         "features": ["Multilingual", "Function calling", "Streaming", "Reliable"]
       },
-      "glm-4.7": {
+      "glm-4_7": {
         "description": "Zhipu GLM-4.7. Strong reasoning and multilingual support.",
         "features": ["Multilingual", "Reasoning", "Function calling", "Streaming"]
       },
-      "glm-4.7-flash": {
+      "glm-4_7-flash": {
         "description": "Zhipu's free lightweight model. Great for prototyping and testing.",
         "features": ["Free tier", "Fast responses", "Streaming"]
       },
@@ -204,7 +204,7 @@
         "description": "Xiaomi's pro-tier model. Strong reasoning and coding.",
         "features": ["Code generation", "Reasoning", "Function calling", "Streaming"]
       },
-      "mimo-v2.5": {
+      "mimo-v2_5": {
         "description": "Xiaomi's latest generation model. Balanced performance and cost.",
         "features": ["Fast responses", "Function calling", "JSON mode", "Streaming"]
       }
@@ -232,19 +232,19 @@
     "modelNamingExamples": {
       "deepseek-v4-flash": "DeepSeek V4 Flash",
       "deepseek-v4-pro": "DeepSeek V4 Pro",
-      "glm-4.5": "Zhipu GLM-4.5",
-      "glm-4.7-flash": "Zhipu GLM Free",
-      "glm-4.5-air": "Zhipu GLM-4.5 Air",
-      "glm-4.6": "Zhipu GLM-4.6",
-      "glm-4.7": "Zhipu GLM-4.7",
+      "glm-4_5": "Zhipu GLM-4.5",
+      "glm-4_7-flash": "Zhipu GLM Free",
+      "glm-4_5-air": "Zhipu GLM-4.5 Air",
+      "glm-4_6": "Zhipu GLM-4.6",
+      "glm-4_7": "Zhipu GLM-4.7",
       "glm-5": "Zhipu GLM-5",
       "glm-5-turbo": "Zhipu GLM-5 Turbo",
-      "glm-5.1": "Zhipu GLM-5.1",
+      "glm-5_1": "Zhipu GLM-5.1",
       "mimo-v2-flash": "MiMo V2 Flash",
       "mimo-v2-omni": "MiMo V2 Omni",
       "mimo-v2-pro": "MiMo V2 Pro",
-      "mimo-v2.5": "MiMo V2.5",
-      "mimo-v2.5-pro": "MiMo V2.5 Pro"
+      "mimo-v2_5": "MiMo V2.5",
+      "mimo-v2_5-pro": "MiMo V2.5 Pro"
     },
     "endpoints": {
       "chat": "Chat completions",
