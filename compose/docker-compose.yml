@@ -1,0 +1,463 @@
+version: "3.8"
+
+# =============================================
+# AI API 聚合平台 — Docker Compose 编排
+# =============================================
+#
+# 服务一览：
+#   oneapi        — OneAPI 开源网关（核心中间件，端口 3000）
+#   oneapi-blue   — OneAPI 蓝实例 (active, 端口 3001)
+#   oneapi-green  — OneAPI 绿实例 (standby, 端口 3002)
+#   backend-blue  — Go 后端蓝实例 (active, 端口 8082)
+#   backend-green — Go 后端绿实例 (standby, 端口 8083)
+#   haproxy       — HAProxy 负载均衡 (入口 :8080, 管理 :8081)
+#   nginx         — Nginx 反向代理 + SSL 终端 + 静态文件服务
+#   frontend      — Next.js 前端（用户仪表盘，端口 3000）
+#
+# 快速启动：
+#   cp docker/.env.example docker/.env   # 编辑环境变量
+#   docker compose -f docker/docker-compose.yml up -d
+#
+# SSL 配置（生产环境）：
+#   sudo ./docker/ssl-setup.sh           # 签发 Let's Encrypt 证书
+# =============================================
+
+services:
+  # ========================================
+  # OneAPI 网关 — AI 模型 API 中转核心
+  # ========================================
+  oneapi:
+    image: justsong/one-api:latest
+    container_name: ai-api-agg-oneapi
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - oneapi_data:/data
+    environment:
+      - TZ=Asia/Shanghai
+    env_file:
+      - ./oneapi/.env
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ========================================
+  # Nginx 反向代理 — 统一入口 + SSL 终端
+  # ========================================
+  nginx:
+    image: nginx:latest
+    container_name: ai-api-agg-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # 主配置文件
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # 站点配置目录（http.conf 静态 + https.conf.template 模板）
+      # 注意：不设 ro，因为 entrypoint 从 .template 生成 .conf 需要写入权限
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      # 入口脚本（envsubst 处理模板后启动 nginx）
+      - ./nginx/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+      # SSL 证书（宿主机 Certbot 签发后挂载）
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      # SSL 辅助文件（DH 参数等，由 entrypoint 自动生成）
+      - nginx_ssl_data:/etc/nginx/ssl
+      # Certbot HTTP-01 验证目录
+      - /var/www/certbot:/var/www/certbot:ro
+      # Nginx 日志（持久化）
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - oneapi
+      # 后端和前端启用后取消注释：
+      - backend-blue
+      # - frontend
+    env_file:
+      - ./.env
+    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"]
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Nginx 配置通过 docker-entrypoint.sh 在启动时动态生成
+    # 首次部署前请先配置 docker/.env（复制自 .env.example）
+
+  # ========================================
+  # Go 后端 Blue 实例 — 生产流量 (active)
+  # ========================================
+  backend-blue:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    image: ai-api-agg-backend:latest
+    container_name: ai-api-agg-backend-blue
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_BLUE_PORT:-8082}:8080"
+    volumes:
+      - backend_data:/app/data
+    environment:
+      - PORT=8080
+      - APP_JWT_SECRET=${JWT_SECRET}
+      - APP_ENCRYPTION_KEY=${ENCRYPTION_KEY:-0123456789abcdef0123456789abcdef}
+      - APP_DATABASE_PATH=/app/data/app.db
+      - USDT_TRC20_WALLET=${USDT_WALLET:-}
+      - TRON_PRO_API_KEY=${TRONGRID_API_KEY:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - NOWPAYMENTS_API_KEY=${NOWPAYMENTS_API_KEY:-}
+      - NOWPAYMENTS_IPN_SECRET=${NOWPAYMENTS_IPN_SECRET:-}
+      - NOWPAYMENTS_API_URL=${NOWPAYMENTS_API_URL:-https://api.nowpayments.io/v1}
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ========================================
+  # Go 后端 Green 实例 — 热备 (standby)
+  # ========================================
+  backend-green:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    image: ai-api-agg-backend:latest
+    container_name: ai-api-agg-backend-green
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_GREEN_PORT:-8083}:8080"
+    volumes:
+      - backend_data:/app/data
+    environment:
+      - PORT=8080
+      - APP_JWT_SECRET=${JWT_SECRET}
+      - APP_ENCRYPTION_KEY=${ENCRYPTION_KEY:-0123456789abcdef0123456789abcdef}
+      - APP_DATABASE_PATH=/app/data/app.db
+      - USDT_TRC20_WALLET=${USDT_WALLET:-}
+      - TRON_PRO_API_KEY=${TRONGRID_API_KEY:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - NOWPAYMENTS_API_KEY=${NOWPAYMENTS_API_KEY:-}
+      - NOWPAYMENTS_IPN_SECRET=${NOWPAYMENTS_IPN_SECRET:-}
+      - NOWPAYMENTS_API_URL=${NOWPAYMENTS_API_URL:-https://api.nowpayments.io/v1}
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ========================================
+  # Next.js 前端（MVP 阶段先注释，逐步启用）
+  # ========================================
+  # frontend:
+  #   build:
+  #     context: ../frontend
+  #     dockerfile: Dockerfile
+  #   container_name: ai-api-agg-frontend
+  #   restart: unless-stopped
+  #   expose:
+  #     - "3000"
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - app-net
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:3000"]
+  #     interval: 30s
+  #     timeout: 5s
+  #     retries: 3
+  #     start_period: 15s
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "10m"
+  #       max-file: "3"
+
+  # ========================================
+  # Prometheus 监控 — 时序指标采集与告警
+  # ========================================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ai-api-agg-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      # 配置文件（模板，入口脚本会替换环境变量占位符）
+      - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:rw
+      - ../monitoring/alerting-rules.yml:/etc/prometheus/alerting-rules.yml:ro
+      - ../monitoring/prometheus-entrypoint.sh:/entrypoint.sh:ro
+      # 时序数据持久化
+      - prometheus_data:/prometheus
+    environment:
+      - ENV=${ENV:-production}
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ========================================
+  # Alertmanager — 告警路由与通知分发
+  # ========================================
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: ai-api-agg-alertmanager
+    restart: unless-stopped
+    ports:
+      - "9093:9093"
+    volumes:
+      - ../monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml:rw
+      - ../monitoring/alertmanager-entrypoint.sh:/entrypoint.sh:ro
+      - alertmanager_data:/alertmanager
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
+    command: []
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9093/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ========================================
+  # Blackbox Exporter — HTTP/TCP/DNS 探针
+  # 用于监控 OneAPI 和 Nginx 的外部可达性
+  # ========================================
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: ai-api-agg-blackbox
+    restart: unless-stopped
+    ports:
+      - "9115:9115"
+    volumes:
+      - ../monitoring/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
+    command:
+      - '--config.file=/etc/blackbox_exporter/config.yml'
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9115/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
+
+  # ========================================
+  # Grafana — 可视化仪表盘（可选）
+  # 端口 3030，预置 AI API 聚合平台概览仪表盘
+  # ========================================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ai-api-agg-grafana
+    restart: unless-stopped
+    ports:
+      - "3030:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../monitoring/grafana-dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ../monitoring/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+      - ../monitoring/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_USERS_ALLOW_SIGN_UP=false
+      # 默认时区
+      - GF_DEFAULT_TIMEZONE=browser
+    depends_on:
+      - prometheus
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ========================================
+  # HAProxy 负载均衡 — 蓝绿部署流量调度
+  # ========================================
+  haproxy:
+    image: haproxy:lts-alpine
+    container_name: ai-api-agg-haproxy
+    restart: unless-stopped
+    ports:
+      - "8080:8080"   # API 入口（外部流量 → 蓝绿后端）
+      - "8081:8081"   # 管理端口（状态页 /stats）
+    volumes:
+      # HAProxy 配置（只读）
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - oneapi-blue
+      - oneapi-green
+      - backend-blue
+      - backend-green
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ========================================
+  # OneAPI Blue 实例 — 生产流量 (active)
+  # ========================================
+  oneapi-blue:
+    image: justsong/one-api:latest
+    container_name: ai-api-agg-oneapi-blue
+    restart: unless-stopped
+    ports:
+      - "3001:3000"   # 独立端口，供直接访问和健康检查
+    volumes:
+      # 独立数据卷（独立的 SQLite 数据库）
+      - oneapi_blue_data:/data
+    environment:
+      - TZ=Asia/Shanghai
+    env_file:
+      - ./oneapi/.env
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ========================================
+  # OneAPI Green 实例 — 热备 (standby)
+  # ========================================
+  oneapi-green:
+    image: justsong/one-api:latest
+    container_name: ai-api-agg-oneapi-green
+    restart: unless-stopped
+    ports:
+      - "3002:3000"   # 独立端口，供直接访问和健康检查
+    volumes:
+      # 独立数据卷（独立的 SQLite 数据库）
+      - oneapi_green_data:/data
+    environment:
+      - TZ=Asia/Shanghai
+    env_file:
+      - ./oneapi/.env
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ==========================================
+# 持久化卷
+# ==========================================
+volumes:
+  oneapi_data:
+    driver: local
+  oneapi_blue_data:
+    driver: local
+  oneapi_green_data:
+    driver: local
+  backend_data:
+    driver: local
+  nginx_logs:
+    driver: local
+  nginx_ssl_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  alertmanager_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+# ==========================================
+# 网络
+# ==========================================
+networks:
+  app-net:
+    driver: bridge

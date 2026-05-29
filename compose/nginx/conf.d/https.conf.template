@@ -1,0 +1,279 @@
+# ==========================================
+# HTTPS 服务 — 主站点（SSL + 反代）
+# ==========================================
+# 此配置由 docker-entrypoint.sh 通过 envsubst 生成
+# 变量：${DOMAIN_NAME} — 站点域名
+# ==========================================
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name ${DOMAIN_NAME};
+
+    # ==========================================
+    # SSL 证书（宿主机 Certbot 签发，挂载进容器）
+    # ==========================================
+    ssl_certificate     /etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN_NAME}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/${DOMAIN_NAME}/chain.pem;
+
+    # ==========================================
+    # TLS 配置 — Mozilla Intermediate (SSL Labs A+)
+    # ==========================================
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+
+    # OCSP 装订
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    resolver 1.1.1.1 8.8.8.8 valid=300s;
+    resolver_timeout 5s;
+
+    # SSL 会话缓存
+    ssl_session_cache shared:SSL:20m;
+    ssl_session_timeout 1d;
+    ssl_session_tickets off;
+
+    # ECDH 曲线
+    ssl_ecdh_curve X25519:secp384r1:prime256v1;
+
+    # DH 参数（2048-bit，兼容性好）
+    ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+
+    # ==========================================
+    # 安全响应头
+    # ==========================================
+    # HSTS（仅 HTTPS 时下发，值来自 nginx.conf 中的 map）
+    add_header Strict-Transport-Security $hsts_header always;
+
+    # 点击劫持防护
+    add_header X-Frame-Options "DENY" always;
+
+    # MIME 类型嗅探防护
+    add_header X-Content-Type-Options "nosniff" always;
+
+    # 旧版 XSS 防护
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    # 引用策略
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    # 权限策略（限制浏览器功能 API）
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), display-capture=()" always;
+
+    # 内容安全策略（适用前端页面）
+    # 注：/v1/* 路由不添加 CSP，因为它是 API 端点，非浏览器直接访问
+    # CSP 在 / location 中单独设置
+
+    # ==========================================
+    # 日志（单独文件，方便分析）
+    # ==========================================
+    access_log /var/log/nginx/https_access.log main buffer=16k flush=5s;
+    error_log  /var/log/nginx/https_error.log  warn;
+
+    # ==========================================
+    # 根路径 — 健康检查
+    # ==========================================
+    location /health {
+        access_log off;
+        return 200 "OK";
+        add_header Content-Type text/plain;
+    }
+
+    # ==========================================
+    # /v1/* — OneAPI 网关（OpenAI 兼容模型调用）
+    # ==========================================
+    location /v1/ {
+        # 限流：100 req/s + 峰值缓冲 200
+        limit_req zone=api_limit burst=200 nodelay;
+        limit_conn conn_limit 20;
+
+        # 代理到 OneAPI
+        proxy_pass http://oneapi_upstream;
+        proxy_http_version 1.1;
+
+        # 请求头
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+
+        # WebSocket 升级支持（OneAPI 流式响应兼容）
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # SSE 流式响应 — 关闭缓冲确保实时传输
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 120s;
+        proxy_send_timeout 120s;
+
+        # 跨域（CORS）— 允许任意来源调用模型 API
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS";
+        add_header Access-Control-Allow-Headers "Authorization, Content-Type, Accept, X-Requested-With";
+        add_header Access-Control-Max-Age 86400;
+
+        if ($request_method = OPTIONS) {
+            return 204;
+        }
+    }
+
+    # ==========================================
+    # /api/auth/* — 认证路由（严格限流，防暴力破解）
+    # ==========================================
+    location /api/auth/ {
+        # 限流：5 req/s，峰值缓冲 10
+        limit_req zone=auth_limit burst=10 nodelay;
+        limit_conn conn_limit 10;
+
+        proxy_pass http://backend_upstream;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_read_timeout 30s;
+        proxy_send_timeout 30s;
+
+        # 禁止缓存认证响应
+        add_header Cache-Control "no-store, no-cache, must-revalidate";
+        add_header Pragma "no-cache";
+    }
+
+    # ==========================================
+    # /api/stripe/webhook — Stripe Webhook（免除限流，确保回调可靠）
+    # ==========================================
+    location /api/stripe/webhook {
+        # Stripe IP 可能快速连续发送多个事件，不限流
+        limit_req zone=api_limit burst=200 nodelay;
+
+        proxy_pass http://backend_upstream;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Stripe 会发送大 payload
+        client_max_body_size 1m;
+        proxy_read_timeout 15s;
+    }
+
+    # ==========================================
+    # /api/* — 后端管理 API
+    # ==========================================
+    location /api/ {
+        # 限流：100 req/s + 峰值缓冲 50
+        limit_req zone=api_limit burst=50 nodelay;
+        limit_conn conn_limit 20;
+
+        proxy_pass http://backend_upstream;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_read_timeout 60s;
+        proxy_send_timeout 60s;
+    }
+
+    # ==========================================
+    # / — 前端（Next.js standalone 或静态文件）
+    # ==========================================
+    location / {
+        # 通用限流
+        limit_req zone=general burst=50 nodelay;
+        limit_conn conn_limit 20;
+
+        # 代理到 Next.js 前端
+        proxy_pass http://host.docker.internal:3000;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+
+        # WebSocket 支持（Next.js HMR / 热更新，仅开发环境）
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_read_timeout 60s;
+
+        # 前端页面安全头（CSP）
+        add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" always;
+    }
+
+    # ==========================================
+    # 静态资源缓存（/_next/static 等 Next.js 静态文件）
+    # ==========================================
+    location /_next/static/ {
+        proxy_pass http://host.docker.internal:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+
+        # 强缓存（带哈希的静态资源可长期缓存）
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    location /static/ {
+        proxy_pass http://host.docker.internal:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+
+        expires 7d;
+        add_header Cache-Control "public";
+    }
+
+    # ==========================================
+    # favicon / robots.txt 等常规文件
+    # ==========================================
+    location = /favicon.ico {
+        proxy_pass http://host.docker.internal:3000;
+        access_log off;
+        expires 30d;
+    }
+
+    location = /robots.txt {
+        proxy_pass http://host.docker.internal:3000;
+        access_log off;
+        expires 1d;
+    }
+
+    # ==========================================
+    # 拒绝访问隐藏文件（安全加固）
+    # ==========================================
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    # ==========================================
+    # 自定义错误页
+    # ==========================================
+    error_page 502 503 504 /50x.html;
+    location = /50x.html {
+        return 503 "Service Temporarily Unavailable";
+        add_header Content-Type text/plain;
+    }
+}

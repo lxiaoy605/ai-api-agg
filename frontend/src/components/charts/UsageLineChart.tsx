@@ -55,7 +55,7 @@ export default function UsageLineChart() {
   const metricLabel = metric === "requests" ? tc("requestCount") : tc("tokenConsumption");
 
   return (
-    <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
+    <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h3 className="text-lg font-semibold text-white">
           {metric === "requests" ? tc("requestCount") : tc("tokenConsumption")}
@@ -63,13 +63,13 @@ export default function UsageLineChart() {
           {tc("time")}
         </h3>
         <div className="flex gap-2">
-          <div className="flex rounded-lg bg-slate-800 p-0.5">
+          <div className="flex rounded-lg bg-[#1a1d2e] p-0.5">
             <button
               onClick={() => setMetric("requests")}
               className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                 metric === "requests"
-                  ? "bg-slate-700 text-white"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-[#2a2d3e] text-white"
+                  : "text-[#94a3b8] hover:text-[#e2e8f0]"
               }`}
             >
               {tc("requests")}
@@ -78,14 +78,14 @@ export default function UsageLineChart() {
               onClick={() => setMetric("tokens")}
               className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                 metric === "tokens"
-                  ? "bg-slate-700 text-white"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-[#2a2d3e] text-white"
+                  : "text-[#94a3b8] hover:text-[#e2e8f0]"
               }`}
             >
               {tc("tokens")}
             </button>
           </div>
-          <div className="flex rounded-lg bg-slate-800 p-0.5">
+          <div className="flex rounded-lg bg-[#1a1d2e] p-0.5">
             {(Object.entries(rangeMap) as [Range, { label: string; days: number }][]).map(
               ([key, val]) => (
                 <button
@@ -93,8 +93,8 @@ export default function UsageLineChart() {
                   onClick={() => setRange(key)}
                   className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                     range === key
-                      ? "bg-slate-700 text-white"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-[#2a2d3e] text-white"
+                      : "text-[#94a3b8] hover:text-[#e2e8f0]"
                   }`}
                 >
                   {val.label}
@@ -148,11 +148,11 @@ export default function UsageLineChart() {
             <Line
               type="monotone"
               dataKey={metric}
-              stroke="#10b981"
+              stroke="#3b82f6"
               strokeWidth={2}
               dot={false}
               name={metricLabel}
-              activeDot={{ r: 4, fill: "#10b981" }}
+              activeDot={{ r: 4, fill: "#3b82f6" }}
             />
           </LineChart>
         </ResponsiveContainer>

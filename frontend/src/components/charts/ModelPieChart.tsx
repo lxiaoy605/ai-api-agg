@@ -15,7 +15,7 @@ export default function ModelPieChart() {
   const tc = useTranslations("chart");
 
   return (
-    <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
+    <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
       <h3 className="text-lg font-semibold text-white mb-4">
         {tc("modelUsageBreakdown")}
       </h3>
@@ -46,7 +46,7 @@ export default function ModelPieChart() {
             />
             <Legend
               formatter={(value: string) => (
-                <span className="text-slate-300 text-sm">{value}</span>
+                <span className="text-[#e2e8f0] text-sm">{value}</span>
               )}
             />
           </PieChart>

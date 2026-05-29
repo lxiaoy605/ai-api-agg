@@ -91,12 +91,18 @@ const endpoints = [
 const modelIds = [
   "deepseek-v4-flash",
   "deepseek-v4-pro",
+  "glm-4.5",
+  "glm-4.5-air",
+  "glm-4.6",
+  "glm-4.7",
+  "glm-5",
+  "glm-5-turbo",
   "glm-5.1",
-  "glm-4.7-flash",
+  "mimo-v2-flash",
+  "mimo-v2-omni",
+  "mimo-v2-pro",
+  "mimo-v2.5",
   "mimo-v2.5-pro",
-  "gpt-4o",
-  "gpt-4o-mini",
-  "claude-3.5-sonnet",
 ];
 
 export default function DocsPage() {
@@ -114,64 +120,64 @@ export default function DocsPage() {
   return (
     <div className="space-y-8 max-w-4xl">
       <div>
-        <h1 className="text-2xl font-bold text-white">{td("title")}</h1>
-        <p className="text-slate-400 text-sm mt-1">{td("subtitle")}</p>
+        <h1 className="text-2xl font-bold text-[#e2e8f0]">{td("title")}</h1>
+        <p className="text-[#94a3b8] text-sm mt-1">{td("subtitle")}</p>
       </div>
 
       {/* 快速开始 */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <Terminal className="h-5 w-5 text-emerald-500" />
-          <h2 className="text-lg font-semibold text-white">{td("quickStart")}</h2>
+          <Terminal className="h-5 w-5 text-blue-500" />
+          <h2 className="text-lg font-semibold text-[#e2e8f0]">{td("quickStart")}</h2>
         </div>
-        <p className="text-sm text-slate-400">{td("quickStartDesc")}</p>
+        <p className="text-sm text-[#94a3b8]">{td("quickStartDesc")}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
-            <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center mb-3">
-              <Key className="h-4 w-4 text-emerald-400" />
+          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-5">
+            <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center mb-3">
+              <Key className="h-4 w-4 text-blue-400" />
             </div>
-            <h3 className="text-sm font-medium text-white mb-1">
+            <h3 className="text-sm font-medium text-[#e2e8f0] mb-1">
               {td("step1Title")}
             </h3>
-            <p className="text-xs text-slate-400">{td("step1Desc")}</p>
+            <p className="text-xs text-[#94a3b8]">{td("step1Desc")}</p>
           </div>
-          <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
-            <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center mb-3">
-              <Server className="h-4 w-4 text-emerald-400" />
+          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-5">
+            <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center mb-3">
+              <Server className="h-4 w-4 text-blue-400" />
             </div>
-            <h3 className="text-sm font-medium text-white mb-1">
+            <h3 className="text-sm font-medium text-[#e2e8f0] mb-1">
               {td("step2Title")}
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#94a3b8]">
               {td("step2Desc")}{" "}
-              <code className="text-emerald-400 bg-slate-800 px-1 rounded">
+              <code className="text-blue-400 bg-[#1a1d2e] px-1 rounded">
                 https://api.example.com/v1
               </code>
             </p>
           </div>
-          <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
-            <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center mb-3">
-              <ArrowRight className="h-4 w-4 text-emerald-400" />
+          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-5">
+            <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center mb-3">
+              <ArrowRight className="h-4 w-4 text-blue-400" />
             </div>
-            <h3 className="text-sm font-medium text-white mb-1">
+            <h3 className="text-sm font-medium text-[#e2e8f0] mb-1">
               {td("step3Title")}
             </h3>
-            <p className="text-xs text-slate-400">{td("step3Desc")}</p>
+            <p className="text-xs text-[#94a3b8]">{td("step3Desc")}</p>
           </div>
         </div>
 
-        <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800">
-            <div className="flex rounded-lg bg-slate-800 p-0.5">
+        <div className="bg-[#141620] rounded-xl border border-[#1e2030] overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-[#1e2030]">
+            <div className="flex rounded-lg bg-[#1a1d2e] p-0.5">
               {langTabs.map((tab) => (
                 <button
                   key={tab.key}
                   onClick={() => setLang(tab.key)}
                   className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                     lang === tab.key
-                      ? "bg-slate-700 text-white"
-                      : "text-slate-500 hover:text-slate-300"
+                      ? "bg-[#2a2d3e] text-[#e2e8f0]"
+                      : "text-[#64748b] hover:text-[#e2e8f0]"
                   }`}
                 >
                   {tab.label}
@@ -180,12 +186,12 @@ export default function DocsPage() {
             </div>
             <button
               onClick={() => handleCopy(quickStartCode[lang])}
-              className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-300 transition-colors"
+              className="flex items-center gap-1 text-xs text-[#64748b] hover:text-[#e2e8f0] transition-colors"
             >
               {copied ? (
                 <>
-                  <Check className="h-3.5 w-3.5 text-emerald-400" />
-                  <span className="text-emerald-400">{tc("copied")}</span>
+                  <Check className="h-3.5 w-3.5 text-blue-400" />
+                  <span className="text-blue-400">{tc("copied")}</span>
                 </>
               ) : (
                 <>
@@ -195,7 +201,7 @@ export default function DocsPage() {
               )}
             </button>
           </div>
-          <pre className="p-5 text-xs text-slate-300 overflow-x-auto font-mono leading-relaxed bg-slate-950/50">
+          <pre className="p-5 text-xs text-[#e2e8f0] overflow-x-auto font-mono leading-relaxed bg-[#050510]/50">
             {quickStartCode[lang]}
           </pre>
         </div>
@@ -204,36 +210,36 @@ export default function DocsPage() {
       {/* API 参考 */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <BookOpen className="h-5 w-5 text-emerald-500" />
-          <h2 className="text-lg font-semibold text-white">{td("apiReference")}</h2>
+          <BookOpen className="h-5 w-5 text-blue-500" />
+          <h2 className="text-lg font-semibold text-[#e2e8f0]">{td("apiReference")}</h2>
         </div>
-        <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+        <div className="bg-[#141620] rounded-xl border border-[#1e2030] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-800 text-left">
-                  <th className="py-3 px-5 text-slate-400 font-medium">{td("tableMethod")}</th>
-                  <th className="py-3 px-5 text-slate-400 font-medium">{td("tableEndpoint")}</th>
-                  <th className="py-3 px-5 text-slate-400 font-medium">{td("tableDescription")}</th>
+                <tr className="border-b border-[#1e2030] text-left">
+                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableMethod")}</th>
+                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableEndpoint")}</th>
+                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableDescription")}</th>
                 </tr>
               </thead>
               <tbody>
                 {endpoints.map((ep) => (
                   <tr
                     key={ep.path}
-                    className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors"
+                    className="border-b border-[#1e2030]/50 hover:bg-[#1a1d2e]/30 transition-colors"
                   >
                     <td className="py-3 px-5">
-                      <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400">
                         {ep.method}
                       </span>
                     </td>
                     <td className="py-3 px-5">
-                      <code className="text-slate-200 font-mono text-xs">
+                      <code className="text-[#e2e8f0] font-mono text-xs">
                         {ep.path}
                       </code>
                     </td>
-                    <td className="py-3 px-5 text-slate-400">
+                    <td className="py-3 px-5 text-[#94a3b8]">
                       {td(`endpoints.${ep.descKey}`)}
                     </td>
                   </tr>
@@ -247,46 +253,49 @@ export default function DocsPage() {
       {/* 错误码说明 */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5 text-emerald-500" />
-          <h2 className="text-lg font-semibold text-white">{td("errorCodes")}</h2>
+          <AlertTriangle className="h-5 w-5 text-blue-500" />
+          <h2 className="text-lg font-semibold text-[#e2e8f0]">{td("errorCodes")}</h2>
         </div>
-        <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+        <div className="bg-[#141620] rounded-xl border border-[#1e2030] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-800 text-left">
-                  <th className="py-3 px-5 text-slate-400 font-medium">{td("tableStatusCode")}</th>
-                  <th className="py-3 px-5 text-slate-400 font-medium">Error</th>
-                  <th className="py-3 px-5 text-slate-400 font-medium">{td("tableDescription")}</th>
+                <tr className="border-b border-[#1e2030] text-left">
+                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableStatusCode")}</th>
+                  <th className="py-3 px-5 text-[#94a3b8] font-medium">Error</th>
+                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableDescription")}</th>
                 </tr>
               </thead>
               <tbody>
-                {errorCodes.map((err) => (
+                {(errorCodes as {code:number;message:string;description:string}[]).map((err) => {
+                  const code = err.code;
+                  return (
                   <tr
-                    key={err.code}
-                    className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors"
+                    key={code}
+                    className="border-b border-[#1e2030]/50 hover:bg-[#1a1d2e]/30 transition-colors"
                   >
                     <td className="py-3 px-5">
                       <span
                         className={`text-xs font-mono px-2 py-0.5 rounded ${
-                          err.code < 400
-                            ? "bg-emerald-500/10 text-emerald-400"
-                            : err.code < 500
+                          code < 400
+                            ? "bg-blue-500/10 text-blue-400"
+                            : code < 500
                             ? "bg-yellow-500/10 text-yellow-400"
                             : "bg-red-500/10 text-red-400"
                         }`}
                       >
-                        {err.code}
+                        {code}
                       </span>
                     </td>
-                    <td className="py-3 px-5 text-slate-200 font-medium">
-                      {td(`errorMessages.${err.code}`)}
+                    <td className="py-3 px-5 text-[#e2e8f0] font-medium">
+                      {td(`errorMessages.${code}`)}
                     </td>
-                    <td className="py-3 px-5 text-slate-400">
-                      {td(`errorDescriptions.${err.code}`)}
+                    <td className="py-3 px-5 text-[#94a3b8]">
+                      {td(`errorDescriptions.${code}`)}
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -294,21 +303,29 @@ export default function DocsPage() {
       </section>
 
       {/* 模型命名规范 */}
-      <section className="bg-slate-900 rounded-xl border border-slate-800 p-6 space-y-3">
-        <h3 className="text-sm font-semibold text-white">{td("modelNaming")}</h3>
-        <p className="text-sm text-slate-400">
+      <section className="bg-[#141620] rounded-xl border border-[#1e2030] p-6 space-y-3">
+        <h3 className="text-sm font-semibold text-[#e2e8f0]">{td("modelNaming")}</h3>
+        <p className="text-sm text-[#94a3b8]">
           {td("modelNamingDesc")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-          {modelIds.map((id) => (
+          {modelIds.map((id) => {
+            // i18n 动态 key 无法在编译期提取，直接从 ID 生成显示名
+            const nameFromT = td(`modelNamingExamples.${id}`);
+            const isMissing = !nameFromT || nameFromT.startsWith("docs.") || nameFromT.startsWith("modelNamingExamples.");
+            const name = isMissing
+              ? id.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
+              : nameFromT;
+            return (
             <div
               key={id}
-              className="flex items-center justify-between bg-slate-800/50 rounded-lg px-3 py-2"
+              className="flex items-center justify-between bg-[#1a1d2e]/50 rounded-lg px-3 py-2"
             >
-              <code className="text-slate-200 font-mono">{id}</code>
-              <span className="text-slate-500">{td(`modelNamingExamples.${id}`)}</span>
+              <code className="text-[#e2e8f0] font-mono">{id}</code>
+              <span className="text-[#64748b]">{name}</span>
             </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </div>

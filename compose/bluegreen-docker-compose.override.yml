@@ -1,0 +1,87 @@
+# =============================================
+# AI API 聚合平台 — 蓝绿模式 Docker Compose Override
+# =============================================
+# 使用方法:
+#   docker compose -f docker-compose.yml -f bluegreen-docker-compose.override.yml up -d
+#
+# 或使用一键部署脚本:
+#   ./scripts/bluegreen-deploy.sh
+# =============================================
+
+services:
+  # ========================================
+  # HAProxy — 蓝绿模式增强配置
+  # ========================================
+  haproxy:
+    # 蓝绿模式下 HAProxy 为核心入口，增加健康检查灵敏度
+    healthcheck:
+      test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    # 资源限制（生产环境）
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+  # ========================================
+  # OneAPI Blue — 生产级配置
+  # ========================================
+  oneapi-blue:
+    # 蓝绿模式下 healthcheck 更频繁
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/status"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    # 蓝绿标签（方便监控识别）
+    labels:
+      - "deployment.role=blue"
+      - "deployment.tier=active"
+
+  # ========================================
+  # OneAPI Green — 生产级配置
+  # ========================================
+  oneapi-green:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/status"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    labels:
+      - "deployment.role=green"
+      - "deployment.tier=standby"
+
+  # ========================================
+  # Nginx — 蓝绿模式下对接 HAProxy 而非直连 OneAPI
+  # ========================================
+  nginx:
+    # 蓝绿模式下 Nginx 应将 API 流量转发到 HAProxy:8080
+    # 而非直接指向单个 OneAPI 实例
+    labels:
+      - "deployment.proxy_target=haproxy:8080"

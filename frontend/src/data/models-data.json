@@ -1,0 +1,342 @@
+[
+  {
+    "id": "deepseek-v4-flash",
+    "name": "DeepSeek V4 Flash",
+    "provider": "DeepSeek",
+    "providerLogo": "DS",
+    "description": "轻量快速模型，适合高并发场景，响应速度极快",
+    "inputPrice": "$0.14",
+    "outputPrice": "$0.28",
+    "contextWindow": "128K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "函数调用",
+      "JSON 模式",
+      "流式输出",
+      "高并发"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"deepseek-v4-flash\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"deepseek-v4-flash\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"deepseek-v4-flash\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "deepseek-v4-pro",
+    "name": "DeepSeek V4 Pro",
+    "provider": "DeepSeek",
+    "providerLogo": "DS",
+    "description": "旗舰推理模型，深度思考模式，适合复杂逻辑和代码生成",
+    "inputPrice": "$0.55",
+    "outputPrice": "$2.19",
+    "contextWindow": "128K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "深度思考",
+      "代码生成",
+      "逻辑推理",
+      "长文本理解",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"deepseek-v4-pro\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"解释量子计算的基本原理\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"deepseek-v4-pro\",\n    messages=[{\"role\": \"user\", \"content\": \"解释量子计算的基本原理\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"deepseek-v4-pro\",\n  messages: [{ role: \"user\", content: \"解释量子计算的基本原理\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "glm-4.5",
+    "name": "GLM-4.5",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "智谱成熟稳定模型，高性价比，适合生产环境",
+    "inputPrice": "$0.70",
+    "outputPrice": "$2.10",
+    "contextWindow": "128K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "多语言",
+      "函数调用",
+      "流式输出",
+      "高性价比"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "glm-4.5-air",
+    "name": "GLM-4.5 Air",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "智谱轻量级模型，低延迟高吞吐，适合大批量任务",
+    "inputPrice": "$0.30",
+    "outputPrice": "$1.00",
+    "contextWindow": "128K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "低延迟",
+      "高吞吐",
+      "函数调用",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.5-air\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.5-air\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.5-air\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "glm-4.6",
+    "name": "GLM-4.6",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "智谱中端平衡模型，性能与成本兼顾",
+    "inputPrice": "$0.50",
+    "outputPrice": "$1.50",
+    "contextWindow": "128K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "多语言",
+      "函数调用",
+      "工具使用",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.6\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.6\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.6\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "glm-4.7",
+    "name": "GLM-4.7",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "智谱最新轻量高性能模型，支持免费使用",
+    "inputPrice": "免费",
+    "outputPrice": "免费",
+    "contextWindow": "32K",
+    "maxTokens": "4K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "免费使用",
+      "快速响应",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.7\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.7\",\n    messages=[{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.7\",\n  messages: [{ role: \"user\", content: \"今天天气如何\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "glm-5",
+    "name": "GLM-5",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "智谱最新旗舰，综合能力强，多语言场景首选",
+    "inputPrice": "$1.50",
+    "outputPrice": "$4.50",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "多语言",
+      "函数调用",
+      "工具使用",
+      "长文档",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "glm-5-turbo",
+    "name": "GLM-5 Turbo",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "智谱高速旗舰模型，快速推理兼顾高性能",
+    "inputPrice": "$0.80",
+    "outputPrice": "$2.40",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "高速推理",
+      "多语言",
+      "函数调用",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5-turbo\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5-turbo\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5-turbo\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "glm-5.1",
+    "name": "GLM-5.1",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "智谱最新旗舰模型，综合能力强，中英文表现优秀",
+    "inputPrice": "$1.40",
+    "outputPrice": "$4.40",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "多语言",
+      "函数调用",
+      "工具使用",
+      "长文档理解",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5.1\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"写一篇关于AI发展的短文\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5.1\",\n    messages=[{\"role\": \"user\", \"content\": \"写一篇关于AI发展的短文\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5.1\",\n  messages: [{ role: \"user\", content: \"写一篇关于AI发展的短文\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "mimo-v2-flash",
+    "name": "MiMo V2 Flash",
+    "provider": "小米 MiMo",
+    "providerLogo": "MI",
+    "description": "小米最快速模型，响应极快，适合高并发和实时交互",
+    "inputPrice": "$0.10",
+    "outputPrice": "$0.30",
+    "contextWindow": "32K",
+    "maxTokens": "4K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "快速响应",
+      "低成本",
+      "流式输出",
+      "高并发"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2-flash\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2-flash\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2-flash\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "mimo-v2-omni",
+    "name": "MiMo V2 Omni",
+    "provider": "小米 MiMo",
+    "providerLogo": "MI",
+    "description": "小米全模态模型，支持文本、图像、音频理解",
+    "inputPrice": "$0.30",
+    "outputPrice": "$0.90",
+    "contextWindow": "32K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态",
+      "图像理解",
+      "音频处理",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2-omni\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"描述这张图片\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2-omni\",\n    messages=[{\"role\": \"user\", \"content\": \"描述这张图片\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2-omni\",\n  messages: [{ role: \"user\", content: \"描述这张图片\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "mimo-v2-pro",
+    "name": "MiMo V2 Pro",
+    "provider": "小米 MiMo",
+    "providerLogo": "MI",
+    "description": "小米专业版模型，推理和代码能力增强",
+    "inputPrice": "$0.60",
+    "outputPrice": "$1.80",
+    "contextWindow": "64K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "代码生成",
+      "逻辑推理",
+      "函数调用",
+      "长文本",
+      "流式输出"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2-pro\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"写一个排序算法\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2-pro\",\n    messages=[{\"role\": \"user\", \"content\": \"写一个排序算法\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2-pro\",\n  messages: [{ role: \"user\", content: \"写一个排序算法\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "mimo-v2.5",
+    "name": "MiMo V2.5",
+    "provider": "小米 MiMo",
+    "providerLogo": "MI",
+    "description": "小米最新代基础模型，性能与成本平衡",
+    "inputPrice": "$0.40",
+    "outputPrice": "$1.20",
+    "contextWindow": "32K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "函数调用",
+      "JSON 模式",
+      "流式输出",
+      "高性价比"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "mimo-v2.5-pro",
+    "name": "MiMo-V2.5-Pro",
+    "provider": "小米 MiMo",
+    "providerLogo": "MI",
+    "description": "小米多模态旗舰模型，支持文本/图像/音频理解和生成",
+    "inputPrice": "$0.80",
+    "outputPrice": "$3.20",
+    "contextWindow": "32K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态",
+      "图像理解",
+      "文本生成",
+      "音频处理",
+      "TTS"
+    ],
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2.5-pro\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"描述这张图片\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2.5-pro\",\n    messages=[{\"role\": \"user\", \"content\": \"描述这张图片\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2.5-pro\",\n  messages: [{ role: \"user\", content: \"描述这张图片\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  }
+]

@@ -62,15 +62,15 @@ export default function ApiKeysPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-          <p className="text-slate-400 text-sm mt-1">{t("subtitle")}</p>
+          <h1 className="text-2xl font-bold text-[#e2e8f0]">{t("title")}</h1>
+          <p className="text-[#94a3b8] text-sm mt-1">{t("subtitle")}</p>
         </div>
         <button
           onClick={() => {
             setNewKey(null);
             setShowCreateDialog(true);
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm font-medium transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-400 text-[#e2e8f0] rounded-lg text-sm font-medium transition-colors"
         >
           <Plus className="h-4 w-4" />
           {t("create")}
@@ -78,59 +78,59 @@ export default function ApiKeysPage() {
       </div>
 
       {/* Key 列表 */}
-      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+      <div className="bg-[#141620] rounded-xl border border-[#1e2030] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/50 text-left">
-                <th className="py-3 px-5 text-slate-400 font-medium">{t("tableName")}</th>
-                <th className="py-3 px-5 text-slate-400 font-medium">{t("tableKey")}</th>
-                <th className="py-3 px-5 text-slate-400 font-medium">{t("tableCreated")}</th>
-                <th className="py-3 px-5 text-slate-400 font-medium">{t("tableStatus")}</th>
-                <th className="py-3 px-5 text-slate-400 font-medium">{t("tableLastUsed")}</th>
-                <th className="py-3 px-5 text-slate-400 font-medium">{t("tableActions")}</th>
+              <tr className="border-b border-[#1e2030] bg-[#141620]/50 text-left">
+                <th className="py-3 px-5 text-[#94a3b8] font-medium">{t("tableName")}</th>
+                <th className="py-3 px-5 text-[#94a3b8] font-medium">{t("tableKey")}</th>
+                <th className="py-3 px-5 text-[#94a3b8] font-medium">{t("tableCreated")}</th>
+                <th className="py-3 px-5 text-[#94a3b8] font-medium">{t("tableStatus")}</th>
+                <th className="py-3 px-5 text-[#94a3b8] font-medium">{t("tableLastUsed")}</th>
+                <th className="py-3 px-5 text-[#94a3b8] font-medium">{t("tableActions")}</th>
               </tr>
             </thead>
             <tbody>
               {keys.map((key) => (
                 <tr
                   key={key.id}
-                  className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors"
+                  className="border-b border-[#1e2030]/50 hover:bg-[#1a1d2e]/30 transition-colors"
                 >
-                  <td className="py-3 px-5 text-slate-200 font-medium">
+                  <td className="py-3 px-5 text-[#e2e8f0] font-medium">
                     {key.name}
                   </td>
                   <td className="py-3 px-5">
-                    <code className="text-slate-400 bg-slate-800 px-2 py-0.5 rounded text-xs font-mono">
+                    <code className="text-[#94a3b8] bg-[#1a1d2e] px-2 py-0.5 rounded text-xs font-mono">
                       {key.prefix}
                     </code>
                   </td>
-                  <td className="py-3 px-5 text-slate-400">{key.createdAt}</td>
+                  <td className="py-3 px-5 text-[#94a3b8]">{key.createdAt}</td>
                   <td className="py-3 px-5">
                     <button
                       onClick={() => handleToggleStatus(key.id)}
                       className={`text-xs font-medium px-2 py-0.5 rounded-full transition-colors ${
                         key.status === "active"
-                          ? "bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20"
-                          : "bg-slate-700 text-slate-400 hover:bg-slate-600"
+                          ? "bg-blue-500/10 text-blue-400 hover:bg-blue-500/20"
+                          : "bg-[#2a2d3e] text-[#94a3b8] hover:bg-[#2a2d3e]"
                       }`}
                     >
                       {ts(key.status === "active" ? "active" : "disabled")}
                     </button>
                   </td>
-                  <td className="py-3 px-5 text-slate-400">{key.lastUsed}</td>
+                  <td className="py-3 px-5 text-[#94a3b8]">{key.lastUsed}</td>
                   <td className="py-3 px-5">
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleCopy(`sk-xxx-${key.id}`)}
-                        className="p-1.5 rounded-lg text-slate-500 hover:text-slate-300 hover:bg-slate-800 transition-colors"
+                        className="p-1.5 rounded-lg text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#1a1d2e] transition-colors"
                         title={t("copyKey")}
                       >
                         <Copy className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => setDeleteTarget(key)}
-                        className="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                        className="p-1.5 rounded-lg text-[#64748b] hover:text-red-400 hover:bg-red-500/10 transition-colors"
                         title={t("deleteKey")}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -141,7 +141,7 @@ export default function ApiKeysPage() {
               ))}
               {keys.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
+                  <td colSpan={6} className="py-12 text-center text-[#64748b]">
                     {t("empty")}
                   </td>
                 </tr>
@@ -159,39 +159,39 @@ export default function ApiKeysPage() {
           .map((key) => (
             <div
               key={key.id}
-              className="bg-slate-900 rounded-xl border border-slate-800 p-5"
+              className="bg-[#141620] rounded-xl border border-[#1e2030] p-5"
             >
               <div className="flex items-center gap-2 mb-3">
-                <Key className="h-4 w-4 text-emerald-500" />
-                <span className="text-sm font-medium text-slate-200">
+                <Key className="h-4 w-4 text-blue-500" />
+                <span className="text-sm font-medium text-[#e2e8f0]">
                   {key.name}
                 </span>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-500">
+                  <span className="text-[#64748b]">
                     <BarChart3 className="inline h-3 w-3 mr-1" />
                     {t("usageRequests")}
                   </span>
-                  <span className="text-slate-300">
+                  <span className="text-[#e2e8f0]">
                     {key.requestCount.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-500">
+                  <span className="text-[#64748b]">
                     <Activity className="inline h-3 w-3 mr-1" />
                     {t("usageTokens")}
                   </span>
-                  <span className="text-slate-300">
+                  <span className="text-[#e2e8f0]">
                     {(key.tokenUsage / 1000).toFixed(0)}K
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-500">
+                  <span className="text-[#64748b]">
                     <Clock className="inline h-3 w-3 mr-1" />
                     {t("usageLastUsed")}
                   </span>
-                  <span className="text-slate-300">{key.lastUsed}</span>
+                  <span className="text-[#e2e8f0]">{key.lastUsed}</span>
                 </div>
               </div>
             </div>
@@ -205,13 +205,13 @@ export default function ApiKeysPage() {
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setShowCreateDialog(false)}
           />
-          <div className="relative bg-slate-900 border border-slate-800 rounded-xl p-6 w-full max-w-md mx-4 shadow-2xl">
+          <div className="relative bg-[#141620] border border-[#1e2030] rounded-xl p-6 w-full max-w-md mx-4 shadow-2xl">
             {!newKey ? (
               <>
-                <h3 className="text-lg font-semibold text-white mb-4">
+                <h3 className="text-lg font-semibold text-[#e2e8f0] mb-4">
                   {t("createTitle")}
                 </h3>
-                <label className="block text-sm text-slate-400 mb-2">
+                <label className="block text-sm text-[#94a3b8] mb-2">
                   {t("createNameLabel")}
                 </label>
                 <input
@@ -219,21 +219,21 @@ export default function ApiKeysPage() {
                   value={newKeyName}
                   onChange={(e) => setNewKeyName(e.target.value)}
                   placeholder={t("createNamePlaceholder")}
-                  className="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-200 text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full px-3 py-2 bg-[#1a1d2e] border border-[#2a2d3e] rounded-lg text-[#e2e8f0] text-sm placeholder-[#64748b] focus:outline-none focus:border-blue-500 transition-colors"
                   autoFocus
                   onKeyDown={(e) => e.key === "Enter" && handleCreate()}
                 />
                 <div className="flex justify-end gap-3 mt-6">
                   <button
                     onClick={() => setShowCreateDialog(false)}
-                    className="px-4 py-2 text-sm text-slate-400 hover:text-slate-200 transition-colors"
+                    className="px-4 py-2 text-sm text-[#94a3b8] hover:text-[#e2e8f0] transition-colors"
                   >
                     {tc("cancel")}
                   </button>
                   <button
                     onClick={handleCreate}
                     disabled={!newKeyName.trim()}
-                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 text-white rounded-lg text-sm font-medium transition-colors"
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-400 disabled:bg-[#2a2d3e] disabled:text-[#64748b] text-[#e2e8f0] rounded-lg text-sm font-medium transition-colors"
                   >
                     {t("create")}
                   </button>
@@ -242,14 +242,14 @@ export default function ApiKeysPage() {
             ) : (
               <>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                    <Check className="h-5 w-5 text-emerald-400" />
+                  <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                    <Check className="h-5 w-5 text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="text-lg font-semibold text-[#e2e8f0]">
                       {t("createSuccess")}
                     </h3>
-                    <p className="text-sm text-slate-400">{newKey.name}</p>
+                    <p className="text-sm text-[#94a3b8]">{newKey.name}</p>
                   </div>
                 </div>
 
@@ -258,16 +258,16 @@ export default function ApiKeysPage() {
                   <p className="text-xs text-red-300">{t("createWarning")}</p>
                 </div>
 
-                <div className="flex items-center gap-2 bg-slate-800 rounded-lg p-3">
-                  <code className="flex-1 text-sm text-slate-200 font-mono break-all">
+                <div className="flex items-center gap-2 bg-[#1a1d2e] rounded-lg p-3">
+                  <code className="flex-1 text-sm text-[#e2e8f0] font-mono break-all">
                     {newKey.fullKey}
                   </code>
                   <button
                     onClick={() => handleCopy(newKey.fullKey!)}
-                    className="shrink-0 p-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors"
+                    className="shrink-0 p-2 rounded-lg bg-[#2a2d3e] hover:bg-[#2a2d3e] text-[#e2e8f0] transition-colors"
                   >
                     {copied ? (
-                      <Check className="h-4 w-4 text-emerald-400" />
+                      <Check className="h-4 w-4 text-blue-400" />
                     ) : (
                       <Copy className="h-4 w-4" />
                     )}
@@ -279,7 +279,7 @@ export default function ApiKeysPage() {
                     setShowCreateDialog(false);
                     setNewKey(null);
                   }}
-                  className="w-full mt-4 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm font-medium transition-colors"
+                  className="w-full mt-4 px-4 py-2 bg-[#1a1d2e] hover:bg-[#2a2d3e] text-[#e2e8f0] rounded-lg text-sm font-medium transition-colors"
                 >
                   {t("createSaved")}
                 </button>
@@ -296,27 +296,27 @@ export default function ApiKeysPage() {
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setDeleteTarget(null)}
           />
-          <div className="relative bg-slate-900 border border-slate-800 rounded-xl p-6 w-full max-w-sm mx-4 shadow-2xl">
+          <div className="relative bg-[#141620] border border-[#1e2030] rounded-xl p-6 w-full max-w-sm mx-4 shadow-2xl">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
                 <AlertTriangle className="h-5 w-5 text-red-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">{t("deleteTitle")}</h3>
+              <h3 className="text-lg font-semibold text-[#e2e8f0]">{t("deleteTitle")}</h3>
             </div>
-            <p className="text-sm text-slate-400 mb-2">
+            <p className="text-sm text-[#94a3b8] mb-2">
               {t("deleteConfirm", { name: deleteTarget.name })}
             </p>
             <p className="text-xs text-red-400 mb-6">{t("deleteWarning")}</p>
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setDeleteTarget(null)}
-                className="px-4 py-2 text-sm text-slate-400 hover:text-slate-200 transition-colors"
+                className="px-4 py-2 text-sm text-[#94a3b8] hover:text-[#e2e8f0] transition-colors"
               >
                 {tc("cancel")}
               </button>
               <button
                 onClick={() => handleDelete(deleteTarget.id)}
-                className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-sm font-medium transition-colors"
+                className="px-4 py-2 bg-red-600 hover:bg-red-500 text-[#e2e8f0] rounded-lg text-sm font-medium transition-colors"
               >
                 {t("delete")}
               </button>

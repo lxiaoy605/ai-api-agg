@@ -10,8 +10,8 @@ export default function UsagePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-        <p className="text-slate-400 text-sm mt-1">{t("subtitle")}</p>
+        <h1 className="text-2xl font-bold text-[#e2e8f0]">{t("title")}</h1>
+        <p className="text-[#94a3b8] text-sm mt-1">{t("subtitle")}</p>
       </div>
 
       <UsageLineChart />
@@ -19,8 +19,8 @@ export default function UsagePage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ModelPieChart />
 
-        <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">{t("summary")}</h3>
+        <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
+          <h3 className="text-lg font-semibold text-[#e2e8f0] mb-4">{t("summary")}</h3>
           <div className="space-y-4">
             {[
               { labelKey: "monthlyRequests", value: "156,230", change: "+18.5%" },
@@ -30,17 +30,17 @@ export default function UsagePage() {
             ].map((item) => (
               <div
                 key={item.labelKey}
-                className="flex items-center justify-between p-3 rounded-lg bg-slate-800/50"
+                className="flex items-center justify-between p-3 rounded-lg bg-[#1a1d2e]/50"
               >
-                <span className="text-sm text-slate-400">{t(item.labelKey)}</span>
+                <span className="text-sm text-[#94a3b8]">{t(item.labelKey)}</span>
                 <div className="text-right">
-                  <p className="text-sm font-semibold text-slate-200">
+                  <p className="text-sm font-semibold text-[#e2e8f0]">
                     {item.value}
                   </p>
                   <p
                     className={`text-xs ${
                       item.change.startsWith("+")
-                        ? "text-emerald-400"
+                        ? "text-blue-400"
                         : "text-blue-400"
                     }`}
                   >

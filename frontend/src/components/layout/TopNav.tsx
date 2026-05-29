@@ -28,14 +28,14 @@ export default function TopNav() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-50 w-full border-b border-[#1e2030] bg-[#0a0a10]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0a0a10]/60">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-black text-white text-xs font-bold">
+          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#3b82f6] text-white text-xs font-bold">
             ⚡
           </span>
-          <span className="text-gray-900">{t("nav.brand")}</span>
+          <span className="text-[#e2e8f0]">{t("nav.brand")}</span>
         </Link>
 
         {/* Desktop nav */}
@@ -44,7 +44,7 @@ export default function TopNav() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              className="text-sm text-[#94a3b8] hover:text-[#e2e8f0] transition-colors"
             >
               {link.label}
             </Link>
@@ -57,38 +57,38 @@ export default function TopNav() {
             <div className="relative">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-white text-xs font-bold hover:bg-gray-700 transition-colors"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-[#3b82f6] text-white text-xs font-bold hover:bg-blue-400 transition-colors"
                 aria-label={t("common.userMenu")}
               >
                 {(username || "U").charAt(0).toUpperCase()}
               </button>
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-36 rounded-lg border bg-white py-1 shadow-lg">
+                <div className="absolute right-0 mt-2 w-36 rounded-lg border border-[#1e2030] bg-[#141620] py-1 shadow-lg">
                   <Link
                     href="/dashboard"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    className="block px-4 py-2 text-sm text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t("common.console")}
                   </Link>
                   <Link
                     href="/api-keys"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    className="block px-4 py-2 text-sm text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t("nav.apiKeys")}
                   </Link>
                   <Link
                     href="/recharge"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    className="block px-4 py-2 text-sm text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t("nav.recharge")}
                   </Link>
-                  <hr className="my-1" />
+                  <hr className="my-1 border-[#1e2030]" />
                   <button
                     onClick={handleSignOut}
-                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                    className="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10"
                   >
                     {t("common.signOut")}
                   </button>
@@ -99,13 +99,13 @@ export default function TopNav() {
             <>
               <Link
                 href="/login"
-                className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+                className="text-sm text-[#94a3b8] hover:text-[#e2e8f0] transition-colors"
               >
                 {t("common.signIn")}
               </Link>
               <Link
                 href="/register"
-                className="inline-flex items-center rounded-lg bg-gray-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center rounded-lg bg-[#3b82f6] px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-400 transition-colors"
               >
                 {t("common.signUp")}
               </Link>
@@ -115,7 +115,7 @@ export default function TopNav() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden flex items-center justify-center rounded-md p-2 text-gray-500 hover:bg-gray-100"
+          className="md:hidden flex items-center justify-center rounded-md p-2 text-[#94a3b8] hover:bg-[#1a1d2e]"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? t("common.closeMenu") : t("common.openMenu")}
         >
@@ -131,12 +131,12 @@ export default function TopNav() {
 
       {/* Mobile nav */}
       {menuOpen && (
-        <div className="md:hidden border-t bg-white px-4 py-3 space-y-2">
+        <div className="md:hidden border-t border-[#1e2030] bg-[#0a0a10] px-4 py-3 space-y-2">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="block text-sm text-gray-600 py-1.5"
+              className="block text-sm text-[#94a3b8] py-1.5"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -144,26 +144,26 @@ export default function TopNav() {
           ))}
           {isLoggedIn ? (
             <>
-              <hr />
-              <Link href="/dashboard" className="block text-sm font-medium py-1.5" onClick={() => setMenuOpen(false)}>
+              <hr className="border-[#1e2030]" />
+              <Link href="/dashboard" className="block text-sm font-medium text-[#e2e8f0] py-1.5" onClick={() => setMenuOpen(false)}>
                 {t("common.console")}
               </Link>
-              <Link href="/api-keys" className="block text-sm py-1.5" onClick={() => setMenuOpen(false)}>
+              <Link href="/api-keys" className="block text-sm text-[#94a3b8] py-1.5" onClick={() => setMenuOpen(false)}>
                 {t("nav.apiKeys")}
               </Link>
-              <button onClick={handleSignOut} className="block text-sm text-red-600 py-1.5">
+              <button onClick={handleSignOut} className="block text-sm text-red-400 py-1.5">
                 {t("common.signOut")}
               </button>
             </>
           ) : (
             <>
-              <hr />
-              <Link href="/login" className="block text-sm py-1.5" onClick={() => setMenuOpen(false)}>
+              <hr className="border-[#1e2030]" />
+              <Link href="/login" className="block text-sm text-[#94a3b8] py-1.5" onClick={() => setMenuOpen(false)}>
                 {t("common.signIn")}
               </Link>
               <Link
                 href="/register"
-                className="inline-flex items-center rounded-lg bg-gray-900 px-4 py-1.5 text-sm font-medium text-white"
+                className="inline-flex items-center rounded-lg bg-[#3b82f6] px-4 py-1.5 text-sm font-medium text-white"
                 onClick={() => setMenuOpen(false)}
               >
                 {t("common.signUp")}

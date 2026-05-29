@@ -50,14 +50,14 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
   return (
     <aside
-      className={`fixed left-0 top-0 z-40 h-screen bg-slate-950 border-r border-slate-800 transition-all duration-200 flex flex-col ${
+      className={`fixed left-0 top-0 z-40 h-screen bg-[#050510] border-r border-[#1e2030] transition-all duration-200 flex flex-col ${
         collapsed ? "w-16" : "w-60"
       }`}
     >
       {/* Logo */}
-      <div className="flex items-center h-14 px-4 border-b border-slate-800 shrink-0">
+      <div className="flex items-center h-14 px-4 border-b border-[#1e2030] shrink-0">
         <Link href="/" className="flex items-center gap-2 overflow-hidden">
-          <Zap className="h-6 w-6 text-emerald-500 shrink-0" />
+          <Zap className="h-6 w-6 text-[#3b82f6] shrink-0" />
           {!collapsed && (
             <span className="text-lg font-bold text-white whitespace-nowrap">
               {t("brand")}
@@ -77,8 +77,8 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
               href={item.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm ${
                 isActive
-                  ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+                  ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                  : "text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]/50"
               }`}
             >
               <Icon className="h-5 w-5 shrink-0" />
@@ -90,8 +90,8 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
       {/* 语言切换器 */}
       {!collapsed ? (
-        <div className="px-3 py-2 border-t border-slate-800">
-          <div className="flex items-center gap-2 text-xs text-slate-500 mb-1.5">
+        <div className="px-3 py-2 border-t border-[#1e2030]">
+          <div className="flex items-center gap-2 text-xs text-[#64748b] mb-1.5">
             <Globe className="h-3.5 w-3.5" />
             <span>Language</span>
           </div>
@@ -102,8 +102,8 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 onClick={() => handleLocaleChange(lang.code)}
                 className={`flex-1 py-1.5 text-xs rounded-md transition-colors ${
                   locale === lang.code
-                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+                    ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                    : "text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]/50"
                 }`}
               >
                 {lang.code.toUpperCase()}
@@ -112,14 +112,14 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
           </div>
         </div>
       ) : (
-        <div className="p-2 border-t border-slate-800 flex justify-center">
+        <div className="p-2 border-t border-[#1e2030] flex justify-center">
           <button
             onClick={() => {
               const currentIdx = languages.findIndex((l) => l.code === locale);
               const next = languages[(currentIdx + 1) % languages.length];
               handleLocaleChange(next.code);
             }}
-            className="p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors"
+            className="p-2 rounded-lg text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]/50 transition-colors"
             title={`Language: ${locale.toUpperCase()}`}
           >
             <Globe className="h-4 w-4" />
@@ -128,10 +128,10 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
       )}
 
       {/* 折叠按钮 */}
-      <div className="p-2 border-t border-slate-800">
+      <div className="p-2 border-t border-[#1e2030]">
         <button
           onClick={onToggle}
-          className="w-full flex items-center justify-center p-2 rounded-lg text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 transition-colors"
+          className="w-full flex items-center justify-center p-2 rounded-lg text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]/50 transition-colors"
         >
           {collapsed ? (
             <ChevronRight className="h-4 w-4" />

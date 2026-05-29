@@ -1,154 +1,512 @@
 #!/bin/bash
 # =============================================
-# AI API 聚合平台 — 一键初始化脚本
-# 用途：首次部署或清空数据后，恢复所有配置
-# 用法：bash scripts/init.sh
+# AI API 聚合平台 — 一键初始化脚本 v3.0
+# =============================================
+# 改进：
+#   1. API Key 先验证，再建渠道（避免过期 Key 创建死渠道）
+#   2. 自动发现模型（调各厂商 /v1/models，不硬编码模型名）
+#   3. Provider 级配置，不逐个指定模型
+#   4. 过期/欠费/异常的 Key 跳过并清楚提示
+#   5. 幂等安全 — 已存在渠道不重复创建
+#
+# 用法：
+#   bash scripts/init.sh                # 完整初始化
+#   bash scripts/init.sh --dry-run      # 仅验证 Key，不创建渠道
+#   bash scripts/init.sh --force        # 删除旧渠道后重新创建
 # =============================================
 
-set -e
+set -euo pipefail
 
-# ---- 配置 ----
+# ---- 颜色 ----
+RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
+BLUE='\033[0;34m'; CYAN='\033[0;36m'; BOLD='\033[1m'; NC='\033[0m'
+
+ok()    { echo -e "  ${GREEN}✅${NC} $*"; }
+fail()  { echo -e "  ${RED}❌${NC} $*"; }
+warn()  { echo -e "  ${YELLOW}⚠️${NC}  $*"; }
+info()  { echo -e "  ${BLUE}ℹ️${NC}  $*"; }
+step()  { echo -e "\n${BOLD}${CYAN}━━━ $* ━━━${NC}"; }
+
+# ---- 参数 ----
+DRY_RUN=false; FORCE=false
+for arg in "$@"; do
+  case "$arg" in --dry-run) DRY_RUN=true ;; --force) FORCE=true ;; esac
+done
+
+# ---- 路径 ----
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+ENV_FILE="$PROJECT_DIR/stack/.env"
 ONEAPI_URL="${ONEAPI_URL:-http://localhost:3001}"
 ADMIN_KEY="${ADMIN_KEY:-94686403648a4ae7b069ffcd9383332e}"
 
-# ---- API Keys（从 .env 读取或手动设置） ----
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+# ---- Provider 注册表 ----
+# 格式: "渠道名|环境变量名|BaseURL|OneAPI类型"
+# 模型名不硬编码，运行时通过 /v1/models 自动发现
+PROVIDERS=(
+  "DeepSeek-1|DEEPSEEK_API_KEY|https://api.deepseek.com/v1|3"
+  "DeepSeek-2|DEEPSEEK_API_KEY_2|https://api.deepseek.com/v1|3"
+  "Zhipu-1|ZHIPU_API_KEY|https://open.bigmodel.cn/api/paas/v4|3"
+  "Zhipu-2|ZHIPU_API_KEY_2|https://open.bigmodel.cn/api/paas/v4|3"
+  "MiMo-1|MIMO_API_KEY|https://api.xiaomimimo.com/v1|3"
+  "MiMo-2|MIMO_API_KEY_2|https://api.xiaomimimo.com/v1|3"
+)
 
-# 尝试从 .env 加载
-if [ -f "$PROJECT_DIR/stack/.env" ]; then
-  source <(grep -v '^#' "$PROJECT_DIR/stack/.env" | grep -v '^$' | sed 's/^/export /')
-fi
-
-AUTH="Authorization: Bearer $ADMIN_KEY"
-CT="Content-Type: application/json"
-
-echo "============================================"
-echo " AI API 聚合平台 — 初始化开始"
-echo " OneAPI: $ONEAPI_URL"
-echo "============================================"
-
-# ---- 0. 检查现有状态 ----
-EXISTING_CHANNELS=$(curl -s --max-time 5 -H "$AUTH" "$ONEAPI_URL/api/channel/" | python3 -c "import json,sys; print(len(json.load(sys.stdin)['data']))" 2>/dev/null || echo "0")
-
-if [ "$EXISTING_CHANNELS" -gt 0 ]; then
-  echo "检测到已有 $EXISTING_CHANNELS 个渠道，跳过渠道创建。"
-  echo "如需重新创建，请先在 OneAPI 管理后台手动删除所有渠道，再运行本脚本。"
-  SKIP_CHANNELS=1
-else
-  SKIP_CHANNELS=0
-fi
-
-# ---- 1. 创建渠道 ----
-echo ""
-echo ">>> 步骤 1: 创建上游渠道（6 个）"
-
-if [ "$SKIP_CHANNELS" = "1" ]; then
-  echo "  已跳过（渠道已存在）。"
-else
-
-create_channel() {
-  local name="$1" type="$2" base_url="$3" key="$4" models="$5"
-  echo -n "  创建 $name... "
-  local resp=$(curl -s --max-time 10 -X POST -H "$AUTH" -H "$CT" \
-    -d "{\"type\":$type,\"name\":\"$name\",\"base_url\":\"$base_url\",\"key\":\"$key\",\"models\":\"$models\",\"status\":1,\"priority\":0}" \
-    "$ONEAPI_URL/api/channel/")
-  local success=$(echo "$resp" | python3 -c "import json,sys; print(json.load(sys.stdin).get('success',False))" 2>/dev/null || echo "false")
-  if [ "$success" = "True" ]; then echo "✅"; else echo "❌ $resp"; fi
+# =============================================
+# 阶段 0: 环境准备
+# =============================================
+load_env() {
+  if [ -f "$ENV_FILE" ]; then
+    set -a; source "$ENV_FILE" 2>/dev/null || true; set +a
+  else
+    echo -e "${RED}找不到 .env: $ENV_FILE${NC}"; exit 1
+  fi
 }
 
-create_channel "DeepSeek"                 35 "${DEEPSEEK_API_BASE:-https://api.deepseek.com}"        "$DEEPSEEK_API_KEY"                        "deepseek-chat,deepseek-reasoner"
-create_channel "DeepSeek #2"              35 "${DEEPSEEK_API_BASE:-https://api.deepseek.com}"        "$DEEPSEEK_API_KEY_2"                      "deepseek-chat,deepseek-reasoner"
-create_channel "Zhipu Z.ai"               16 "https://open.bigmodel.cn/api/paas/v4"                  "$ZHIPU_ZAI_API_KEY"                       "glm-4,glm-4-flash,glm-4v"
-create_channel "Zhipu #2"                 16 "https://open.bigmodel.cn/api/paas/v4"                  "$ZHIPU_ZAI_API_KEY_2"                     "glm-4,glm-4-flash"
-create_channel "Xiaomi MiMo"              27 "${MIMO_API_BASE:-https://api.minimax.chat/v1}"         "$MIMO_API_KEY"                            "abab7-chat,abab6.5s-chat"
-create_channel "Xiaomi MiMo #2"           27 "${MIMO_API_BASE:-https://api.minimax.chat/v1}"         "$MIMO_API_KEY_2"                          "abab7-chat,abab6.5s-chat"
+check_oneapi() {
+  local code
+  code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 \
+    -H "Authorization: Bearer $ADMIN_KEY" "$ONEAPI_URL/api/status" 2>/dev/null || echo "000")
+  if [ "$code" = "200" ]; then
+    ok "OneAPI 连接正常 ($ONEAPI_URL)"
+  else
+    fail "OneAPI 不可达 (HTTP $code)"
+    echo "  请确认 OneAPI 已启动: docker compose -f docker-compose.yml ps"
+    exit 1
+  fi
+}
 
-fi  # SKIP_CHANNELS
+# =============================================
+# 阶段 1: API Key 验证 + 模型发现
+# =============================================
+# 调各厂商 /v1/models，验证 Key 是否有效 + 获取可用模型列表
+# 返回: "模型列表字符串"（逗号分隔），失败返回空
+validate_and_discover() {
+  local name="$1" base_url="$2" api_key="$3"
 
-echo "  渠道创建完毕。"
+  # 调 /v1/models（OpenAI 兼容接口）
+  local resp code
+  resp=$(curl -s --max-time 15 -w "\n%{http_code}" \
+    -H "Authorization: Bearer $api_key" \
+    "$base_url/models" 2>/dev/null)
+  code=$(echo "$resp" | tail -1)
+  local body=$(echo "$resp" | head -n -1)
 
-# ---- 2. 倍率调整（已有默认值，无需修改） ----
-echo ""
-echo ">>> 步骤 2: 模型倍率（使用默认值，无需调整）"
-echo "  当前关键模型倍率:"
-curl -s --max-time 5 -H "$AUTH" "$ONEAPI_URL/api/option/" | python3 -c "
+  if [ "$code" != "200" ]; then
+    # 提取错误信息
+    local err_msg
+    err_msg=$(echo "$body" | python3 -c "
 import json,sys
-for item in json.load(sys.stdin)['data']:
-    if item['key']=='ModelRatio':
-        r=json.loads(item['value'])
-        for k,v in sorted(r.items()):
-            if any(x in k.lower() for x in ['deepseek-chat','deepseek-reasoner','glm-4-flash','glm-4-air','abab6.5','abab7']):
-                print(f'    {k}: {v}')
-" 2>/dev/null
-echo "  ✅ 倍率已合理，无需调整。"
+try:
+  d=json.load(sys.stdin)
+  print(d.get('error',{}).get('message','') or d.get('message','') or d.get('msg','') or 'HTTP $code')
+except: print('HTTP $code')
+" 2>/dev/null || echo "HTTP $code")
+    # stderr: 用户可见；stdout: 被调用者捕获
+    fail "$name → Key 无效: $err_msg" >&2
+    return 1
+  fi
 
-# ---- 3. 系统设置 ----
-echo ""
-echo ">>> 步骤 3: 系统设置"
+  # 提取模型 ID 列表
+  local models
+  models=$(echo "$body" | python3 -c "
+import json,sys
+d=json.load(sys.stdin)
+ids=[m['id'] for m in d.get('data',[]) if m.get('id')]
+# 过滤掉 embedding/rerank/moderation 等非对话模型
+exclude=('embedding','rerank','moderation','whisper','tts','dall-e','bge-','text-embedding')
+filtered=[m for m in ids if not any(e in m.lower() for e in exclude)]
+print(','.join(filtered))
+" 2>/dev/null)
 
-update_option() {
-  local key="$1" value="$2"
-  echo -n "  设置 $key... "
-  local resp=$(curl -s --max-time 5 -X PUT -H "$AUTH" -H "$CT" \
-    -d "{\"key\":\"$key\",\"value\":\"$value\"}" \
-    "$ONEAPI_URL/api/option/")
-  local success=$(echo "$resp" | python3 -c "import json,sys; print(json.load(sys.stdin).get('success',False))" 2>/dev/null || echo "false")
-  if [ "$success" = "True" ]; then echo "✅"; else echo "❌ $resp"; fi
+  if [ -z "$models" ]; then
+    warn "$name → Key 有效，但未返回模型列表（可能 API 结构不同）" >&2
+    return 1
+  fi
+
+  local count=$(echo "$models" | tr ',' '\n' | wc -l)
+  ok "$name → Key 有效，发现 $count 个模型: $models" >&2
+  echo "$models"
+  return 0
 }
 
-update_option "SystemName" "API Hub"
-update_option "Logo" ""
-update_option "Footer" "© 2026 API Hub — Unified AI API Platform"
-update_option "Notice" "Welcome to API Hub. $5 free credit for new users."
-update_option "About" ""
-update_option "HomePageContent" ""
-update_option "TopUpLink" ""
-update_option "ChatLink" ""
-update_option "QuotaPerUnit" "500000"
+# =============================================
+# 阶段 2: 渠道创建
+# =============================================
+create_channel() {
+  local name="$1" base_url="$2" api_key="$3" models="$4" otype="$5"
+  local payload resp
 
-echo "  系统设置完成。"
+  payload=$(python3 -c "
+import json
+print(json.dumps({
+  'type': $otype,
+  'name': '$name',
+  'base_url': '$base_url',
+  'key': '$api_key',
+  'models': '$models',
+  'model_mapping': '',
+  'groups': ['default'],
+  'status': 1,
+  'priority': 1,
+  'weight': 1
+}))
+")
 
-# ---- 4. 创建初始令牌 ----
-echo ""
-echo ">>> 步骤 4: 创建初始令牌（测试用）"
-echo -n "  创建测试令牌 test-token... "
-resp=$(curl -s --max-time 5 -X POST -H "$AUTH" -H "$CT" \
-  -d '{"name":"test-token","remain_quota":500000,"expired_time":-1,"unlimited_quota":false}' \
-  "$ONEAPI_URL/api/token/")
-success=$(echo "$resp" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('success',False))" 2>/dev/null || echo "false")
-if [ "$success" = "True" ]; then
-  key=$(echo "$resp" | python3 -c "import json,sys; print(json.load(sys.stdin)['data'])")
-  echo "✅ Key: $key"
-else
-  echo "❌ $resp"
-fi
+  resp=$(curl -s --max-time 10 -X POST \
+    -H "Authorization: Bearer $ADMIN_KEY" \
+    -H "Content-Type: application/json" \
+    -d "$payload" \
+    "$ONEAPI_URL/api/channel/")
 
-# ---- 5. 验证 ----
-echo ""
-echo ">>> 步骤 5: 验证"
+  local success
+  success=$(echo "$resp" | python3 -c "import json,sys; print(json.load(sys.stdin).get('success',False))" 2>/dev/null || echo "false")
 
-echo -n "  渠道数: "
-curl -s --max-time 5 -H "$AUTH" "$ONEAPI_URL/api/channel/" | python3 -c "import json,sys; print(len(json.load(sys.stdin)['data']))"
+  if [ "$success" = "True" ]; then
+    local cid
+    cid=$(echo "$resp" | python3 -c "import json,sys; print(json.load(sys.stdin)['data'])" 2>/dev/null)
+    ok "渠道「$name」创建成功 (ID=$cid)"
+    return 0
+  else
+    local err
+    err=$(echo "$resp" | python3 -c "import json,sys; print(json.load(sys.stdin).get('message','unknown'))" 2>/dev/null || echo "unknown")
+    fail "渠道「$name」创建失败: $err"
+    return 1
+  fi
+}
 
-echo -n "  令牌数: "
-curl -s --max-time 5 -H "$AUTH" "$ONEAPI_URL/api/token/" | python3 -c "import json,sys; print(len(json.load(sys.stdin)['data']))"
+# =============================================
+# 阶段 1.5: 生成前端模型展示数据
+# =============================================
+# 从 model-metadata.json 模板匹配发现的有效模型 ID，
+# 生成 frontend/src/data/models-data.json
+generate_model_data() {
+  local metadata_file="$PROJECT_DIR/channels/model-metadata.json"
+  local output_dir="$PROJECT_DIR/frontend/src/data"
+  local output_file="$output_dir/models-data.json"
 
-echo -n "  API 状态: "
-curl -s --max-time 5 "$ONEAPI_URL/api/status" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('message','OK'))"
+  if [ ! -f "$metadata_file" ]; then
+    warn "模型元数据模板不存在: $metadata_file"
+    warn "请先创建 channels/model-metadata.json"
+    return 1
+  fi
 
-echo -n "  测试渠道: "
-resp=$(curl -s --max-time 30 -X POST -H "$AUTH" -H "$CT" \
-  -d '{"model":"deepseek-chat","messages":[{"role":"user","content":"hi"}]}' \
-  "$ONEAPI_URL/v1/chat/completions")
-code=$(echo "$resp" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('choices',[{}])[0].get('message',{}).get('content','FAIL')[:30])" 2>/dev/null || echo "FAIL")
-echo "$code"
+  if [ ${#VALID_PROVIDERS[@]} -eq 0 ]; then
+    warn "没有已验证的 Provider，跳过模型数据生成"
+    return 1
+  fi
 
-echo ""
-echo "============================================"
-echo " 初始化完成！"
-echo ""
-echo " 管理后台:  http://localhost:3001  (root / 123456)"
-echo " API 端点:  http://localhost/v1/chat/completions"
-echo " Grafana:   http://localhost:3030  (admin / 见 .env)"
-echo "============================================"
+  python3 << 'PYEOF'
+import json, sys, os
+
+metadata_file = os.environ.get('METADATA_FILE', '')
+output_file = os.environ.get('OUTPUT_FILE', '')
+
+# 收集所有发现的有效模型 ID 及其 provider/渠道类型
+# 从环境变量传递（序列化 JSON）
+models_input = os.environ.get('DISCOVERED_MODELS', '{}')
+
+try:
+  with open(metadata_file) as f:
+    metadata = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError) as e:
+  print(f"failed_to_read_metadata:{e}")
+  sys.exit(1)
+
+try:
+  discovered = json.loads(models_input)
+except json.JSONDecodeError as e:
+  print(f"failed_to_parse_models:{e}")
+  sys.exit(1)
+
+# discovered 格式: { "model_id": "provider_channel" }
+# 例如: { "deepseek-v4-flash": "DeepSeek" }
+
+models_array = []
+for model_id, provider_name in discovered.items():
+  if model_id in metadata:
+    tmpl = metadata[model_id]
+    models_array.append({
+      "id": model_id,
+      "name": tmpl.get("name", model_id),
+      "provider": tmpl.get("provider", provider_name),
+      "providerLogo": tmpl.get("providerLogo", ""),
+      "description": tmpl.get("description", ""),
+      "inputPrice": tmpl.get("inputPrice", ""),
+      "outputPrice": tmpl.get("outputPrice", ""),
+      "contextWindow": tmpl.get("contextWindow", ""),
+      "maxTokens": tmpl.get("maxTokens", ""),
+      "status": "available",
+      "category": tmpl.get("category", "chat"),
+      "features": tmpl.get("features", []),
+      "codeExample": tmpl.get("codeExample", {})
+    })
+  else:
+    # 未在模板中找到，自动生成基本元数据
+    # 推导 name：将 ID 中的 - 替换为空格，首字母大写
+    derived_name = " ".join(w.capitalize() if w[0].islower() else w for w in model_id.replace("-", " ").replace(".", " ").split())
+    sys.stderr.write(f"  ⚠️  模型「{model_id}」不在元数据模板中，已自动生成基础信息（厂商: {provider_name}）\n")
+    models_array.append({
+      "id": model_id,
+      "name": derived_name,
+      "provider": provider_name,
+      "providerLogo": provider_name[:2].upper() if provider_name else "",
+      "description": f"{provider_name} 模型 {model_id}",
+      "inputPrice": "",
+      "outputPrice": "",
+      "contextWindow": "",
+      "maxTokens": "",
+      "status": "available",
+      "category": "chat",
+      "features": [],
+      "codeExample": {
+        "curl": f"curl {{API_BASE}}/chat/completions \\n  -H \"Content-Type: application/json\" \\n  -H \"Authorization: Bearer \$API_KEY\" \\n  -d '{{\\n    \"model\": \"{model_id}\",\\\n    \"messages\": [{{\"role\": \"user\", \"content\": \"你好\"}}]\\\n  }}'",
+        "python": f"import openai\n\nclient = openai.OpenAI(\n    base_url=\"{{API_BASE}}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"{model_id}\",\n    messages=[{{\"role\": \"user\", \"content\": \"你好\"}}]\n)\nprint(response.choices[0].message.content)",
+        "nodejs": f"import OpenAI from \"openai\";\n\nconst client = new OpenAI({{\n  baseURL: \"{{API_BASE}}\",\n  apiKey: \"your-api-key\",\n}});\n\nconst response = await client.chat.completions.create({{\n  model: \"{model_id}\",\n  messages: [{{ role: \"user\", content: \"你好\" }}],\n}});\nconsole.log(response.choices[0].message.content);"
+      }
+    })
+
+# 写文件
+os.makedirs(os.path.dirname(output_file), exist_ok=True)
+with open(output_file, 'w', encoding='utf-8') as f:
+  json.dump(models_array, f, ensure_ascii=False, indent=2)
+
+print(f"written:{len(models_array)}")
+PYEOF
+
+  local py_exit=$?
+  if [ "$py_exit" -ne 0 ]; then
+    fail "模型数据生成失败"
+    return 1
+  fi
+
+  ok "模型数据已写入: $output_file"
+  return 0
+}
+
+# 从 VALID_PROVIDERS 中提取模型列表，构建 {model_id: provider_name} 映射
+collect_discovered_models() {
+  local result="{}"
+  local sep=""
+  for entry in "${VALID_PROVIDERS[@]}"; do
+    IFS='|' read -r name base_url api_key models otype <<< "$entry"
+    # 提取 provider 简称（渠道名去掉 - 及后缀）
+    local provider_name="${name%%-*}"
+    case "$provider_name" in
+      DeepSeek) provider_name="DeepSeek" ;;
+      Zhipu) provider_name="智谱 Z.ai" ;;
+      MiMo) provider_name="小米 MiMo" ;;
+    esac
+    IFS=',' read -ra model_list <<< "$models"
+    for m in "${model_list[@]}"; do
+      m="$(echo "$m" | xargs | tr '[:upper:]' '[:lower:]')"
+      if [ -n "$m" ]; then
+        # Check if this model already in result
+        if ! echo "$result" | python3 -c "import json,sys; d=json.load(sys.stdin); print('$m' in d)" 2>/dev/null | grep -q True; then
+          # Use python to add to dict
+          result=$(python3 -c "
+import json
+d = json.loads('''$result''')
+d['$m'] = '$provider_name'
+print(json.dumps(d))
+" 2>/dev/null)
+        fi
+      fi
+    done
+  done
+  echo "$result"
+}
+
+# 检查渠道是否已存在（幂等）
+channel_exists() {
+  local name="$1"
+  local count
+  count=$(curl -s --max-time 5 -H "Authorization: Bearer $ADMIN_KEY" \
+    "$ONEAPI_URL/api/channel/?p=0&page_size=100" | \
+    python3 -c "
+import json,sys
+data=json.load(sys.stdin).get('data',[])
+matches=[c for c in data if c.get('name')=='$name']
+print(len(matches))
+" 2>/dev/null || echo "0")
+  [ "$count" -gt 0 ]
+}
+
+delete_channel_by_name() {
+  local name="$1"
+  local cid
+  cid=$(curl -s --max-time 5 -H "Authorization: Bearer $ADMIN_KEY" \
+    "$ONEAPI_URL/api/channel/?p=0&page_size=100" | \
+    python3 -c "
+import json,sys
+data=json.load(sys.stdin).get('data',[])
+matches=[c for c in data if c.get('name')=='$name']
+print(matches[0]['id'] if matches else '')
+" 2>/dev/null)
+  if [ -n "$cid" ]; then
+    curl -s --max-time 5 -X DELETE -H "Authorization: Bearer $ADMIN_KEY" \
+      "$ONEAPI_URL/api/channel/$cid" > /dev/null 2>&1
+    info "已删除旧渠道「$name」(ID=$cid)"
+  fi
+}
+
+# =============================================
+# 阶段 3: 系统设置
+# =============================================
+update_system_options() {
+  step "系统设置"
+
+  update_option() {
+    local key="$1" value="$2" desc="$3"
+    echo -n "  $desc... "
+    local resp
+    resp=$(curl -s --max-time 5 -X PUT \
+      -H "Authorization: Bearer $ADMIN_KEY" \
+      -H "Content-Type: application/json" \
+      -d "{\"key\":\"$key\",\"value\":\"$value\"}" \
+      "$ONEAPI_URL/api/option/")
+    local success
+    success=$(echo "$resp" | python3 -c "import json,sys; print(json.load(sys.stdin).get('success',False))" 2>/dev/null || echo "false")
+    if [ "$success" = "True" ]; then echo "✅"; else echo "❌"; fi
+  }
+
+  update_option "SystemName" "API Hub"              "系统名称"
+  update_option "Logo" ""                           "Logo"
+  update_option "Footer" "© 2026 API Hub"           "页脚"
+  update_option "Notice" "Welcome to API Hub. $5 free credit for new users." "公告"
+  update_option "QuotaPerUnit" "500000"             "每美元配额"
+  ok "系统设置完成"
+}
+
+# =============================================
+# 主流程
+# =============================================
+main() {
+  echo ""
+  echo "╔══════════════════════════════════════════════════════╗"
+  echo "║        AI API 聚合平台 — 初始化脚本 v3.0              ║"
+  echo "║        Key 验证 → 模型发现 → 渠道创建                  ║"
+  echo "╚══════════════════════════════════════════════════════╝"
+  echo ""
+
+  load_env
+
+  # --- 阶段 0: 环境检查 ---
+  step "阶段 0: 环境检查"
+  if [ "$DRY_RUN" = true ]; then
+    warn "DRY-RUN 模式：仅验证 Key，不创建渠道"
+  fi
+  if [ "$FORCE" = true ]; then
+    warn "FORCE 模式：将删除所有旧渠道后重建"
+  fi
+  if [ "$DRY_RUN" != true ]; then
+    check_oneapi
+  else
+    info "DRY-RUN: 跳过 OneAPI 连接检查"
+  fi
+
+  # --- 阶段 1: Key 验证 + 模型发现 ---
+  step "阶段 1: API Key 验证 & 模型发现"
+
+  # 数组存有效的 provider 信息: "name|base_url|api_key|models|otype"
+  VALID_PROVIDERS=()
+
+  for provider in "${PROVIDERS[@]}"; do
+    IFS='|' read -r name env_var base_url otype <<< "$provider"
+    api_key="${!env_var:-}"
+
+    echo ""
+    echo "  [${CYAN}$name${NC}] base=$base_url"
+    if [ -z "$api_key" ]; then
+      fail "环境变量 $env_var 未设置，跳过"
+      continue
+    fi
+
+    # 验证 + 发现模型
+    models=$(validate_and_discover "$name" "$base_url" "$api_key") || continue
+
+    VALID_PROVIDERS+=("$name|$base_url|$api_key|$models|$otype")
+  done
+
+  # --- 汇总阶段 1 ---
+  echo ""
+  echo "  ┌──────────────────────────────────────────────────┐"
+  printf  "  │  有效 Key: %-2d / %-2d                              │\n" ${#VALID_PROVIDERS[@]} ${#PROVIDERS[@]}
+  echo "  └──────────────────────────────────────────────────┘"
+
+  if [ ${#VALID_PROVIDERS[@]} -eq 0 ]; then
+    echo ""
+    fail "没有可用的 API Key，无法继续。请更新 $ENV_FILE 中的 Key 后重试。"
+    exit 1
+  fi
+
+  # --- 提前退出 (dry-run) ---
+  if [ "$DRY_RUN" = true ]; then
+    echo ""
+    ok "DRY-RUN 完成。以上为验证结果，未实际创建任何渠道。"
+    exit 0
+  fi
+
+  # --- 阶段 1.5: 生成前端模型数据 ---
+  step "阶段 1.5: 生成模型展示数据"
+
+  # 使用 Python 内置函数，更方便处理复杂数据
+  # 导出环境变量给 Python 子进程
+  export METADATA_FILE="$PROJECT_DIR/channels/model-metadata.json"
+  export OUTPUT_FILE="$PROJECT_DIR/frontend/src/data/models-data.json"
+
+  # 收集所有发现的模型
+  DISCOVERED_JSON=$(collect_discovered_models)
+  if [ -n "$DISCOVERED_JSON" ] && [ "$DISCOVERED_JSON" != "{}" ]; then
+    export DISCOVERED_MODELS="$DISCOVERED_JSON"
+    generate_model_data || warn "模型数据生成失败（前端将会使用空数组后备）"
+  else
+    warn "没有发现任何模型，跳过模型数据生成"
+  fi
+
+  # --- 阶段 2: 创建渠道 ---
+  step "阶段 2: 渠道创建"
+
+  CREATED=0; SKIPPED=0; FAILED=0
+
+  for entry in "${VALID_PROVIDERS[@]}"; do
+    IFS='|' read -r name base_url api_key models otype <<< "$entry"
+
+    if [ "$FORCE" = true ]; then
+      delete_channel_by_name "$name"
+    fi
+
+    if channel_exists "$name"; then
+      info "渠道「$name」已存在，跳过"
+      SKIPPED=$((SKIPPED + 1))
+      continue
+    fi
+
+    echo ""
+    if create_channel "$name" "$base_url" "$api_key" "$models" "$otype"; then
+      CREATED=$((CREATED + 1))
+    else
+      FAILED=$((FAILED + 1))
+    fi
+  done
+
+  # --- 阶段 3: 系统设置 ---
+  if [ "$FAILED" -eq 0 ]; then
+    update_system_options
+  fi
+
+  # --- 汇总 ---
+  echo ""
+  echo "╔══════════════════════════════════════════════════════╗"
+  echo "║                    初始化完成                         ║"
+  echo "╠══════════════════════════════════════════════════════╣"
+  printf "║  新建: %-2d  已存在: %-2d  失败: %-2d  过期Key: %-2d           ║\n" \
+    "$CREATED" "$SKIPPED" "$FAILED" "$((${#PROVIDERS[@]} - ${#VALID_PROVIDERS[@]}))"
+  echo "╚══════════════════════════════════════════════════════╝"
+  echo ""
+  info "管理后台: http://localhost:3001  (root / 123456)"
+  info "API 端点:  http://localhost/v1/chat/completions"
+  echo ""
+}
+
+main "$@"

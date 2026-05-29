@@ -103,7 +103,7 @@ export default function RechargePage() {
     QRCode.toDataURL(qrContent, {
       width: 200,
       margin: 2,
-      color: { dark: "#ffffff", light: "#0f172a" },
+      color: { dark: "#ffffff", light: "#141620" },
     })
       .then(setQrDataUrl)
       .catch(console.error);
@@ -229,8 +229,8 @@ export default function RechargePage() {
   return (
     <div className="space-y-6 max-w-4xl">
       <div>
-        <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-        <p className="text-slate-400 text-sm mt-1">{pageSubtitle[pageState]}</p>
+        <h1 className="text-2xl font-bold text-[#e2e8f0]">{t("title")}</h1>
+        <p className="text-[#94a3b8] text-sm mt-1">{pageSubtitle[pageState]}</p>
       </div>
 
       {errorMsg && pageState === "failed" && (
@@ -251,8 +251,8 @@ export default function RechargePage() {
           )}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
-              <h3 className="text-sm font-semibold text-white mb-4">
+            <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
+              <h3 className="text-sm font-semibold text-[#e2e8f0] mb-4">
                 {t("selectAmount")}
               </h3>
               <div className="grid grid-cols-3 gap-3">
@@ -265,16 +265,16 @@ export default function RechargePage() {
                       disabled={pageState === "creating"}
                       className={`relative p-3 rounded-xl border text-center transition-all ${
                         isSelected
-                          ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                          : "border-slate-700 bg-slate-800/50 text-slate-300 hover:border-slate-600 hover:bg-slate-800"
+                          ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
+                          : "border-[#2a2d3e] bg-[#1a1d2e]/50 text-[#e2e8f0] hover:border-[#2a2d3e] hover:bg-[#1a1d2e]"
                       }`}
                     >
                       {isSelected && (
-                        <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500" />
+                        <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-blue-500" />
                       )}
                       <span className="text-lg font-bold">{opt.label}</span>
                       {opt.tokens && (
-                        <p className="text-xs text-slate-500 mt-1">
+                        <p className="text-xs text-[#64748b] mt-1">
                           ≈ {opt.tokens} tokens
                         </p>
                       )}
@@ -285,11 +285,11 @@ export default function RechargePage() {
 
               {selectedAmount === -1 && (
                 <div className="mt-4">
-                  <label className="text-xs text-slate-400 mb-1.5 block">
+                  <label className="text-xs text-[#94a3b8] mb-1.5 block">
                     {t("customAmountLabel")}
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748b] text-sm">
                       $
                     </span>
                     <input
@@ -298,7 +298,7 @@ export default function RechargePage() {
                       onChange={(e) => setCustomAmount(e.target.value)}
                       placeholder={t("customAmountPlaceholder")}
                       min="5"
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg py-2.5 pl-8 pr-4 text-white text-sm focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-colors"
+                      className="w-full bg-[#1a1d2e] border border-[#2a2d3e] rounded-lg py-2.5 pl-8 pr-4 text-[#e2e8f0] text-sm focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-colors"
                     />
                   </div>
                 </div>
@@ -306,9 +306,9 @@ export default function RechargePage() {
 
               {displayAmount >= 5 && (
                 <div className="mt-4 space-y-2">
-                  <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-slate-800/50 border border-slate-700/50">
-                    <Info className="h-4 w-4 text-slate-500 shrink-0" />
-                    <p className="text-sm text-slate-400">
+                  <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-[#1a1d2e]/50 border border-[#2a2d3e]/50">
+                    <Info className="h-4 w-4 text-[#64748b] shrink-0" />
+                    <p className="text-sm text-[#94a3b8]">
                       {t("tokenEstimate", {
                         usdt: displayAmount.toFixed(2),
                         tokens: tokenEstimate.total.toLocaleString(),
@@ -325,8 +325,8 @@ export default function RechargePage() {
             </div>
 
             <div className="space-y-6">
-              <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
-                <h3 className="text-sm font-semibold text-white mb-4">
+              <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
+                <h3 className="text-sm font-semibold text-[#e2e8f0] mb-4">
                   {t("selectNetwork")}
                 </h3>
 
@@ -337,39 +337,39 @@ export default function RechargePage() {
                       onClick={() => setNetworkId(n.id)}
                       className={`w-full p-3 rounded-lg border text-left transition-all ${
                         networkId === n.id
-                          ? "border-emerald-500/50 bg-emerald-500/10"
-                          : "border-slate-700 bg-slate-800/50 hover:border-slate-600"
+                          ? "border-blue-500/50 bg-blue-500/10"
+                          : "border-[#2a2d3e] bg-[#1a1d2e]/50 hover:border-[#2a2d3e]"
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <span
                           className={`text-sm font-semibold ${
-                            networkId === n.id ? "text-emerald-400" : "text-slate-300"
+                            networkId === n.id ? "text-blue-400" : "text-[#e2e8f0]"
                           }`}
                         >
                           {n.label}
                         </span>
                         {n.id === "trc20" && (
-                          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-medium">
+                          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-medium">
                             {tc("recommended")}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-slate-500 mt-1">
+                      <p className="text-xs text-[#64748b] mt-1">
                         {t(n.id)} · {t("feeLabel")} {n.fee} · {t("confirmTimeLabel", { time: n.confirmTime })}
                       </p>
                     </button>
                   ))}
                 </div>
 
-                <div className="mt-4 p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                <div className="mt-4 p-3 rounded-lg bg-blue-500/5 border border-blue-500/10">
                   <div className="flex items-start gap-2">
-                    <Zap className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <Zap className="h-4 w-4 text-blue-500 mt-0.5 shrink-0" />
                     <div>
-                      <p className="text-sm text-emerald-400 font-medium">
+                      <p className="text-sm text-blue-400 font-medium">
                         {t("trc20Recommend")}
                       </p>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-[#64748b] mt-0.5">
                         {t("trc20Detail")}
                       </p>
                     </div>
@@ -380,7 +380,7 @@ export default function RechargePage() {
               <button
                 onClick={handlePay}
                 disabled={pageState === "creating" || displayAmount < 5}
-                className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 text-white font-semibold text-base transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-400 disabled:bg-[#2a2d3e] disabled:text-[#64748b] text-[#e2e8f0] font-semibold text-base transition-all flex items-center justify-center gap-2"
               >
                 {pageState === "creating" ? (
                   <>
@@ -399,9 +399,9 @@ export default function RechargePage() {
       {/* ===== 状态: 等待付款 ===== */}
       {pageState === "pending" && paymentInfo && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
+          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-white">
+              <h3 className="text-sm font-semibold text-[#e2e8f0]">
                 {t("scanToPay", { currency: paymentInfo.pay_currency.toUpperCase() })}
               </h3>
               <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
@@ -417,24 +417,24 @@ export default function RechargePage() {
                   className="w-48 h-48"
                 />
               ) : (
-                <div className="w-48 h-48 bg-slate-200 animate-pulse rounded" />
+                <div className="w-48 h-48 bg-[#1a1d2e] animate-pulse rounded" />
               )}
             </div>
 
-            <p className="text-xs text-slate-500 text-center mb-4">
+            <p className="text-xs text-[#64748b] text-center mb-4">
               {t("scanInstructions")}
             </p>
 
             <div className="flex items-center gap-2">
-              <code className="flex-1 text-xs text-slate-300 bg-slate-800 rounded-lg px-3 py-2.5 break-all font-mono border border-slate-700">
+              <code className="flex-1 text-xs text-[#e2e8f0] bg-[#1a1d2e] rounded-lg px-3 py-2.5 break-all font-mono border border-[#2a2d3e]">
                 {paymentInfo.pay_address}
               </code>
               <button
                 onClick={() => handleCopy(paymentInfo.pay_address)}
                 className={`shrink-0 p-2.5 rounded-lg border transition-all ${
                   copied
-                    ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                    : "border-slate-700 bg-slate-800 text-slate-400 hover:text-white hover:border-slate-600"
+                    ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
+                    : "border-[#2a2d3e] bg-[#1a1d2e] text-[#94a3b8] hover:text-white hover:border-[#2a2d3e]"
                 }`}
               >
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
@@ -442,15 +442,15 @@ export default function RechargePage() {
             </div>
 
             {copied && (
-              <p className="mt-2 text-xs text-emerald-400 flex items-center gap-1">
+              <p className="mt-2 text-xs text-blue-400 flex items-center gap-1">
                 <Check className="h-3 w-3" /> {t("addressCopied")}
               </p>
             )}
           </div>
 
           <div className="space-y-6">
-            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
-              <h3 className="text-sm font-semibold text-white mb-4">{t("orderDetails")}</h3>
+            <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
+              <h3 className="text-sm font-semibold text-[#e2e8f0] mb-4">{t("orderDetails")}</h3>
 
               <div className="space-y-3">
                 <DetailRow label={t("orderId")} value={paymentInfo.order_id} />
@@ -479,8 +479,8 @@ export default function RechargePage() {
               </div>
             </div>
 
-            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
-              <h3 className="text-sm font-semibold text-white mb-3">{t("paymentSteps")}</h3>
+            <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
+              <h3 className="text-sm font-semibold text-[#e2e8f0] mb-3">{t("paymentSteps")}</h3>
               <ol className="space-y-2">
                 <StepItem num="1" text={t("step1")} />
                 <StepItem num="2" text={t("step2", { network: paymentInfo.network?.toUpperCase() || currentNetwork.label })} />
@@ -488,9 +488,9 @@ export default function RechargePage() {
                 <StepItem num="4" text={t("step4")} />
               </ol>
 
-              <div className="mt-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800/50">
-                <Loader2 className="h-3 w-3 text-emerald-400 animate-spin" />
-                <p className="text-xs text-slate-500">
+              <div className="mt-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-[#1a1d2e]/50">
+                <Loader2 className="h-3 w-3 text-blue-400 animate-spin" />
+                <p className="text-xs text-[#64748b]">
                   {t("pollingHint", { count: pollCount })}
                 </p>
               </div>
@@ -498,7 +498,7 @@ export default function RechargePage() {
 
             <button
               onClick={handleReset}
-              className="w-full py-2.5 rounded-lg border border-slate-700 text-slate-400 hover:text-white hover:border-slate-600 text-sm transition-colors flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-lg border border-[#2a2d3e] text-[#94a3b8] hover:text-white hover:border-[#2a2d3e] text-sm transition-colors flex items-center justify-center gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
               {t("backToSelect")}
@@ -510,16 +510,16 @@ export default function RechargePage() {
       {/* ===== 状态: 支付完成 ===== */}
       {pageState === "completed" && paymentInfo && (
         <div className="max-w-md mx-auto">
-          <div className="bg-slate-900 rounded-xl border border-slate-800 p-8 text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-              <Check className="h-8 w-8 text-emerald-400" />
+          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-8 text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+              <Check className="h-8 w-8 text-blue-400" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">{t("paySuccess")}</h3>
-            <p className="text-slate-400 text-sm mb-6">
+            <h3 className="text-xl font-bold text-[#e2e8f0] mb-2">{t("paySuccess")}</h3>
+            <p className="text-[#94a3b8] text-sm mb-6">
               {t("paySuccessDesc", { tokens: paymentInfo.tokens.toLocaleString() })}
             </p>
 
-            <div className="space-y-2 mb-6 text-left bg-slate-800/50 rounded-lg p-4">
+            <div className="space-y-2 mb-6 text-left bg-[#1a1d2e]/50 rounded-lg p-4">
               <DetailRow label={t("orderId")} value={paymentInfo.order_id} />
               <DetailRow label={t("amount")} value={`$${paymentInfo.price_amount}`} />
               <DetailRow
@@ -534,7 +534,7 @@ export default function RechargePage() {
 
             <button
               onClick={handleReset}
-              className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition-colors"
+              className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-400 text-[#e2e8f0] font-semibold transition-colors"
             >
               {t("continueRecharge")}
             </button>
@@ -545,16 +545,16 @@ export default function RechargePage() {
       {/* ===== 状态: 支付失败 ===== */}
       {pageState === "failed" && (
         <div className="max-w-md mx-auto">
-          <div className="bg-slate-900 rounded-xl border border-slate-800 p-8 text-center">
+          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-8 text-center">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
               <AlertTriangle className="h-8 w-8 text-red-400" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">{t("payFailed")}</h3>
-            <p className="text-slate-400 text-sm mb-6">{t("payFailedMsg")}</p>
+            <h3 className="text-xl font-bold text-[#e2e8f0] mb-2">{t("payFailed")}</h3>
+            <p className="text-[#94a3b8] text-sm mb-6">{t("payFailedMsg")}</p>
 
             <button
               onClick={handleReset}
-              className="w-full py-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-semibold transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-xl bg-[#2a2d3e] hover:bg-[#2a2d3e] text-[#e2e8f0] font-semibold transition-colors flex items-center justify-center gap-2"
             >
               <RefreshCw className="h-4 w-4" />
               {t("retryRecharge")}
@@ -566,7 +566,7 @@ export default function RechargePage() {
       {/* ===== 状态: 降级（API 不可用） ===== */}
       {pageState === "fallback" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
+          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
             <div className="flex items-center gap-2 mb-4">
               <AlertTriangle className="h-4 w-4 text-yellow-400" />
               <h3 className="text-sm font-semibold text-yellow-400">
@@ -578,12 +578,12 @@ export default function RechargePage() {
               {qrDataUrl ? (
                 <img src={qrDataUrl} alt="QR" className="w-44 h-44" />
               ) : (
-                <div className="w-44 h-44 bg-slate-200 animate-pulse rounded" />
+                <div className="w-44 h-44 bg-[#1a1d2e] animate-pulse rounded" />
               )}
             </div>
 
             <div className="flex items-center gap-2">
-              <code className="flex-1 text-xs text-slate-300 bg-slate-800 rounded-lg px-3 py-2.5 break-all font-mono border border-slate-700">
+              <code className="flex-1 text-xs text-[#e2e8f0] bg-[#1a1d2e] rounded-lg px-3 py-2.5 break-all font-mono border border-[#2a2d3e]">
                 {fallbackUSDTAddresses[networkId] || fallbackUSDTAddresses.trc20}
               </code>
               <button
@@ -592,8 +592,8 @@ export default function RechargePage() {
                 }
                 className={`shrink-0 p-2.5 rounded-lg border transition-all ${
                   copied
-                    ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                    : "border-slate-700 bg-slate-800 text-slate-400 hover:text-white hover:border-slate-600"
+                    ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
+                    : "border-[#2a2d3e] bg-[#1a1d2e] text-[#94a3b8] hover:text-white hover:border-[#2a2d3e]"
                 }`}
               >
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
@@ -601,8 +601,8 @@ export default function RechargePage() {
             </div>
           </div>
 
-          <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
-            <h3 className="text-sm font-semibold text-white mb-4">{t("paymentSteps")}</h3>
+          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
+            <h3 className="text-sm font-semibold text-[#e2e8f0] mb-4">{t("paymentSteps")}</h3>
             <ol className="space-y-3">
               <StepItem num="1" text={t("fallbackStep1", { network: currentNetwork.label })} />
               <StepItem num="2" text={t("fallbackStep2")} />
@@ -611,7 +611,7 @@ export default function RechargePage() {
 
             <button
               onClick={handleReset}
-              className="mt-6 w-full py-2.5 rounded-lg border border-slate-700 text-slate-400 hover:text-white hover:border-slate-600 text-sm transition-colors flex items-center justify-center gap-2"
+              className="mt-6 w-full py-2.5 rounded-lg border border-[#2a2d3e] text-[#94a3b8] hover:text-white hover:border-[#2a2d3e] text-sm transition-colors flex items-center justify-center gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
               {t("retry")}
@@ -622,8 +622,8 @@ export default function RechargePage() {
 
       {/* ===== 支付说明 ===== */}
       {(pageState === "select" || pageState === "creating") && (
-        <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
-          <h3 className="text-sm font-semibold text-white mb-4">{t("infoTitle")}</h3>
+        <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
+          <h3 className="text-sm font-semibold text-[#e2e8f0] mb-4">{t("infoTitle")}</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <InfoCard title={t("infoAutoCard.title")} desc={t("infoAutoCard.desc")} />
             <InfoCard title={t("infoMultiCard.title")} desc={t("infoMultiCard.desc")} />
@@ -640,8 +640,8 @@ export default function RechargePage() {
 function DetailRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between text-sm">
-      <span className="text-slate-500">{label}</span>
-      <span className="text-slate-200 font-mono text-xs">{value}</span>
+      <span className="text-[#64748b]">{label}</span>
+      <span className="text-[#e2e8f0] font-mono text-xs">{value}</span>
     </div>
   );
 }
@@ -649,19 +649,19 @@ function DetailRow({ label, value }: { label: string; value: React.ReactNode }) 
 function StepItem({ num, text }: { num: string; text: string }) {
   return (
     <li className="flex items-start gap-3">
-      <span className="shrink-0 w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] text-slate-400 font-medium">
+      <span className="shrink-0 w-5 h-5 rounded-full bg-[#1a1d2e] border border-[#2a2d3e] flex items-center justify-center text-[10px] text-[#94a3b8] font-medium">
         {num}
       </span>
-      <span className="text-sm text-slate-400">{text}</span>
+      <span className="text-sm text-[#94a3b8]">{text}</span>
     </li>
   );
 }
 
 function InfoCard({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="p-4 rounded-lg bg-slate-800/30 border border-slate-700/50">
-      <h4 className="text-sm font-medium text-white mb-1">{title}</h4>
-      <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
+    <div className="p-4 rounded-lg bg-[#1a1d2e]/30 border border-[#2a2d3e]/50">
+      <h4 className="text-sm font-medium text-[#e2e8f0] mb-1">{title}</h4>
+      <p className="text-xs text-[#64748b] leading-relaxed">{desc}</p>
     </div>
   );
 }

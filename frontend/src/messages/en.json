@@ -42,7 +42,7 @@
   },
   "home": {
     "title": "Unified AI API Platform",
-    "subtitle": "One key, one API format. DeepSeek, GPT-4o, Claude, GLM and more — all through a single OpenAI-compatible endpoint. No integrations, no complexity.",
+    "subtitle": "One key, one API format. DeepSeek, Zhipu GLM, Xiaomi MiMo — all through a single OpenAI-compatible endpoint. No multiple accounts, no complexity.",
     "ctaPrimary": "Get Started",
     "ctaSecondary": "View Docs",
     "moreProviders": "More models coming",
@@ -50,7 +50,7 @@
     "whyUs": "Why API Hub?",
     "whyUsDesc": "One API key for every model. Pay only for what you use. OpenAI-compatible, so your existing code works.",
     "modelsSection": "Supported Models",
-    "modelsDesc": "Access the models you need — all through one API.",
+    "modelsDesc": "DeepSeek V4, Zhipu GLM-5.1, MiMo V2.5 — the models you need, through one API.",
     "footerDesc": "Unified AI API platform for global developers.",
     "terms": "Terms",
     "privacy": "Privacy",
@@ -151,21 +151,49 @@
         "description": "Xiaomi's multimodal flagship. Text, image and audio understanding and generation.",
         "features": ["Multimodal", "Image understanding", "Text generation", "Audio processing", "TTS"]
       },
-      "gpt-4o": {
-        "description": "OpenAI's flagship multimodal model. All-round performer.",
-        "features": ["Multimodal", "Function calling", "JSON mode", "Streaming", "High accuracy"]
+      "glm-4.5": {
+        "description": "Zhipu GLM-4.5. Stable and cost-effective, ideal for production workloads.",
+        "features": ["Multilingual", "Function calling", "Streaming", "Budget-friendly"]
       },
-      "gpt-4o-mini": {
-        "description": "Lightweight model with very low cost. Ideal for simple tasks and high throughput.",
-        "features": ["Function calling", "JSON mode", "Streaming", "Low cost"]
+      "glm-4.5-air": {
+        "description": "Zhipu GLM-4.5 lightweight variant. Fast and efficient.",
+        "features": ["Fast responses", "Low cost", "Streaming", "High throughput"]
       },
-      "claude-3.5-sonnet": {
-        "description": "Anthropic's flagship. Excellent at coding and reasoning tasks.",
-        "features": ["Code generation", "Long context", "Safety guardrails", "Function calling", "Streaming"]
+      "glm-4.6": {
+        "description": "Zhipu GLM-4.6. Balanced performance for general-purpose tasks.",
+        "features": ["Multilingual", "Function calling", "Streaming", "Reliable"]
+      },
+      "glm-4.7": {
+        "description": "Zhipu GLM-4.7. Strong reasoning and multilingual support.",
+        "features": ["Multilingual", "Reasoning", "Function calling", "Streaming"]
       },
       "glm-4.7-flash": {
         "description": "Zhipu's free lightweight model. Great for prototyping and testing.",
         "features": ["Free tier", "Fast responses", "Streaming"]
+      },
+      "glm-5-turbo": {
+        "description": "Zhipu GLM-5 Turbo. High-speed variant of the GLM-5 flagship.",
+        "features": ["Fast responses", "Multilingual", "Function calling", "Streaming"]
+      },
+      "glm-5": {
+        "description": "Zhipu GLM-5 flagship. Superior bilingual performance in Chinese and English.",
+        "features": ["Multilingual", "Function calling", "Tool use", "Long context", "Streaming"]
+      },
+      "mimo-v2-flash": {
+        "description": "Xiaomi's fastest and most cost-effective model. Great for high-concurrency.",
+        "features": ["Fast responses", "Low cost", "Streaming", "High throughput"]
+      },
+      "mimo-v2-omni": {
+        "description": "Xiaomi's omni model. Text, image and audio in one.",
+        "features": ["Multimodal", "Image understanding", "Audio processing", "Streaming"]
+      },
+      "mimo-v2-pro": {
+        "description": "Xiaomi's pro-tier model. Strong reasoning and coding.",
+        "features": ["Code generation", "Reasoning", "Function calling", "Streaming"]
+      },
+      "mimo-v2.5": {
+        "description": "Xiaomi's latest generation model. Balanced performance and cost.",
+        "features": ["Fast responses", "Function calling", "JSON mode", "Streaming"]
       }
     }
   },
@@ -191,12 +219,19 @@
     "modelNamingExamples": {
       "deepseek-v4-flash": "DeepSeek V4 Flash",
       "deepseek-v4-pro": "DeepSeek V4 Pro",
-      "glm-5.1": "Zhipu GLM-5.1",
+      "glm-4.5": "Zhipu GLM-4.5",
       "glm-4.7-flash": "Zhipu GLM Free",
-      "mimo-v2.5-pro": "Xiaomi MiMo Pro",
-      "gpt-4o": "OpenAI GPT-4o",
-      "gpt-4o-mini": "OpenAI GPT-4o Mini",
-      "claude-3.5-sonnet": "Anthropic Claude 3.5 Sonnet"
+      "glm-4.5-air": "Zhipu GLM-4.5 Air",
+      "glm-4.6": "Zhipu GLM-4.6",
+      "glm-4.7": "Zhipu GLM-4.7",
+      "glm-5": "Zhipu GLM-5",
+      "glm-5-turbo": "Zhipu GLM-5 Turbo",
+      "glm-5.1": "Zhipu GLM-5.1",
+      "mimo-v2-flash": "MiMo V2 Flash",
+      "mimo-v2-omni": "MiMo V2 Omni",
+      "mimo-v2-pro": "MiMo V2 Pro",
+      "mimo-v2.5": "MiMo V2.5",
+      "mimo-v2.5-pro": "MiMo V2.5 Pro"
     },
     "endpoints": {
       "chat": "Chat completions",
