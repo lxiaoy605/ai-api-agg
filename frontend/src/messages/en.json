@@ -41,7 +41,7 @@
     "pricing": "Pricing"
   },
   "home": {
-    "title": "Chinese AI Models. One Global API",
+    "title": "Chinese AI Models — One Global API",
     "subtitle": "Access DeepSeek, GLM, Qwen, MiniMax and more through a unified OpenAI-compatible endpoint — optimized for developers across emerging markets.",
     "ctaPrimary": "Get API Key",
     "ctaSecondary": "View Docs",
@@ -64,7 +64,7 @@
     "whyItem4": "USD & crypto friendly billing",
     "whyItem5": "Optimized routing and failover",
     "whyItem6": "No Chinese account required",
-    "footerDesc": "Chinese AI Models. One Global API",
+    "footerDesc": "Chinese AI Models — One Global API",
     "terms": "Terms",
     "privacy": "Privacy",
     "copyright": "© 2026 AiflowHub. All rights reserved."
