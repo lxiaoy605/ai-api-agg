@@ -11,10 +11,10 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  Zap,
   Wallet,
   Globe,
 } from "lucide-react";
+import BrandLogo from "@/components/brand/BrandLogo";
 
 const navItems = [
   { href: "/dashboard", key: "dashboard", icon: LayoutDashboard },
@@ -57,12 +57,7 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {/* Logo */}
       <div className="flex items-center h-14 px-4 border-b border-[#1e2030] shrink-0">
         <Link href="/" className="flex items-center gap-2 overflow-hidden">
-          <Zap className="h-6 w-6 text-[#3b82f6] shrink-0" />
-          {!collapsed && (
-            <span className="text-lg font-bold text-white whitespace-nowrap">
-              {t("brand")}
-            </span>
-          )}
+          {collapsed ? <BrandLogo variant="icon" /> : <BrandLogo />}
         </Link>
       </div>
 

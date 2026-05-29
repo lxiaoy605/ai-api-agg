@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import BrandLogo from "@/components/brand/BrandLogo";
 
 export default function TopNav() {
   const t = useTranslations();
@@ -31,11 +32,8 @@ export default function TopNav() {
     <header className="sticky top-0 z-50 w-full border-b border-[#1e2030] bg-[#0a0a10]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0a0a10]/60">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#3b82f6] text-white text-xs font-bold">
-            ⚡
-          </span>
-          <span className="text-[#e2e8f0]">{t("nav.brand")}</span>
+        <Link href="/" className="flex items-center gap-2">
+          <BrandLogo />
         </Link>
 
         {/* Desktop nav */}
