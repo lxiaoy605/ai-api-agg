@@ -19,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className="min-h-screen bg-[#0a0a10] text-[#e2e8f0] antialiased">
+      <body className="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

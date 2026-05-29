@@ -18,10 +18,10 @@ import {
 const categoryKeys = ["chat", "code", "reasoning", "multimodal"] as const;
 
 const providerColors: Record<string, string> = {
-  DeepSeek: "bg-blue-500/10 text-blue-400",
+  DeepSeek: "bg-brand-500/10 text-brand-300",
   "Zhipu Z.ai": "bg-purple-500/10 text-purple-400",
   "Xiaomi MiMo": "bg-orange-500/10 text-orange-400",
-  OpenAI: "bg-blue-500/10 text-blue-400",
+  OpenAI: "bg-brand-500/10 text-brand-300",
   Anthropic: "bg-amber-500/10 text-amber-400",
 };
 
@@ -56,8 +56,8 @@ export default function ModelsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#e2e8f0]">{t("title")}</h1>
-        <p className="text-[#94a3b8] text-sm mt-1">{t("subtitle")}</p>
+        <h1 className="text-2xl font-bold text-neutral-100">{t("title")}</h1>
+        <p className="text-neutral-300 text-sm mt-1">{t("subtitle")}</p>
       </div>
 
       {/* 分类筛选 */}
@@ -66,8 +66,8 @@ export default function ModelsPage() {
           onClick={() => setFilterCategory("all")}
           className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${
             filterCategory === "all"
-              ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
-              : "text-[#94a3b8] hover:text-[#e2e8f0] bg-[#1a1d2e]/50"
+              ? "bg-brand-500/10 text-brand-300 border border-brand-500/20"
+              : "text-neutral-300 hover:text-neutral-100 bg-neutral-700/50"
           }`}
         >
           {tc("all")}
@@ -78,8 +78,8 @@ export default function ModelsPage() {
             onClick={() => setFilterCategory(key)}
             className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${
               filterCategory === key
-                ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
-                : "text-[#94a3b8] hover:text-[#e2e8f0] bg-[#1a1d2e]/50"
+                ? "bg-brand-500/10 text-brand-300 border border-brand-500/20"
+                : "text-neutral-300 hover:text-neutral-100 bg-neutral-700/50"
             }`}
           >
             {t(`category.${key}`)}
@@ -95,7 +95,7 @@ export default function ModelsPage() {
           return (
             <div
               key={model.id}
-              className="bg-[#141620] rounded-xl border border-[#1e2030] overflow-hidden transition-all hover:border-[#2a2d3e]"
+              className="bg-neutral-800 rounded-xl border border-neutral-600 overflow-hidden transition-all hover:border-neutral-600"
             >
               {/* 卡片头部 */}
               <div
@@ -107,39 +107,39 @@ export default function ModelsPage() {
                     <div
                       className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold ${
                         providerColors[model.provider] ||
-                        "bg-[#1a1d2e] text-[#94a3b8]"
+                        "bg-neutral-700 text-neutral-300"
                       }`}
                     >
                       {model.providerLogo}
                     </div>
                     <div>
-                      <h3 className="text-sm font-semibold text-[#e2e8f0]">
+                      <h3 className="text-sm font-semibold text-neutral-100">
                         {model.name}
                       </h3>
-                      <p className="text-xs text-[#64748b]">{model.provider}</p>
+                      <p className="text-xs text-neutral-400">{model.provider}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <span
                       className={`text-xs px-2 py-0.5 rounded-full ${
                         model.status === "available"
-                          ? "bg-blue-500/10 text-blue-400"
+                          ? "bg-brand-500/10 text-brand-300"
                           : model.status === "coming-soon"
-                          ? "bg-blue-500/10 text-blue-400"
+                          ? "bg-brand-500/10 text-brand-300"
                           : "bg-yellow-500/10 text-yellow-400"
                       }`}
                     >
                       {ts(model.status)}
                     </span>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-[#1a1d2e] text-[#94a3b8]">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-neutral-700 text-neutral-300">
                       {t(`category.${model.category}`)}
                     </span>
                   </div>
                 </div>
-                <p className="text-xs text-[#94a3b8] leading-relaxed line-clamp-2">
+                <p className="text-xs text-neutral-300 leading-relaxed line-clamp-2">
                   {detail.description}
                 </p>
-                <div className="flex items-center gap-4 mt-3 text-xs text-[#64748b]">
+                <div className="flex items-center gap-4 mt-3 text-xs text-neutral-400">
                   <span className="flex items-center gap-1">
                     <DollarSign className="h-3 w-3" />
                     {t("inputPrice", { price: model.inputPrice })}
@@ -153,18 +153,18 @@ export default function ModelsPage() {
                     {model.contextWindow}
                   </span>
                 </div>
-                <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#1e2030]">
+                <div className="flex items-center justify-between mt-4 pt-3 border-t border-neutral-600">
                   <div className="flex gap-1.5">
                     {(Array.isArray(detail.features) ? detail.features : []).slice(0, 3).map((f: string) => (
                       <span
                         key={f}
-                        className="text-xs px-1.5 py-0.5 rounded bg-[#1a1d2e] text-[#64748b]"
+                        className="text-xs px-1.5 py-0.5 rounded bg-neutral-700 text-neutral-400"
                       >
                         {f}
                       </span>
                     ))}
                   </div>
-                  <button className="text-[#64748b] hover:text-[#e2e8f0] transition-colors">
+                  <button className="text-neutral-400 hover:text-neutral-100 transition-colors">
                     {isExpanded ? (
                       <ChevronUp className="h-4 w-4" />
                     ) : (
@@ -176,9 +176,9 @@ export default function ModelsPage() {
 
               {/* 展开详情 */}
               {isExpanded && (
-                <div className="border-t border-[#1e2030] px-5 py-4 space-y-4 bg-[#141620]/50">
+                <div className="border-t border-neutral-600 px-5 py-4 space-y-4 bg-neutral-800/50">
                   <div>
-                    <h4 className="text-xs font-medium text-[#94a3b8] mb-2 flex items-center gap-1">
+                    <h4 className="text-xs font-medium text-neutral-300 mb-2 flex items-center gap-1">
                       <Tag className="h-3 w-3" />
                       {t("supportedFeatures")}
                     </h4>
@@ -186,7 +186,7 @@ export default function ModelsPage() {
                       {(Array.isArray(detail.features) ? detail.features : []).map((f: string) => (
                         <span
                           key={f}
-                          className="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-400"
+                          className="text-xs px-2 py-1 rounded-full bg-brand-500/10 text-brand-300"
                         >
                           {f}
                         </span>
@@ -195,27 +195,27 @@ export default function ModelsPage() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="bg-[#1a1d2e] rounded-lg p-3">
-                      <p className="text-[#64748b]">{t("contextWindow")}</p>
-                      <p className="text-[#e2e8f0] font-medium">
+                    <div className="bg-neutral-700 rounded-lg p-3">
+                      <p className="text-neutral-400">{t("contextWindow")}</p>
+                      <p className="text-neutral-100 font-medium">
                         {model.contextWindow}
                       </p>
                     </div>
-                    <div className="bg-[#1a1d2e] rounded-lg p-3">
-                      <p className="text-[#64748b]">{t("maxOutput")}</p>
-                      <p className="text-[#e2e8f0] font-medium">
+                    <div className="bg-neutral-700 rounded-lg p-3">
+                      <p className="text-neutral-400">{t("maxOutput")}</p>
+                      <p className="text-neutral-100 font-medium">
                         {model.maxTokens}
                       </p>
                     </div>
-                    <div className="bg-[#1a1d2e] rounded-lg p-3">
-                      <p className="text-[#64748b]">{t("inputPriceLabel")}</p>
-                      <p className="text-[#e2e8f0] font-medium">
+                    <div className="bg-neutral-700 rounded-lg p-3">
+                      <p className="text-neutral-400">{t("inputPriceLabel")}</p>
+                      <p className="text-neutral-100 font-medium">
                         {model.inputPrice}/1M tokens
                       </p>
                     </div>
-                    <div className="bg-[#1a1d2e] rounded-lg p-3">
-                      <p className="text-[#64748b]">{t("outputPriceLabel")}</p>
-                      <p className="text-[#e2e8f0] font-medium">
+                    <div className="bg-neutral-700 rounded-lg p-3">
+                      <p className="text-neutral-400">{t("outputPriceLabel")}</p>
+                      <p className="text-neutral-100 font-medium">
                         {model.outputPrice}/1M tokens
                       </p>
                     </div>
@@ -223,11 +223,11 @@ export default function ModelsPage() {
 
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-xs font-medium text-[#94a3b8] flex items-center gap-1">
+                      <h4 className="text-xs font-medium text-neutral-300 flex items-center gap-1">
                         <Zap className="h-3 w-3" />
                         {t("codeExample")}
                       </h4>
-                      <div className="flex rounded-lg bg-[#1a1d2e] p-0.5">
+                      <div className="flex rounded-lg bg-neutral-700 p-0.5">
                         {(["curl", "python", "nodejs"] as const).map(
                           (lang) => (
                             <button
@@ -238,8 +238,8 @@ export default function ModelsPage() {
                               }}
                               className={`px-2 py-1 text-xs rounded-md transition-colors ${
                                 codeLang === lang
-                                  ? "bg-[#2a2d3e] text-[#e2e8f0]"
-                                  : "text-[#64748b] hover:text-[#e2e8f0]"
+                                  ? "bg-neutral-600 text-neutral-100"
+                                  : "text-neutral-400 hover:text-neutral-100"
                               }`}
                             >
                               {lang === "nodejs" ? "Node.js" : lang}
@@ -249,7 +249,7 @@ export default function ModelsPage() {
                       </div>
                     </div>
                     <div className="relative">
-                      <pre className="bg-[#050510] rounded-lg p-4 text-xs text-[#e2e8f0] overflow-x-auto font-mono leading-relaxed">
+                      <pre className="bg-neutral-950 rounded-lg p-4 text-xs text-neutral-100 overflow-x-auto font-mono leading-relaxed">
                         {model.codeExample[codeLang]}
                       </pre>
                       <button
@@ -257,10 +257,10 @@ export default function ModelsPage() {
                           e.stopPropagation();
                           handleCopy(model.codeExample[codeLang], model.id);
                         }}
-                        className="absolute top-2 right-2 p-1.5 rounded bg-[#1a1d2e] hover:bg-[#2a2d3e] text-[#94a3b8] hover:text-[#e2e8f0] transition-colors"
+                        className="absolute top-2 right-2 p-1.5 rounded bg-neutral-700 hover:bg-neutral-600 text-neutral-300 hover:text-neutral-100 transition-colors"
                       >
                         {copiedId === model.id ? (
-                          <Check className="h-3.5 w-3.5 text-blue-400" />
+                          <Check className="h-3.5 w-3.5 text-brand-300" />
                         ) : (
                           <Copy className="h-3.5 w-3.5" />
                         )}

@@ -55,7 +55,7 @@ export default function UsageLineChart() {
   const metricLabel = metric === "requests" ? tc("requestCount") : tc("tokenConsumption");
 
   return (
-    <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-6">
+    <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h3 className="text-lg font-semibold text-white">
           {metric === "requests" ? tc("requestCount") : tc("tokenConsumption")}
@@ -63,13 +63,13 @@ export default function UsageLineChart() {
           {tc("time")}
         </h3>
         <div className="flex gap-2">
-          <div className="flex rounded-lg bg-[#1a1d2e] p-0.5">
+          <div className="flex rounded-lg bg-neutral-700 p-0.5">
             <button
               onClick={() => setMetric("requests")}
               className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                 metric === "requests"
-                  ? "bg-[#2a2d3e] text-white"
-                  : "text-[#94a3b8] hover:text-[#e2e8f0]"
+                  ? "bg-neutral-600 text-white"
+                  : "text-neutral-300 hover:text-neutral-100"
               }`}
             >
               {tc("requests")}
@@ -78,14 +78,14 @@ export default function UsageLineChart() {
               onClick={() => setMetric("tokens")}
               className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                 metric === "tokens"
-                  ? "bg-[#2a2d3e] text-white"
-                  : "text-[#94a3b8] hover:text-[#e2e8f0]"
+                  ? "bg-neutral-600 text-white"
+                  : "text-neutral-300 hover:text-neutral-100"
               }`}
             >
               {tc("tokens")}
             </button>
           </div>
-          <div className="flex rounded-lg bg-[#1a1d2e] p-0.5">
+          <div className="flex rounded-lg bg-neutral-700 p-0.5">
             {(Object.entries(rangeMap) as [Range, { label: string; days: number }][]).map(
               ([key, val]) => (
                 <button
@@ -93,8 +93,8 @@ export default function UsageLineChart() {
                   onClick={() => setRange(key)}
                   className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                     range === key
-                      ? "bg-[#2a2d3e] text-white"
-                      : "text-[#94a3b8] hover:text-[#e2e8f0]"
+                      ? "bg-neutral-600 text-white"
+                      : "text-neutral-300 hover:text-neutral-100"
                   }`}
                 >
                   {val.label}
@@ -107,17 +107,17 @@ export default function UsageLineChart() {
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={formattedData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--color-neutral-600)" />
             <XAxis
               dataKey="displayTime"
-              stroke="#64748b"
+              stroke="var(--color-neutral-400)"
               fontSize={12}
               tickLine={false}
               axisLine={false}
               interval="preserveStartEnd"
             />
             <YAxis
-              stroke="#64748b"
+              stroke="var(--color-neutral-400)"
               fontSize={12}
               tickLine={false}
               axisLine={false}
@@ -131,10 +131,10 @@ export default function UsageLineChart() {
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#1e293b",
-                border: "1px solid #334155",
+                backgroundColor: "var(--color-neutral-700)",
+                border: "1px solid var(--color-neutral-600)",
                 borderRadius: "8px",
-                color: "#f1f5f9",
+                color: "var(--color-neutral-100)",
               }}
               formatter={(value) => [
                 typeof value === "number"
@@ -148,11 +148,11 @@ export default function UsageLineChart() {
             <Line
               type="monotone"
               dataKey={metric}
-              stroke="#3b82f6"
+              stroke="#7B61FF"
               strokeWidth={2}
               dot={false}
               name={metricLabel}
-              activeDot={{ r: 4, fill: "#3b82f6" }}
+              activeDot={{ r: 4, fill: "#7B61FF" }}
             />
           </LineChart>
         </ResponsiveContainer>

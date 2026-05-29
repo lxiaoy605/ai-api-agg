@@ -50,12 +50,12 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
   return (
     <aside
-      className={`fixed left-0 top-0 z-40 h-screen bg-[#050510] border-r border-[#1e2030] transition-all duration-200 flex flex-col ${
+      className={`fixed left-0 top-0 z-40 h-screen bg-neutral-950 border-r border-neutral-600 transition-all duration-200 flex flex-col ${
         collapsed ? "w-16" : "w-60"
       }`}
     >
       {/* Logo */}
-      <div className="flex items-center h-14 px-4 border-b border-[#1e2030] shrink-0">
+      <div className="flex items-center h-14 px-4 border-b border-neutral-600 shrink-0">
         <Link href="/" className="flex items-center gap-2 overflow-hidden">
           {collapsed ? <BrandLogo variant="icon" /> : <BrandLogo />}
         </Link>
@@ -72,8 +72,8 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
               href={item.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm ${
                 isActive
-                  ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
-                  : "text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]/50"
+                  ? "bg-brand-500/10 text-brand-300 border border-brand-500/20"
+                  : "text-neutral-300 hover:text-neutral-100 hover:bg-neutral-700/50"
               }`}
             >
               <Icon className="h-5 w-5 shrink-0" />
@@ -85,8 +85,8 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
       {/* 语言切换器 */}
       {!collapsed ? (
-        <div className="px-3 py-2 border-t border-[#1e2030]">
-          <div className="flex items-center gap-2 text-xs text-[#64748b] mb-1.5">
+        <div className="px-3 py-2 border-t border-neutral-600">
+          <div className="flex items-center gap-2 text-xs text-neutral-400 mb-1.5">
             <Globe className="h-3.5 w-3.5" />
             <span>Language</span>
           </div>
@@ -97,8 +97,8 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 onClick={() => handleLocaleChange(lang.code)}
                 className={`flex-1 py-1.5 text-xs rounded-md transition-colors ${
                   locale === lang.code
-                    ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
-                    : "text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]/50"
+                    ? "bg-brand-500/10 text-brand-300 border border-brand-500/20"
+                    : "text-neutral-300 hover:text-neutral-100 hover:bg-neutral-700/50"
                 }`}
               >
                 {lang.code.toUpperCase()}
@@ -107,14 +107,14 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
           </div>
         </div>
       ) : (
-        <div className="p-2 border-t border-[#1e2030] flex justify-center">
+        <div className="p-2 border-t border-neutral-600 flex justify-center">
           <button
             onClick={() => {
               const currentIdx = languages.findIndex((l) => l.code === locale);
               const next = languages[(currentIdx + 1) % languages.length];
               handleLocaleChange(next.code);
             }}
-            className="p-2 rounded-lg text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]/50 transition-colors"
+            className="p-2 rounded-lg text-neutral-300 hover:text-neutral-100 hover:bg-neutral-700/50 transition-colors"
             title={`Language: ${locale.toUpperCase()}`}
           >
             <Globe className="h-4 w-4" />
@@ -123,10 +123,10 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
       )}
 
       {/* 折叠按钮 */}
-      <div className="p-2 border-t border-[#1e2030]">
+      <div className="p-2 border-t border-neutral-600">
         <button
           onClick={onToggle}
-          className="w-full flex items-center justify-center p-2 rounded-lg text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#1a1d2e]/50 transition-colors"
+          className="w-full flex items-center justify-center p-2 rounded-lg text-neutral-400 hover:text-neutral-100 hover:bg-neutral-700/50 transition-colors"
         >
           {collapsed ? (
             <ChevronRight className="h-4 w-4" />

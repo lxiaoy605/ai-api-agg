@@ -1,6 +1,14 @@
 T1.2:
-Z.ai  key:8296db62bbd3491094c96d40a61bc0cf.l1ROUTvGXd4WHzFl
-mimo-key：sk-sk0fq36gp0av5l3eqnmcntaaehhsnjeldqm2o4x1m6oka1dg
+Z.ai  key:
+8296db62bbd3491094c96d40a61bc0cf.l1ROUTvGXd4WHzFl
+564650d8a68f44e795a4f9bfa337d99e.yUVDIEwpY3sS9XfB
+mimo-key：
+sk-sba4r45nmul1coep0vcj2qg40acy87a5s76ybwtdhu65tuly
+sk-sal3ypotno4f8ydqs0gwogcd5qhldfg74k5pwravboxf7y38
+deepseek:
+sk-772630e21f1549d28d1dc4c41d2a88ad
+sk-276d792532ce42f8aa5e77af8e44197e
+
 T3.5:
 TRC20:TFdzo1emymQeSB9s5su3vZg4zNBYpFR7fS
 ERC20:0xA6e474c3B8755a1FC01921dcC3D758Fa1f5E6120
@@ -9,4 +17,20 @@ techflow.ai  £35.99
 devstation.ai £35.99
 79.98$
 
-支付渠道https://account.nowpayments.io/ 的双重服务码：677020044262
+支付渠道https://account.nowpayments.io/ 的双重验证服务码：677020044262
+
+
+
+
+2.3：
+我扩充了key:
+Z.ai  key:
+8296db62bbd3491094c96d40a61bc0cf.l1ROUTvGXd4WHzFl
+564650d8a68f44e795a4f9bfa337d99e.yUVDIEwpY3sS9XfB
+mimo-key：
+sk-sk0fq36gp0av5l3eqnmcntaaehhsnjeldqm2o4x1m6oka1dg
+sk-sh57201e7wkrhmajm4zg17cfwh7uqyc4tajx7uofebped36m
+deepseek:
+sk-772630e21f1549d28d1dc4c41d2a88ad
+sk-276d792532ce42f8aa5e77af8e44197e
+2.4: 现在域名已经有了，可以着手了

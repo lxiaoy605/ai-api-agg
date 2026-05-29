@@ -120,64 +120,64 @@ export default function DocsPage() {
   return (
     <div className="space-y-8 max-w-4xl">
       <div>
-        <h1 className="text-2xl font-bold text-[#e2e8f0]">{td("title")}</h1>
-        <p className="text-[#94a3b8] text-sm mt-1">{td("subtitle")}</p>
+        <h1 className="text-2xl font-bold text-neutral-100">{td("title")}</h1>
+        <p className="text-neutral-300 text-sm mt-1">{td("subtitle")}</p>
       </div>
 
       {/* 快速开始 */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <Terminal className="h-5 w-5 text-blue-500" />
-          <h2 className="text-lg font-semibold text-[#e2e8f0]">{td("quickStart")}</h2>
+          <Terminal className="h-5 w-5 text-brand-600" />
+          <h2 className="text-lg font-semibold text-neutral-100">{td("quickStart")}</h2>
         </div>
-        <p className="text-sm text-[#94a3b8]">{td("quickStartDesc")}</p>
+        <p className="text-sm text-neutral-300">{td("quickStartDesc")}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-5">
-            <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center mb-3">
-              <Key className="h-4 w-4 text-blue-400" />
+          <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-5">
+            <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center mb-3">
+              <Key className="h-4 w-4 text-brand-300" />
             </div>
-            <h3 className="text-sm font-medium text-[#e2e8f0] mb-1">
+            <h3 className="text-sm font-medium text-neutral-100 mb-1">
               {td("step1Title")}
             </h3>
-            <p className="text-xs text-[#94a3b8]">{td("step1Desc")}</p>
+            <p className="text-xs text-neutral-300">{td("step1Desc")}</p>
           </div>
-          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-5">
-            <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center mb-3">
-              <Server className="h-4 w-4 text-blue-400" />
+          <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-5">
+            <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center mb-3">
+              <Server className="h-4 w-4 text-brand-300" />
             </div>
-            <h3 className="text-sm font-medium text-[#e2e8f0] mb-1">
+            <h3 className="text-sm font-medium text-neutral-100 mb-1">
               {td("step2Title")}
             </h3>
-            <p className="text-xs text-[#94a3b8]">
+            <p className="text-xs text-neutral-300">
               {td("step2Desc")}{" "}
-              <code className="text-blue-400 bg-[#1a1d2e] px-1 rounded">
+              <code className="text-brand-300 bg-neutral-700 px-1 rounded">
                 https://api.example.com/v1
               </code>
             </p>
           </div>
-          <div className="bg-[#141620] rounded-xl border border-[#1e2030] p-5">
-            <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center mb-3">
-              <ArrowRight className="h-4 w-4 text-blue-400" />
+          <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-5">
+            <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center mb-3">
+              <ArrowRight className="h-4 w-4 text-brand-300" />
             </div>
-            <h3 className="text-sm font-medium text-[#e2e8f0] mb-1">
+            <h3 className="text-sm font-medium text-neutral-100 mb-1">
               {td("step3Title")}
             </h3>
-            <p className="text-xs text-[#94a3b8]">{td("step3Desc")}</p>
+            <p className="text-xs text-neutral-300">{td("step3Desc")}</p>
           </div>
         </div>
 
-        <div className="bg-[#141620] rounded-xl border border-[#1e2030] overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-3 border-b border-[#1e2030]">
-            <div className="flex rounded-lg bg-[#1a1d2e] p-0.5">
+        <div className="bg-neutral-800 rounded-xl border border-neutral-600 overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-neutral-600">
+            <div className="flex rounded-lg bg-neutral-700 p-0.5">
               {langTabs.map((tab) => (
                 <button
                   key={tab.key}
                   onClick={() => setLang(tab.key)}
                   className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                     lang === tab.key
-                      ? "bg-[#2a2d3e] text-[#e2e8f0]"
-                      : "text-[#64748b] hover:text-[#e2e8f0]"
+                      ? "bg-neutral-600 text-neutral-100"
+                      : "text-neutral-400 hover:text-neutral-100"
                   }`}
                 >
                   {tab.label}
@@ -186,12 +186,12 @@ export default function DocsPage() {
             </div>
             <button
               onClick={() => handleCopy(quickStartCode[lang])}
-              className="flex items-center gap-1 text-xs text-[#64748b] hover:text-[#e2e8f0] transition-colors"
+              className="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-100 transition-colors"
             >
               {copied ? (
                 <>
-                  <Check className="h-3.5 w-3.5 text-blue-400" />
-                  <span className="text-blue-400">{tc("copied")}</span>
+                  <Check className="h-3.5 w-3.5 text-brand-300" />
+                  <span className="text-brand-300">{tc("copied")}</span>
                 </>
               ) : (
                 <>
@@ -201,7 +201,7 @@ export default function DocsPage() {
               )}
             </button>
           </div>
-          <pre className="p-5 text-xs text-[#e2e8f0] overflow-x-auto font-mono leading-relaxed bg-[#050510]/50">
+          <pre className="p-5 text-xs text-neutral-100 overflow-x-auto font-mono leading-relaxed bg-neutral-950/50">
             {quickStartCode[lang]}
           </pre>
         </div>
@@ -210,36 +210,36 @@ export default function DocsPage() {
       {/* API 参考 */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <BookOpen className="h-5 w-5 text-blue-500" />
-          <h2 className="text-lg font-semibold text-[#e2e8f0]">{td("apiReference")}</h2>
+          <BookOpen className="h-5 w-5 text-brand-600" />
+          <h2 className="text-lg font-semibold text-neutral-100">{td("apiReference")}</h2>
         </div>
-        <div className="bg-[#141620] rounded-xl border border-[#1e2030] overflow-hidden">
+        <div className="bg-neutral-800 rounded-xl border border-neutral-600 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#1e2030] text-left">
-                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableMethod")}</th>
-                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableEndpoint")}</th>
-                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableDescription")}</th>
+                <tr className="border-b border-neutral-600 text-left">
+                  <th className="py-3 px-5 text-neutral-300 font-medium">{td("tableMethod")}</th>
+                  <th className="py-3 px-5 text-neutral-300 font-medium">{td("tableEndpoint")}</th>
+                  <th className="py-3 px-5 text-neutral-300 font-medium">{td("tableDescription")}</th>
                 </tr>
               </thead>
               <tbody>
                 {endpoints.map((ep) => (
                   <tr
                     key={ep.path}
-                    className="border-b border-[#1e2030]/50 hover:bg-[#1a1d2e]/30 transition-colors"
+                    className="border-b border-neutral-600/50 hover:bg-neutral-700/30 transition-colors"
                   >
                     <td className="py-3 px-5">
-                      <span className="text-xs font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded bg-brand-500/10 text-brand-300">
                         {ep.method}
                       </span>
                     </td>
                     <td className="py-3 px-5">
-                      <code className="text-[#e2e8f0] font-mono text-xs">
+                      <code className="text-neutral-100 font-mono text-xs">
                         {ep.path}
                       </code>
                     </td>
-                    <td className="py-3 px-5 text-[#94a3b8]">
+                    <td className="py-3 px-5 text-neutral-300">
                       {td(`endpoints.${ep.descKey}`)}
                     </td>
                   </tr>
@@ -253,17 +253,17 @@ export default function DocsPage() {
       {/* 错误码说明 */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5 text-blue-500" />
-          <h2 className="text-lg font-semibold text-[#e2e8f0]">{td("errorCodes")}</h2>
+          <AlertTriangle className="h-5 w-5 text-brand-600" />
+          <h2 className="text-lg font-semibold text-neutral-100">{td("errorCodes")}</h2>
         </div>
-        <div className="bg-[#141620] rounded-xl border border-[#1e2030] overflow-hidden">
+        <div className="bg-neutral-800 rounded-xl border border-neutral-600 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#1e2030] text-left">
-                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableStatusCode")}</th>
-                  <th className="py-3 px-5 text-[#94a3b8] font-medium">Error</th>
-                  <th className="py-3 px-5 text-[#94a3b8] font-medium">{td("tableDescription")}</th>
+                <tr className="border-b border-neutral-600 text-left">
+                  <th className="py-3 px-5 text-neutral-300 font-medium">{td("tableStatusCode")}</th>
+                  <th className="py-3 px-5 text-neutral-300 font-medium">Error</th>
+                  <th className="py-3 px-5 text-neutral-300 font-medium">{td("tableDescription")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -272,13 +272,13 @@ export default function DocsPage() {
                   return (
                   <tr
                     key={code}
-                    className="border-b border-[#1e2030]/50 hover:bg-[#1a1d2e]/30 transition-colors"
+                    className="border-b border-neutral-600/50 hover:bg-neutral-700/30 transition-colors"
                   >
                     <td className="py-3 px-5">
                       <span
                         className={`text-xs font-mono px-2 py-0.5 rounded ${
                           code < 400
-                            ? "bg-blue-500/10 text-blue-400"
+                            ? "bg-brand-500/10 text-brand-300"
                             : code < 500
                             ? "bg-yellow-500/10 text-yellow-400"
                             : "bg-red-500/10 text-red-400"
@@ -287,10 +287,10 @@ export default function DocsPage() {
                         {code}
                       </span>
                     </td>
-                    <td className="py-3 px-5 text-[#e2e8f0] font-medium">
+                    <td className="py-3 px-5 text-neutral-100 font-medium">
                       {td(`errorMessages.${code}`)}
                     </td>
-                    <td className="py-3 px-5 text-[#94a3b8]">
+                    <td className="py-3 px-5 text-neutral-300">
                       {td(`errorDescriptions.${code}`)}
                     </td>
                   </tr>
@@ -303,9 +303,9 @@ export default function DocsPage() {
       </section>
 
       {/* 模型命名规范 */}
-      <section className="bg-[#141620] rounded-xl border border-[#1e2030] p-6 space-y-3">
-        <h3 className="text-sm font-semibold text-[#e2e8f0]">{td("modelNaming")}</h3>
-        <p className="text-sm text-[#94a3b8]">
+      <section className="bg-neutral-800 rounded-xl border border-neutral-600 p-6 space-y-3">
+        <h3 className="text-sm font-semibold text-neutral-100">{td("modelNaming")}</h3>
+        <p className="text-sm text-neutral-300">
           {td("modelNamingDesc")}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
@@ -319,10 +319,10 @@ export default function DocsPage() {
             return (
             <div
               key={id}
-              className="flex items-center justify-between bg-[#1a1d2e]/50 rounded-lg px-3 py-2"
+              className="flex items-center justify-between bg-neutral-700/50 rounded-lg px-3 py-2"
             >
-              <code className="text-[#e2e8f0] font-mono">{id}</code>
-              <span className="text-[#64748b]">{name}</span>
+              <code className="text-neutral-100 font-mono">{id}</code>
+              <span className="text-neutral-400">{name}</span>
             </div>
             );
           })}
