@@ -43,6 +43,7 @@ export default function TopNav() {
             <Link
               key={link.href}
               href={link.href}
+              prefetch={link.href === "/pricing" ? false : undefined}
               className="text-sm text-neutral-300 hover:text-neutral-100 transition-colors"
             >
               {link.label}
@@ -99,12 +100,14 @@ export default function TopNav() {
             <>
               <Link
                 href="/login"
+                prefetch={false}
                 className="text-sm text-neutral-300 hover:text-neutral-100 transition-colors"
               >
                 {t("common.signIn")}
               </Link>
               <Link
                 href="/register"
+                prefetch={false}
                 className="inline-flex items-center rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
               >
                 {t("common.signUp")}
@@ -136,6 +139,7 @@ export default function TopNav() {
             <Link
               key={link.href}
               href={link.href}
+              prefetch={link.href === "/pricing" ? false : undefined}
               className="block text-sm text-neutral-300 py-1.5"
               onClick={() => setMenuOpen(false)}
             >
@@ -158,11 +162,12 @@ export default function TopNav() {
           ) : (
             <>
               <hr className="border-neutral-600" />
-              <Link href="/login" className="block text-sm text-neutral-300 py-1.5" onClick={() => setMenuOpen(false)}>
+              <Link href="/login" prefetch={false} className="block text-sm text-neutral-300 py-1.5" onClick={() => setMenuOpen(false)}>
                 {t("common.signIn")}
               </Link>
               <Link
                 href="/register"
+                prefetch={false}
                 className="inline-flex items-center rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white"
                 onClick={() => setMenuOpen(false)}
               >

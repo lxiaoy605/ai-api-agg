@@ -19,7 +19,10 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} data-theme="dark">
+    <html lang={locale} className="dark" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      </head>
       <body className="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
