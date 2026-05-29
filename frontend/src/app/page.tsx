@@ -74,7 +74,7 @@ export default function Home() {
               {t("ctaSecondary")}
             </Link>
           </div>
-          <p className="mt-3 text-sm text-[var(--muted-text)]">{t("freeTrial")</p>
+          <p className="mt-3 text-sm text-[var(--muted-text)]">{t("freeTrial")}</p>
         </div>
       </section>
 
