@@ -52,7 +52,7 @@ export default function Home() {
       <TopNav />
 
       {/* Hero */}
-      <section className="pt-24 pb-24 sm:pt-24 sm:pb-24">
+      <section className="animate-fade-in pt-24 pb-24 sm:pt-24 sm:pb-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h1 className="text-5xl font-bold tracking-tight text-neutral-100 sm:text-6xl lg:text-7xl">
             {t("title")}
@@ -79,7 +79,7 @@ export default function Home() {
       </section>
 
       {/* 模型展示区 — 5 models */}
-      <section className="border-t border-neutral-600 py-16">
+      <section className="animate-slide-up border-t border-neutral-600 py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h2 className="text-sm font-semibold text-neutral-100 tracking-wide uppercase">
             {t("modelsSection")}
@@ -117,7 +117,7 @@ export default function Home() {
             {t("whyUs")}
           </h2>
           <p className="mt-2 text-sm text-neutral-400">{t("whyUsDesc")}</p>
-          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          <div className="stagger mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
             <div className="flex flex-col items-center text-center">
               <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4">
                 <Layers className="h-6 w-6 text-brand-600" />

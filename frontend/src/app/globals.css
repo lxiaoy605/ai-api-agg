@@ -115,8 +115,8 @@ code, pre, kbd, samp {
 
 /* ---------- Selection — brand tokens ---------- */
 ::selection {
-  background-color: rgba(167, 139, 250, 0.2); /* brand-400 at 20% */
-  color: var(--color-neutral-100);
+  background-color: var(--color-brand-500);
+  color: white;
 }
 
 /* ---------- Focus ring — brand accent ---------- */
@@ -220,3 +220,49 @@ h1, h2, h3, h4 {
   --input-bg: #F8FAFC;
   color-scheme: light;
 }
+
+/* ============================================================
+ * Motion — DESIGN.md §8
+ * Keyframe animations + utility classes
+ * ============================================================ */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out;
+}
+
+/* Stagger: children animate sequentially */
+.stagger > * {
+  opacity: 0;
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 80ms; }
+.stagger > *:nth-child(3) { animation-delay: 160ms; }
+.stagger > *:nth-child(4) { animation-delay: 240ms; }
+.stagger > *:nth-child(5) { animation-delay: 320ms; }
+
+/* prefers-reduced-motion — already declared above; respected globally */
