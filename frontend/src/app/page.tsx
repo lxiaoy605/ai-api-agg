@@ -52,7 +52,7 @@ export default function Home() {
       <TopNav />
 
       {/* Hero */}
-      <section className="pt-28 pb-24 sm:pt-36 sm:pb-32">
+      <section className="pt-24 pb-24 sm:pt-24 sm:pb-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h1 className="text-5xl font-bold tracking-tight text-neutral-100 sm:text-6xl lg:text-7xl">
             {t("title")}
@@ -60,21 +60,21 @@ export default function Home() {
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-neutral-300 sm:text-lg">
             {t("subtitle")}
           </p>
-          <div className="mt-10 flex items-center justify-center gap-4">
+          <div className="mt-8 flex items-center justify-center gap-4">
             <Link
               href="/register"
-              className="inline-flex items-center rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
+              className="inline-flex items-center rounded-lg bg-brand-600 px-6 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
             >
-              {t("ctaPrimary")} <ArrowRight className="ml-1.5 h-4 w-4" />
+              {t("ctaPrimary")} <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
             <Link
               href="/docs"
-              className="inline-flex items-center rounded-lg border border-neutral-600 bg-transparent px-6 py-2.5 text-sm font-medium text-neutral-300 hover:text-neutral-100 hover:border-neutral-500 transition-colors"
+              className="inline-flex items-center rounded-lg border border-neutral-600 bg-transparent px-6 py-2 text-sm font-medium text-neutral-300 hover:text-neutral-100 hover:border-neutral-500 transition-colors"
             >
               {t("ctaSecondary")}
             </Link>
           </div>
-          <p className="mt-5 text-sm text-neutral-400">{t("freeTrial")}</p>
+          <p className="mt-4 text-sm text-neutral-400">{t("freeTrial")}</p>
         </div>
       </section>
 
@@ -91,7 +91,7 @@ export default function Home() {
               return (
                 <div
                   key={p.name}
-                  className="flex flex-col items-center gap-2 rounded-xl bg-neutral-800 border border-neutral-600 px-5 py-4 hover:border-brand-500/30 hover:bg-neutral-700 transition-all"
+                  className="flex flex-col items-center gap-2 rounded-xl bg-neutral-800 border border-neutral-600 px-4 py-4 hover:border-brand-500/30 hover:bg-neutral-700 transition-all"
                 >
                   <Icon className="h-7 w-7 text-brand-600" />
                   <span className="text-xs font-medium text-neutral-300">
@@ -100,7 +100,7 @@ export default function Home() {
                 </div>
               );
             })}
-            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-neutral-600 px-5 py-4">
+            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-neutral-600 px-4 py-4">
               <Layers className="h-7 w-7 text-brand-600/40" />
               <span className="text-xs text-neutral-400">
                 {t("moreProviders")}
@@ -117,7 +117,7 @@ export default function Home() {
             {t("whyUs")}
           </h2>
           <p className="mt-2 text-sm text-neutral-400">{t("whyUsDesc")}</p>
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
             <div className="flex flex-col items-center text-center">
               <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4">
                 <Layers className="h-6 w-6 text-brand-600" />
@@ -161,13 +161,13 @@ export default function Home() {
           <h2 className="text-sm font-semibold text-neutral-100 tracking-wide uppercase text-center">
             {t("whySectionTitle")}
           </h2>
-          <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {whyItems.map((key) => (
               <div
                 key={key}
                 className="flex items-start gap-3 rounded-lg border border-neutral-700 bg-neutral-800/50 px-4 py-3"
               >
-                <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-600" />
+                <Check className="mt-1 h-5 w-5 flex-shrink-0 text-brand-600" />
                 <span className="text-sm text-neutral-200">
                   {t(key)}
                 </span>
