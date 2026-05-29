@@ -189,3 +189,34 @@ h1, h2, h3, h4 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ============================================================
+ * Theme Toggle Classes — DESIGN.md §6
+ * Explicit dark/light surface tokens for .dark / .light class switching
+ * ============================================================ */
+
+/* Dark theme (default) */
+.dark {
+  --page-bg: #0A0A10;
+  --body-text: #E2E8F0;
+  --muted-text: #94A3B8;
+  --border-color: #1E293B;
+  --card-bg: #111118;
+  --card-border: #1E293B;
+  --surface-raised: #161622;
+  --input-bg: #111118;
+  color-scheme: dark;
+}
+
+/* Light theme */
+.light {
+  --page-bg: #FFFFFF;
+  --body-text: #0F172A;
+  --muted-text: #64748B;
+  --border-color: #E2E8F0;
+  --card-bg: #FFFFFF;
+  --card-border: #E2E8F0;
+  --surface-raised: #F8FAFC;
+  --input-bg: #F8FAFC;
+  color-scheme: light;
+}

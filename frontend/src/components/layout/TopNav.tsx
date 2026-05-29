@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import BrandLogo from "@/components/brand/BrandLogo";
+import ThemeSwitcher from "@/components/theme/ThemeSwitcher";
 
 export default function TopNav() {
   const t = useTranslations();
@@ -49,8 +50,9 @@ export default function TopNav() {
           ))}
         </nav>
 
-        {/* Desktop auth */}
+        {/* Desktop auth + theme */}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeSwitcher />
           {isLoggedIn ? (
             <div className="relative">
               <button
