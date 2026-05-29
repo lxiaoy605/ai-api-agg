@@ -48,7 +48,7 @@ export default function Home() {
   if (!ready) return null;
 
   return (
-    <div className="min-h-screen dark:bg-[#0A0A10] bg-gradient-to-br from-brand-50 to-brand-100">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-brand-100 dark:bg-none dark:bg-[#0A0A10]">
       <TopNav />
 
       {/* Hero */}
