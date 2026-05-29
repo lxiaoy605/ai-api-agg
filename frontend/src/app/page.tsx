@@ -52,15 +52,15 @@ export default function Home() {
       <TopNav />
 
       {/* Hero */}
-      <section className="pt-12 pb-8 sm:pt-12 sm:pb-8">
+      <section className="pt-10 pb-8 sm:pt-10 sm:pb-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h1 className="animate-slide-up text-5xl font-bold tracking-tight text-[var(--body-text)] sm:text-6xl lg:text-7xl" style={{ animationDelay: "0.1s" }}>
             {t("title")}
           </h1>
-          <p className="animate-slide-up mx-auto mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-text)] sm:text-lg" style={{ animationDelay: "0.3s" }}>
+          <p className="animate-slide-up mx-auto mt-4 max-w-xl text-base leading-relaxed text-[var(--muted-text)] sm:text-lg" style={{ animationDelay: "0.25s" }}>
             {t("subtitle")}
           </p>
-          <div className="animate-fade-in mt-8 flex items-center justify-center gap-4" style={{ animationDelay: "0.5s" }}>
+          <div className="animate-fade-in mt-6 flex items-center justify-center gap-4" style={{ animationDelay: "0.45s" }}>
             <Link
               href="/register"
               className="inline-flex items-center rounded-lg bg-brand-600 px-6 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
@@ -74,7 +74,7 @@ export default function Home() {
               {t("ctaSecondary")}
             </Link>
           </div>
-          <p className="mt-4 text-sm text-[var(--muted-text)]">{t("freeTrial")}</p>
+          <p className="mt-3 text-sm text-[var(--muted-text)]">{t("freeTrial")</p>
         </div>
       </section>
 
