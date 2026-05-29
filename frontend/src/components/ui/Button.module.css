@@ -1,0 +1,134 @@
+/* ============================================================
+ * Button — DESIGN.md §5.1
+ * Uses globals.css CSS custom properties; no Tailwind utilities.
+ * ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease,
+    border-color 150ms ease, box-shadow 150ms ease;
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
+}
+
+/* ---------- Variants (DESIGN §5.1 table) ---------- */
+
+.primary {
+  background: var(--color-brand-600);
+  color: var(--color-neutral-0);
+}
+.primary:hover:not(:disabled) {
+  background: var(--color-brand-700);
+}
+
+.secondary {
+  background: var(--color-neutral-700);
+  color: var(--color-neutral-100);
+}
+.secondary:hover:not(:disabled) {
+  background: var(--color-neutral-600);
+}
+
+.outline {
+  background: transparent;
+  color: var(--color-neutral-100);
+  border: 1px solid var(--color-neutral-600);
+}
+.outline:hover:not(:disabled) {
+  background: var(--color-neutral-800);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-neutral-300);
+}
+.ghost:hover:not(:disabled) {
+  background: var(--color-neutral-800);
+  color: var(--color-neutral-0);
+}
+
+.destructive {
+  background: var(--color-error);
+  color: var(--color-neutral-0);
+}
+.destructive:hover:not(:disabled) {
+  background: var(--semantic-error);
+  filter: brightness(0.85);
+}
+
+/* ---------- Sizes (DESIGN §5.1 table) ---------- */
+
+.sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: var(--radius-sm); /* 6px */
+}
+
+.md {
+  height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+  border-radius: var(--radius-md); /* 8px */
+}
+
+.lg {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 16px;
+  border-radius: var(--radius-lg); /* 10px */
+}
+
+.iconSm {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+.iconMd {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+
+/* ---------- Focus ring ---------- */
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-brand-500);
+  outline-offset: 2px;
+  outline: none;
+}
+
+/* ---------- Disabled ---------- */
+
+.btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ---------- Spinner ---------- */
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 600ms linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
