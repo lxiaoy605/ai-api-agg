@@ -146,7 +146,7 @@ export default function Home() {
       <footer className="border-t border-[#1e2030] py-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
           <div className="flex items-center gap-2 text-xs text-[#64748b]">
-            <span className="font-medium text-[#e2e8f0]">API Hub</span>
+            <span className="font-medium text-[#e2e8f0]">AiflowHub</span>
             <span className="text-[#1e2030]">·</span>
             <span>{t("footerDesc")}</span>
           </div>

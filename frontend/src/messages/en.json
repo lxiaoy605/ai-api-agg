@@ -29,7 +29,7 @@
     "getStarted": "Get Started"
   },
   "nav": {
-    "brand": "API Hub",
+    "brand": "aiflowhub",
     "dashboard": "Dashboard",
     "apiKeys": "API Keys",
     "models": "Models",
@@ -41,20 +41,20 @@
     "pricing": "Pricing"
   },
   "home": {
-    "title": "Unified AI API Platform",
+    "title": "Chinese AI Models. One Global API.",
     "subtitle": "One key, one API format. DeepSeek, Zhipu GLM, Xiaomi MiMo — all through a single OpenAI-compatible endpoint. No multiple accounts, no complexity.",
     "ctaPrimary": "Get Started",
     "ctaSecondary": "View Docs",
     "moreProviders": "More models coming",
     "freeTrial": "$5 free credit · No commitment",
-    "whyUs": "Why API Hub?",
+    "whyUs": "Why AiflowHub?",
     "whyUsDesc": "One API key for every model. Pay only for what you use. OpenAI-compatible, so your existing code works.",
     "modelsSection": "Supported Models",
     "modelsDesc": "DeepSeek V4, Zhipu GLM-5.1, MiMo V2.5 — the models you need, through one API.",
-    "footerDesc": "Unified AI API platform for global developers.",
+    "footerDesc": "Chinese AI Models. One Global API.",
     "terms": "Terms",
     "privacy": "Privacy",
-    "copyright": "© 2026 API Hub. All rights reserved."
+    "copyright": "© 2026 AiflowHub. All rights reserved."
   },
   "dashboard": {
     "title": "Dashboard",
@@ -199,7 +199,7 @@
   },
   "docs": {
     "title": "Docs",
-    "subtitle": "Quickly integrate the API Hub platform",
+    "subtitle": "Quickly integrate the AiflowHub platform",
     "quickStart": "Quick Start",
     "quickStartDesc": "Get started in a few steps. Our API is fully OpenAI-compatible — use the OpenAI SDK with a different base URL.",
     "step1Title": "Get an API Key",

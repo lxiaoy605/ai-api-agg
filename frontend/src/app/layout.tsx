@@ -4,9 +4,9 @@ import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "API Hub — Unified AI API Platform",
+  title: "AiflowHub — Chinese AI Models. One Global API.",
   description:
-    "One key, one API format. DeepSeek, GPT-4o, Claude, GLM and more — all through a single OpenAI-compatible endpoint.",
+    "Access DeepSeek, GLM, Qwen, MiniMax and more through a unified OpenAI-compatible endpoint.",
 };
 
 export default async function RootLayout({
