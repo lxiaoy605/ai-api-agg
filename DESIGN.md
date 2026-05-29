@@ -1,4 +1,4 @@
-# AiflowHub — DESIGN.md
+# AiFlowHub — DESIGN.md
 
 > **"Chinese AI Models. One Global API."**
 >
@@ -11,13 +11,13 @@
 
 ### 1.1 Brand Concept
 
-AiflowHub 是「中国模型出海的数字桥梁」——将 DeepSeek/GLM/Qwen/MiniMax/Moonshot
+AiFlowHub 是「中国模型出海的数字桥梁」——将 DeepSeek/GLM/Qwen/MiniMax/Moonshot
 的能力汇成一条统一的全球 API。品牌视觉传达**连接、流动、亚洲 AI 网络**。
 
 ### 1.2 Logo Concept
 
 - **图形**: 五角/六角网络节点图标，中心发光源向外辐射连接线
-- **字标**: "aiflowhub" 全小写，字体圆角几何感
+- **字标**: "AiFlowHub" 全小写，字体圆角几何感
 - **变体**: 独立图形 + 字标横排 / 仅图形 / 仅字标
 - **最小使用尺寸**: 图形 24×24px, 字标 120px 宽
 
@@ -289,7 +289,7 @@ AiflowHub 是「中国模型出海的数字桥梁」——将 DeepSeek/GLM/Qwen/
 
 - **Dark-first 设计**: 默认深色，Light 作为备选
 - 所有颜色通过 CSS 自定义属性 (`--color-*`) 切换
-- `prefers-color-scheme` 自动检测，手动 switcher 覆盖并 persist 到 `localStorage` key `aiflowhub-theme`
+- `prefers-color-scheme` 自动检测，手动 switcher 覆盖并 persist 到 `localStorage` key `AiFlowHub-theme`
 
 ### 6.2 Light Mode Palette（品牌浅紫）
 

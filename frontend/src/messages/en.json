@@ -29,7 +29,7 @@
     "getStarted": "Get Started"
   },
   "nav": {
-    "brand": "aiflowhub",
+    "brand": "AiFlowHub",
     "dashboard": "Dashboard",
     "apiKeys": "API Keys",
     "models": "Models",
@@ -41,13 +41,13 @@
     "pricing": "Pricing"
   },
   "home": {
-    "title": "Chinese AI Models — One Global API",
+    "title": "Chinese AI Models One Global API",
     "subtitle": "Access DeepSeek, GLM, Qwen, MiniMax and more through a unified OpenAI-compatible endpoint — optimized for developers across emerging markets.",
     "ctaPrimary": "Get API Key",
     "ctaSecondary": "View Docs",
     "moreProviders": "More models coming",
     "freeTrial": "$5 free credit · No commitment",
-    "whyUs": "Why AiflowHub?",
+    "whyUs": "Why AiFlowHub?",
     "whyUsDesc": "One endpoint for China's leading AI models. Optimized for CIS, Middle East and EMEA. OpenAI-compatible from day one.",
     "modelsSection": "Supported Models",
     "modelsDesc": "DeepSeek V4, GLM-5, Qwen3, MiniMax, Moonshot — the best of Chinese AI, all through one API.",
@@ -57,17 +57,17 @@
     "featureLatencyDesc": "Optimized routing for CIS, Middle East and EMEA.",
     "featureCompatibleTitle": "OpenAI Compatible",
     "featureCompatibleDesc": "Switch from OpenAI SDKs with minimal changes.",
-    "whySectionTitle": "Why AiflowHub?",
+    "whySectionTitle": "Why AiFlowHub?",
     "whyItem1": "Unified access to Chinese AI models",
     "whyItem2": "OpenAI-compatible APIs",
     "whyItem3": "Lower latency for EMEA & CIS regions",
     "whyItem4": "USD & crypto friendly billing",
     "whyItem5": "Optimized routing and failover",
     "whyItem6": "No Chinese account required",
-    "footerDesc": "Chinese AI Models — One Global API",
+    "footerDesc": "Chinese AI Models One Global API",
     "terms": "Terms",
     "privacy": "Privacy",
-    "copyright": "© 2026 AiflowHub. All rights reserved."
+    "copyright": "© 2026 AiFlowHub. All rights reserved."
   },
   "dashboard": {
     "title": "Dashboard",
@@ -212,7 +212,7 @@
   },
   "docs": {
     "title": "Docs",
-    "subtitle": "Quickly integrate the AiflowHub platform",
+    "subtitle": "Quickly integrate the AiFlowHub platform",
     "quickStart": "Quick Start",
     "quickStartDesc": "Get started in a few steps. Our API is fully OpenAI-compatible — use the OpenAI SDK with a different base URL.",
     "step1Title": "Get an API Key",

@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AiflowHub — Chinese AI Models. One Global API.",
+  title: "AiFlowHub — Chinese AI Models. One Global API.",
   description:
     "Access DeepSeek, GLM, Qwen, MiniMax and more through a unified OpenAI-compatible endpoint.",
 };

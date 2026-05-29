@@ -8,9 +8,9 @@ interface BrandLogoProps {
 }
 
 /**
- * BrandLogo — AiflowHub network-node logo.
+ * BrandLogo — AiFlowHub network-node logo.
  *
- * - variant="full":  icon (24×24) + "aiflowhub" wordmark (default)
+ * - variant="full":  icon (24×24) + "AiFlowHub" wordmark (default)
  * - variant="icon":  icon only, 24×24
  *
  * Replaces ⚡ emoji / Zap icon per DESIGN.md §1.2.
@@ -26,7 +26,7 @@ export default function BrandLogo({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="AiflowHub logo"
+      aria-label="AiFlowHub logo"
       role="img"
       className="shrink-0"
     >
@@ -78,7 +78,7 @@ export default function BrandLogo({
           WebkitTextFillColor: "transparent",
         }}
       >
-        aiflowhub
+        AiFlowHub
       </span>
     </span>
   );

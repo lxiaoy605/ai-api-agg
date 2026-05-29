@@ -155,7 +155,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why AiflowHub — 六大卖点 */}
+      {/* Why AiFlowHub — 六大卖点 */}
       <section className="border-t border-[var(--border-color)] py-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase text-center">
@@ -181,7 +181,7 @@ export default function Home() {
       <footer className="border-t border-[var(--border-color)] py-6">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
           <div className="flex items-center gap-2 text-xs text-[var(--muted-text)]">
-            <span className="font-medium text-[var(--body-text)]">AiflowHub</span>
+            <span className="font-medium text-[var(--body-text)]">AiFlowHub</span>
             <span className="text-[var(--muted-text)]">·</span>
             <span>{t("footerDesc")}</span>
           </div>
