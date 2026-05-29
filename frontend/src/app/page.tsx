@@ -52,7 +52,7 @@ export default function Home() {
       <TopNav />
 
       {/* Hero */}
-      <section className="pt-16 pb-12 sm:pt-16 sm:pb-12">
+      <section className="pt-12 pb-8 sm:pt-12 sm:pb-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h1 className="animate-slide-up text-5xl font-bold tracking-tight text-[var(--body-text)] sm:text-6xl lg:text-7xl" style={{ animationDelay: "0.1s" }}>
             {t("title")}
@@ -79,7 +79,7 @@ export default function Home() {
       </section>
 
       {/* 模型展示区 — 5 models */}
-      <section className="border-t border-[var(--border-color)] py-12">
+      <section className="border-t border-[var(--border-color)] py-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase">
             {t("modelsSection")}
@@ -111,7 +111,7 @@ export default function Home() {
       </section>
 
       {/* 特性区 — 三列 */}
-      <section className="border-t border-[var(--border-color)] py-12">
+      <section className="border-t border-[var(--border-color)] py-8">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase">
             {t("whyUs")}
@@ -156,7 +156,7 @@ export default function Home() {
       </section>
 
       {/* Why AiflowHub — 六大卖点 */}
-      <section className="border-t border-[var(--border-color)] py-12">
+      <section className="border-t border-[var(--border-color)] py-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase text-center">
             {t("whySectionTitle")}
@@ -178,7 +178,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--border-color)] py-8">
+      <footer className="border-t border-[var(--border-color)] py-6">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
           <div className="flex items-center gap-2 text-xs text-[var(--muted-text)]">
             <span className="font-medium text-[var(--body-text)]">AiflowHub</span>

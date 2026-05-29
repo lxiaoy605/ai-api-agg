@@ -280,4 +280,15 @@ h1, h2, h3, h4 {
 .stagger > *:nth-child(5) { animation-delay: 320ms; }
 .stagger > *:nth-child(6) { animation-delay: 400ms; }
 
+/* ============================================================
+ * Brand scrollbar — thin, themed
+ * ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--page-bg); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-brand-500); }
+
+/* Firefox */
+* { scrollbar-width: thin; scrollbar-color: var(--border-color) var(--page-bg); }
+
 /* prefers-reduced-motion — already declared above; respected globally */
