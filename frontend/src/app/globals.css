@@ -209,16 +209,16 @@ h1, h2, h3, h4 {
   color-scheme: dark;
 }
 
-/* Light theme */
+/* Light theme — brand-tinted (DESIGN §6.2) */
 .light {
-  --page-bg: #FFFFFF;
-  --body-text: #0F172A;
-  --muted-text: #64748B;
-  --border-color: #E2E8F0;
+  --page-bg: #F5F3FF;
+  --body-text: #151822;
+  --muted-text: #4B5060;
+  --border-color: #DDD6FE;
   --card-bg: #FFFFFF;
-  --card-border: #E2E8F0;
-  --surface-raised: #F8FAFC;
-  --input-bg: #F8FAFC;
+  --card-border: #DDD6FE;
+  --surface-raised: #EDE9FE;
+  --input-bg: #FFFFFF;
   color-scheme: light;
 }
 

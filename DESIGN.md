@@ -291,34 +291,30 @@ AiflowHub 是「中国模型出海的数字桥梁」——将 DeepSeek/GLM/Qwen/
 - 所有颜色通过 CSS 自定义属性 (`--color-*`) 切换
 - `prefers-color-scheme` 自动检测，手动 switcher 覆盖并 persist 到 `localStorage` key `aiflowhub-theme`
 
-### 6.2 Light Mode Neutral Palette
+### 6.2 Light Mode Palette（品牌浅紫）
 
-| Swatch | Hex | CSS Variable |
-|--------|-----|-------------|
-| `neutral.0` | `#0A0A10` | `--neutral-0` (inverted) |
-| `neutral.50` | `#F8F9FC` | `--neutral-50` |
-| `neutral.100` | `#F1F3F9` | `--neutral-100` |
-| `neutral.200` | `#E2E5EF` | `--neutral-200` |
-| `neutral.300` | `#C4C9D6` | `--neutral-300` |
-| `neutral.400` | `#8B91A2` | `--neutral-400` |
-| `neutral.500` | `#656B7B` | `--neutral-500` |
-| `neutral.600` | `#4B5060` | `--neutral-600` |
-| `neutral.700` | `#363A47` | `--neutral-700` |
-| `neutral.800` | `#232633` | `--neutral-800` |
-| `neutral.900` | `#151822` | `--neutral-900` |
-| `neutral.950` | `#FFFFFF` | `--neutral-950` (page bg, inverted) |
+| Element | Hex | CSS Variable |
+|---------|-----|-------------|
+| Page BG | #F5F3FF | var(--brand-50) |
+| Surface | #EDE9FE | var(--brand-100) |
+| Elevated / Cards | #FFFFFF | white |
+| Overlay | #FFFFFF | white |
+| Body text | #151822 | var(--neutral-900) |
+| Muted text | #4B5060 | var(--neutral-600) |
+| Border | #DDD6FE | var(--brand-200) |
+| Hero BG | linear-gradient(135deg, #F5F3FF, #EDE9FE) | brand gradient |
 
 ### 6.3 Semantic Mode Map
 
 | Color | Light Mode | Dark Mode |
 |-------|-----------|-----------|
-| Page BG | `#FFFFFF` | `#0A0A10` |
-| Surface | `#F8F9FC` | `#141420` |
-| Elevated | `#FFFFFF` | `#161625` |
-| Overlay | `#FFFFFF` | `#1C1C2E` |
-| Body text | `#151822` | `#EEEEF2` |
-| Muted text | `#656B7B` | `#707088` |
-| Border | `#E2E5EF` | `#2E2E3F` |
+| Page BG | #F5F3FF (brand-50) | #0A0A10 |
+| Surface | #EDE9FE (brand-100) | #141420 |
+| Elevated | #FFFFFF | #161625 |
+| Overlay | #FFFFFF | #1C1C2E |
+| Body text | #151822 | #EEEEF2 |
+| Muted text | #4B5060 | #707088 |
+| Border | #DDD6FE (brand-200) | #2E2E3F |
 
 ### 6.4 Transition
 
