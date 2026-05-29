@@ -54,10 +54,10 @@ export default function Home() {
       {/* Hero */}
       <section className="animate-fade-in pt-24 pb-24 sm:pt-24 sm:pb-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
-          <h1 className="text-5xl font-bold tracking-tight text-neutral-100 sm:text-6xl lg:text-7xl">
+          <h1 className="text-5xl font-bold tracking-tight text-[var(--body-text)] sm:text-6xl lg:text-7xl">
             {t("title")}
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-neutral-300 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-text)] sm:text-lg">
             {t("subtitle")}
           </p>
           <div className="mt-8 flex items-center justify-center gap-4">
@@ -69,40 +69,40 @@ export default function Home() {
             </Link>
             <Link
               href="/docs"
-              className="inline-flex items-center rounded-lg border border-neutral-600 bg-transparent px-6 py-2 text-sm font-medium text-neutral-300 hover:text-neutral-100 hover:border-neutral-500 transition-colors"
+              className="inline-flex items-center rounded-lg border border-[var(--border-color)] bg-transparent px-6 py-2 text-sm font-medium text-[var(--muted-text)] hover:text-[var(--body-text)] hover:border-[var(--border-color)] transition-colors"
             >
               {t("ctaSecondary")}
             </Link>
           </div>
-          <p className="mt-4 text-sm text-neutral-400">{t("freeTrial")}</p>
+          <p className="mt-4 text-sm text-[var(--muted-text)]">{t("freeTrial")}</p>
         </div>
       </section>
 
       {/* 模型展示区 — 5 models */}
-      <section className="animate-slide-up border-t border-neutral-600 py-16">
+      <section className="animate-slide-up border-t border-[var(--border-color)] py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
-          <h2 className="text-sm font-semibold text-neutral-100 tracking-wide uppercase">
+          <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase">
             {t("modelsSection")}
           </h2>
-          <p className="mt-2 text-sm text-neutral-400">{t("modelsDesc")}</p>
+          <p className="mt-2 text-sm text-[var(--muted-text)]">{t("modelsDesc")}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             {providers.map((p) => {
               const Icon = p.icon;
               return (
                 <div
                   key={p.name}
-                  className="flex flex-col items-center gap-2 rounded-xl bg-neutral-800 border border-neutral-600 px-4 py-4 hover:border-brand-500/30 hover:bg-neutral-700 transition-all"
+                  className="flex flex-col items-center gap-2 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] px-4 py-4 hover:border-brand-500/30 hover:bg-[var(--surface-raised)] transition-all"
                 >
                   <Icon className="h-7 w-7 text-brand-600" />
-                  <span className="text-xs font-medium text-neutral-300">
+                  <span className="text-xs font-medium text-[var(--muted-text)]">
                     {p.name}
                   </span>
                 </div>
               );
             })}
-            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-neutral-600 px-4 py-4">
+            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-[var(--border-color)] px-4 py-4">
               <Layers className="h-7 w-7 text-brand-600/40" />
-              <span className="text-xs text-neutral-400">
+              <span className="text-xs text-[var(--muted-text)]">
                 {t("moreProviders")}
               </span>
             </div>
@@ -111,21 +111,21 @@ export default function Home() {
       </section>
 
       {/* 特性区 — 三列 */}
-      <section className="border-t border-neutral-600 py-16">
+      <section className="border-t border-[var(--border-color)] py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
-          <h2 className="text-sm font-semibold text-neutral-100 tracking-wide uppercase">
+          <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase">
             {t("whyUs")}
           </h2>
-          <p className="mt-2 text-sm text-neutral-400">{t("whyUsDesc")}</p>
+          <p className="mt-2 text-sm text-[var(--muted-text)]">{t("whyUsDesc")}</p>
           <div className="stagger mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
             <div className="flex flex-col items-center text-center">
               <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4">
                 <Layers className="h-6 w-6 text-brand-600" />
               </div>
-              <h3 className="text-sm font-semibold text-neutral-100">
+              <h3 className="text-sm font-semibold text-[var(--body-text)]">
                 {t("featureUnifiedTitle")}
               </h3>
-              <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
+              <p className="mt-2 text-sm text-[var(--muted-text)] leading-relaxed">
                 {t("featureUnifiedDesc")}
               </p>
             </div>
@@ -133,10 +133,10 @@ export default function Home() {
               <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4">
                 <Zap className="h-6 w-6 text-brand-600" />
               </div>
-              <h3 className="text-sm font-semibold text-neutral-100">
+              <h3 className="text-sm font-semibold text-[var(--body-text)]">
                 {t("featureLatencyTitle")}
               </h3>
-              <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
+              <p className="mt-2 text-sm text-[var(--muted-text)] leading-relaxed">
                 {t("featureLatencyDesc")}
               </p>
             </div>
@@ -144,10 +144,10 @@ export default function Home() {
               <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4">
                 <Globe className="h-6 w-6 text-brand-600" />
               </div>
-              <h3 className="text-sm font-semibold text-neutral-100">
+              <h3 className="text-sm font-semibold text-[var(--body-text)]">
                 {t("featureCompatibleTitle")}
               </h3>
-              <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
+              <p className="mt-2 text-sm text-[var(--muted-text)] leading-relaxed">
                 {t("featureCompatibleDesc")}
               </p>
             </div>
@@ -156,19 +156,19 @@ export default function Home() {
       </section>
 
       {/* Why AiflowHub — 六大卖点 */}
-      <section className="border-t border-neutral-600 py-16">
+      <section className="border-t border-[var(--border-color)] py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <h2 className="text-sm font-semibold text-neutral-100 tracking-wide uppercase text-center">
+          <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase text-center">
             {t("whySectionTitle")}
           </h2>
           <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {whyItems.map((key) => (
               <div
                 key={key}
-                className="flex items-start gap-3 rounded-lg border border-neutral-700 bg-neutral-800/50 px-4 py-3"
+                className="flex items-start gap-3 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)]/50 px-4 py-3"
               >
                 <Check className="mt-1 h-5 w-5 flex-shrink-0 text-brand-600" />
-                <span className="text-sm text-neutral-200">
+                <span className="text-sm text-[var(--muted-text)]">
                   {t(key)}
                 </span>
               </div>
@@ -178,16 +178,16 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-600 py-8">
+      <footer className="border-t border-[var(--border-color)] py-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-          <div className="flex items-center gap-2 text-xs text-neutral-400">
-            <span className="font-medium text-neutral-100">AiflowHub</span>
-            <span className="text-neutral-600">·</span>
+          <div className="flex items-center gap-2 text-xs text-[var(--muted-text)]">
+            <span className="font-medium text-[var(--body-text)]">AiflowHub</span>
+            <span className="text-[var(--muted-text)]">·</span>
             <span>{t("footerDesc")}</span>
           </div>
-          <div className="flex items-center gap-4 text-xs text-neutral-400">
-            <Link href="/terms" className="hover:text-neutral-100">{t("terms")}</Link>
-            <Link href="/privacy" className="hover:text-neutral-100">{t("privacy")}</Link>
+          <div className="flex items-center gap-4 text-xs text-[var(--muted-text)]">
+            <Link href="/terms" className="hover:text-[var(--body-text)]">{t("terms")}</Link>
+            <Link href="/privacy" className="hover:text-[var(--body-text)]">{t("privacy")}</Link>
           </div>
         </div>
       </footer>

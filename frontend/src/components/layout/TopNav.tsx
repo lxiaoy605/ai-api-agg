@@ -30,7 +30,7 @@ export default function TopNav() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-neutral-600 bg-neutral-950/95 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/60">
+    <header className="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--page-bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--page-bg)]/60">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -44,7 +44,7 @@ export default function TopNav() {
               key={link.href}
               href={link.href}
               prefetch={link.href === "/pricing" ? false : undefined}
-              className="text-sm text-neutral-300 hover:text-neutral-100 transition-colors"
+              className="text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] transition-colors"
             >
               {link.label}
             </Link>
@@ -64,29 +64,29 @@ export default function TopNav() {
                 {(username || "U").charAt(0).toUpperCase()}
               </button>
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-36 rounded-lg border border-neutral-600 bg-neutral-800 py-1 shadow-lg">
+                <div className="absolute right-0 mt-2 w-36 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] py-1 shadow-lg">
                   <Link
                     href="/dashboard"
-                    className="block px-4 py-2 text-sm text-neutral-300 hover:text-neutral-100 hover:bg-neutral-700"
+                    className="block px-4 py-2 text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-[var(--surface-raised)]"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t("common.console")}
                   </Link>
                   <Link
                     href="/api-keys"
-                    className="block px-4 py-2 text-sm text-neutral-300 hover:text-neutral-100 hover:bg-neutral-700"
+                    className="block px-4 py-2 text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-[var(--surface-raised)]"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t("nav.apiKeys")}
                   </Link>
                   <Link
                     href="/recharge"
-                    className="block px-4 py-2 text-sm text-neutral-300 hover:text-neutral-100 hover:bg-neutral-700"
+                    className="block px-4 py-2 text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-[var(--surface-raised)]"
                     onClick={() => setMenuOpen(false)}
                   >
                     {t("nav.recharge")}
                   </Link>
-                  <hr className="my-1 border-neutral-600" />
+                  <hr className="my-1 border-[var(--border-color)]" />
                   <button
                     onClick={handleSignOut}
                     className="block w-full text-left px-4 py-2 text-sm text-error hover:bg-red-500/10"
@@ -101,7 +101,7 @@ export default function TopNav() {
               <Link
                 href="/login"
                 prefetch={false}
-                className="text-sm text-neutral-300 hover:text-neutral-100 transition-colors"
+                className="text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] transition-colors"
               >
                 {t("common.signIn")}
               </Link>
@@ -118,7 +118,7 @@ export default function TopNav() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden flex items-center justify-center rounded-md p-2 text-neutral-300 hover:bg-neutral-700"
+          className="md:hidden flex items-center justify-center rounded-md p-2 text-[var(--muted-text)] hover:bg-[var(--surface-raised)]"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? t("common.closeMenu") : t("common.openMenu")}
         >
@@ -134,13 +134,13 @@ export default function TopNav() {
 
       {/* Mobile nav */}
       {menuOpen && (
-        <div className="md:hidden border-t border-neutral-600 bg-neutral-950 px-4 py-3 space-y-2">
+        <div className="md:hidden border-t border-[var(--border-color)] bg-[var(--page-bg)] px-4 py-3 space-y-2">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               prefetch={link.href === "/pricing" ? false : undefined}
-              className="block text-sm text-neutral-300 py-1.5"
+              className="block text-sm text-[var(--muted-text)] py-1.5"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -148,11 +148,11 @@ export default function TopNav() {
           ))}
           {isLoggedIn ? (
             <>
-              <hr className="border-neutral-600" />
-              <Link href="/dashboard" className="block text-sm font-medium text-neutral-100 py-1.5" onClick={() => setMenuOpen(false)}>
+              <hr className="border-[var(--border-color)]" />
+              <Link href="/dashboard" className="block text-sm font-medium text-[var(--body-text)] py-1.5" onClick={() => setMenuOpen(false)}>
                 {t("common.console")}
               </Link>
-              <Link href="/api-keys" className="block text-sm text-neutral-300 py-1.5" onClick={() => setMenuOpen(false)}>
+              <Link href="/api-keys" className="block text-sm text-[var(--muted-text)] py-1.5" onClick={() => setMenuOpen(false)}>
                 {t("nav.apiKeys")}
               </Link>
               <button onClick={handleSignOut} className="block text-sm text-error py-1.5">
@@ -161,8 +161,8 @@ export default function TopNav() {
             </>
           ) : (
             <>
-              <hr className="border-neutral-600" />
-              <Link href="/login" prefetch={false} className="block text-sm text-neutral-300 py-1.5" onClick={() => setMenuOpen(false)}>
+              <hr className="border-[var(--border-color)]" />
+              <Link href="/login" prefetch={false} className="block text-sm text-[var(--muted-text)] py-1.5" onClick={() => setMenuOpen(false)}>
                 {t("common.signIn")}
               </Link>
               <Link

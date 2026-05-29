@@ -21,7 +21,7 @@ export function Divider({
         role="separator"
         aria-orientation="vertical"
         className={cn(
-          "inline-block h-full min-h-[1em] w-px shrink-0 self-stretch bg-neutral-600",
+          "inline-block h-full min-h-[1em] w-px shrink-0 self-stretch bg-[var(--border-color)]",
           className,
         )}
       />
@@ -35,15 +35,15 @@ export function Divider({
         <div
           role="separator"
           aria-orientation="horizontal"
-          className="h-px flex-1 bg-neutral-600"
+          className="h-px flex-1 bg-[var(--border-color)]"
         />
-        <span className="flex-shrink-0 text-xs text-neutral-400">
+        <span className="flex-shrink-0 text-xs text-[var(--muted-text)]">
           {children}
         </span>
         <div
           role="separator"
           aria-orientation="horizontal"
-          className="h-px flex-1 bg-neutral-600"
+          className="h-px flex-1 bg-[var(--border-color)]"
         />
       </div>
     );
@@ -54,7 +54,7 @@ export function Divider({
     <hr
       role="separator"
       aria-orientation="horizontal"
-      className={cn("border-0 h-px bg-neutral-600", className)}
+      className={cn("border-0 h-px bg-[var(--border-color)]", className)}
     />
   );
 }

@@ -229,8 +229,8 @@ export default function RechargePage() {
   return (
     <div className="space-y-6 max-w-4xl">
       <div>
-        <h1 className="text-2xl font-bold text-neutral-100">{t("title")}</h1>
-        <p className="text-neutral-300 text-sm mt-1">{pageSubtitle[pageState]}</p>
+        <h1 className="text-2xl font-bold text-[var(--body-text)]">{t("title")}</h1>
+        <p className="text-[var(--muted-text)] text-sm mt-1">{pageSubtitle[pageState]}</p>
       </div>
 
       {errorMsg && pageState === "failed" && (
@@ -251,8 +251,8 @@ export default function RechargePage() {
           )}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
-              <h3 className="text-sm font-semibold text-neutral-100 mb-4">
+            <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
+              <h3 className="text-sm font-semibold text-[var(--body-text)] mb-4">
                 {t("selectAmount")}
               </h3>
               <div className="grid grid-cols-3 gap-3">
@@ -266,7 +266,7 @@ export default function RechargePage() {
                       className={`relative p-3 rounded-xl border text-center transition-all ${
                         isSelected
                           ? "border-brand-500/50 bg-brand-500/10 text-brand-300"
-                          : "border-neutral-600 bg-neutral-700/50 text-neutral-100 hover:border-neutral-600 hover:bg-neutral-700"
+                          : "border-[var(--border-color)] bg-[var(--surface-raised)]/50 text-[var(--body-text)] hover:border-[var(--border-color)] hover:bg-[var(--surface-raised)]"
                       }`}
                     >
                       {isSelected && (
@@ -274,7 +274,7 @@ export default function RechargePage() {
                       )}
                       <span className="text-lg font-bold">{opt.label}</span>
                       {opt.tokens && (
-                        <p className="text-xs text-neutral-400 mt-1">
+                        <p className="text-xs text-[var(--muted-text)] mt-1">
                           ≈ {opt.tokens} tokens
                         </p>
                       )}
@@ -285,11 +285,11 @@ export default function RechargePage() {
 
               {selectedAmount === -1 && (
                 <div className="mt-4">
-                  <label className="text-xs text-neutral-300 mb-1.5 block">
+                  <label className="text-xs text-[var(--muted-text)] mb-1.5 block">
                     {t("customAmountLabel")}
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 text-sm">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-text)] text-sm">
                       $
                     </span>
                     <input
@@ -298,7 +298,7 @@ export default function RechargePage() {
                       onChange={(e) => setCustomAmount(e.target.value)}
                       placeholder={t("customAmountPlaceholder")}
                       min="5"
-                      className="w-full bg-neutral-700 border border-neutral-600 rounded-lg py-2.5 pl-8 pr-4 text-neutral-100 text-sm focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/20 transition-colors"
+                      className="w-full bg-[var(--surface-raised)] border border-[var(--border-color)] rounded-lg py-2.5 pl-8 pr-4 text-[var(--body-text)] text-sm focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/20 transition-colors"
                     />
                   </div>
                 </div>
@@ -306,9 +306,9 @@ export default function RechargePage() {
 
               {displayAmount >= 5 && (
                 <div className="mt-4 space-y-2">
-                  <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-neutral-700/50 border border-neutral-600/50">
-                    <Info className="h-4 w-4 text-neutral-400 shrink-0" />
-                    <p className="text-sm text-neutral-300">
+                  <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-[var(--surface-raised)]/50 border border-[var(--border-color)]/50">
+                    <Info className="h-4 w-4 text-[var(--muted-text)] shrink-0" />
+                    <p className="text-sm text-[var(--muted-text)]">
                       {t("tokenEstimate", {
                         usdt: displayAmount.toFixed(2),
                         tokens: tokenEstimate.total.toLocaleString(),
@@ -325,8 +325,8 @@ export default function RechargePage() {
             </div>
 
             <div className="space-y-6">
-              <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
-                <h3 className="text-sm font-semibold text-neutral-100 mb-4">
+              <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
+                <h3 className="text-sm font-semibold text-[var(--body-text)] mb-4">
                   {t("selectNetwork")}
                 </h3>
 
@@ -338,13 +338,13 @@ export default function RechargePage() {
                       className={`w-full p-3 rounded-lg border text-left transition-all ${
                         networkId === n.id
                           ? "border-brand-500/50 bg-brand-500/10"
-                          : "border-neutral-600 bg-neutral-700/50 hover:border-neutral-600"
+                          : "border-[var(--border-color)] bg-[var(--surface-raised)]/50 hover:border-[var(--border-color)]"
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <span
                           className={`text-sm font-semibold ${
-                            networkId === n.id ? "text-brand-300" : "text-neutral-100"
+                            networkId === n.id ? "text-brand-300" : "text-[var(--body-text)]"
                           }`}
                         >
                           {n.label}
@@ -355,7 +355,7 @@ export default function RechargePage() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-neutral-400 mt-1">
+                      <p className="text-xs text-[var(--muted-text)] mt-1">
                         {t(n.id)} · {t("feeLabel")} {n.fee} · {t("confirmTimeLabel", { time: n.confirmTime })}
                       </p>
                     </button>
@@ -369,7 +369,7 @@ export default function RechargePage() {
                       <p className="text-sm text-brand-300 font-medium">
                         {t("trc20Recommend")}
                       </p>
-                      <p className="text-xs text-neutral-400 mt-0.5">
+                      <p className="text-xs text-[var(--muted-text)] mt-0.5">
                         {t("trc20Detail")}
                       </p>
                     </div>
@@ -380,7 +380,7 @@ export default function RechargePage() {
               <button
                 onClick={handlePay}
                 disabled={pageState === "creating" || displayAmount < 5}
-                className="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-600 disabled:text-neutral-400 text-neutral-100 font-semibold text-base transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-600 disabled:text-[var(--muted-text)] text-[var(--body-text)] font-semibold text-base transition-all flex items-center justify-center gap-2"
               >
                 {pageState === "creating" ? (
                   <>
@@ -399,9 +399,9 @@ export default function RechargePage() {
       {/* ===== 状态: 等待付款 ===== */}
       {pageState === "pending" && paymentInfo && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
+          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-neutral-100">
+              <h3 className="text-sm font-semibold text-[var(--body-text)]">
                 {t("scanToPay", { currency: paymentInfo.pay_currency.toUpperCase() })}
               </h3>
               <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
@@ -417,16 +417,16 @@ export default function RechargePage() {
                   className="w-48 h-48"
                 />
               ) : (
-                <div className="w-48 h-48 bg-neutral-700 animate-pulse rounded" />
+                <div className="w-48 h-48 bg-[var(--surface-raised)] animate-pulse rounded" />
               )}
             </div>
 
-            <p className="text-xs text-neutral-400 text-center mb-4">
+            <p className="text-xs text-[var(--muted-text)] text-center mb-4">
               {t("scanInstructions")}
             </p>
 
             <div className="flex items-center gap-2">
-              <code className="flex-1 text-xs text-neutral-100 bg-neutral-700 rounded-lg px-3 py-2.5 break-all font-mono border border-neutral-600">
+              <code className="flex-1 text-xs text-[var(--body-text)] bg-[var(--surface-raised)] rounded-lg px-3 py-2.5 break-all font-mono border border-[var(--border-color)]">
                 {paymentInfo.pay_address}
               </code>
               <button
@@ -434,7 +434,7 @@ export default function RechargePage() {
                 className={`shrink-0 p-2.5 rounded-lg border transition-all ${
                   copied
                     ? "border-brand-500/50 bg-brand-500/10 text-brand-300"
-                    : "border-neutral-600 bg-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-600"
+                    : "border-[var(--border-color)] bg-[var(--surface-raised)] text-[var(--muted-text)] hover:text-[var(--body-text)] hover:border-[var(--border-color)]"
                 }`}
               >
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
@@ -449,8 +449,8 @@ export default function RechargePage() {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
-              <h3 className="text-sm font-semibold text-neutral-100 mb-4">{t("orderDetails")}</h3>
+            <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
+              <h3 className="text-sm font-semibold text-[var(--body-text)] mb-4">{t("orderDetails")}</h3>
 
               <div className="space-y-3">
                 <DetailRow label={t("orderId")} value={paymentInfo.order_id} />
@@ -479,8 +479,8 @@ export default function RechargePage() {
               </div>
             </div>
 
-            <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
-              <h3 className="text-sm font-semibold text-neutral-100 mb-3">{t("paymentSteps")}</h3>
+            <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
+              <h3 className="text-sm font-semibold text-[var(--body-text)] mb-3">{t("paymentSteps")}</h3>
               <ol className="space-y-2">
                 <StepItem num="1" text={t("step1")} />
                 <StepItem num="2" text={t("step2", { network: paymentInfo.network?.toUpperCase() || currentNetwork.label })} />
@@ -488,9 +488,9 @@ export default function RechargePage() {
                 <StepItem num="4" text={t("step4")} />
               </ol>
 
-              <div className="mt-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-neutral-700/50">
+              <div className="mt-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--surface-raised)]/50">
                 <Loader2 className="h-3 w-3 text-brand-300 animate-spin" />
-                <p className="text-xs text-neutral-400">
+                <p className="text-xs text-[var(--muted-text)]">
                   {t("pollingHint", { count: pollCount })}
                 </p>
               </div>
@@ -498,7 +498,7 @@ export default function RechargePage() {
 
             <button
               onClick={handleReset}
-              className="w-full py-2.5 rounded-lg border border-neutral-600 text-neutral-300 hover:text-white hover:border-neutral-600 text-sm transition-colors flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-lg border border-[var(--border-color)] text-[var(--muted-text)] hover:text-[var(--body-text)] hover:border-[var(--border-color)] text-sm transition-colors flex items-center justify-center gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
               {t("backToSelect")}
@@ -510,16 +510,16 @@ export default function RechargePage() {
       {/* ===== 状态: 支付完成 ===== */}
       {pageState === "completed" && paymentInfo && (
         <div className="max-w-md mx-auto">
-          <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-8 text-center">
+          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-8 text-center">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-brand-500/10 border border-brand-500/20 flex items-center justify-center">
               <Check className="h-8 w-8 text-brand-300" />
             </div>
-            <h3 className="text-xl font-bold text-neutral-100 mb-2">{t("paySuccess")}</h3>
-            <p className="text-neutral-300 text-sm mb-6">
+            <h3 className="text-xl font-bold text-[var(--body-text)] mb-2">{t("paySuccess")}</h3>
+            <p className="text-[var(--muted-text)] text-sm mb-6">
               {t("paySuccessDesc", { tokens: paymentInfo.tokens.toLocaleString() })}
             </p>
 
-            <div className="space-y-2 mb-6 text-left bg-neutral-700/50 rounded-lg p-4">
+            <div className="space-y-2 mb-6 text-left bg-[var(--surface-raised)]/50 rounded-lg p-4">
               <DetailRow label={t("orderId")} value={paymentInfo.order_id} />
               <DetailRow label={t("amount")} value={`$${paymentInfo.price_amount}`} />
               <DetailRow
@@ -534,7 +534,7 @@ export default function RechargePage() {
 
             <button
               onClick={handleReset}
-              className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-neutral-100 font-semibold transition-colors"
+              className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-[var(--body-text)] font-semibold transition-colors"
             >
               {t("continueRecharge")}
             </button>
@@ -545,16 +545,16 @@ export default function RechargePage() {
       {/* ===== 状态: 支付失败 ===== */}
       {pageState === "failed" && (
         <div className="max-w-md mx-auto">
-          <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-8 text-center">
+          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-8 text-center">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
               <AlertTriangle className="h-8 w-8 text-red-400" />
             </div>
-            <h3 className="text-xl font-bold text-neutral-100 mb-2">{t("payFailed")}</h3>
-            <p className="text-neutral-300 text-sm mb-6">{t("payFailedMsg")}</p>
+            <h3 className="text-xl font-bold text-[var(--body-text)] mb-2">{t("payFailed")}</h3>
+            <p className="text-[var(--muted-text)] text-sm mb-6">{t("payFailedMsg")}</p>
 
             <button
               onClick={handleReset}
-              className="w-full py-3 rounded-xl bg-neutral-600 hover:bg-neutral-600 text-neutral-100 font-semibold transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-xl bg-[var(--surface-raised)] hover:bg-[var(--border-color)] text-[var(--body-text)] font-semibold transition-colors flex items-center justify-center gap-2"
             >
               <RefreshCw className="h-4 w-4" />
               {t("retryRecharge")}
@@ -566,7 +566,7 @@ export default function RechargePage() {
       {/* ===== 状态: 降级（API 不可用） ===== */}
       {pageState === "fallback" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
+          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
             <div className="flex items-center gap-2 mb-4">
               <AlertTriangle className="h-4 w-4 text-yellow-400" />
               <h3 className="text-sm font-semibold text-yellow-400">
@@ -578,12 +578,12 @@ export default function RechargePage() {
               {qrDataUrl ? (
                 <img src={qrDataUrl} alt="QR" className="w-44 h-44" />
               ) : (
-                <div className="w-44 h-44 bg-neutral-700 animate-pulse rounded" />
+                <div className="w-44 h-44 bg-[var(--surface-raised)] animate-pulse rounded" />
               )}
             </div>
 
             <div className="flex items-center gap-2">
-              <code className="flex-1 text-xs text-neutral-100 bg-neutral-700 rounded-lg px-3 py-2.5 break-all font-mono border border-neutral-600">
+              <code className="flex-1 text-xs text-[var(--body-text)] bg-[var(--surface-raised)] rounded-lg px-3 py-2.5 break-all font-mono border border-[var(--border-color)]">
                 {fallbackUSDTAddresses[networkId] || fallbackUSDTAddresses.trc20}
               </code>
               <button
@@ -593,7 +593,7 @@ export default function RechargePage() {
                 className={`shrink-0 p-2.5 rounded-lg border transition-all ${
                   copied
                     ? "border-brand-500/50 bg-brand-500/10 text-brand-300"
-                    : "border-neutral-600 bg-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-600"
+                    : "border-[var(--border-color)] bg-[var(--surface-raised)] text-[var(--muted-text)] hover:text-[var(--body-text)] hover:border-[var(--border-color)]"
                 }`}
               >
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
@@ -601,8 +601,8 @@ export default function RechargePage() {
             </div>
           </div>
 
-          <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
-            <h3 className="text-sm font-semibold text-neutral-100 mb-4">{t("paymentSteps")}</h3>
+          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
+            <h3 className="text-sm font-semibold text-[var(--body-text)] mb-4">{t("paymentSteps")}</h3>
             <ol className="space-y-3">
               <StepItem num="1" text={t("fallbackStep1", { network: currentNetwork.label })} />
               <StepItem num="2" text={t("fallbackStep2")} />
@@ -611,7 +611,7 @@ export default function RechargePage() {
 
             <button
               onClick={handleReset}
-              className="mt-6 w-full py-2.5 rounded-lg border border-neutral-600 text-neutral-300 hover:text-white hover:border-neutral-600 text-sm transition-colors flex items-center justify-center gap-2"
+              className="mt-6 w-full py-2.5 rounded-lg border border-[var(--border-color)] text-[var(--muted-text)] hover:text-[var(--body-text)] hover:border-[var(--border-color)] text-sm transition-colors flex items-center justify-center gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
               {t("retry")}
@@ -622,8 +622,8 @@ export default function RechargePage() {
 
       {/* ===== 支付说明 ===== */}
       {(pageState === "select" || pageState === "creating") && (
-        <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
-          <h3 className="text-sm font-semibold text-neutral-100 mb-4">{t("infoTitle")}</h3>
+        <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
+          <h3 className="text-sm font-semibold text-[var(--body-text)] mb-4">{t("infoTitle")}</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <InfoCard title={t("infoAutoCard.title")} desc={t("infoAutoCard.desc")} />
             <InfoCard title={t("infoMultiCard.title")} desc={t("infoMultiCard.desc")} />
@@ -640,8 +640,8 @@ export default function RechargePage() {
 function DetailRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between text-sm">
-      <span className="text-neutral-400">{label}</span>
-      <span className="text-neutral-100 font-mono text-xs">{value}</span>
+      <span className="text-[var(--muted-text)]">{label}</span>
+      <span className="text-[var(--body-text)] font-mono text-xs">{value}</span>
     </div>
   );
 }
@@ -649,19 +649,19 @@ function DetailRow({ label, value }: { label: string; value: React.ReactNode }) 
 function StepItem({ num, text }: { num: string; text: string }) {
   return (
     <li className="flex items-start gap-3">
-      <span className="shrink-0 w-5 h-5 rounded-full bg-neutral-700 border border-neutral-600 flex items-center justify-center text-[10px] text-neutral-300 font-medium">
+      <span className="shrink-0 w-5 h-5 rounded-full bg-[var(--surface-raised)] border border-[var(--border-color)] flex items-center justify-center text-[10px] text-[var(--muted-text)] font-medium">
         {num}
       </span>
-      <span className="text-sm text-neutral-300">{text}</span>
+      <span className="text-sm text-[var(--muted-text)]">{text}</span>
     </li>
   );
 }
 
 function InfoCard({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="p-4 rounded-lg bg-neutral-700/30 border border-neutral-600/50">
-      <h4 className="text-sm font-medium text-neutral-100 mb-1">{title}</h4>
-      <p className="text-xs text-neutral-400 leading-relaxed">{desc}</p>
+    <div className="p-4 rounded-lg bg-[var(--surface-raised)]/30 border border-[var(--border-color)]/50">
+      <h4 className="text-sm font-medium text-[var(--body-text)] mb-1">{title}</h4>
+      <p className="text-xs text-[var(--muted-text)] leading-relaxed">{desc}</p>
     </div>
   );
 }

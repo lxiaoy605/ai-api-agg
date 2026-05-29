@@ -23,7 +23,7 @@ export default async function RootLayout({
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
-      <body className="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
+      <body className="min-h-screen bg-[var(--page-bg)] text-[var(--body-text)] antialiased">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
             {children}

@@ -10,8 +10,8 @@ export default function UsagePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-neutral-100">{t("title")}</h1>
-        <p className="text-neutral-300 text-sm mt-1">{t("subtitle")}</p>
+        <h1 className="text-2xl font-bold text-[var(--body-text)]">{t("title")}</h1>
+        <p className="text-[var(--muted-text)] text-sm mt-1">{t("subtitle")}</p>
       </div>
 
       <UsageLineChart />
@@ -19,8 +19,8 @@ export default function UsagePage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ModelPieChart />
 
-        <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
-          <h3 className="text-lg font-semibold text-neutral-100 mb-4">{t("summary")}</h3>
+        <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
+          <h3 className="text-lg font-semibold text-[var(--body-text)] mb-4">{t("summary")}</h3>
           <div className="space-y-4">
             {[
               { labelKey: "monthlyRequests", value: "156,230", change: "+18.5%" },
@@ -30,11 +30,11 @@ export default function UsagePage() {
             ].map((item) => (
               <div
                 key={item.labelKey}
-                className="flex items-center justify-between p-3 rounded-lg bg-neutral-700/50"
+                className="flex items-center justify-between p-3 rounded-lg bg-[var(--surface-raised)]/50"
               >
-                <span className="text-sm text-neutral-300">{t(item.labelKey)}</span>
+                <span className="text-sm text-[var(--muted-text)]">{t(item.labelKey)}</span>
                 <div className="text-right">
-                  <p className="text-sm font-semibold text-neutral-100">
+                  <p className="text-sm font-semibold text-[var(--body-text)]">
                     {item.value}
                   </p>
                   <p

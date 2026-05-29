@@ -42,7 +42,7 @@ export function Skeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "animate-pulse rounded bg-neutral-700",
+        "animate-pulse rounded bg-[var(--surface-raised)]",
         className,
       )}
       aria-busy="true"

@@ -55,21 +55,21 @@ export default function UsageLineChart() {
   const metricLabel = metric === "requests" ? tc("requestCount") : tc("tokenConsumption");
 
   return (
-    <div className="bg-neutral-800 rounded-xl border border-neutral-600 p-6">
+    <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <h3 className="text-lg font-semibold text-white">
+        <h3 className="text-lg font-semibold text-[var(--body-text)]">
           {metric === "requests" ? tc("requestCount") : tc("tokenConsumption")}
           {" "}
           {tc("time")}
         </h3>
         <div className="flex gap-2">
-          <div className="flex rounded-lg bg-neutral-700 p-0.5">
+          <div className="flex rounded-lg bg-[var(--surface-raised)] p-0.5">
             <button
               onClick={() => setMetric("requests")}
               className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                 metric === "requests"
-                  ? "bg-neutral-600 text-white"
-                  : "text-neutral-300 hover:text-neutral-100"
+                  ? "bg-brand-600 text-white"
+                  : "text-[var(--muted-text)] hover:text-[var(--body-text)]"
               }`}
             >
               {tc("requests")}
@@ -78,14 +78,14 @@ export default function UsageLineChart() {
               onClick={() => setMetric("tokens")}
               className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                 metric === "tokens"
-                  ? "bg-neutral-600 text-white"
-                  : "text-neutral-300 hover:text-neutral-100"
+                  ? "bg-brand-600 text-white"
+                  : "text-[var(--muted-text)] hover:text-[var(--body-text)]"
               }`}
             >
               {tc("tokens")}
             </button>
           </div>
-          <div className="flex rounded-lg bg-neutral-700 p-0.5">
+          <div className="flex rounded-lg bg-[var(--surface-raised)] p-0.5">
             {(Object.entries(rangeMap) as [Range, { label: string; days: number }][]).map(
               ([key, val]) => (
                 <button
@@ -93,8 +93,8 @@ export default function UsageLineChart() {
                   onClick={() => setRange(key)}
                   className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
                     range === key
-                      ? "bg-neutral-600 text-white"
-                      : "text-neutral-300 hover:text-neutral-100"
+                      ? "bg-brand-600 text-white"
+                      : "text-[var(--muted-text)] hover:text-[var(--body-text)]"
                   }`}
                 >
                   {val.label}
