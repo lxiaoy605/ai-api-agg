@@ -48,19 +48,19 @@ export default function Home() {
   if (!ready) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-brand-100 dark:bg-none dark:bg-[#0A0A10]">
+    <div className="min-h-screen" style={{ background: "var(--hero-bg)" }}>
       <TopNav />
 
       {/* Hero */}
-      <section className="animate-fade-in pt-24 pb-24 sm:pt-24 sm:pb-24">
+      <section className="pt-16 pb-12 sm:pt-16 sm:pb-12">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
-          <h1 className="text-5xl font-bold tracking-tight text-[var(--body-text)] sm:text-6xl lg:text-7xl">
+          <h1 className="animate-slide-up text-5xl font-bold tracking-tight text-[var(--body-text)] sm:text-6xl lg:text-7xl" style={{ animationDelay: "0.1s" }}>
             {t("title")}
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-text)] sm:text-lg">
+          <p className="animate-slide-up mx-auto mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-text)] sm:text-lg" style={{ animationDelay: "0.3s" }}>
             {t("subtitle")}
           </p>
-          <div className="mt-8 flex items-center justify-center gap-4">
+          <div className="animate-fade-in mt-8 flex items-center justify-center gap-4" style={{ animationDelay: "0.5s" }}>
             <Link
               href="/register"
               className="inline-flex items-center rounded-lg bg-brand-600 px-6 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
@@ -79,13 +79,13 @@ export default function Home() {
       </section>
 
       {/* 模型展示区 — 5 models */}
-      <section className="animate-slide-up border-t border-[var(--border-color)] py-16">
+      <section className="border-t border-[var(--border-color)] py-12">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase">
             {t("modelsSection")}
           </h2>
           <p className="mt-2 text-sm text-[var(--muted-text)]">{t("modelsDesc")}</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className="stagger mt-8 flex flex-wrap justify-center gap-4">
             {providers.map((p) => {
               const Icon = p.icon;
               return (
@@ -111,7 +111,7 @@ export default function Home() {
       </section>
 
       {/* 特性区 — 三列 */}
-      <section className="border-t border-[var(--border-color)] py-16">
+      <section className="border-t border-[var(--border-color)] py-12">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase">
             {t("whyUs")}
@@ -156,12 +156,12 @@ export default function Home() {
       </section>
 
       {/* Why AiflowHub — 六大卖点 */}
-      <section className="border-t border-[var(--border-color)] py-16">
+      <section className="border-t border-[var(--border-color)] py-12">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <h2 className="text-sm font-semibold text-[var(--body-text)] tracking-wide uppercase text-center">
             {t("whySectionTitle")}
           </h2>
-          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="stagger mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {whyItems.map((key) => (
               <div
                 key={key}
