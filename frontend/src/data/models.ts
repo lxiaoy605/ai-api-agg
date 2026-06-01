@@ -29,8 +29,11 @@ export interface ModelInfo {
   status: "available" | "coming-soon" | "maintenance";
   category: "chat" | "code" | "reasoning" | "multimodal";
   features: string[];
+  featuresI18n?: Record<string, string[]>;
   useCases: string[];
+  useCasesI18n?: Record<string, string[]>;
   strengths: string[];
+  strengthsI18n?: Record<string, string[]>;
   whyChoose: {
     en: string;
     ru: string;

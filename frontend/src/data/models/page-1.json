@@ -1,207 +1,136 @@
 [
   {
-    "id": "deepseek-chat",
-    "name": "DeepSeek: DeepSeek V3",
-    "provider": "DeepSeek",
-    "providerLogo": "/logos/deepseek.png",
-    "description": "DeepSeek Chat 是一款性能卓越的通用对话模型，专为高并发、低延迟场景打造。它在前代基础上大幅提升了指令遵循与代码生成能力，能以极低成本提供流畅的多轮对话、结构化输出和函数调用。适合需要高性价比 AI 能力的开发团队，特别是构建智能客服、代码助手、内容生成等应用。",
-    "descriptions": {
-      "zh": "DeepSeek Chat 是一款性能卓越的通用对话模型，专为高并发、低延迟场景打造。它在前代基础上大幅提升了指令遵循与代码生成能力，能以极低成本提供流畅的多轮对话、结构化输出和函数调用。适合需要高性价比 AI 能力的开发团队，特别是构建智能客服、代码助手、内容生成等应用。",
-      "en": "DeepSeek Chat is a high-performance general-purpose chat model designed for high-throughput, low-latency applications. Building on its predecessors, it excels in instruction following and code generation, delivering smooth multi-turn conversations, structured outputs, and function calls at a fraction of the cost. Ideal for developers in Armenia, Georgia, and Central Asia building smart assistants, coding tools, or content generators.",
-      "ru": "DeepSeek Chat — это высокопроизводительная универсальная чат-модель для сценариев с высокой нагрузкой и низкой задержкой. Наследуя лучшие качества предыдущих версий, она отлично справляется с выполнением инструкций и генерацией кода, обеспечивая плавные многошаговые диалоги, структурированные ответы и вызовы функций по минимальной цене. Идеальный выбор для разработчиков из Казахстана и Центральной Азии, создающих интеллектуальных ассистентов, инструменты для кодинга и генераторы контента.",
-      "tr": "DeepSeek Chat, yüksek işlem hacmi ve düşük gecikme gerektiren senaryolar için tasarlanmış yüksek performanslı genel amaçlı bir sohbet modelidir. Önceki sürümlerin talimat takibi ve kod üretme yeteneklerini geliştirerek, düşük maliyetle akıcı çoklu konuşma, yapılandırılmış çıktı ve fonksiyon çağrıları sunar. Türkiye'deki geliştiriciler için akıllı asistanlar, kodlama araçları veya içerik oluşturucular inşa etmek için idealdir."
-    },
-    "inputPrice": "$0.23",
-    "outputPrice": "$0.91",
-    "contextWindow": "131K",
-    "maxTokens": "16K",
-    "status": "available",
-    "category": "chat",
-    "features": [
-      "函数调用",
-      "JSON模式",
-      "结构化输出",
-      "流式输出",
-      "超长上下文"
-    ],
-    "useCases": [
-      "智能客服与对话机器人",
-      "代码生成与辅助编程",
-      "内容创作与文本摘要"
-    ],
-    "strengths": [
-      "极低价格，高性价比",
-      "强大的指令遵循与代码能力",
-      "支持函数调用和结构化输出",
-      "131K 超长上下文窗口"
-    ],
-    "whyChoose": {
-      "en": "Best price-performance ratio for high-volume production workloads with advanced capabilities.",
-      "ru": "Лучшее соотношение цены и производительности для высоконагруженных продакшн-задач с продвинутыми возможностями.",
-      "tr": "Gelişmiş yeteneklerle yüksek hacimli üretim iş yükleri için en iyi fiyat-performans oranı."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"deepseek/deepseek-chat\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"deepseek/deepseek-chat\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"deepseek/deepseek-chat\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    },
-    "enriched": true
-  },
-  {
-    "id": "deepseek-v4-flash",
-    "name": "DeepSeek: DeepSeek V4 Flash",
-    "provider": "DeepSeek",
-    "providerLogo": "/logos/deepseek.png",
-    "description": "DeepSeek V4 Flash 是专为高并发场景设计的效率优化模型，基于 Mixture-of-Experts 架构，仅激活 13B 参数即可实现超快推理。它支持 100 万 token 的超长上下文，输入价格低至每百万 token $0.10，输出仅 $0.20，是构建聊天机器人、实时翻译和智能助手的理想选择。适合需要低成本、高吞吐量的开发者。",
-    "descriptions": {
-      "zh": "DeepSeek V4 Flash 是专为高并发场景设计的效率优化模型，基于 Mixture-of-Experts 架构，仅激活 13B 参数即可实现超快推理。它支持 100 万 token 的超长上下文，输入价格低至每百万 token $0.10，输出仅 $0.20，是构建聊天机器人、实时翻译和智能助手的理想选择。适合需要低成本、高吞吐量的开发者。",
-      "en": "DeepSeek V4 Flash is a high-efficiency, Mixture-of-Experts model optimized for speed and cost. With a 1M-token context window and ultra-low pricing ($0.10/M input, $0.20/M output), it delivers blazing-fast inference for real-time applications. Ideal for developers building chatbots, translation tools, and AI assistants that need to scale without breaking the bank. Built for the new generation of apps in emerging markets.",
-      "ru": "DeepSeek V4 Flash — это высокоэффективная модель на основе Mixture-of-Experts, оптимизированная для скорости и низкой стоимости. С окном контекста в 1 млн токенов и ценами от $0.10 за миллион токенов на входе и $0.20 на выходе, она обеспечивает молниеносный вывод для приложений реального времени. Идеально подходит для разработчиков, создающих чат-ботов, инструменты перевода и ИИ-ассистентов, которым нужно масштабироваться без больших затрат.",
-      "tr": "DeepSeek V4 Flash, hız ve maliyet için optimize edilmiş, Mixture-of-Experts tabanlı yüksek verimli bir modeldir. 1 milyon token bağlam penceresi ve ultra düşük fiyatlandırmasıyla (girişte milyon token başına $0.10, çıkışta $0.20) gerçek zamanlı uygulamalar için yıldırım hızında çıkarım sağlar. Sohbet robotları, çeviri araçları ve yapay zeka asistanları geliştiren, bütçeyi zorlamadan ölçeklenmek isteyen geliştiriciler için idealdir."
-    },
-    "inputPrice": "$0.10",
-    "outputPrice": "$0.20",
-    "contextWindow": "1048K",
-    "maxTokens": "131K",
-    "status": "available",
-    "category": "chat",
-    "features": [
-      "函数调用",
-      "JSON 模式",
-      "流式输出",
-      "高并发",
-      "超长上下文"
-    ],
-    "useCases": [
-      "高并发聊天机器人",
-      "实时翻译与多语言客服",
-      "智能文档分析与助手"
-    ],
-    "strengths": [
-      "极速推理",
-      "超长上下文",
-      "极致性价比"
-    ],
-    "whyChoose": {
-      "en": "Unmatched speed and cost efficiency for real-time AI applications in emerging markets.",
-      "ru": "Непревзойденная скорость и экономическая эффективность для приложений ИИ реального времени на развивающихся рынках.",
-      "tr": "Gelişmekte olan pazarlardaki gerçek zamanlı yapay zeka uygulamaları için eşsiz hız ve maliyet verimliliği."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"deepseek-v4-flash\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"deepseek-v4-flash\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"deepseek-v4-flash\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    },
-    "enriched": true
-  },
-  {
-    "id": "deepseek-v4-pro",
-    "name": "DeepSeek: DeepSeek V4 Pro",
-    "provider": "DeepSeek",
-    "providerLogo": "/logos/deepseek.png",
-    "description": "DeepSeek V4 Pro 是专为深度思考与复杂任务打造的旗舰模型。凭借超长上下文和强大的逻辑推理能力，它能轻松驾驭代码生成、长文档分析和多轮对话。无论是构建智能助手、处理大规模代码库，还是解决高难度数学问题，V4 Pro 都能以极低的成本提供卓越性能。适合追求极致效率与质量的专业开发者。",
-    "descriptions": {
-      "zh": "DeepSeek V4 Pro 是专为深度思考与复杂任务打造的旗舰模型。凭借超长上下文和强大的逻辑推理能力，它能轻松驾驭代码生成、长文档分析和多轮对话。无论是构建智能助手、处理大规模代码库，还是解决高难度数学问题，V4 Pro 都能以极低的成本提供卓越性能。适合追求极致效率与质量的专业开发者。",
-      "en": "DeepSeek V4 Pro is the flagship model designed for deep reasoning and complex tasks. With an ultra-long context window and powerful logical capabilities, it excels in code generation, long document analysis, and multi-turn conversations. Whether you're building intelligent assistants, processing large codebases, or solving advanced math problems, V4 Pro delivers top-tier performance at a fraction of the cost. Ideal for professional developers who demand efficiency and quality.",
-      "ru": "DeepSeek V4 Pro — флагманская модель для глубокого анализа и сложных задач. Благодаря сверхдлинному контексту и мощным логическим способностям, она отлично справляется с генерацией кода, анализом длинных документов и многошаговыми диалогами. Создавайте интеллектуальных ассистентов, обрабатывайте большие кодовые базы или решайте сложные математические задачи с минимальными затратами. Выбор разработчиков, ценящих эффективность и качество.",
-      "tr": "DeepSeek V4 Pro, derin düşünme ve karmaşık görevler için tasarlanmış amiral gemisi modelidir. Ultra uzun bağlam penceresi ve güçlü mantıksal yetenekleri sayesinde kod üretimi, uzun belge analizi ve çok aşamalı diyaloglarda mükemmeldir. İster akıllı asistanlar oluşturun, ister büyük kod tabanlarını işleyin, ister ileri düzey matematik problemlerini çözün; V4 Pro, düşük maliyetle üstün performans sunar. Verimlilik ve kalite arayan profesyonel geliştiriciler için idealdir."
-    },
-    "inputPrice": "$0.43",
-    "outputPrice": "$0.87",
-    "contextWindow": "1048K",
-    "maxTokens": "384K",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "深度思考",
-      "代码生成",
-      "逻辑推理",
-      "长文本理解",
-      "流式输出"
-    ],
-    "useCases": [
-      "智能客服与对话系统",
-      "大规模代码库分析与生成",
-      "学术研究与复杂数学推理"
-    ],
-    "strengths": [
-      "超长上下文支持复杂任务",
-      "深度思考与逻辑推理能力强",
-      "代码生成质量高且成本低"
-    ],
-    "whyChoose": {
-      "en": "Unmatched reasoning and coding power with the longest context, at a fraction of the cost.",
-      "ru": "Непревзойденная мощность рассуждений и кодирования с самым длинным контекстом по минимальной цене.",
-      "tr": "En uzun bağlam ve düşük maliyetle eşsiz muhakeme ve kodlama gücü."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"deepseek-v4-pro\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"解释量子计算的基本原理\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"deepseek-v4-pro\",\n    messages=[{\"role\": \"user\", \"content\": \"解释量子计算的基本原理\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"deepseek-v4-pro\",\n  messages: [{ role: \"user\", content: \"解释量子计算的基本原理\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    },
-    "enriched": true
-  },
-  {
     "id": "deepseek-reasoner",
-    "name": "DeepSeek: R1",
+    "name": "DeepSeek R1",
     "provider": "DeepSeek",
     "providerLogo": "/logos/deepseek.png",
-    "description": "DeepSeek R1 是一款开放权重的大型推理模型，在复杂逻辑、数学和编程任务上表现卓越，性能对标 OpenAI o1。它支持 163K 超长上下文，并能清晰展示推理过程，让你完全掌控 AI 的思考链条。适合需要深度推理、可解释性和高性价比的开发者，尤其适合构建智能客服、代码助手、数据分析等场景。",
+    "description": "DeepSeek R1 是专为复杂推理任务设计的下一代推理模型。它拥有超长上下文窗口，能深入理解并拆解多步骤问题，输出逻辑严密的解决方案。无论是代码调试、数学证明还是策略分析，R1 都能像资深专家一样步步推演。通过 AiFlowHub 的单一 API，你可以直接调用，按量付费。适合需要深度推理的开发者，比如构建智能助手、自动化分析工具或教育平台。",
     "descriptions": {
-      "zh": "DeepSeek R1 是一款开放权重的大型推理模型，在复杂逻辑、数学和编程任务上表现卓越，性能对标 OpenAI o1。它支持 163K 超长上下文，并能清晰展示推理过程，让你完全掌控 AI 的思考链条。适合需要深度推理、可解释性和高性价比的开发者，尤其适合构建智能客服、代码助手、数据分析等场景。",
-      "en": "DeepSeek R1 is a powerful open-weight reasoning model that matches OpenAI o1 on complex logic, math, and coding tasks. With a 163K context window and fully visible reasoning tokens, you get deep insights into the model's thought process—ideal for debugging, education, and high-stakes decisions. Built for developers who need transparency, control, and cost efficiency in their AI stack.",
-      "ru": "DeepSeek R1 — это мощная модель рассуждений с открытыми весами, которая не уступает OpenAI o1 в сложных задачах логики, математики и программирования. Окно контекста в 163K токенов и полностью прозрачные шаги рассуждений дают вам полный контроль над мыслительным процессом ИИ. Идеально для разработчиков, которым нужна глубокая аналитика, объяснимость и низкая стоимость.",
-      "tr": "DeepSeek R1, karmaşık mantık, matematik ve kodlama görevlerinde OpenAI o1 ile rekabet eden, açık ağırlıklı güçlü bir akıl yürütme modelidir. 163K token bağlam penceresi ve tamamen görünür akıl yürütme adımları sayesinde AI'nın düşünce sürecine tam hakimiyet sağlar. Derin analiz, açıklanabilirlik ve düşük maliyet arayan geliştiriciler için idealdir."
+      "zh": "DeepSeek R1 是专为复杂推理任务设计的下一代推理模型。它拥有超长上下文窗口，能深入理解并拆解多步骤问题，输出逻辑严密的解决方案。无论是代码调试、数学证明还是策略分析，R1 都能像资深专家一样步步推演。通过 AiFlowHub 的单一 API，你可以直接调用，按量付费。适合需要深度推理的开发者，比如构建智能助手、自动化分析工具或教育平台。",
+      "en": "DeepSeek R1 is the reasoning powerhouse you've been waiting for. Designed to tackle complex, multi-step problems, it doesn't just generate answers—it thinks them through. With an extended context window, R1 excels at code analysis, mathematical reasoning, and strategic planning. Access it via AiFlowHub's single API, pay only for what you use. No separate accounts, no hassle. Perfect for developers building intelligent assistants, automated debugging tools, or educational platforms that demand deep reasoning.",
+      "ru": "DeepSeek R1 — это мощная модель рассуждений для сложных многошаговых задач. Она не просто генерирует ответы, а продумывает их, разбивая проблемы на логические этапы. Благодаря расширенному контекстному окну, R1 отлично справляется с анализом кода, математическими рассуждениями и стратегическим планированием. Доступ через единый API AiFlowHub, оплата по факту использования. Идеально для разработчиков, создающих интеллектуальных ассистентов, инструменты автоматической отладки или образовательные платформы.",
+      "tr": "DeepSeek R1, karmaşık çok adımlı problemler için tasarlanmış bir akıl yürütme canavarıdır. Sadece cevap üretmez, adım adım düşünür. Geniş bağlam penceresi sayesinde kod analizi, matematiksel akıl yürütme ve stratejik planlamada mükemmeldir. AiFlowHub'ın tek bir API'si ile erişin, kullandığınız kadar ödeyin. Ayrı hesaplar, karmaşa yok. Akıllı asistanlar, otomatik hata ayıklama araçları veya derin düşünme gerektiren eğitim platformları geliştirenler için ideal."
     },
-    "inputPrice": "$0.70",
-    "outputPrice": "$2.50",
-    "contextWindow": "163K",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
     "maxTokens": "16K",
     "status": "available",
     "category": "reasoning",
     "features": [
-      "深度思考",
-      "函数调用",
-      "JSON 模式",
-      "结构化输出",
-      "流式输出"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "复杂数学与逻辑推理",
-      "代码生成与调试",
-      "智能客服与深度问答",
-      "数据分析与报告生成"
+      "代码调试与审查",
+      "数学与科学推理",
+      "策略分析与决策支持",
+      "教育辅导与知识问答"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "代码调试与审查",
+        "数学与科学推理",
+        "策略分析与决策支持",
+        "教育辅导与知识问答"
+      ],
+      "en": [
+        "Code debugging and review",
+        "Mathematical and scientific reasoning",
+        "Strategic analysis and decision support",
+        "Educational tutoring and Q&A"
+      ],
+      "ru": [
+        "Отладка и ревью кода",
+        "Математические и научные рассуждения",
+        "Стратегический анализ и поддержка принятия решений",
+        "Образовательное репетиторство и вопросы-ответы"
+      ],
+      "tr": [
+        "Kod hata ayıklama ve inceleme",
+        "Matematiksel ve bilimsel akıl yürütme",
+        "Stratejik analiz ve karar desteği",
+        "Eğitim koçluğu ve soru-cevap"
+      ]
+    },
     "strengths": [
-      "强大推理能力，对标 OpenAI o1",
-      "开放权重，完全透明可控",
-      "163K 超长上下文窗口",
-      "推理过程可视化，可调试",
-      "极高性价比，输入仅 $0.70/百万 token"
+      "深度推理能力，擅长多步逻辑推演",
+      "超长上下文窗口，处理复杂文档",
+      "高性价比，按量付费",
+      "通过 AiFlowHub 单一 API 即可调用"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "深度推理能力，擅长多步逻辑推演",
+        "超长上下文窗口，处理复杂文档",
+        "高性价比，按量付费",
+        "通过 AiFlowHub 单一 API 即可调用"
+      ],
+      "en": [
+        "Exceptional multi-step reasoning for complex problems",
+        "Extended context window for handling large documents",
+        "Cost-effective with pay-as-you-go pricing",
+        "Accessible via single API through AiFlowHub"
+      ],
+      "ru": [
+        "Превосходное многошаговое рассуждение для сложных задач",
+        "Расширенное контекстное окно для работы с большими документами",
+        "Экономичность с оплатой по факту использования",
+        "Доступ через единый API на AiFlowHub"
+      ],
+      "tr": [
+        "Karmaşık problemler için üstün çok adımlı akıl yürütme",
+        "Büyük belgeleri işlemek için geniş bağlam penceresi",
+        "Kullandıkça öde ile uygun maliyetli",
+        "AiFlowHub üzerinden tek API ile erişilebilir"
+      ]
+    },
     "whyChoose": {
-      "en": "Get o1-level reasoning at a fraction of the cost, with full transparency and control.",
-      "ru": "Получите рассуждения уровня o1 по минимальной цене с полной прозрачностью и контролем.",
-      "tr": "o1 seviyesinde akıl yürütmeyi, tam şeffaflık ve kontrolle, çok daha düşük maliyetle elde edin."
+      "en": "DeepSeek R1 delivers unmatched reasoning depth for complex tasks, accessible via a single API.",
+      "ru": "DeepSeek R1 обеспечивает непревзойденную глубину рассуждений для сложных задач через единый API.",
+      "tr": "DeepSeek R1, tek bir API üzerinden karmaşık görevler için eşsiz akıl yürütme derinliği sunar."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"deepseek/deepseek-r1\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"deepseek/deepseek-r1\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"deepseek/deepseek-r1\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"deepseek-reasoner\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"deepseek-reasoner\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"deepseek-reasoner\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
-    "id": "abab6.5s-chat",
-    "name": "ABAB 6.5s",
-    "provider": "MiniMax",
-    "providerLogo": "/logos/minimax.png",
-    "description": "ABAB 6.5s 是 MiniMax 推出的高性能对话模型，专为需要快速响应和复杂推理的场景设计。它支持 128K 上下文窗口，能一次性处理超长文档或对话历史，同时保持精准理解。通过 AiFlowHub 平台，您只需一个 API 即可调用，按量付费，无需繁琐注册。无论是构建智能客服、内容生成还是数据分析应用，ABAB 6.5s 都能以低成本提供高质量输出。特别适合东欧、中亚和高加索地区的开发者，快速集成中国顶尖 AI 能力。",
+    "id": "deepseek-chat",
+    "name": "DeepSeek V3",
+    "provider": "DeepSeek",
+    "providerLogo": "/logos/deepseek.png",
+    "description": "DeepSeek V3 是新一代高性能对话模型，专为需要深度推理和长文本处理的场景打造。它拥有 128K 超长上下文，能一次性处理整本书或大型代码库，输出流畅且逻辑严密。支持函数调用、JSON 模式和流式输出，轻松集成到各类应用。无论是智能客服、代码助手还是内容生成，DeepSeek V3 都能以极低的成本提供卓越表现。由 AiFlowHub 统一 API 接入，无需单独注册，即开即用。",
     "descriptions": {
-      "zh": "ABAB 6.5s 是 MiniMax 推出的高性能对话模型，专为需要快速响应和复杂推理的场景设计。它支持 128K 上下文窗口，能一次性处理超长文档或对话历史，同时保持精准理解。通过 AiFlowHub 平台，您只需一个 API 即可调用，按量付费，无需繁琐注册。无论是构建智能客服、内容生成还是数据分析应用，ABAB 6.5s 都能以低成本提供高质量输出。特别适合东欧、中亚和高加索地区的开发者，快速集成中国顶尖 AI 能力。",
-      "en": "ABAB 6.5s is a high-performance chat model by MiniMax, designed for fast responses and complex reasoning. With a 128K context window, it handles long documents or conversation histories in one go. Through AiFlowHub, you access it via a single API, pay-as-you-go, no separate sign-ups. Ideal for building chatbots, content generators, or data analysis tools. Perfect for developers in Armenia, Georgia, and Kazakhstan seeking cost-effective, top-tier Chinese AI. Get started in minutes.",
-      "ru": "ABAB 6.5s — высокопроизводительная чат-модель от MiniMax, созданная для быстрых ответов и сложных рассуждений. Окно контекста в 128K позволяет обрабатывать длинные документы или историю диалога за один раз. Через AiFlowHub вы получаете доступ по единому API, оплата по мере использования, без лишних регистраций. Идеально для чат-ботов, генерации контента и анализа данных. Разработчикам из СНГ — быстрый доступ к лучшим китайским ИИ.",
-      "tr": "ABAB 6.5s, MiniMax'in hızlı yanıt ve karmaşık akıl yürütme için tasarlanmış yüksek performanslı sohbet modelidir. 128K bağlam penceresiyle uzun belgeleri veya konuşma geçmişini tek seferde işler. AiFlowHub üzerinden tek bir API ile erişin, kullandıkça ödeyin, ayrı kayıt gerektirmez. Sohbet robotları, içerik oluşturma ve veri analizi için ideal. Türkiye'deki geliştiriciler için uygun maliyetli, üst düzey Çin yapay zekası."
+      "zh": "DeepSeek V3 是新一代高性能对话模型，专为需要深度推理和长文本处理的场景打造。它拥有 128K 超长上下文，能一次性处理整本书或大型代码库，输出流畅且逻辑严密。支持函数调用、JSON 模式和流式输出，轻松集成到各类应用。无论是智能客服、代码助手还是内容生成，DeepSeek V3 都能以极低的成本提供卓越表现。由 AiFlowHub 统一 API 接入，无需单独注册，即开即用。",
+      "en": "DeepSeek V3 is a next-generation conversational AI model built for developers who demand deep reasoning and long-context understanding. With a 128K token context window, it can process entire books or large codebases in one go, delivering coherent and logically sound outputs. It supports function calling, JSON mode, and streaming, making it a breeze to integrate into your apps. Whether you're building a smart assistant, code copilot, or content generator, DeepSeek V3 delivers top-tier performance at a fraction of the cost. Access it via AiFlowHub's single API — no separate signups, just pure productivity.",
+      "ru": "DeepSeek V3 — это диалоговая модель нового поколения, созданная для разработчиков, которым нужно глубокое понимание контекста и длинных текстов. Окно контекста в 128K токенов позволяет обрабатывать целые книги или большие кодовые базы за один раз, выдавая логичные и связные ответы. Модель поддерживает вызов функций, режим JSON и потоковую передачу, что упрощает интеграцию в любые приложения. Будь то умный ассистент, помощник по коду или генератор контента — DeepSeek V3 обеспечивает высокую производительность по доступной цене. Доступ через единый API AiFlowHub без отдельной регистрации.",
+      "tr": "DeepSeek V3, derin akıl yürütme ve uzun metin işleme ihtiyacı duyan geliştiriciler için tasarlanmış yeni nesil bir diyalog modelidir. 128K token bağlam penceresiyle kitapları veya büyük kod tabanlarını tek seferde işleyebilir, mantıklı ve tutarlı çıktılar üretir. Fonksiyon çağrısı, JSON modu ve akış desteği sayesinde uygulamalarınıza kolayca entegre olur. İster akıllı asistan, ister kod yardımcısı veya içerik üreticisi olsun, DeepSeek V3 düşük maliyetle üstün performans sunar. AiFlowHub'ın tek API'si ile erişin, ayrı kayıt gerektirmez."
     },
     "inputPrice": "$0.14/1M",
     "outputPrice": "$0.28/1M",
@@ -214,20 +143,443 @@
       "JSON Mode",
       "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
       "智能客服与对话系统",
-      "长文档分析与摘要",
-      "内容生成与创作辅助"
+      "代码生成与辅助编程",
+      "长文档分析与摘要"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话系统",
+        "代码生成与辅助编程",
+        "长文档分析与摘要",
+        "内容创作与营销文案"
+      ],
+      "en": [
+        "Intelligent customer support and conversational agents",
+        "Code generation and pair programming",
+        "Long document analysis and summarization",
+        "Content creation and marketing copy"
+      ],
+      "ru": [
+        "Интеллектуальная поддержка клиентов и диалоговые системы",
+        "Генерация кода и помощь в программировании",
+        "Анализ и суммаризация длинных документов",
+        "Создание контента и маркетинговых текстов"
+      ],
+      "tr": [
+        "Akıllı müşteri desteği ve diyalog sistemleri",
+        "Kod oluşturma ve yardımcı programlama",
+        "Uzun belge analizi ve özetleme",
+        "İçerik oluşturma ve pazarlama metinleri"
+      ]
+    },
     "strengths": [
-      "超长上下文处理能力",
-      "高性价比，按量计费",
-      "支持函数调用与结构化输出"
+      "超长上下文，一次处理海量信息",
+      "高性价比，性能与成本兼得",
+      "灵活集成，支持多种高级特性"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文，一次处理海量信息",
+        "高性价比，性能与成本兼得",
+        "灵活集成，支持多种高级特性"
+      ],
+      "en": [
+        "Massive 128K context for handling large documents and codebases",
+        "Exceptional cost-performance ratio, delivering top-tier results at low cost",
+        "Flexible integration with function calling, JSON mode, and streaming"
+      ],
+      "ru": [
+        "Огромный контекст в 128K токенов для обработки больших документов и кодовых баз",
+        "Отличное соотношение цены и производительности",
+        "Гибкая интеграция с вызовом функций, режимом JSON и потоковой передачей"
+      ],
+      "tr": [
+        "Büyük belgeleri ve kod tabanlarını işlemek için 128K dev bağlam penceresi",
+        "Düşük maliyetle üstün performans",
+        "Fonksiyon çağrısı, JSON modu ve akış ile esnek entegrasyon"
+      ]
+    },
     "whyChoose": {
-      "en": "Best balance of performance, context length, and cost for developers.",
-      "ru": "Лучший баланс производительности, длины контекста и цены для разработчиков.",
-      "tr": "Geliştiriciler için performans, bağlam uzunluğu ve maliyet dengesi en iyi."
+      "en": "DeepSeek V3 gives you GPT-4-class performance at a fraction of the cost.",
+      "ru": "DeepSeek V3 обеспечивает производительность уровня GPT-4 по доступной цене.",
+      "tr": "DeepSeek V3, GPT-4 seviyesinde performansı çok daha düşük maliyetle sunar."
+    },
+    "codeExample": {
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"deepseek-chat\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"deepseek-chat\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"deepseek-chat\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
+    },
+    "enriched": true
+  },
+  {
+    "id": "deepseek-v4-flash",
+    "name": "DeepSeek V4 Flash",
+    "provider": "DeepSeek",
+    "providerLogo": "/logos/deepseek.png",
+    "description": "DeepSeek V4 Flash 是 DeepSeek 最新一代高效推理模型，专为需要快速响应的实时应用设计。它拥有 128K 超长上下文，可处理大量文档或复杂对话，同时保持极低延迟。定价仅为每百万输入 token $0.14，输出 $0.28，极具性价比。支持函数调用、JSON 模式和流式输出，适合构建聊天机器人、代码助手、数据提取等场景。通过 AiFlowHub 单一 API 即可调用，无需注册多家平台，按量付费，让东欧、中亚和高加索地区的开发者轻松接入中国顶尖 AI 能力。",
+    "descriptions": {
+      "zh": "DeepSeek V4 Flash 是 DeepSeek 最新一代高效推理模型，专为需要快速响应的实时应用设计。它拥有 128K 超长上下文，可处理大量文档或复杂对话，同时保持极低延迟。定价仅为每百万输入 token $0.14，输出 $0.28，极具性价比。支持函数调用、JSON 模式和流式输出，适合构建聊天机器人、代码助手、数据提取等场景。通过 AiFlowHub 单一 API 即可调用，无需注册多家平台，按量付费，让东欧、中亚和高加索地区的开发者轻松接入中国顶尖 AI 能力。",
+      "en": "DeepSeek V4 Flash is the latest high-efficiency reasoning model from DeepSeek, built for real-time applications that demand fast responses. With a 128K context window, it handles lengthy documents or complex conversations effortlessly while maintaining low latency. Priced at just $0.14 per million input tokens and $0.28 per million output tokens, it delivers exceptional value. Features like Function Calling, JSON Mode, and Streaming make it ideal for chatbots, code assistants, data extraction, and more. Accessible via AiFlowHub's single API, you get pay-as-you-go pricing without juggling multiple accounts—perfect for developers in Armenia, Georgia, and Kazakhstan seeking top-tier Chinese AI.",
+      "ru": "DeepSeek V4 Flash — это новейшая эффективная модель рассуждений от DeepSeek, созданная для приложений реального времени, требующих быстрых ответов. Благодаря контекстному окну в 128K токенов она легко обрабатывает большие документы или сложные диалоги с минимальной задержкой. Цена составляет всего $0,14 за миллион входных токенов и $0,28 за выходные — отличное соотношение цены и производительности. Поддержка вызова функций, режима JSON и потоковой передачи делает её идеальной для чат-ботов, ассистентов кода, извлечения данных и других задач. Через единый API AiFlowHub вы получаете доступ к модели без регистрации у нескольких провайдеров — оплата по факту использования. Идеально для разработчиков из СНГ.",
+      "tr": "DeepSeek V4 Flash, hızlı yanıt gerektiren gerçek zamanlı uygulamalar için DeepSeek'in en yeni yüksek verimli akıl yürütme modelidir. 128K token bağlam penceresi sayesinde uzun belgeleri veya karmaşık diyalogları düşük gecikmeyle işler. Fiyatlandırması giriş token'ları için milyon başına yalnızca $0,14, çıkış token'ları için $0,28 ile son derece uygun maliyetlidir. Fonksiyon Çağrısı, JSON Modu ve Akış özellikleriyle sohbet robotları, kod asistanları, veri çıkarma gibi senaryolar için idealdir. AiFlowHub'ın tek API'si üzerinden erişilebilir, ayrı ayrı kayıt olmadan kullandıkça öde modeliyle çalışır. Ermenistan, Gürcistan ve Kazakistan'daki geliştiriciler için Çin'in önde gelen yapay zekasına kolay erişim sağlar."
+    },
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
+    ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
+    "useCases": [
+      "智能客服与聊天机器人",
+      "代码生成与辅助编程",
+      "文档分析与数据提取",
+      "实时翻译与内容总结"
+    ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与聊天机器人",
+        "代码生成与辅助编程",
+        "文档分析与数据提取",
+        "实时翻译与内容总结"
+      ],
+      "en": [
+        "Intelligent customer support and chatbots",
+        "Code generation and assisted programming",
+        "Document analysis and data extraction",
+        "Real-time translation and content summarization"
+      ],
+      "ru": [
+        "Интеллектуальная поддержка клиентов и чат-боты",
+        "Генерация кода и помощь в программировании",
+        "Анализ документов и извлечение данных",
+        "Перевод в реальном времени и суммаризация контента"
+      ],
+      "tr": [
+        "Akıllı müşteri desteği ve sohbet robotları",
+        "Kod oluşturma ve yardımcı programlama",
+        "Belge analizi ve veri çıkarma",
+        "Gerçek zamanlı çeviri ve içerik özetleme"
+      ]
+    },
+    "strengths": [
+      "超长上下文，128K token 轻松处理大部头文档",
+      "极速推理，延迟低至毫秒级",
+      "性价比之王，定价远低于同类模型",
+      "企业级稳定，专为高并发生产环境优化"
+    ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文，128K token 轻松处理大部头文档",
+        "极速推理，延迟低至毫秒级",
+        "性价比之王，定价远低于同类模型",
+        "企业级稳定，专为高并发生产环境优化"
+      ],
+      "en": [
+        "Ultra-long 128K context for handling large documents",
+        "Lightning-fast inference with millisecond latency",
+        "Best-in-class pricing, far below comparable models",
+        "Enterprise-grade stability optimized for high-concurrency production"
+      ],
+      "ru": [
+        "Сверхдлинный контекст 128K для работы с большими документами",
+        "Молниеносный вывод с задержкой в миллисекундах",
+        "Лучшее соотношение цены и производительности",
+        "Корпоративная стабильность для высоконагруженных сред"
+      ],
+      "tr": [
+        "128K ultra uzun bağlam ile büyük belgeleri işleme",
+        "Milisaniye gecikmeli yıldırım hızında çıkarım",
+        "Rakiplerine göre çok daha düşük fiyatla en iyi değer",
+        "Yüksek eşzamanlı üretim için optimize edilmiş kurumsal kararlılık"
+      ]
+    },
+    "whyChoose": {
+      "en": "Blazing-fast, cost-effective reasoning with 128K context — ideal for real-time, production-scale AI apps.",
+      "ru": "Молниеносное и экономичное рассуждение с контекстом 128K — идеально для AI-приложений реального времени.",
+      "tr": "128K bağlamla yıldırım hızında, uygun maliyetli akıl yürütme — gerçek zamanlı, üretim ölçeğindeki AI uygulamaları için ideal."
+    },
+    "codeExample": {
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"deepseek-v4-flash\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"deepseek-v4-flash\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"deepseek-v4-flash\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
+    },
+    "enriched": true
+  },
+  {
+    "id": "deepseek-v4-pro",
+    "name": "DeepSeek V4 Pro",
+    "provider": "DeepSeek",
+    "providerLogo": "/logos/deepseek.png",
+    "description": "DeepSeek V4 Pro 是 DeepSeek 最新旗舰模型，专为高并发、复杂推理场景打造。128K 上下文窗口让长文档分析、多轮对话游刃有余；函数调用与 JSON 模式无缝对接企业级应用，流式输出带来实时交互体验。通过 AiFlowHub 单一 API 即可调用，无需注册多家厂商，按量付费，灵活高效。适合构建智能客服、代码助手、数据分析等产品的中高级开发者。",
+    "descriptions": {
+      "zh": "DeepSeek V4 Pro 是 DeepSeek 最新旗舰模型，专为高并发、复杂推理场景打造。128K 上下文窗口让长文档分析、多轮对话游刃有余；函数调用与 JSON 模式无缝对接企业级应用，流式输出带来实时交互体验。通过 AiFlowHub 单一 API 即可调用，无需注册多家厂商，按量付费，灵活高效。适合构建智能客服、代码助手、数据分析等产品的中高级开发者。",
+      "en": "DeepSeek V4 Pro is the latest flagship model from DeepSeek, engineered for high-concurrency and complex reasoning tasks. With a 128K context window, it excels at long-document analysis and multi-turn conversations. Function Calling and JSON Mode enable seamless enterprise integration, while Streaming delivers real-time interactions. Accessible via AiFlowHub’s single API — no need to register with multiple vendors, pay per token, and scale as you grow. Perfect for developers in Armenia, Georgia, and Kazakhstan building smart chatbots, code assistants, or data analysis tools.",
+      "ru": "DeepSeek V4 Pro — флагманская модель DeepSeek, созданная для высоконагруженных и сложных задач рассуждения. Окно контекста в 128K позволяет легко анализировать длинные документы и вести многошаговые диалоги. Вызов функций и режим JSON обеспечивают бесшовную интеграцию с корпоративными приложениями, а потоковая передача — взаимодействие в реальном времени. Доступ через единый API AiFlowHub: не нужно регистрироваться у разных поставщиков, оплата по токенам. Идеально для разработчиков из СНГ, создающих интеллектуальных ассистентов, помощников по коду и инструменты анализа данных.",
+      "tr": "DeepSeek V4 Pro, yüksek eşzamanlılık ve karmaşık akıl yürütme görevleri için tasarlanmış en yeni DeepSeek amiral gemisi modelidir. 128K bağlam penceresi ile uzun belge analizi ve çok turlu sohbetlerde üstün performans sunar. Fonksiyon Çağrısı ve JSON Modu, kurumsal uygulamalarla sorunsuz entegrasyon sağlarken, Akış özelliği gerçek zamanlı etkileşim imkanı verir. AiFlowHub’ın tek API’si ile erişilebilir — birden fazla satıcıya kaydolmanız gerekmez, token başına ödeme yaparsınız. Türkiye’deki geliştiriciler için akıllı sohbet robotları, kod yardımcıları veya veri analizi araçları oluşturmak için ideal."
+    },
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
+    ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
+    "useCases": [
+      "智能客服：多轮对话，精准理解用户意图",
+      "代码助手：上下文感知的代码生成与调试",
+      "数据分析：长文档报告摘要与推理"
+    ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服：多轮对话，精准理解用户意图",
+        "代码助手：上下文感知的代码生成与调试",
+        "数据分析：长文档报告摘要与推理"
+      ],
+      "en": [
+        "Smart customer support: multi-turn conversations with accurate intent understanding",
+        "Code assistant: context-aware code generation and debugging",
+        "Data analysis: long-document summarization and reasoning"
+      ],
+      "ru": [
+        "Умная поддержка: многошаговые диалоги с точным пониманием намерений",
+        "Помощник по коду: генерация и отладка кода с учетом контекста",
+        "Анализ данных: суммаризация и рассуждение по длинным документам"
+      ],
+      "tr": [
+        "Akıllı müşteri desteği: çok turlu sohbetlerde doğru niyet anlama",
+        "Kod yardımcısı: bağlam duyarlı kod oluşturma ve hata ayıklama",
+        "Veri analizi: uzun belgelerin özetlenmesi ve akıl yürütme"
+      ]
+    },
+    "strengths": [
+      "超长上下文，处理复杂文档不丢失细节",
+      "高并发低延迟，适合生产环境",
+      "企业级功能集成，开箱即用"
+    ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文，处理复杂文档不丢失细节",
+        "高并发低延迟，适合生产环境",
+        "企业级功能集成，开箱即用"
+      ],
+      "en": [
+        "Massive 128K context for complex documents without losing details",
+        "High concurrency with low latency, production-ready",
+        "Enterprise-grade features, out-of-the-box integration"
+      ],
+      "ru": [
+        "Огромный контекст 128K для сложных документов без потери деталей",
+        "Высокая параллельность и низкая задержка, готовность к продакшену",
+        "Корпоративные функции, готовые к интеграции"
+      ],
+      "tr": [
+        "128K ile büyük belgelerde detay kaybı olmadan çalışma",
+        "Yüksek eşzamanlılık ve düşük gecikme, üretime hazır",
+        "Kurumsal düzeyde özellikler, kutudan çıkar çıkmaz entegrasyon"
+      ]
+    },
+    "whyChoose": {
+      "en": "The most cost-effective flagship model with unmatched context length and enterprise features.",
+      "ru": "Самая рентабельная флагманская модель с непревзойденной длиной контекста и корпоративными функциями.",
+      "tr": "Eşsiz bağlam uzunluğu ve kurumsal özelliklerle en uygun maliyetli amiral gemisi modeli."
+    },
+    "codeExample": {
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"deepseek-v4-pro\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"deepseek-v4-pro\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"deepseek-v4-pro\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
+    },
+    "enriched": true
+  },
+  {
+    "id": "abab6.5s-chat",
+    "name": "ABAB 6.5s",
+    "provider": "MiniMax",
+    "providerLogo": "/logos/minimax.png",
+    "description": "ABAB 6.5s 是 MiniMax 打造的高性能对话模型，擅长处理复杂指令与多轮对话。128K 超长上下文让你一次塞进整份代码库或长篇文档，输出质量依然稳定。支持函数调用、JSON 模式与流式输出，适合构建智能客服、代码助手、内容生成等场景。通过 AiFlowHub 统一 API 即可调用，按量付费，无需单独注册，特别适合东欧、中亚开发者快速集成中国顶尖 AI 能力。",
+    "descriptions": {
+      "zh": "ABAB 6.5s 是 MiniMax 打造的高性能对话模型，擅长处理复杂指令与多轮对话。128K 超长上下文让你一次塞进整份代码库或长篇文档，输出质量依然稳定。支持函数调用、JSON 模式与流式输出，适合构建智能客服、代码助手、内容生成等场景。通过 AiFlowHub 统一 API 即可调用，按量付费，无需单独注册，特别适合东欧、中亚开发者快速集成中国顶尖 AI 能力。",
+      "en": "ABAB 6.5s is MiniMax's high-performance chat model designed for complex instructions and extended dialogues. With a 128K context window, you can feed entire codebases or long documents in one go and get consistent, high-quality outputs. It supports function calling, JSON mode, and streaming — ideal for building intelligent assistants, code copilots, and content generation tools. Access it through AiFlowHub's single API, pay per token, and skip the hassle of separate registrations. Perfect for developers in Armenia, Georgia, and Kazakhstan who want to integrate top-tier Chinese AI without friction.",
+      "ru": "ABAB 6.5s — высокопроизводительная чат-модель от MiniMax, созданная для сложных инструкций и многоэтапных диалогов. Окно контекста в 128K позволяет загружать целые репозитории кода или объёмные документы за один раз, сохраняя стабильное качество вывода. Поддерживает вызов функций, режим JSON и потоковую передачу — идеально для построения интеллектуальных ассистентов, помощников по коду и инструментов генерации контента. Подключайтесь через единый API AiFlowHub, платите за токены и забудьте о регистрации у каждого провайдера. Оптимально для разработчиков из СНГ, желающих быстро интегрировать передовые китайские AI-модели.",
+      "tr": "ABAB 6.5s, MiniMax tarafından geliştirilmiş, karmaşık talimatlar ve çok turlu diyaloglar için tasarlanmış yüksek performanslı bir sohbet modelidir. 128K bağlam penceresi sayesinde tüm kod tabanlarını veya uzun belgeleri tek seferde işleyebilir, tutarlı ve kaliteli çıktılar alabilirsiniz. Fonksiyon çağrısı, JSON modu ve akış desteği ile akıllı asistanlar, kod yardımcıları ve içerik üretim araçları oluşturmak için idealdir. AiFlowHub'ın tek API'si üzerinden erişin, token başına ödeyin ve ayrı ayrı kayıt zahmetinden kurtulun. Özellikle Türkiye'deki geliştiriciler için Çin'in önde gelen yapay zeka modellerini sorunsuzca entegre etme fırsatı."
+    },
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
+    ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
+    "useCases": [
+      "智能客服与虚拟助手",
+      "代码生成与调试辅助",
+      "长文档分析与摘要",
+      "多轮对话与内容创作"
+    ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与虚拟助手",
+        "代码生成与调试辅助",
+        "长文档分析与摘要",
+        "多轮对话与内容创作"
+      ],
+      "en": [
+        "Customer support chatbots",
+        "Code generation and debugging",
+        "Long document analysis",
+        "Multi-turn conversations"
+      ],
+      "ru": [
+        "Чат-боты поддержки",
+        "Генерация и отладка кода",
+        "Анализ длинных документов",
+        "Многоэтапные диалоги"
+      ],
+      "tr": [
+        "Müşteri destek sohbet botları",
+        "Kod oluşturma ve hata ayıklama",
+        "Uzun belge analizi",
+        "Çok turlu sohbetler"
+      ]
+    },
+    "strengths": [
+      "超长上下文，一次处理整份文档",
+      "稳定输出，复杂任务表现优异",
+      "高效推理，响应速度快",
+      "灵活集成，支持多种开发模式"
+    ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文，一次处理整份文档",
+        "稳定输出，复杂任务表现优异",
+        "高效推理，响应速度快",
+        "灵活集成，支持多种开发模式"
+      ],
+      "en": [
+        "Massive 128K context for whole documents",
+        "Reliable output on complex tasks",
+        "Fast inference with low latency",
+        "Flexible integration via API"
+      ],
+      "ru": [
+        "Огромный контекст 128K для целых документов",
+        "Надёжный вывод на сложных задачах",
+        "Быстрый вывод с низкой задержкой",
+        "Гибкая интеграция через API"
+      ],
+      "tr": [
+        "Tüm belgeler için dev 128K bağlam",
+        "Karmaşık görevlerde güvenilir çıktı",
+        "Düşük gecikmeli hızlı çıkarım",
+        "API ile esnek entegrasyon"
+      ]
+    },
+    "whyChoose": {
+      "en": "Best Chinese model for long-context tasks at competitive pricing.",
+      "ru": "Лучшая китайская модель для задач с длинным контекстом по выгодной цене.",
+      "tr": "Uzun bağlam gerektiren görevler için rekabetçi fiyatlı en iyi Çin modeli."
     },
     "codeExample": {
       "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"abab6.5s-chat\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
@@ -241,12 +593,12 @@
     "name": "ABAB 7",
     "provider": "MiniMax",
     "providerLogo": "/logos/minimax.png",
-    "description": "ABAB 7 是 MiniMax 最新一代大语言模型，专为高复杂度任务设计。它拥有 128K 超长上下文，能一次处理整本书或长篇对话，无需截断。支持函数调用、JSON 输出和流式响应，适合构建智能客服、代码助手、内容生成等企业级应用。定价仅为 $0.14/1M 输入 token，性价比出众。通过 AiFlowHub 的单一 API，您无需注册多家厂商即可直接调用，按量付费，轻松集成。",
+    "description": "ABAB 7 是 MiniMax 最新一代大语言模型，专为需要高智能、长上下文和可靠结构化输出的场景而设计。128K 超长上下文窗口，让它可以一次性处理整本书、复杂对话或大型代码库。支持函数调用、JSON 模式和流式输出，轻松集成到你的应用后端。无论是构建智能客服、代码助手、内容生成工具，还是需要深度推理的复杂任务，ABAB 7 都能以极低的延迟和极具竞争力的价格提供出色表现。通过 AiFlowHub 的单一 API 即可调用，无需单独注册，按量付费，特别适合东欧、中亚和高加索地区的开发者快速搭建 AI 产品。",
     "descriptions": {
-      "zh": "ABAB 7 是 MiniMax 最新一代大语言模型，专为高复杂度任务设计。它拥有 128K 超长上下文，能一次处理整本书或长篇对话，无需截断。支持函数调用、JSON 输出和流式响应，适合构建智能客服、代码助手、内容生成等企业级应用。定价仅为 $0.14/1M 输入 token，性价比出众。通过 AiFlowHub 的单一 API，您无需注册多家厂商即可直接调用，按量付费，轻松集成。",
-      "en": "ABAB 7 is MiniMax's latest large language model, built for high-complexity tasks. With a 128K context window, it handles entire books or long conversations in one go. Supports function calling, JSON mode, and streaming — perfect for building smart chatbots, code assistants, and content generators. At just $0.14/1M input tokens, it's a cost-effective powerhouse. Through AiFlowHub's single API, you get instant access without multiple registrations, pay-as-you-go. Ideal for developers in Armenia, Georgia, Kazakhstan who need a reliable, scalable AI backbone.",
-      "ru": "ABAB 7 — новейшая языковая модель MiniMax, созданная для сложных задач. Окно контекста 128K позволяет обрабатывать целые книги или длинные диалоги без обрезки. Поддерживает вызов функций, JSON-режим и потоковую передачу — идеально для чат-ботов, помощников по коду и генерации контента. Цена всего $0.14/1M входных токенов. Через единый API AiFlowHub вы получаете доступ без регистрации у нескольких провайдеров, оплата по факту использования.",
-      "tr": "ABAB 7, MiniMax'in en yeni büyük dil modelidir ve yüksek karmaşıklıktaki görevler için tasarlanmıştır. 128K bağlam penceresiyle tüm kitapları veya uzun diyalogları tek seferde işler. Fonksiyon çağırma, JSON modu ve akış desteği sunar — akıllı sohbet robotları, kod asistanları ve içerik üreticileri için idealdir. Giriş token'ı başına yalnızca $0.14/1M ile uygun maliyetlidir. AiFlowHub'ın tek API'si sayesinde birden fazla firmaya kayıt olmadan, kullandıkça öde modeliyle erişebilirsiniz."
+      "zh": "ABAB 7 是 MiniMax 最新一代大语言模型，专为需要高智能、长上下文和可靠结构化输出的场景而设计。128K 超长上下文窗口，让它可以一次性处理整本书、复杂对话或大型代码库。支持函数调用、JSON 模式和流式输出，轻松集成到你的应用后端。无论是构建智能客服、代码助手、内容生成工具，还是需要深度推理的复杂任务，ABAB 7 都能以极低的延迟和极具竞争力的价格提供出色表现。通过 AiFlowHub 的单一 API 即可调用，无需单独注册，按量付费，特别适合东欧、中亚和高加索地区的开发者快速搭建 AI 产品。",
+      "en": "ABAB 7 is MiniMax's latest large language model, engineered for high intelligence, long context, and reliable structured output. With a massive 128K context window, it can process entire books, complex conversations, or large codebases in one go. Supports function calling, JSON mode, and streaming — making it a breeze to integrate into your app backend. Whether you're building a smart customer support bot, a code assistant, a content generator, or tackling deep reasoning tasks, ABAB 7 delivers top performance at low latency and a competitive price. Access it via AiFlowHub's single API — no separate sign-ups, just pay-as-you-go. Perfect for developers in Armenia, Georgia, Kazakhstan, and beyond who want to ship AI products fast.",
+      "ru": "ABAB 7 — новейшая большая языковая модель от MiniMax, созданная для высокого интеллекта, длинного контекста и надёжного структурированного вывода. Огромное окно контекста в 128K позволяет обрабатывать целые книги, сложные диалоги или большие кодовые базы за один раз. Поддерживает вызов функций, режим JSON и потоковую передачу, что упрощает интеграцию в ваш бэкенд. Создаёте ли вы интеллектуального бота поддержки, помощника по коду, генератор контента или решаете сложные задачи рассуждений — ABAB 7 обеспечивает отличную производительность с низкой задержкой и по конкурентоспособной цене. Доступен через единый API AiFlowHub — без отдельных регистраций, оплата по мере использования. Идеально подходит для разработчиков из СНГ, желающих быстро запускать AI-продукты.",
+      "tr": "ABAB 7, MiniMax'ın en yeni büyük dil modelidir; yüksek zeka, uzun bağlam ve güvenilir yapılandırılmış çıktı için tasarlanmıştır. 128K devasa bağlam penceresiyle tüm kitapları, karmaşık konuşmaları veya büyük kod tabanlarını tek seferde işleyebilir. Fonksiyon çağrısı, JSON modu ve akış desteği sayesinde uygulama arka ucunuza kolayca entegre olur. İster akıllı bir müşteri destek botu, ister kod asistanı, içerik oluşturma aracı veya derin muhakeme gerektiren karmaşık görevler geliştiriyor olun, ABAB 7 düşük gecikme ve rekabetçi fiyatla üstün performans sunar. AiFlowHub'ın tek API'si ile erişin — ayrı kayıt gerektirmez, kullandıkça ödeyin. Özellikle Ermenistan, Gürcistan, Kazakistan ve çevresindeki geliştiriciler için AI ürünlerini hızlıca piyasaya sürmek idealdir."
     },
     "inputPrice": "$0.14/1M",
     "outputPrice": "$0.28/1M",
@@ -259,20 +611,91 @@
       "JSON Mode",
       "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "智能客服与对话系统",
+      "智能客服与对话机器人",
       "代码生成与辅助编程",
-      "长文档分析与内容摘要"
+      "内容创作与文档总结"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话机器人",
+        "代码生成与辅助编程",
+        "内容创作与文档总结"
+      ],
+      "en": [
+        "Intelligent customer support and chatbots",
+        "Code generation and programming assistance",
+        "Content creation and document summarization"
+      ],
+      "ru": [
+        "Интеллектуальная поддержка клиентов и чат-боты",
+        "Генерация кода и помощь в программировании",
+        "Создание контента и суммаризация документов"
+      ],
+      "tr": [
+        "Akıllı müşteri desteği ve sohbet robotları",
+        "Kod oluşturma ve programlama yardımı",
+        "İçerik oluşturma ve belge özetleme"
+      ]
+    },
     "strengths": [
-      "超长上下文处理能力",
-      "高性价比定价",
-      "企业级稳定性和可靠性"
+      "128K 超长上下文，一次处理海量信息",
+      "极低延迟，响应迅速",
+      "支持函数调用与 JSON 模式，易于集成",
+      "性价比高，按量付费"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "128K 超长上下文，一次处理海量信息",
+        "极低延迟，响应迅速",
+        "支持函数调用与 JSON 模式，易于集成",
+        "性价比高，按量付费"
+      ],
+      "en": [
+        "Massive 128K context window for processing large inputs in one shot",
+        "Ultra-low latency for real-time applications",
+        "Built-in function calling and JSON mode for easy integration",
+        "Cost-effective with pay-as-you-go pricing"
+      ],
+      "ru": [
+        "Огромное окно контекста 128K для обработки больших объёмов за раз",
+        "Низкая задержка для приложений реального времени",
+        "Встроенные вызов функций и режим JSON для лёгкой интеграции",
+        "Экономичность с оплатой по мере использования"
+      ],
+      "tr": [
+        "Büyük girdileri tek seferde işlemek için 128K devasa bağlam penceresi",
+        "Gerçek zamanlı uygulamalar için ultra düşük gecikme",
+        "Kolay entegrasyon için yerleşik fonksiyon çağrısı ve JSON modu",
+        "Kullandıkça öde ile uygun maliyet"
+      ]
+    },
     "whyChoose": {
-      "en": "Best balance of long context, features, and cost for production workloads.",
-      "ru": "Лучший баланс длинного контекста, функций и цены для продакшн-нагрузок.",
-      "tr": "Üretim iş yükleri için uzun bağlam, özellikler ve maliyet dengesi en iyi."
+      "en": "ABAB 7 combines a massive context window, low latency, and structured output at a competitive price.",
+      "ru": "ABAB 7 сочетает огромное окно контекста, низкую задержку и структурированный вывод по конкурентоспособной цене.",
+      "tr": "ABAB 7, rekabetçi bir fiyata devasa bağlam penceresi, düşük gecikme ve yapılandırılmış çıktıyı bir araya getiriyor."
     },
     "codeExample": {
       "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"abab7-chat\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
@@ -282,16 +705,16 @@
     "enriched": true
   },
   {
-    "id": "glm-4-flash",
-    "name": "GLM-4 Flash",
-    "provider": "Zhipu",
-    "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-4 Flash 是智谱AI推出的轻量级大语言模型，专为追求低延迟与高性价比的AI应用而设计。它拥有128K超长上下文窗口，可一次性处理整本书的体量，同时支持Function Calling、JSON Mode和流式输出，让开发者轻松构建智能对话、数据提取和自动化工作流。无论是搭建智能客服、内容生成还是多轮对话系统，GLM-4 Flash都能以极低的成本提供稳定、快速的响应。现在通过AiFlowHub，您只需一个API即可调用，按量付费，无需单独注册，即刻开启高效AI开发。",
+    "id": "mimo-v2-flash",
+    "name": "MiMo V2 Flash",
+    "provider": "Xiaomi MiMo",
+    "providerLogo": "/logos/xiaomi-mimo.png",
+    "description": "MiMo V2 Flash 是小米 MiMo 推出的轻量级对话模型，专为高并发、低延迟场景设计。它拥有 128K 超长上下文，能轻松处理多轮对话与长文档分析。支持函数调用、JSON 模式和流式输出，开发者可通过 AiFlowHub 单一 API 快速集成。适合需要快速响应、性价比高的聊天机器人、客服系统和内容生成应用。面向东欧、中亚和高加索地区的开发者，无需繁琐注册，按量付费。",
     "descriptions": {
-      "zh": "GLM-4 Flash 是智谱AI推出的轻量级大语言模型，专为追求低延迟与高性价比的AI应用而设计。它拥有128K超长上下文窗口，可一次性处理整本书的体量，同时支持Function Calling、JSON Mode和流式输出，让开发者轻松构建智能对话、数据提取和自动化工作流。无论是搭建智能客服、内容生成还是多轮对话系统，GLM-4 Flash都能以极低的成本提供稳定、快速的响应。现在通过AiFlowHub，您只需一个API即可调用，按量付费，无需单独注册，即刻开启高效AI开发。",
-      "en": "GLM-4 Flash is a lightweight yet powerful LLM from Zhipu AI, built for speed and cost-efficiency. With a 128K context window, it can process entire books in one go, while supporting Function Calling, JSON Mode, and streaming responses. Perfect for developers building chatbots, content generators, or automation tools, it delivers fast, reliable output without breaking the bank. Through AiFlowHub, you get one API to access it and many other Chinese AI models, pay-as-you-go, no separate accounts needed. Start building smarter, faster today.",
-      "ru": "GLM-4 Flash — это легковесная языковая модель от Zhipu AI, созданная для низкой задержки и высокой экономичности. Окно контекста в 128K позволяет обрабатывать объём целой книги за один раз, а поддержка Function Calling, JSON Mode и потоковой передачи данных упрощает создание чат-ботов, генерацию контента и автоматизацию. Через AiFlowHub вы получаете единый API для доступа к этой и другим китайским моделям, оплачивая только использованные токены. Начните быстро и без лишних затрат.",
-      "tr": "GLM-4 Flash, Zhipu AI tarafından geliştirilmiş, düşük gecikme ve yüksek maliyet verimliliği için optimize edilmiş hafif bir dil modelidir. 128K bağlam penceresiyle bir kitabı tek seferde işleyebilir; Function Calling, JSON Modu ve akışlı yanıt desteği ile sohbet robotları, içerik oluşturma ve otomasyon araçları geliştirmeyi kolaylaştırır. AiFlowHub üzerinden tek bir API ile erişin, kullandıkça ödeyin, ayrı kayıt gerektirmez. Daha akıllı ve hızlı geliştirmeye başlayın."
+      "zh": "MiMo V2 Flash 是小米 MiMo 推出的轻量级对话模型，专为高并发、低延迟场景设计。它拥有 128K 超长上下文，能轻松处理多轮对话与长文档分析。支持函数调用、JSON 模式和流式输出，开发者可通过 AiFlowHub 单一 API 快速集成。适合需要快速响应、性价比高的聊天机器人、客服系统和内容生成应用。面向东欧、中亚和高加索地区的开发者，无需繁琐注册，按量付费。",
+      "en": "MiMo V2 Flash is Xiaomi MiMo’s lightweight chat model built for high-throughput, low-latency applications. With a 128K context window, it handles long conversations and document analysis effortlessly. It supports function calling, JSON mode, and streaming, making it easy to integrate via AiFlowHub’s unified API. Ideal for chatbots, customer support, and content generation where speed and cost matter. Designed for developers in Armenia, Georgia, Kazakhstan — no separate sign-ups, just pay-as-you-go.",
+      "ru": "MiMo V2 Flash — это легковесная модель для диалогов от Xiaomi MiMo, созданная для приложений с высокой нагрузкой и низкой задержкой. Окно контекста в 128K позволяет легко обрабатывать длинные беседы и анализ документов. Поддерживает вызов функций, JSON-режим и потоковую передачу, что упрощает интеграцию через единый API AiFlowHub. Идеально подходит для чат-ботов, служб поддержки и генерации контента, где важны скорость и экономичность. Для разработчиков в СНГ — без отдельной регистрации, оплата по факту использования.",
+      "tr": "MiMo V2 Flash, Xiaomi MiMo'nun yüksek işlem hacimli, düşük gecikmeli uygulamalar için tasarlanmış hafif diyalog modelidir. 128K bağlam penceresi sayesinde uzun sohbetleri ve belge analizini sorunsuzca işler. Fonksiyon çağrısı, JSON modu ve akış desteği ile AiFlowHub'ın tek API'si üzerinden kolayca entegre edilir. Hız ve maliyetin önemli olduğu sohbet robotları, müşteri desteği ve içerik üretimi için idealdir. Ermenistan, Gürcistan, Kazakistan'daki geliştiriciler için — ayrı kayıt gerektirmez, kullandıkça öde."
     },
     "inputPrice": "$0.14/1M",
     "outputPrice": "$0.28/1M",
@@ -304,39 +727,105 @@
       "JSON Mode",
       "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "智能客服与对话系统",
-      "内容生成与摘要",
-      "数据提取与结构化输出"
+      "智能客服与聊天机器人",
+      "长文档问答与摘要",
+      "内容生成与文案写作"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与聊天机器人",
+        "长文档问答与摘要",
+        "内容生成与文案写作"
+      ],
+      "en": [
+        "Intelligent customer support & chatbots",
+        "Long document Q&A and summarization",
+        "Content generation & copywriting"
+      ],
+      "ru": [
+        "Интеллектуальная поддержка и чат-боты",
+        "Вопросы-ответы и суммаризация длинных документов",
+        "Генерация контента и копирайтинг"
+      ],
+      "tr": [
+        "Akıllı müşteri desteği ve sohbet robotları",
+        "Uzun belge soru-cevap ve özetleme",
+        "İçerik üretimi ve metin yazarlığı"
+      ]
+    },
     "strengths": [
-      "超长上下文处理能力",
-      "极低延迟响应",
-      "高性价比定价"
+      "超长上下文，支持 128K tokens",
+      "低延迟，高吞吐",
+      "高性价比，按量付费"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文，支持 128K tokens",
+        "低延迟，高吞吐",
+        "高性价比，按量付费"
+      ],
+      "en": [
+        "Ultra-long context up to 128K tokens",
+        "Low latency, high throughput",
+        "Cost-effective, pay-as-you-go"
+      ],
+      "ru": [
+        "Сверхдлинный контекст до 128K токенов",
+        "Низкая задержка, высокая пропускная способность",
+        "Экономичность, оплата по факту"
+      ],
+      "tr": [
+        "128K token'a kadar ultra uzun bağlam",
+        "Düşük gecikme, yüksek işlem hacmi",
+        "Uygun maliyet, kullandıkça öde"
+      ]
+    },
     "whyChoose": {
-      "en": "Fast, affordable, and capable — the smart choice for scaling AI.",
-      "ru": "Быстро, дёшево и мощно — лучший выбор для масштабирования AI.",
-      "tr": "Hızlı, uygun fiyatlı ve güçlü — AI'nızı ölçeklendirmek için akıllı seçim."
+      "en": "MiMo V2 Flash delivers speed and scale at a fraction of the cost.",
+      "ru": "MiMo V2 Flash обеспечивает скорость и масштаб при минимальных затратах.",
+      "tr": "MiMo V2 Flash, düşük maliyetle hız ve ölçeklenebilirlik sunar."
     },
     "codeExample": {
-      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4-flash\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
-      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4-flash\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
-      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4-flash\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"mimo-v2-flash\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"mimo-v2-flash\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"mimo-v2-flash\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
-    "id": "glm-4v",
-    "name": "GLM-4V",
-    "provider": "Zhipu",
-    "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-4V 是智谱推出的多模态大模型，能同时理解文本和图像。它擅长从图片中提取信息、分析图表、识别物体，并基于视觉内容进行推理和对话。128K 超长上下文让它可以一口气处理数百页文档或长篇视频。支持函数调用、JSON 输出和流式响应，是构建智能客服、内容审核、教育辅导、数据分析等应用的理想选择。按量付费，通过 AiFlowHub 单一 API 即可调用，无需多平台注册。",
+    "id": "mimo-v2-omni",
+    "name": "MiMo V2 Omni",
+    "provider": "Xiaomi MiMo",
+    "providerLogo": "/logos/xiaomi-mimo.png",
+    "description": "MiMo V2 Omni 是小米旗下最新的多模态大模型，专为需要同时处理文本、图像和结构化数据的场景设计。通过 AiFlowHub 平台，东欧、中亚和高加索地区的开发者只需一个 API 即可调用，无需分别注册多家中国厂商。它支持函数调用、JSON 模式和流式输出，适合构建智能客服、内容审核、数据分析等应用。定价透明，按量付费，让您专注于产品创新。",
     "descriptions": {
-      "zh": "GLM-4V 是智谱推出的多模态大模型，能同时理解文本和图像。它擅长从图片中提取信息、分析图表、识别物体，并基于视觉内容进行推理和对话。128K 超长上下文让它可以一口气处理数百页文档或长篇视频。支持函数调用、JSON 输出和流式响应，是构建智能客服、内容审核、教育辅导、数据分析等应用的理想选择。按量付费，通过 AiFlowHub 单一 API 即可调用，无需多平台注册。",
-      "en": "GLM-4V is Zhipu's multimodal model that understands both text and images. It can extract information from photos, analyze charts, recognize objects, and reason about visual content. With a 128K context window, it handles hundreds of pages or long videos in one go. It supports function calling, JSON mode, and streaming — making it perfect for building smart assistants, content moderation, educational tools, and data analysis apps. Pay-as-you-go, via a single AiFlowHub API. No need to sign up with multiple providers.",
-      "ru": "GLM-4V — мультимодальная модель от Zhipu, понимающая текст и изображения. Она извлекает информацию из фото, анализирует графики, распознает объекты и рассуждает на основе визуального контента. Окно контекста в 128K позволяет обрабатывать сотни страниц или длинные видео за один раз. Поддерживает вызов функций, JSON-режим и потоковую передачу. Идеально для создания умных ассистентов, модерации контента, образовательных инструментов и анализа данных. Оплата по факту использования через единый API AiFlowHub.",
-      "tr": "GLM-4V, Zhipu'nun hem metni hem de görselleri anlayan çok modlu modelidir. Fotoğraflardan bilgi çıkarır, grafikleri analiz eder, nesneleri tanır ve görsel içerik üzerinde akıl yürütür. 128K bağlam penceresiyle yüzlerce sayfayı veya uzun videoları tek seferde işler. Fonksiyon çağırma, JSON modu ve akış desteği sunar. Akıllı asistanlar, içerik denetimi, eğitim araçları ve veri analizi uygulamaları için idealdir. Tek bir AiFlowHub API'si ile kullanım başına ödeme yaparsınız."
+      "zh": "MiMo V2 Omni 是小米旗下最新的多模态大模型，专为需要同时处理文本、图像和结构化数据的场景设计。通过 AiFlowHub 平台，东欧、中亚和高加索地区的开发者只需一个 API 即可调用，无需分别注册多家中国厂商。它支持函数调用、JSON 模式和流式输出，适合构建智能客服、内容审核、数据分析等应用。定价透明，按量付费，让您专注于产品创新。",
+      "en": "MiMo V2 Omni is Xiaomi MiMo's latest multimodal model, designed for developers who need to process text, images, and structured data seamlessly. Available through AiFlowHub, it offers a single API to access top Chinese AI models without multiple registrations. With support for function calling, JSON mode, and streaming, it's ideal for building intelligent chatbots, content moderation, and data analysis tools. Pay-as-you-go pricing makes it accessible for startups and enterprises across Armenia, Georgia, and Kazakhstan.",
+      "ru": "MiMo V2 Omni — новейшая мультимодальная модель от Xiaomi MiMo, созданная для разработчиков, которым нужно обрабатывать текст, изображения и структурированные данные. Через платформу AiFlowHub вы получаете единый API для доступа к ведущим китайским AI-моделям без необходимости регистрироваться у каждого провайдера. Поддерживает вызов функций, JSON-режим и потоковую передачу. Идеально подходит для чат-ботов, модерации контента и анализа данных. Прозрачная оплата по факту использования.",
+      "tr": "MiMo V2 Omni, Xiaomi MiMo'nun en yeni çok modlu modelidir; metin, görüntü ve yapılandırılmış verileri aynı anda işlemek isteyen geliştiriciler için tasarlanmıştır. AiFlowHub platformu üzerinden tek bir API ile Çinli AI modellerine erişin, ayrı ayrı kaydolmanız gerekmez. Fonksiyon çağrısı, JSON modu ve akış desteği sayesinde akıllı sohbet robotları, içerik denetleme ve veri analizi uygulamaları için idealdir. Kullandıkça öde modeli ile bütçenize uygun."
     },
     "inputPrice": "$0.14/1M",
     "outputPrice": "$0.28/1M",
@@ -347,363 +836,909 @@
     "features": [
       "Function Calling",
       "JSON Mode",
-      "Streaming",
-      "Vision"
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "智能客服：从图片和文档中提取信息",
-      "内容审核：识别图像中的违规内容",
-      "教育辅导：分析图表、解题、批改作业"
+      "智能客服：理解图文混合的咨询内容",
+      "内容审核：识别图片与文字中的违规信息",
+      "数据分析：从报告图表中提取关键洞察"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服：理解图文混合的咨询内容",
+        "内容审核：识别图片与文字中的违规信息",
+        "数据分析：从报告图表中提取关键洞察"
+      ],
+      "en": [
+        "Intelligent customer service: understand mixed text-image queries",
+        "Content moderation: detect violations in images and text",
+        "Data analysis: extract insights from charts and reports"
+      ],
+      "ru": [
+        "Интеллектуальная поддержка: обработка смешанных запросов",
+        "Модерация контента: выявление нарушений в изображениях и тексте",
+        "Анализ данных: извлечение инсайтов из графиков и отчетов"
+      ],
+      "tr": [
+        "Akıllı müşteri hizmetleri: metin-görsel karışık sorguları anlama",
+        "İçerik denetleme: görsel ve metinlerdeki ihlalleri tespit",
+        "Veri analizi: rapor ve grafiklerden içgörü çıkarma"
+      ]
+    },
     "strengths": [
-      "多模态理解，文本与图像深度融合",
-      "128K超长上下文，处理长文档和视频",
-      "函数调用+JSON模式，易于集成到现有系统"
+      "多模态理解：文本与图像融合分析",
+      "128K 超长上下文，支持复杂文档处理",
+      "高性价比：按量付费，成本可控"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "多模态理解：文本与图像融合分析",
+        "128K 超长上下文，支持复杂文档处理",
+        "高性价比：按量付费，成本可控"
+      ],
+      "en": [
+        "Multimodal understanding: seamlessly analyze text and images together",
+        "128K context window for complex document processing",
+        "Cost-effective: pay-as-you-go with transparent pricing"
+      ],
+      "ru": [
+        "Мультимодальное понимание: совместный анализ текста и изображений",
+        "Контекст 128K для обработки сложных документов",
+        "Экономичность: оплата по факту использования"
+      ],
+      "tr": [
+        "Çok modlu anlama: metin ve görüntüleri birlikte analiz",
+        "128K bağlam penceresi ile karmaşık belge işleme",
+        "Uygun maliyet: kullandıkça öde, şeffaf fiyatlandırma"
+      ]
+    },
     "whyChoose": {
-      "en": "The most cost-effective multimodal model with 128K context — one API, no hassle.",
-      "ru": "Самая экономичная мультимодальная модель с контекстом 128K — один API, никакой головной боли.",
-      "tr": "128K bağlam pencereli en uygun maliyetli çok modlu model — tek API, zahmetsiz."
+      "en": "One API, multimodal power, pay only for what you use.",
+      "ru": "Один API, мультимодальные возможности, оплата только за использование.",
+      "tr": "Tek API, çok modlu güç, yalnızca kullandığınız kadar ödeyin."
     },
     "codeExample": {
-      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4v\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
-      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4v\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
-      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4v\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
-    },
-    "enriched": true
-  },
-  {
-    "id": "mimo-v2-omni",
-    "name": "MiMo V2 Omni",
-    "provider": "小米 MiMo",
-    "providerLogo": "/logos/xiaomi-mimo.png",
-    "description": "小米MiMo-V2.5，原生全模态模型，一模型搞定文本、图像、音频、视频理解。推理成本仅为同类Pro模型的50%，性能却毫不妥协。特别适合需要处理复杂多模态数据的开发者——无论是构建智能客服、视频分析，还是自动化工作流。1048K超长上下文，函数调用、JSON模式、流式输出全支持，高性价比之选。",
-    "descriptions": {
-      "zh": "小米MiMo-V2.5，原生全模态模型，一模型搞定文本、图像、音频、视频理解。推理成本仅为同类Pro模型的50%，性能却毫不妥协。特别适合需要处理复杂多模态数据的开发者——无论是构建智能客服、视频分析，还是自动化工作流。1048K超长上下文，函数调用、JSON模式、流式输出全支持，高性价比之选。",
-      "en": "MiMo-V2.5 is Xiaomi's native omnimodal model that processes text, images, audio, and video seamlessly. It delivers Pro-level performance at half the inference cost, making it ideal for developers building multimodal applications in emerging markets. With 1048K context window, function calling, JSON mode, and streaming, it's the cost-effective powerhouse for your next AI product.",
-      "ru": "MiMo-V2.5 — нативная омнимодальная модель от Xiaomi, которая обрабатывает текст, изображения, аудио и видео. Обеспечивает производительность уровня Pro при вдвое меньшей стоимости инференса. Идеально подходит для разработчиков из Казахстана и Центральной Азии, создающих мультимодальные приложения. Окно контекста 1048K, поддержка вызова функций, JSON-режима и потоковой передачи.",
-      "tr": "MiMo-V2.5, Xiaomi'nin metin, görsel, ses ve videoyu sorunsuz işleyen yerel omnimodal modelidir. Çıkarım maliyeti rakiplerinin yarısı kadar olmasına rağmen Pro seviyesinde performans sunar. Türkiye'deki geliştiriciler için ideal — 1048K bağlam penceresi, fonksiyon çağırma, JSON modu ve akış desteği ile uygun fiyatlı bir güç merkezi."
-    },
-    "inputPrice": "$0.14",
-    "outputPrice": "$0.28",
-    "contextWindow": "1048K",
-    "maxTokens": "131K",
-    "status": "available",
-    "category": "multimodal",
-    "features": [
-      "全模态理解",
-      "超长上下文",
-      "高性价比",
-      "函数调用",
-      "流式输出"
-    ],
-    "useCases": [
-      "构建多模态智能客服（文本+图片+语音）",
-      "视频内容理解与摘要生成",
-      "自动化工作流中的多模态数据处理（如发票识别+语音备注）"
-    ],
-    "strengths": [
-      "原生全模态，统一处理文本、图像、音频、视频",
-      "推理成本仅为同类Pro模型的50%",
-      "1048K超长上下文，适合长文档和复杂对话",
-      "支持函数调用、JSON模式、流式输出，开发者友好"
-    ],
-    "whyChoose": {
-      "en": "Pro-level multimodal performance at half the cost — the smart choice for budget-conscious developers.",
-      "ru": "Производительность уровня Pro за половину стоимости — разумный выбор для разработчиков с ограниченным бюджетом.",
-      "tr": "Yarı maliyetle Pro seviyesinde multimodal performans — bütçe bilincine sahip geliştiriciler için akıllıca bir seçim."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"mimo-v2-omni\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"mimo-v2-omni\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"mimo-v2-omni\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "mimo-v2-pro",
     "name": "MiMo V2 Pro",
-    "provider": "小米 MiMo",
+    "provider": "Xiaomi MiMo",
     "providerLogo": "/logos/xiaomi-mimo.png",
-    "description": "小米 MiMo-V2.5-Pro 是一款专为复杂任务打造的旗舰模型。它拥有超长上下文窗口，能轻松处理大型代码库、长文档和深度推理场景。在智能体能力、软件工程和长期规划任务上表现卓越，同时保持极高的性价比。对于需要高可靠性和强推理能力的开发者来说，这是理想之选。",
+    "description": "MiMo V2 Pro 是小米 MiMo 推出的高性能对话模型，专为需要深度理解与精准生成的复杂任务打造。它拥有 128K 超长上下文，一次可处理整本书或大型代码库，输出 token 达 16K，确保回答详尽完整。支持函数调用、JSON 模式和流式输出，让你轻松构建智能 Agent、结构化数据提取和实时交互应用。对于东欧、中亚和高加索地区的 AiFlowHub 开发者，这意味着：通过单一 API 即可调用，按量付费，无需分别注册多家厂商。无论是构建客服助手、代码生成工具还是多轮对话系统，MiMo V2 Pro 都以卓越的性价比和稳定表现，成为你 AI 应用的核心引擎。",
     "descriptions": {
-      "zh": "小米 MiMo-V2.5-Pro 是一款专为复杂任务打造的旗舰模型。它拥有超长上下文窗口，能轻松处理大型代码库、长文档和深度推理场景。在智能体能力、软件工程和长期规划任务上表现卓越，同时保持极高的性价比。对于需要高可靠性和强推理能力的开发者来说，这是理想之选。",
-      "en": "MiMo-V2.5-Pro is Xiaomi's flagship model, engineered for complex agentic tasks, software engineering, and long-horizon reasoning. With massive context and top-tier benchmark performance, it delivers enterprise-grade reliability at a fraction of the cost. Ideal for developers building intelligent systems, automating workflows, or tackling deep technical challenges.",
-      "ru": "MiMo-V2.5-Pro — флагманская модель Xiaomi, созданная для сложных агентных задач, разработки ПО и долгосрочного планирования. Огромный контекст и лидерские позиции в бенчмарках обеспечивают корпоративную надёжность по доступной цене. Идеально подходит разработчикам, создающим интеллектуальные системы, автоматизирующим процессы или решающим сложные технические задачи.",
-      "tr": "MiMo-V2.5-Pro, Xiaomi'nin amiral gemisi modelidir; karmaşık ajan görevleri, yazılım mühendisliği ve uzun vadeli akıl yürütme için tasarlanmıştır. Büyük bağlam penceresi ve en iyi benchmark performansı ile kurumsal düzeyde güvenilirlik sunar, üstelik çok uygun fiyatlı. Akıllı sistemler kuran, iş akışlarını otomatikleştiren veya derin teknik sorunları çözen geliştiriciler için idealdir."
+      "zh": "MiMo V2 Pro 是小米 MiMo 推出的高性能对话模型，专为需要深度理解与精准生成的复杂任务打造。它拥有 128K 超长上下文，一次可处理整本书或大型代码库，输出 token 达 16K，确保回答详尽完整。支持函数调用、JSON 模式和流式输出，让你轻松构建智能 Agent、结构化数据提取和实时交互应用。对于东欧、中亚和高加索地区的 AiFlowHub 开发者，这意味着：通过单一 API 即可调用，按量付费，无需分别注册多家厂商。无论是构建客服助手、代码生成工具还是多轮对话系统，MiMo V2 Pro 都以卓越的性价比和稳定表现，成为你 AI 应用的核心引擎。",
+      "en": "MiMo V2 Pro is Xiaomi MiMo's high-performance chat model for developers who need deep understanding and precise generation. With a 128K context window, it can process entire books or large codebases in one go, while 16K output tokens ensure rich, complete responses. It supports Function Calling, JSON Mode, and Streaming, making it ideal for building intelligent agents, structured data extraction, and real-time interactions. For AiFlowHub developers in Eastern Europe, Central Asia, and the Caucasus, this means one API to access premium Chinese AI models, pay-as-you-go pricing, and no separate sign-ups. Whether you're building customer support bots, code assistants, or complex conversational systems, MiMo V2 Pro delivers reliability and value. Choose MiMo V2 Pro for consistent, high-quality output that scales with your projects.",
+      "ru": "MiMo V2 Pro — высокопроизводительная диалоговая модель от Xiaomi MiMo, созданная для задач, требующих глубокого понимания и точной генерации. С контекстным окном 128K она обрабатывает целые книги или большие кодовые базы за один раз, а 16K выходных токенов обеспечивают развернутые ответы. Поддерживает вызов функций, режим JSON и потоковую передачу — идеально для создания интеллектуальных агентов, извлечения структурированных данных и интерактивных приложений. Для разработчиков AiFlowHub в Восточной Европе, Центральной Азии и на Кавказе это означает: единый API для доступа к ведущим китайским моделям, оплата по факту использования, без отдельных регистраций. Создаете ли вы чат-бота поддержки, инструмент для генерации кода или многошаговую диалоговую систему — MiMo V2 Pro обеспечивает стабильность и высокое качество по доступной цене.",
+      "tr": "MiMo V2 Pro, Xiaomi MiMo'nun derin anlama ve hassas üretim gerektiren karmaşık görevler için tasarlanmış yüksek performanslı sohbet modelidir. 128K bağlam penceresiyle tek seferde tüm bir kitabı veya büyük kod tabanlarını işleyebilir; 16K çıktı token'ı ise zengin ve eksiksiz yanıtlar sağlar. Fonksiyon çağrısı, JSON modu ve akış desteği sayesinde akıllı ajanlar, yapılandırılmış veri çıkarma ve gerçek zamanlı etkileşimli uygulamalar geliştirmek için idealdir. Doğu Avrupa, Orta Asya ve Kafkasya'daki AiFlowHub geliştiricileri için: tek bir API ile Çin'in önde gelen modellerine erişim, kullandıkça öde ve ayrı kayıt gerektirmez. İster müşteri hizmetleri botu, ister kod yardımcısı veya çok adımlı diyalog sistemi kurun, MiMo V2 Pro güvenilirlik ve değer sunar."
     },
-    "inputPrice": "$0.43",
-    "outputPrice": "$0.87",
-    "contextWindow": "1048K",
-    "maxTokens": "131K",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "函数调用",
-      "JSON 模式",
-      "流式输出",
-      "高性价比",
-      "超长上下文"
-    ],
-    "useCases": [
-      "复杂代码库分析与重构",
-      "长期规划与多步骤任务自动化",
-      "深度文档理解与问答"
-    ],
-    "strengths": [
-      "超长上下文处理能力",
-      "卓越的智能体与推理性能",
-      "极高的性价比",
-      "可靠的企业级表现"
-    ],
-    "whyChoose": {
-      "en": "Top-tier performance with massive context at a fraction of the cost.",
-      "ru": "Лучшая производительность с огромным контекстом по доступной цене.",
-      "tr": "Devasa bağlam penceresiyle en üst düzey performans, çok uygun fiyata."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    },
-    "enriched": true
-  },
-  {
-    "id": "mimo-v2-flash",
-    "name": "Xiaomi: MiMo-V2-Flash",
-    "provider": "小米 MiMo",
-    "providerLogo": "/logos/xiaomi-mimo.png",
-    "description": "小米MiMo-V2-Flash是一款专为高并发场景设计的开源语言模型，采用混合专家架构，以极低成本实现闪电般的响应速度。适合需要大量实时交互的AI应用，如智能客服、实时翻译和内容生成。面向追求性价比的开发者，让AI集成更简单、更快速。",
-    "descriptions": {
-      "zh": "小米MiMo-V2-Flash是一款专为高并发场景设计的开源语言模型，采用混合专家架构，以极低成本实现闪电般的响应速度。适合需要大量实时交互的AI应用，如智能客服、实时翻译和内容生成。面向追求性价比的开发者，让AI集成更简单、更快速。",
-      "en": "Xiaomi MiMo-V2-Flash is an open-source language model built for high-throughput, real-time applications. With its Mixture-of-Experts architecture, it delivers blazing-fast responses at a fraction of the cost. Perfect for developers in Armenia, Georgia, and Central Asia who need scalable AI for chatbots, live translation, or content generation. Get enterprise-grade performance without the price tag.",
-      "ru": "Xiaomi MiMo-V2-Flash — это открытая языковая модель для высоконагруженных сценариев. Архитектура смеси экспертов обеспечивает молниеносные ответы при минимальных затратах. Идеально подходит для разработчиков из Казахстана и Центральной Азии, создающих чат-боты, системы перевода или генерации контента. Мощность и скорость без лишних расходов.",
-      "tr": "Xiaomi MiMo-V2-Flash, yüksek eşzamanlılık gerektiren gerçek zamanlı uygulamalar için tasarlanmış açık kaynaklı bir dil modelidir. Uzman karışımı mimarisi sayesinde düşük maliyetle yıldırım hızında yanıtlar sunar. Türkiye'deki geliştiriciler için sohbet robotları, canlı çeviri veya içerik üretimi gibi ölçeklenebilir AI çözümleri için idealdir. Kurumsal performans, uygun fiyat."
-    },
-    "inputPrice": "$0.10",
-    "outputPrice": "$0.30",
-    "contextWindow": "262K",
-    "maxTokens": "65K",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
     "category": "chat",
     "features": [
-      "快速响应",
-      "低成本",
-      "流式输出",
-      "高并发",
-      "开源"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "智能客服与聊天机器人",
-      "实时翻译与多语言处理",
-      "内容生成与摘要"
+      "智能客服与对话助手",
+      "代码生成与审查",
+      "结构化数据提取与处理"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话助手",
+        "代码生成与审查",
+        "结构化数据提取与处理"
+      ],
+      "en": [
+        "Intelligent customer support bots",
+        "Code generation and review",
+        "Structured data extraction and processing"
+      ],
+      "ru": [
+        "Интеллектуальные чат-боты поддержки",
+        "Генерация и ревью кода",
+        "Извлечение и обработка структурированных данных"
+      ],
+      "tr": [
+        "Akıllı müşteri hizmetleri botları",
+        "Kod oluşturma ve inceleme",
+        "Yapılandırılmış veri çıkarma ve işleme"
+      ]
+    },
     "strengths": [
-      "极速响应，适合实时交互",
-      "低成本，高性价比",
-      "支持高并发，轻松扩展"
+      "超长上下文，一次处理整本书",
+      "高性价比，按量付费",
+      "稳定可靠，适合生产环境"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文，一次处理整本书",
+        "高性价比，按量付费",
+        "稳定可靠，适合生产环境"
+      ],
+      "en": [
+        "Ultra-long context, process entire books in one go",
+        "Cost-effective with pay-as-you-go pricing",
+        "Reliable and production-ready"
+      ],
+      "ru": [
+        "Сверхдлинный контекст, обрабатывает целые книги за раз",
+        "Экономичность с оплатой по факту использования",
+        "Стабильность для производственной среды"
+      ],
+      "tr": [
+        "Ultra uzun bağlam, tek seferde tüm kitabı işler",
+        "Kullandıkça öde ile uygun maliyetli",
+        "Güvenilir ve üretime hazır"
+      ]
+    },
     "whyChoose": {
-      "en": "Blazing speed and low cost make it the best choice for high-traffic AI applications.",
-      "ru": "Молниеносная скорость и низкая стоимость делают эту модель лучшим выбором для высоконагруженных AI-приложений.",
-      "tr": "Yıldırım hızı ve düşük maliyet, onu yüksek trafikli AI uygulamaları için en iyi seçim yapar."
+      "en": "One API, top Chinese model, pay-as-you-go — MiMo V2 Pro delivers performance without complexity.",
+      "ru": "Один API, ведущая китайская модель, оплата по факту — MiMo V2 Pro обеспечивает производительность без сложностей.",
+      "tr": "Tek API, önde gelen Çin modeli, kullandıkça öde — MiMo V2 Pro karmaşıklık olmadan performans sunar."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2-flash\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2-flash\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2-flash\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"mimo-v2-pro\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"mimo-v2-pro\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"mimo-v2-pro\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "mimo-v2.5",
-    "name": "Xiaomi: MiMo-V2.5",
-    "provider": "小米 MiMo",
+    "name": "MiMo V2.5",
+    "provider": "Xiaomi MiMo",
     "providerLogo": "/logos/xiaomi-mimo.png",
-    "description": "小米MiMo-V2.5，原生全模态模型，一模型搞定文本、图像、音频、视频理解。推理成本仅为同类Pro模型的50%，性能却毫不妥协。特别适合需要处理复杂多模态数据的开发者——无论是构建智能客服、视频分析，还是自动化工作流。1048K超长上下文，函数调用、JSON模式、流式输出全支持，高性价比之选。",
+    "description": "MiMo V2.5 是小米 MiMo 推出的新一代对话模型，专为需要高理解力与流畅交互的开发者打造。它在复杂指令跟随、长上下文处理和多轮对话中表现优异，支持函数调用、JSON 模式和流式输出，适用于构建智能客服、知识库问答、代码助手等场景。通过 AiFlowHub 平台，东欧、中亚和高加索地区的开发者只需一个 API 即可按量付费使用，无需分别注册多家厂商。",
     "descriptions": {
-      "zh": "小米MiMo-V2.5，原生全模态模型，一模型搞定文本、图像、音频、视频理解。推理成本仅为同类Pro模型的50%，性能却毫不妥协。特别适合需要处理复杂多模态数据的开发者——无论是构建智能客服、视频分析，还是自动化工作流。1048K超长上下文，函数调用、JSON模式、流式输出全支持，高性价比之选。",
-      "en": "MiMo-V2.5 is Xiaomi's native omnimodal model that processes text, images, audio, and video seamlessly. It delivers Pro-level performance at half the inference cost, making it ideal for developers building multimodal applications in emerging markets. With 1048K context window, function calling, JSON mode, and streaming, it's the cost-effective powerhouse for your next AI product.",
-      "ru": "MiMo-V2.5 — нативная омнимодальная модель от Xiaomi, которая обрабатывает текст, изображения, аудио и видео. Обеспечивает производительность уровня Pro при вдвое меньшей стоимости инференса. Идеально подходит для разработчиков из Казахстана и Центральной Азии, создающих мультимодальные приложения. Окно контекста 1048K, поддержка вызова функций, JSON-режима и потоковой передачи.",
-      "tr": "MiMo-V2.5, Xiaomi'nin metin, görsel, ses ve videoyu sorunsuz işleyen yerel omnimodal modelidir. Çıkarım maliyeti rakiplerinin yarısı kadar olmasına rağmen Pro seviyesinde performans sunar. Türkiye'deki geliştiriciler için ideal — 1048K bağlam penceresi, fonksiyon çağırma, JSON modu ve akış desteği ile uygun fiyatlı bir güç merkezi."
+      "zh": "MiMo V2.5 是小米 MiMo 推出的新一代对话模型，专为需要高理解力与流畅交互的开发者打造。它在复杂指令跟随、长上下文处理和多轮对话中表现优异，支持函数调用、JSON 模式和流式输出，适用于构建智能客服、知识库问答、代码助手等场景。通过 AiFlowHub 平台，东欧、中亚和高加索地区的开发者只需一个 API 即可按量付费使用，无需分别注册多家厂商。",
+      "en": "MiMo V2.5 is the latest chat model from Xiaomi MiMo, designed for developers who demand high comprehension and smooth interactions. It excels at complex instruction following, long-context handling, and multi-turn conversations. With support for Function Calling, JSON Mode, and Streaming, it's ideal for building intelligent chatbots, knowledge base Q&A, and coding assistants. On AiFlowHub, developers in Eastern Europe, Central Asia, and the Caucasus can access it via a single API with pay-as-you-go pricing — no need to sign up with multiple providers.",
+      "ru": "MiMo V2.5 — новейшая диалоговая модель от Xiaomi MiMo, созданная для разработчиков, которым нужны высокая понимаемость и плавное взаимодействие. Она отлично справляется со сложными инструкциями, длинным контекстом и многошаговыми беседами. Поддерживает вызов функций, режим JSON и потоковую передачу, что делает её идеальной для создания интеллектуальных чат-ботов, систем вопросов-ответов по базам знаний и помощников по коду. На платформе AiFlowHub разработчики из Восточной Европы, Центральной Азии и Кавказа могут получить к ней доступ через единый API с оплатой по факту использования — без необходимости регистрироваться у каждого провайдера отдельно.",
+      "tr": "MiMo V2.5, Xiaomi MiMo'nun en yeni sohbet modelidir ve yüksek anlama kapasitesi ile akıcı etkileşimler arayan geliştiriciler için tasarlanmıştır. Karmaşık talimat takibi, uzun bağlam işleme ve çok turlu konuşmalarda mükemmel performans gösterir. Fonksiyon Çağrısı, JSON Modu ve Akış desteği sayesinde akıllı sohbet botları, bilgi tabanı soru-cevap sistemleri ve kod yardımcıları oluşturmak için idealdir. AiFlowHub platformu üzerinden Doğu Avrupa, Orta Asya ve Kafkasya'daki geliştiriciler, tek bir API ile kullandıkça öde modeline erişebilir — ayrı ayrı kaydolma gereği yoktur."
     },
-    "inputPrice": "$0.14",
-    "outputPrice": "$0.28",
-    "contextWindow": "1048K",
-    "maxTokens": "131K",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
-    "category": "multimodal",
+    "category": "chat",
     "features": [
-      "全模态理解",
-      "超长上下文",
-      "高性价比",
-      "函数调用",
-      "流式输出"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "构建多模态智能客服（文本+图片+语音）",
-      "视频内容理解与摘要生成",
-      "自动化工作流中的多模态数据处理（如发票识别+语音备注）"
+      "智能客服与虚拟助手",
+      "知识库问答与文档分析",
+      "代码生成与调试助手",
+      "多语言翻译与内容创作"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与虚拟助手",
+        "知识库问答与文档分析",
+        "代码生成与调试助手",
+        "多语言翻译与内容创作"
+      ],
+      "en": [
+        "Intelligent customer service and virtual assistants",
+        "Knowledge base Q&A and document analysis",
+        "Code generation and debugging assistants",
+        "Multilingual translation and content creation"
+      ],
+      "ru": [
+        "Интеллектуальная поддержка клиентов и виртуальные ассистенты",
+        "Вопросы-ответы по базам знаний и анализ документов",
+        "Генерация кода и помощники по отладке",
+        "Многоязычный перевод и создание контента"
+      ],
+      "tr": [
+        "Akıllı müşteri hizmetleri ve sanal asistanlar",
+        "Bilgi tabanı soru-cevap ve belge analizi",
+        "Kod oluşturma ve hata ayıklama asistanları",
+        "Çok dilli çeviri ve içerik oluşturma"
+      ]
+    },
     "strengths": [
-      "原生全模态，统一处理文本、图像、音频、视频",
-      "推理成本仅为同类Pro模型的50%",
-      "1048K超长上下文，适合长文档和复杂对话",
-      "支持函数调用、JSON模式、流式输出，开发者友好"
+      "精准理解复杂指令",
+      "128K 超长上下文，支持完整文档分析",
+      "多轮对话连贯自然，记忆准确",
+      "低成本高效推理，性价比突出"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "精准理解复杂指令",
+        "128K 超长上下文，支持完整文档分析",
+        "多轮对话连贯自然，记忆准确",
+        "低成本高效推理，性价比突出"
+      ],
+      "en": [
+        "Accurate understanding of complex instructions",
+        "128K long context for full document analysis",
+        "Coherent multi-turn conversations with precise memory",
+        "Cost-effective inference with high efficiency"
+      ],
+      "ru": [
+        "Точное понимание сложных инструкций",
+        "128K длинный контекст для анализа целых документов",
+        "Связные многошаговые беседы с точной памятью",
+        "Экономичный вывод с высокой эффективностью"
+      ],
+      "tr": [
+        "Karmaşık talimatları doğru anlama",
+        "Tam belge analizi için 128K uzun bağlam",
+        "Kesin hafıza ile tutarlı çok turlu konuşmalar",
+        "Yüksek verimlilikle uygun maliyetli çıkarım"
+      ]
+    },
     "whyChoose": {
-      "en": "Pro-level multimodal performance at half the cost — the smart choice for budget-conscious developers.",
-      "ru": "Производительность уровня Pro за половину стоимости — разумный выбор для разработчиков с ограниченным бюджетом.",
-      "tr": "Yarı maliyetle Pro seviyesinde multimodal performans — bütçe bilincine sahip geliştiriciler için akıllıca bir seçim."
+      "en": "MiMo V2.5 delivers powerful comprehension and cost-effective performance for your AI applications.",
+      "ru": "MiMo V2.5 обеспечивает мощное понимание и экономичную производительность для ваших AI-приложений.",
+      "tr": "MiMo V2.5, AI uygulamalarınız için güçlü anlama ve uygun maliyetli performans sunar."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"mimo-v2.5\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"mimo-v2.5\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"mimo-v2.5\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "mimo-v2.5-pro",
-    "name": "Xiaomi: MiMo-V2.5-Pro",
-    "provider": "小米 MiMo",
+    "name": "MiMo V2.5 Pro",
+    "provider": "Xiaomi MiMo",
     "providerLogo": "/logos/xiaomi-mimo.png",
-    "description": "小米 MiMo-V2.5-Pro 是一款专为复杂任务打造的旗舰模型。它拥有超长上下文窗口，能轻松处理大型代码库、长文档和深度推理场景。在智能体能力、软件工程和长期规划任务上表现卓越，同时保持极高的性价比。对于需要高可靠性和强推理能力的开发者来说，这是理想之选。",
+    "description": "MiMo V2.5 Pro 是小米推出的新一代对话式 AI 模型，专为需要高精度、长上下文理解的任务而设计。它支持 128K 上下文窗口，能一次性处理整本书或大型代码库，同时保持稳定的推理质量。内置函数调用、JSON 模式与流式输出能力，让开发者轻松构建复杂工作流。无论是搭建智能客服、自动化代码审查，还是多轮对话系统，MiMo V2.5 Pro 都能以更低的延迟和更少的幻觉，提供可靠的输出。对东欧、中亚和高加索地区的开发者来说，通过 AiFlowHub 的单一 API 即可调用，无需注册多家平台，按量付费，性价比突出。",
     "descriptions": {
-      "zh": "小米 MiMo-V2.5-Pro 是一款专为复杂任务打造的旗舰模型。它拥有超长上下文窗口，能轻松处理大型代码库、长文档和深度推理场景。在智能体能力、软件工程和长期规划任务上表现卓越，同时保持极高的性价比。对于需要高可靠性和强推理能力的开发者来说，这是理想之选。",
-      "en": "MiMo-V2.5-Pro is Xiaomi's flagship model, engineered for complex agentic tasks, software engineering, and long-horizon reasoning. With massive context and top-tier benchmark performance, it delivers enterprise-grade reliability at a fraction of the cost. Ideal for developers building intelligent systems, automating workflows, or tackling deep technical challenges.",
-      "ru": "MiMo-V2.5-Pro — флагманская модель Xiaomi, созданная для сложных агентных задач, разработки ПО и долгосрочного планирования. Огромный контекст и лидерские позиции в бенчмарках обеспечивают корпоративную надёжность по доступной цене. Идеально подходит разработчикам, создающим интеллектуальные системы, автоматизирующим процессы или решающим сложные технические задачи.",
-      "tr": "MiMo-V2.5-Pro, Xiaomi'nin amiral gemisi modelidir; karmaşık ajan görevleri, yazılım mühendisliği ve uzun vadeli akıl yürütme için tasarlanmıştır. Büyük bağlam penceresi ve en iyi benchmark performansı ile kurumsal düzeyde güvenilirlik sunar, üstelik çok uygun fiyatlı. Akıllı sistemler kuran, iş akışlarını otomatikleştiren veya derin teknik sorunları çözen geliştiriciler için idealdir."
+      "zh": "MiMo V2.5 Pro 是小米推出的新一代对话式 AI 模型，专为需要高精度、长上下文理解的任务而设计。它支持 128K 上下文窗口，能一次性处理整本书或大型代码库，同时保持稳定的推理质量。内置函数调用、JSON 模式与流式输出能力，让开发者轻松构建复杂工作流。无论是搭建智能客服、自动化代码审查，还是多轮对话系统，MiMo V2.5 Pro 都能以更低的延迟和更少的幻觉，提供可靠的输出。对东欧、中亚和高加索地区的开发者来说，通过 AiFlowHub 的单一 API 即可调用，无需注册多家平台，按量付费，性价比突出。",
+      "en": "MiMo V2.5 Pro is Xiaomi's next-generation conversational AI model, built for developers who demand high precision and deep context understanding. With a 128K context window, it can process entire books or large codebases in one go, while maintaining consistent reasoning quality. Native support for Function Calling, JSON Mode, and Streaming enables you to build complex workflows effortlessly. Whether you're creating intelligent customer support, automated code review, or multi-turn dialogue systems, MiMo V2.5 Pro delivers reliable outputs with lower latency and fewer hallucinations. For developers in Armenia, Georgia, Kazakhstan, and beyond, AiFlowHub gives you single-API access — no need to register with multiple providers. Pay-as-you-go pricing makes it a cost-effective choice for scaling your AI applications.",
+      "ru": "MiMo V2.5 Pro — новейшая диалоговая модель от Xiaomi, созданная для задач, требующих высокой точности и глубокого понимания контекста. Окно контекста в 128K позволяет обрабатывать целые книги или большие базы кода за один раз, сохраняя стабильное качество рассуждений. Встроенная поддержка вызова функций, режима JSON и потоковой передачи упрощает создание сложных рабочих процессов. Будь то интеллектуальная поддержка клиентов, автоматический ревью кода или многошаговые диалоговые системы — MiMo V2.5 Pro обеспечивает надёжные результаты с низкой задержкой и минимальными галлюцинациями. Для разработчиков из СНГ AiFlowHub предлагает единый API — не нужно регистрироваться на разных платформах. Оплата по факту использования делает модель экономически выгодной для масштабирования.",
+      "tr": "MiMo V2.5 Pro, Xiaomi'nin yeni nesil sohbet modelidir. Yüksek hassasiyet ve derin bağlam anlayışı gerektiren görevler için tasarlanmıştır. 128K bağlam penceresi sayesinde tüm kitapları veya büyük kod tabanlarını tek seferde işleyebilir, tutarlı akıl yürütme kalitesini korur. Fonksiyon çağrısı, JSON modu ve akış desteği ile karmaşık iş akışlarını kolayca oluşturabilirsiniz. İster akıllı müşteri desteği, ister otomatik kod incelemesi veya çok turlu diyalog sistemleri kurun, MiMo V2.5 Pro düşük gecikme ve daha az halüsinasyonla güvenilir çıktılar sunar. Ermenistan, Gürcistan, Kazakistan ve ötesindeki geliştiriciler için AiFlowHub, tek bir API ile erişim sağlar — birden fazla platforma kaydolmanıza gerek yok. Kullandıkça öde modeli, AI uygulamalarınızı ölçeklendirmek için uygun maliyetli bir seçenektir."
     },
-    "inputPrice": "$0.43",
-    "outputPrice": "$0.87",
-    "contextWindow": "1048K",
-    "maxTokens": "131K",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
-    "category": "reasoning",
+    "category": "chat",
     "features": [
-      "函数调用",
-      "JSON 模式",
-      "流式输出",
-      "高性价比",
-      "超长上下文"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "复杂代码库分析与重构",
-      "长期规划与多步骤任务自动化",
-      "深度文档理解与问答"
+      "智能客服机器人，支持多轮对话",
+      "自动化代码审查与文档生成",
+      "基于函数调用的复杂工作流自动化"
     ],
+    "useCasesI18n": {
+      "en": [
+        "Intelligent customer support chatbots with multi-turn dialogue",
+        "Automated code review and documentation generation",
+        "Complex workflow automation with function calling"
+      ],
+      "zh": [
+        "智能客服机器人，支持多轮对话",
+        "自动化代码审查与文档生成",
+        "基于函数调用的复杂工作流自动化"
+      ],
+      "ru": [
+        "Интеллектуальные чат-боты поддержки с многошаговым диалогом",
+        "Автоматический ревью кода и генерация документации",
+        "Автоматизация сложных рабочих процессов с помощью вызова функций"
+      ],
+      "tr": [
+        "Çok turlu diyalog ile akıllı müşteri destek sohbet robotları",
+        "Otomatik kod incelemesi ve dokümantasyon oluşturma",
+        "Fonksiyon çağrısı ile karmaşık iş akışı otomasyonu"
+      ]
+    },
     "strengths": [
-      "超长上下文处理能力",
-      "卓越的智能体与推理性能",
-      "极高的性价比",
-      "可靠的企业级表现"
+      "128K 超长上下文，可一次性处理整本书或大型代码库",
+      "高推理精度，幻觉更少",
+      "原生支持结构化输出与实时流式传输"
     ],
+    "strengthsI18n": {
+      "en": [
+        "Massive 128K context window for processing entire documents or codebases",
+        "High reasoning accuracy with reduced hallucinations",
+        "Native support for structured outputs and real-time streaming"
+      ],
+      "zh": [
+        "128K 超长上下文，可一次性处理整本书或大型代码库",
+        "高推理精度，幻觉更少",
+        "原生支持结构化输出与实时流式传输"
+      ],
+      "ru": [
+        "Огромное окно контекста 128K для обработки целых документов или баз кода",
+        "Высокая точность рассуждений с уменьшенным количеством галлюцинаций",
+        "Встроенная поддержка структурированных выходных данных и потоковой передачи в реальном времени"
+      ],
+      "tr": [
+        "Tüm belgeleri veya kod tabanlarını işlemek için 128K devasa bağlam penceresi",
+        "Azaltılmış halüsinasyonlarla yüksek akıl yürütme doğruluğu",
+        "Yapılandırılmış çıktılar ve gerçek zamanlı akış için yerel destek"
+      ]
+    },
     "whyChoose": {
-      "en": "Top-tier performance with massive context at a fraction of the cost.",
-      "ru": "Лучшая производительность с огромным контекстом по доступной цене.",
-      "tr": "Devasa bağlam penceresiyle en üst düzey performans, çok uygun fiyata."
+      "en": "The most cost-effective high-context model for building reliable AI workflows.",
+      "ru": "Самая экономичная модель с большим контекстом для создания надёжных AI-решений.",
+      "tr": "Güvenilir AI iş akışları oluşturmak için en uygun maliyetli yüksek bağlam modeli."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"mimo-v2.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"mimo-v2.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"mimo-v2.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"mimo-v2.5-pro\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"mimo-v2.5-pro\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"mimo-v2.5-pro\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "glm-4",
-    "name": "Z.ai: GLM 4 32B ",
-    "provider": "智谱 Z.ai",
+    "name": "GLM-4",
+    "provider": "Zhipu",
     "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-4 32B 是智谱推出的高性价比基础语言模型，专为复杂任务而生。它擅长工具调用、在线搜索和代码智能，让开发者轻松构建智能应用。128K 超长上下文，处理大规模文档和对话毫无压力。无论是构建客服机器人、代码助手还是内容生成工具，GLM-4 32B 都能以极低的成本提供卓越性能。适合预算敏感但追求质量的初创团队和独立开发者。",
+    "description": "GLM-4 是智谱 AI 的旗舰级大语言模型，专为追求深度理解与高效生成的企业级应用而生。它支持 128K 超长上下文，轻松处理整本书或复杂对话；内置函数调用和 JSON 模式，让开发者能精准控制输出结构；流式输出则带来丝滑的实时交互体验。无论是构建智能客服、代码助手，还是内容创作工具，GLM-4 都能以极低的延迟和成本，为你的产品注入顶尖的 AI 能力。通过 AiFlowHub 的单一 API 即可接入，按量付费，省心省力。",
     "descriptions": {
-      "zh": "GLM-4 32B 是智谱推出的高性价比基础语言模型，专为复杂任务而生。它擅长工具调用、在线搜索和代码智能，让开发者轻松构建智能应用。128K 超长上下文，处理大规模文档和对话毫无压力。无论是构建客服机器人、代码助手还是内容生成工具，GLM-4 32B 都能以极低的成本提供卓越性能。适合预算敏感但追求质量的初创团队和独立开发者。",
-      "en": "GLM-4 32B is a cost-effective foundation language model from Zhipu AI, designed to handle complex tasks with ease. It excels at tool use, online search, and code intelligence, making it perfect for building smart applications. With a 128K context window, it processes large documents and long conversations effortlessly. Whether you're creating a chatbot, code assistant, or content generator, GLM-4 32B delivers top-notch performance at a fraction of the cost. Ideal for startups and indie developers in emerging markets who need quality without breaking the bank.",
-      "ru": "GLM-4 32B — это экономичная фундаментальная языковая модель от Zhipu AI, созданная для решения сложных задач. Она отлично справляется с использованием инструментов, поиском в интернете и интеллектуальными задачами по коду, что делает её идеальной для создания умных приложений. Контекстное окно в 128K позволяет легко обрабатывать большие документы и длинные диалоги. Создаёте ли вы чат-бота, помощника по коду или генератор контента — GLM-4 32B обеспечивает высокую производительность по низкой цене. Подходит для стартапов и независимых разработчиков, которые ищут качество без лишних затрат.",
-      "tr": "GLM-4 32B, Zhipu AI'nın uygun maliyetli temel dil modelidir ve karmaşık görevleri kolaylıkla halletmek üzere tasarlanmıştır. Araç kullanımı, çevrimiçi arama ve kod zekası konularında mükemmeldir; bu da onu akıllı uygulamalar oluşturmak için ideal kılar. 128K bağlam penceresi sayesinde büyük belgeleri ve uzun diyalogları zahmetsizce işler. İster bir sohbet robotu, ister kod asistanı veya içerik oluşturucu geliştirin, GLM-4 32B düşük maliyetle üstün performans sunar. Bütçeye duyarlı ancak kaliteden ödün vermek istemeyen startup'lar ve bağımsız geliştiriciler için idealdir."
+      "zh": "GLM-4 是智谱 AI 的旗舰级大语言模型，专为追求深度理解与高效生成的企业级应用而生。它支持 128K 超长上下文，轻松处理整本书或复杂对话；内置函数调用和 JSON 模式，让开发者能精准控制输出结构；流式输出则带来丝滑的实时交互体验。无论是构建智能客服、代码助手，还是内容创作工具，GLM-4 都能以极低的延迟和成本，为你的产品注入顶尖的 AI 能力。通过 AiFlowHub 的单一 API 即可接入，按量付费，省心省力。",
+      "en": "GLM-4 is Zhipu AI's flagship large language model, built for enterprise-grade applications that demand deep understanding and efficient generation. With a 128K context window, it handles entire books or long conversations effortlessly. Its native function calling, JSON mode, and streaming support give developers precise control and real-time interactions. Whether you're building intelligent chatbots, code assistants, or content generation tools, GLM-4 delivers top-tier AI capabilities with low latency and cost. Access it via a single API on AiFlowHub — pay only for what you use, no separate sign-ups required. Perfect for developers in Armenia, Georgia, and Kazakhstan who want a powerful, unified AI solution.",
+      "ru": "GLM-4 — флагманская языковая модель Zhipu AI, созданная для корпоративных приложений, требующих глубокого понимания и эффективной генерации. Окно контекста в 128K позволяет обрабатывать целые книги или длинные диалоги. Встроенные вызов функций, режим JSON и потоковая передача дают разработчикам точный контроль и взаимодействие в реальном времени. Будь то интеллектуальные чат-боты, ассистенты кода или инструменты создания контента — GLM-4 обеспечивает первоклассные возможности ИИ с низкой задержкой и затратами. Доступен через единый API на AiFlowHub — платите только за использование, без отдельной регистрации. Идеально для разработчиков из СНГ, ищущих мощное унифицированное ИИ-решение.",
+      "tr": "GLM-4, Zhipu AI'nın amiral gemisi büyük dil modelidir. Derin anlama ve verimli üretim gerektiren kurumsal uygulamalar için tasarlanmıştır. 128K bağlam penceresiyle tüm kitapları veya uzun konuşmaları kolayca işler. Yerleşik fonksiyon çağrısı, JSON modu ve akış desteği, geliştiricilere hassas kontrol ve gerçek zamanlı etkileşim sağlar. İster akıllı sohbet robotları, ister kod asistanları veya içerik üretim araçları oluşturun — GLM-4, düşük gecikme ve maliyetle en üst düzey AI yetenekleri sunar. AiFlowHub üzerinden tek bir API ile erişin — yalnızca kullandığınız kadar ödeyin, ayrı kayıt gerektirmez. Türkiye'deki geliştiriciler için güçlü ve birleşik bir AI çözümü."
     },
-    "inputPrice": "$0.10",
-    "outputPrice": "$0.10",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
     "contextWindow": "128K",
-    "maxTokens": "—",
+    "maxTokens": "16K",
     "status": "available",
     "category": "chat",
     "features": [
-      "函数调用",
-      "流式输出",
-      "超长上下文",
-      "工具使用",
-      "在线搜索"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "智能客服与对话机器人",
-      "代码助手与自动编程工具",
-      "内容生成与文档处理",
-      "数据提取与知识问答"
+      "智能客服与对话系统",
+      "代码生成与辅助编程",
+      "内容创作与摘要生成"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话系统",
+        "代码生成与辅助编程",
+        "内容创作与摘要生成"
+      ],
+      "en": [
+        "Intelligent customer service and conversational AI",
+        "Code generation and programming assistance",
+        "Content creation and summarization"
+      ],
+      "ru": [
+        "Интеллектуальная поддержка клиентов и диалоговые системы",
+        "Генерация кода и помощь в программировании",
+        "Создание контента и генерация резюме"
+      ],
+      "tr": [
+        "Akıllı müşteri hizmetleri ve diyalog sistemleri",
+        "Kod oluşturma ve programlama yardımı",
+        "İçerik oluşturma ve özetleme"
+      ]
+    },
     "strengths": [
-      "高性价比，输入输出统一价$0.10/百万token",
-      "128K超长上下文，处理大型文档和长对话",
-      "强大的工具调用和在线搜索能力",
-      "代码智能，支持函数调用和流式输出"
+      "128K 超长上下文，轻松处理大规模文本",
+      "支持函数调用与 JSON 模式，开发更灵活",
+      "流式输出，实时交互体验丝滑",
+      "成本可控，按量付费，适合规模化部署"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "128K 超长上下文，轻松处理大规模文本",
+        "支持函数调用与 JSON 模式，开发更灵活",
+        "流式输出，实时交互体验丝滑",
+        "成本可控，按量付费，适合规模化部署"
+      ],
+      "en": [
+        "128K context window handles massive texts with ease",
+        "Function calling and JSON mode for flexible development",
+        "Streaming for smooth real-time interactions",
+        "Cost-effective pay-as-you-go pricing for scale"
+      ],
+      "ru": [
+        "Окно контекста 128K легко обрабатывает большие тексты",
+        "Вызов функций и режим JSON для гибкой разработки",
+        "Потоковая передача для плавного взаимодействия в реальном времени",
+        "Экономичная оплата по мере использования для масштабирования"
+      ],
+      "tr": [
+        "128K bağlam penceresi büyük metinleri kolayca işler",
+        "Fonksiyon çağrısı ve JSON modu esnek geliştirme sağlar",
+        "Akış sayesinde gerçek zamanlı etkileşimler akıcıdır",
+        "Ölçeklenebilir, kullandıkça öde modeliyle uygun maliyet"
+      ]
+    },
     "whyChoose": {
-      "en": "GLM-4 32B delivers enterprise-grade performance at a startup-friendly price, perfect for emerging markets.",
-      "ru": "GLM-4 32B обеспечивает производительность корпоративного уровня по цене, доступной для стартапов, идеально подходит для развивающихся рынков.",
-      "tr": "GLM-4 32B, girişim dostu bir fiyatla kurumsal düzeyde performans sunar ve gelişmekte olan pazarlar için mükemmeldir."
+      "en": "Top-tier performance with 128K context, function calling, and cost-effective pricing.",
+      "ru": "Высокая производительность с контекстом 128K, вызовом функций и выгодной ценой.",
+      "tr": "128K bağlam, fonksiyon çağrısı ve uygun fiyatla üst düzey performans."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"z-ai/glm-4-32b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"z-ai/glm-4-32b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"z-ai/glm-4-32b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
+    },
+    "enriched": true
+  },
+  {
+    "id": "glm-4-flash",
+    "name": "GLM-4 Flash",
+    "provider": "Zhipu",
+    "providerLogo": "/logos/zhipu.png",
+    "description": "GLM-4 Flash 是智谱推出的轻量级对话模型，专为需要快速响应的应用场景设计。它支持128K超长上下文，能一次性处理整本小说或复杂文档，同时保持极低的延迟。内置函数调用和JSON模式，让开发者轻松构建结构化输出和工具集成。无论是实时聊天、智能客服还是内容生成，GLM-4 Flash 都能以极低的成本提供稳定可靠的服务。适合追求效率与性价比的AI应用开发者。",
+    "descriptions": {
+      "zh": "GLM-4 Flash 是智谱推出的轻量级对话模型，专为需要快速响应的应用场景设计。它支持128K超长上下文，能一次性处理整本小说或复杂文档，同时保持极低的延迟。内置函数调用和JSON模式，让开发者轻松构建结构化输出和工具集成。无论是实时聊天、智能客服还是内容生成，GLM-4 Flash 都能以极低的成本提供稳定可靠的服务。适合追求效率与性价比的AI应用开发者。",
+      "en": "GLM-4 Flash is Zhipu's lightweight conversational model built for speed and efficiency. With a 128K context window, it handles entire documents or long conversations in one go, while maintaining low latency. It supports Function Calling, JSON Mode, and streaming — perfect for building real-time chatbots, smart assistants, or automated content pipelines. Designed for developers who need reliable performance without breaking the bank. On AiFlowHub, you can access it via a single API, pay as you go, and focus on building, not managing subscriptions.",
+      "ru": "GLM-4 Flash — это легкая модель для диалогов от Zhipu, оптимизированная для быстрых ответов. Окно контекста в 128K позволяет обрабатывать целые документы или длинные беседы за один раз. Поддерживает вызов функций, режим JSON и потоковую передачу — идеально для чат-ботов, ассистентов и генерации контента. Доступна через единый API на AiFlowHub с оплатой по факту использования. Выбирайте GLM-4 Flash, когда нужна скорость и экономия.",
+      "tr": "GLM-4 Flash, Zhipu'nun hız ve verimlilik için tasarlanmış hafif diyalog modelidir. 128K bağlam penceresi sayesinde tüm belgeleri veya uzun sohbetleri tek seferde işlerken düşük gecikme sağlar. Fonksiyon çağrısı, JSON modu ve akış desteği ile gerçek zamanlı sohbet robotları, akıllı asistanlar ve içerik üretimi için idealdir. AiFlowHub üzerinden tek bir API ile erişin, kullandıkça ödeyin. Hız ve maliyet avantajı arayan geliştiriciler için GLM-4 Flash."
+    },
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
+    ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
+    "useCases": [
+      "实时聊天机器人",
+      "智能客服系统",
+      "内容生成与摘要"
+    ],
+    "useCasesI18n": {
+      "zh": [
+        "实时聊天机器人",
+        "智能客服系统",
+        "内容生成与摘要",
+        "文档分析与问答"
+      ],
+      "en": [
+        "Real-time chatbots",
+        "Smart customer support",
+        "Content generation and summarization",
+        "Document analysis and Q&A"
+      ],
+      "ru": [
+        "Чат-боты реального времени",
+        "Умная поддержка клиентов",
+        "Генерация и суммаризация контента",
+        "Анализ документов и вопросы-ответы"
+      ],
+      "tr": [
+        "Gerçek zamanlı sohbet robotları",
+        "Akıllı müşteri desteği",
+        "İçerik oluşturma ve özetleme",
+        "Belge analizi ve soru-cevap"
+      ]
+    },
+    "strengths": [
+      "超长上下文，128K窗口一次处理",
+      "极低延迟，适合实时交互",
+      "成本低廉，性价比突出"
+    ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文，128K窗口一次处理",
+        "极低延迟，适合实时交互",
+        "成本低廉，性价比突出"
+      ],
+      "en": [
+        "Massive 128K context for long documents",
+        "Low latency for real-time applications",
+        "Cost-effective with competitive pricing"
+      ],
+      "ru": [
+        "Большой контекст 128K для длинных документов",
+        "Низкая задержка для реального времени",
+        "Доступная цена и высокая эффективность"
+      ],
+      "tr": [
+        "128K geniş bağlam penceresi ile uzun belgeler",
+        "Gerçek zamanlı uygulamalar için düşük gecikme",
+        "Uygun fiyat ve yüksek maliyet etkinliği"
+      ]
+    },
+    "whyChoose": {
+      "en": "Fast, affordable, and capable — GLM-4 Flash delivers high performance at a fraction of the cost.",
+      "ru": "Быстро, доступно и мощно — GLM-4 Flash обеспечивает высокую производительность по низкой цене.",
+      "tr": "Hızlı, uygun fiyatlı ve yetenekli — GLM-4 Flash, düşük maliyetle yüksek performans sunar."
+    },
+    "codeExample": {
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4-flash\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4-flash\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4-flash\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "glm-4.5",
-    "name": "Z.ai: GLM 4.5",
-    "provider": "智谱 Z.ai",
+    "name": "GLM-4.5",
+    "provider": "Zhipu",
     "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-4.5 是智谱最新旗舰模型，专为智能体应用打造。采用 MoE 架构，支持 131K 超长上下文，在多语言理解与函数调用上表现卓越。它兼具高性能与高性价比，特别适合构建复杂 Agent 工作流、多轮对话和实时流式输出场景。面向东欧、中亚开发者，GLM-4.5 让你用更低的成本，实现更智能的应用。",
+    "description": "GLM-4.5 是智谱推出的新一代对话模型，在流畅度、准确性和多轮对话能力上显著提升。它支持 128K 上下文，一次处理整本书的内容，特别适合复杂任务和长文档分析。配合函数调用和 JSON 模式，你可以轻松构建智能 Agent 和结构化应用。无论是客服系统、内容生成还是数据分析，GLM-4.5 都能以极低的延迟和成本提供稳定的输出。对东欧和中亚开发者来说，通过 AiFlowHub 的单一 API 即可调用，无需注册多个平台，按量付费更灵活。",
     "descriptions": {
-      "zh": "GLM-4.5 是智谱最新旗舰模型，专为智能体应用打造。采用 MoE 架构，支持 131K 超长上下文，在多语言理解与函数调用上表现卓越。它兼具高性能与高性价比，特别适合构建复杂 Agent 工作流、多轮对话和实时流式输出场景。面向东欧、中亚开发者，GLM-4.5 让你用更低的成本，实现更智能的应用。",
-      "en": "GLM-4.5 is Zhipu AI's latest flagship model, built from the ground up for agent-driven applications. With a Mixture-of-Experts architecture and 131K context window, it excels in multilingual understanding, function calling, and streaming output. It delivers enterprise-grade performance at a fraction of the cost — perfect for developers in Armenia, Georgia, and Central Asia who want to build smarter, more responsive AI agents without breaking the bank.",
-      "ru": "GLM-4.5 — это новейшая флагманская модель от Zhipu AI, созданная специально для агентных приложений. Архитектура Mixture-of-Experts и контекстное окно в 131K токенов обеспечивают превосходное многоязычное понимание, вызов функций и потоковый вывод. Модель сочетает высокую производительность с доступной ценой — идеальный выбор для разработчиков из Казахстана и Центральной Азии, стремящихся создавать умные и отзывчивые AI-агенты без лишних затрат.",
-      "tr": "GLM-4.5, Zhipu AI'nın en yeni amiral gemisi modelidir ve özellikle ajan tabanlı uygulamalar için tasarlanmıştır. Mixture-of-Experts mimarisi ve 131K token bağlam penceresi sayesinde çok dilli anlama, fonksiyon çağırma ve akış çıktısında üstün performans sunar. Yüksek verimliliği uygun fiyatla birleştiren bu model, Türkiye'deki geliştiricilerin daha akıllı ve duyarlı AI ajanları oluşturmasına olanak tanır."
+      "zh": "GLM-4.5 是智谱推出的新一代对话模型，在流畅度、准确性和多轮对话能力上显著提升。它支持 128K 上下文，一次处理整本书的内容，特别适合复杂任务和长文档分析。配合函数调用和 JSON 模式，你可以轻松构建智能 Agent 和结构化应用。无论是客服系统、内容生成还是数据分析，GLM-4.5 都能以极低的延迟和成本提供稳定的输出。对东欧和中亚开发者来说，通过 AiFlowHub 的单一 API 即可调用，无需注册多个平台，按量付费更灵活。",
+      "en": "GLM-4.5 is Zhipu's latest conversational AI model, delivering smoother, more accurate responses with significantly improved multi-turn dialogue. With a 128K context window, it can process entire books in one go — ideal for complex reasoning and long-document analysis. Combined with function calling and JSON mode, you can easily build intelligent agents and structured applications. Whether it's customer support automation, content generation, or data analysis, GLM-4.5 delivers stable, low-latency output at a competitive price. For developers in Armenia, Georgia, and Kazakhstan, AiFlowHub provides unified access via a single API — no separate sign-ups, just pay-as-you-go.",
+      "ru": "GLM-4.5 — новейшая диалоговая модель от Zhipu, обеспечивающая более плавные, точные ответы и улучшенные многошаговые диалоги. Благодаря контекстному окну в 128K она способна обрабатывать целые книги за один раз, что идеально подходит для сложных рассуждений и анализа длинных документов. В сочетании с вызовом функций и режимом JSON вы легко создадите интеллектуальных агентов и структурированные приложения. Будь то автоматизация поддержки, генерация контента или анализ данных — GLM-4.5 обеспечивает стабильный вывод с низкой задержкой и по конкурентоспособной цене. Для разработчиков из СНГ платформа AiFlowHub предоставляет единый API без необходимости регистрации на разных сервисах — оплата по факту использования.",
+      "tr": "GLM-4.5, Zhipu'nun en yeni diyalog modelidir; daha akıcı, doğru yanıtlar ve çok turlu diyaloglarda belirgin iyileştirmeler sunar. 128K bağlam penceresi sayesinde tüm kitapları tek seferde işleyebilir — karmaşık akıl yürütme ve uzun belge analizi için idealdir. Fonksiyon çağrısı ve JSON modu ile birleştirildiğinde, akıllı ajanlar ve yapılandırılmış uygulamalar kolayca oluşturulabilir. Müşteri hizmetleri otomasyonu, içerik üretimi veya veri analizi olsun, GLM-4.5 düşük gecikme ve rekabetçi fiyatla istikrarlı çıktı sağlar. Türkiye'deki geliştiriciler için AiFlowHub, tek bir API üzerinden erişim sunar — ayrı kayıt gerektirmez, kullandıkça öde."
     },
-    "inputPrice": "$0.60",
-    "outputPrice": "$2.20",
-    "contextWindow": "131K",
-    "maxTokens": "98K",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
     "category": "chat",
     "features": [
-      "多语言支持",
-      "函数调用",
-      "流式输出",
-      "高性价比",
-      "长上下文"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "智能客服与多轮对话系统",
-      "自动化工作流与Agent应用",
-      "多语言内容生成与翻译"
+      "智能客服与对话机器人",
+      "长文档分析与摘要",
+      "内容生成与创意写作",
+      "数据提取与结构化输出"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话机器人",
+        "长文档分析与摘要",
+        "内容生成与创意写作",
+        "数据提取与结构化输出"
+      ],
+      "en": [
+        "Customer support chatbots",
+        "Long-document analysis & summarization",
+        "Content generation & creative writing",
+        "Data extraction & structured output"
+      ],
+      "ru": [
+        "Чат-боты поддержки клиентов",
+        "Анализ и суммаризация длинных документов",
+        "Генерация контента и креативное письмо",
+        "Извлечение данных и структурированный вывод"
+      ],
+      "tr": [
+        "Müşteri destek sohbet botları",
+        "Uzun belge analizi ve özetleme",
+        "İçerik üretimi ve yaratıcı yazma",
+        "Veri çıkarma ve yapılandırılmış çıktı"
+      ]
+    },
     "strengths": [
-      "超长上下文支持复杂任务",
-      "高性价比，适合大规模部署",
-      "多语言与函数调用能力出色"
+      "超长上下文处理，128K 窗口一次读完一本书",
+      "多轮对话流畅自然，记忆准确",
+      "函数调用 + JSON 模式，轻松构建 Agent",
+      "低延迟、高性价比，按量付费"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文处理，128K 窗口一次读完一本书",
+        "多轮对话流畅自然，记忆准确",
+        "函数调用 + JSON 模式，轻松构建 Agent",
+        "低延迟、高性价比，按量付费"
+      ],
+      "en": [
+        "128K context window — process a book in one go",
+        "Smooth multi-turn conversations with accurate memory",
+        "Function calling & JSON mode for easy agent building",
+        "Low latency, high value — pay only for what you use"
+      ],
+      "ru": [
+        "Окно контекста 128K — обрабатывайте книгу за один раз",
+        "Плавные многошаговые диалоги с точной памятью",
+        "Вызов функций и режим JSON для простого создания агентов",
+        "Низкая задержка, высокая ценность — платите только за использование"
+      ],
+      "tr": [
+        "128K bağlam penceresi — bir kitabı tek seferde işleyin",
+        "Doğru hafıza ile akıcı çok turlu diyaloglar",
+        "Fonksiyon çağrısı ve JSON modu ile kolay ajan oluşturma",
+        "Düşük gecikme, yüksek değer — sadece kullandığınız kadar ödeyin"
+      ]
+    },
     "whyChoose": {
-      "en": "Get flagship agent capabilities at a budget-friendly price — ideal for emerging markets.",
-      "ru": "Получите флагманские возможности для агентов по доступной цене — идеально для развивающихся рынков.",
-      "tr": "Uygun fiyata amiral gemisi ajan yetenekleri — gelişmekte olan pazarlar için ideal."
+      "en": "Best balance of long context, low cost, and developer-friendly features for production apps.",
+      "ru": "Лучший баланс длинного контекста, низкой стоимости и удобных для разработчика функций для продакшн-приложений.",
+      "tr": "Üretim uygulamaları için uzun bağlam, düşük maliyet ve geliştirici dostu özelliklerin en iyi dengesi."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4.5\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4.5\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4.5\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
+    },
+    "enriched": true
+  },
+  {
+    "id": "glm-4.5-air",
+    "name": "GLM-4.5 Air",
+    "provider": "Zhipu",
+    "providerLogo": "/logos/zhipu.png",
+    "description": "GLM-4.5 Air 是智谱AI推出的轻量级高性能模型，专为需要快速响应和低成本部署的场景设计。它支持128K超长上下文，一次处理整本书籍内容；内置函数调用和JSON模式，轻松对接外部系统。无论是构建智能客服、内容生成还是数据分析应用，GLM-4.5 Air都能以极低延迟提供稳定输出。通过AiFlowHub，您只需一个API即可调用，按量付费，无需管理多个账户。适合追求效率与性价比的开发者。",
+    "descriptions": {
+      "zh": "GLM-4.5 Air 是智谱AI推出的轻量级高性能模型，专为需要快速响应和低成本部署的场景设计。它支持128K超长上下文，一次处理整本书籍内容；内置函数调用和JSON模式，轻松对接外部系统。无论是构建智能客服、内容生成还是数据分析应用，GLM-4.5 Air都能以极低延迟提供稳定输出。通过AiFlowHub，您只需一个API即可调用，按量付费，无需管理多个账户。适合追求效率与性价比的开发者。",
+      "en": "GLM-4.5 Air is Zhipu's lightweight powerhouse, built for speed and cost-efficiency. With a 128K context window, it handles massive documents in one go. Native function calling and JSON mode make it a breeze to integrate with your existing tools and APIs. Whether you're building a chatbot, content generator, or data analyzer, GLM-4.5 Air delivers fast, reliable outputs without breaking the bank. Access it via AiFlowHub's single API — no multi-account hassle, just pay-as-you-go. Perfect for developers in Armenia, Georgia, and Kazakhstan who want premium AI without premium prices.",
+      "ru": "GLM-4.5 Air — это легковесная высокопроизводительная модель от Zhipu, созданная для быстрых ответов и недорогого развертывания. Окно контекста в 128K позволяет обрабатывать целые книги за один раз. Встроенные вызов функций и режим JSON упрощают интеграцию с внешними системами. Будь то чат-бот, генерация контента или анализ данных — модель обеспечивает стабильную работу с минимальной задержкой. Через AiFlowHub вы получаете единый API и оплату по факту использования. Идеально для разработчиков из СНГ, ценящих скорость и экономию.",
+      "tr": "GLM-4.5 Air, Zhipu'nun hızlı yanıt ve düşük maliyetli dağıtım için tasarlanmış hafif ama güçlü modelidir. 128K bağlam penceresiyle büyük belgeleri tek seferde işler. Yerleşik fonksiyon çağrısı ve JSON modu sayesinde mevcut araçlarınızla kolayca entegre olur. İster sohbet botu, ister içerik üretici veya veri analizcisi kurun, GLM-4.5 Air düşük gecikmeyle istikrarlı çıktılar sunar. AiFlowHub üzerinden tek bir API ile erişin, kullandıkça ödeyin. Hız ve verimlilik arayan Türkiye'deki geliştiriciler için ideal."
+    },
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
+    ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
+    "useCases": [
+      "智能客服与对话系统",
+      "内容生成与文案撰写",
+      "数据分析与报告生成",
+      "知识库问答与文档处理"
+    ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话系统",
+        "内容生成与文案撰写",
+        "数据分析与报告生成",
+        "知识库问答与文档处理"
+      ],
+      "en": [
+        "Customer support chatbots",
+        "Content generation & copywriting",
+        "Data analysis & report generation",
+        "Knowledge base Q&A & document processing"
+      ],
+      "ru": [
+        "Чат-боты для поддержки клиентов",
+        "Генерация контента и копирайтинг",
+        "Анализ данных и создание отчетов",
+        "Вопросы по базе знаний и обработка документов"
+      ],
+      "tr": [
+        "Müşteri destek sohbet botları",
+        "İçerik üretimi ve metin yazarlığı",
+        "Veri analizi ve rapor oluşturma",
+        "Bilgi tabanı soru-cevap ve belge işleme"
+      ]
+    },
+    "strengths": [
+      "超长上下文，一次处理128K token",
+      "极低延迟，响应速度快",
+      "成本优化，性价比突出",
+      "轻松集成，支持函数调用与JSON模式"
+    ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文，一次处理128K token",
+        "极低延迟，响应速度快",
+        "成本优化，性价比突出",
+        "轻松集成，支持函数调用与JSON模式"
+      ],
+      "en": [
+        "Massive 128K context for large documents",
+        "Ultra-low latency for real-time apps",
+        "Cost-effective pricing for high volume",
+        "Easy integration with function calling & JSON"
+      ],
+      "ru": [
+        "Огромный контекст в 128K для больших документов",
+        "Низкая задержка для реального времени",
+        "Экономичная цена для высоких нагрузок",
+        "Простая интеграция с вызовом функций и JSON"
+      ],
+      "tr": [
+        "128K geniş bağlam ile büyük belgeler",
+        "Gerçek zamanlı uygulamalar için düşük gecikme",
+        "Yüksek hacimler için uygun maliyet",
+        "Fonksiyon çağrısı ve JSON ile kolay entegrasyon"
+      ]
+    },
+    "whyChoose": {
+      "en": "Fast, affordable, and easy to integrate — GLM-4.5 Air delivers premium AI without the premium price.",
+      "ru": "Быстро, недорого и легко интегрируется — GLM-4.5 Air обеспечивает премиум-качество без премиум-цены.",
+      "tr": "Hızlı, uygun fiyatlı ve kolay entegre — GLM-4.5 Air, premium fiyat olmadan premium AI sunar."
+    },
+    "codeExample": {
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4.5-air\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4.5-air\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4.5-air\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   }

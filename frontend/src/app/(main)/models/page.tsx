@@ -65,9 +65,9 @@ interface ModelView {
   /** 多语言描述 */
   description: string;
   descriptions: Record<string, string>;
-  /** 优势（中文） */
+  /** 优势（当前语言） */
   strengths: string[];
-  /** 场景（中文） */
+  /** 场景（当前语言） */
   useCases: string[];
   /** 代码示例 */
   codeExample: Record<string, string>;
@@ -92,11 +92,11 @@ function buildModelViews(locale: string): ModelView[] {
         maxTokens: enriched.maxTokens,
         inputPrice: enriched.inputPrice,
         outputPrice: enriched.outputPrice,
-        features: enriched.features,
+        features: (enriched.featuresI18n as Record<string, string[]>)?.[lang] || enriched.features || [],
         description: enriched.descriptions?.[lang] || enriched.descriptions?.zh || enriched.description || "",
         descriptions: { ...enriched.descriptions } as unknown as Record<string, string>,
-        strengths: enriched.strengths,
-        useCases: enriched.useCases,
+        strengths: (enriched.strengthsI18n as Record<string, string[]>)?.[lang] || enriched.strengths || [],
+        useCases: (enriched.useCasesI18n as Record<string, string[]>)?.[lang] || enriched.useCases || [],
         codeExample: enriched.codeExample,
         providerLogo: enriched.providerLogo,
         enriched: true,

@@ -1,289 +1,697 @@
 [
   {
-    "id": "glm-4.5-air",
-    "name": "Z.ai: GLM 4.5 Air",
-    "provider": "智谱 Z.ai",
-    "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-4.5-Air 是智谱最新旗舰系列的轻量版，专为智能体应用打造。采用 MoE 架构，在保持强大性能的同时大幅降低成本。支持 131K 超长上下文、多语言、函数调用和流式输出，是构建高性价比 AI 产品的理想选择。适合需要稳定、高效语言能力的开发者，尤其适合内容生成、对话系统和工具调用场景。",
-    "descriptions": {
-      "zh": "GLM-4.5-Air 是智谱最新旗舰系列的轻量版，专为智能体应用打造。采用 MoE 架构，在保持强大性能的同时大幅降低成本。支持 131K 超长上下文、多语言、函数调用和流式输出，是构建高性价比 AI 产品的理想选择。适合需要稳定、高效语言能力的开发者，尤其适合内容生成、对话系统和工具调用场景。",
-      "en": "GLM-4.5-Air is the lightweight powerhouse from Zhipu AI's latest flagship family, engineered for agent-driven applications. With Mixture-of-Experts architecture, it delivers exceptional performance at a fraction of the cost. It handles 131K context, multilingual tasks, function calling, and streaming—all you need to build production-ready AI products. Ideal for developers in emerging markets who want top-tier language capabilities without breaking the bank.",
-      "ru": "GLM-4.5-Air — легковесная версия флагманской серии от Zhipu AI, созданная для агентных приложений. Архитектура Mixture-of-Experts обеспечивает высокую производительность при низкой стоимости. Модель поддерживает контекст до 131K токенов, мультиязычность, вызов функций и потоковый вывод. Это идеальный выбор для разработчиков, которые ищут мощную и экономичную языковую модель для чат-ботов, генерации контента и интеграции с инструментами.",
-      "tr": "GLM-4.5-Air, Zhipu AI'nın en yeni amiral gemisi serisinin hafif versiyonudur ve ajan tabanlı uygulamalar için özel olarak tasarlanmıştır. Mixture-of-Experts mimarisi sayesinde düşük maliyetle yüksek performans sunar. 131K token bağlam, çok dilli destek, fonksiyon çağırma ve akışlı çıktı gibi özelliklerle üretime hazır AI ürünleri geliştirmek için idealdir. Özellikle maliyet etkin ve güçlü bir dil modeli arayan geliştiriciler için uygundur."
-    },
-    "inputPrice": "$0.12",
-    "outputPrice": "$0.85",
-    "contextWindow": "131K",
-    "maxTokens": "131K",
-    "status": "available",
-    "category": "chat",
-    "features": [
-      "多语言支持",
-      "函数调用",
-      "流式输出",
-      "高性价比",
-      "超长上下文"
-    ],
-    "useCases": [
-      "多语言客服与对话机器人",
-      "工具调用与自动化工作流（函数调用）",
-      "长文档理解与内容生成"
-    ],
-    "strengths": [
-      "超长上下文窗口（131K token）",
-      "极致的性价比，输入仅 $0.12/百万 token",
-      "支持多语言、函数调用和流式输出",
-      "专为智能体应用优化，响应稳定高效"
-    ],
-    "whyChoose": {
-      "en": "Top-tier agent performance at a fraction of the cost—ideal for emerging markets.",
-      "ru": "Производительность уровня флагмана по доступной цене — идеально для развивающихся рынков.",
-      "tr": "Düşük maliyetle üst düzey ajan performansı—gelişmekte olan pazarlar için ideal."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    },
-    "enriched": true
-  },
-  {
     "id": "glm-4.6",
-    "name": "Z.ai: GLM 4.6",
-    "provider": "智谱 Z.ai",
+    "name": "GLM-4.6",
+    "provider": "Zhipu",
     "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-4.6 是智谱最新一代大语言模型，上下文窗口扩展至 202K tokens，可轻松处理长文档、复杂对话和大型代码库。在推理、多语言理解和工具调用方面显著提升，尤其适合需要深度上下文和函数调用的企业级应用。无论是构建智能客服、自动化工作流，还是开发多语言 SaaS 产品，GLM-4.6 都能以极低的成本提供稳定、高效的输出。",
+    "description": "GLM-4.6 是智谱 AI 最新一代大语言模型，在推理、代码生成和长文本处理上实现了显著提升。它拥有 128K 的超长上下文窗口，能一口气处理整本小说或复杂的技术文档。支持函数调用、JSON 模式和流式输出，让开发者可以轻松构建智能代理、自动化工具和实时对话应用。无论是构建代码助手、企业知识库问答，还是多轮复杂对话，GLM-4.6 都能提供稳定、高效的性能。通过 AiFlowHub 的单一 API 即可调用，按量付费，无需额外注册。",
     "descriptions": {
-      "zh": "GLM-4.6 是智谱最新一代大语言模型，上下文窗口扩展至 202K tokens，可轻松处理长文档、复杂对话和大型代码库。在推理、多语言理解和工具调用方面显著提升，尤其适合需要深度上下文和函数调用的企业级应用。无论是构建智能客服、自动化工作流，还是开发多语言 SaaS 产品，GLM-4.6 都能以极低的成本提供稳定、高效的输出。",
-      "en": "GLM-4.6 is Zhipu AI's latest large language model, now with a 202K token context window—perfect for processing long documents, complex conversations, and large codebases. It delivers significant improvements in reasoning, multilingual understanding, and tool use. Ideal for developers building intelligent chatbots, automated workflows, or multi-language SaaS products. With competitive pricing and robust function calling, GLM-4.6 is a reliable, cost-effective choice for production-grade AI applications in emerging markets.",
-      "ru": "GLM-4.6 — новейшая языковая модель от Zhipu AI с контекстным окном в 202K токенов, идеально подходящая для обработки длинных документов, сложных диалогов и больших кодовых баз. Модель демонстрирует значительные улучшения в рассуждении, многоязычном понимании и использовании инструментов. Отличный выбор для разработчиков, создающих интеллектуальных чат-ботов, автоматизированные рабочие процессы или многоязычные SaaS-продукты. Благодаря конкурентоспособным ценам и мощному вызову функций, GLM-4.6 — надёжное и экономичное решение для AI-приложений на производственном уровне.",
-      "tr": "GLM-4.6, Zhipu AI'nın en yeni büyük dil modelidir ve 202K token bağlam penceresiyle uzun belgeleri, karmaşık konuşmaları ve büyük kod tabanlarını işlemek için idealdir. Akıl yürütme, çok dilli anlama ve araç kullanımında önemli iyileştirmeler sunar. Akıllı sohbet robotları, otomatik iş akışları veya çok dilli SaaS ürünleri geliştirenler için mükemmel bir seçimdir. Rekabetçi fiyatlandırması ve güçlü fonksiyon çağırma özelliğiyle GLM-4.6, üretim düzeyindeki yapay zeka uygulamaları için güvenilir ve uygun maliyetli bir çözümdür."
+      "zh": "GLM-4.6 是智谱 AI 最新一代大语言模型，在推理、代码生成和长文本处理上实现了显著提升。它拥有 128K 的超长上下文窗口，能一口气处理整本小说或复杂的技术文档。支持函数调用、JSON 模式和流式输出，让开发者可以轻松构建智能代理、自动化工具和实时对话应用。无论是构建代码助手、企业知识库问答，还是多轮复杂对话，GLM-4.6 都能提供稳定、高效的性能。通过 AiFlowHub 的单一 API 即可调用，按量付费，无需额外注册。",
+      "en": "GLM-4.6 is Zhipu AI's latest large language model, delivering significant improvements in reasoning, code generation, and long-context understanding. With a massive 128K context window, it can process entire novels or complex technical documents in one go. It supports Function Calling, JSON Mode, and Streaming, making it a perfect fit for building intelligent agents, automation tools, and real-time conversational apps. Whether you're creating a code assistant, an enterprise knowledge base Q&A, or a multi-turn dialogue system, GLM-4.6 offers stable, high-performance results. Access it through AiFlowHub's single API with pay-as-you-go pricing — no separate sign-ups needed.",
+      "ru": "GLM-4.6 — новейшая большая языковая модель от Zhipu AI, с улучшенными способностями в рассуждении, генерации кода и обработке длинных текстов. Окно контекста в 128K позволяет обрабатывать целые романы или сложные технические документы за один раз. Поддерживает вызов функций, режим JSON и потоковую передачу, что идеально подходит для создания интеллектуальных агентов, инструментов автоматизации и приложений для реального времени. Используйте GLM-4.6 для построения ассистентов кода, корпоративных баз знаний или многошаговых диалогов — стабильно и эффективно. Доступ через единый API AiFlowHub с оплатой по факту использования.",
+      "tr": "GLM-4.6, Zhipu AI'nın en yeni büyük dil modelidir; akıl yürütme, kod üretimi ve uzun metin işleme konularında önemli iyileştirmeler sunar. 128K'lık dev bağlam penceresiyle tek seferde romanları veya karmaşık teknik belgeleri işleyebilir. Fonksiyon Çağrısı, JSON Modu ve Akış desteği sayesinde akıllı ajanlar, otomasyon araçları ve gerçek zamanlı sohbet uygulamaları oluşturmak için idealdir. Kod asistanı, kurumsal bilgi tabanı veya çok adımlı diyalog sistemleri geliştirin — GLM-4.6 istikrarlı ve yüksek performans sunar. AiFlowHub'ın tek API'si üzerinden kullanıma göre ödeme yaparak erişin."
     },
-    "inputPrice": "$0.43",
-    "outputPrice": "$1.74",
-    "contextWindow": "202K",
-    "maxTokens": "131K",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
     "category": "chat",
     "features": [
-      "多语言",
-      "函数调用",
-      "工具使用",
-      "流式输出",
-      "长上下文"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "长文档分析与摘要",
-      "多语言客户支持机器人",
-      "自动化代码审查与生成"
+      "代码助手与自动补全",
+      "企业知识库问答",
+      "多轮复杂对话与智能代理"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "代码助手与自动补全",
+        "企业知识库问答",
+        "多轮复杂对话与智能代理"
+      ],
+      "en": [
+        "Code assistant and autocomplete",
+        "Enterprise knowledge base Q&A",
+        "Multi-turn complex dialogue and intelligent agents"
+      ],
+      "ru": [
+        "Ассистент кода и автодополнение",
+        "Корпоративная база знаний Q&A",
+        "Многошаговые сложные диалоги и интеллектуальные агенты"
+      ],
+      "tr": [
+        "Kod asistanı ve otomatik tamamlama",
+        "Kurumsal bilgi tabanı soru-cevap",
+        "Çok adımlı karmaşık diyalog ve akıllı ajanlar"
+      ]
+    },
     "strengths": [
-      "超长上下文窗口，支持202K tokens",
-      "高性价比，输入仅$0.43/百万tokens",
-      "多语言能力强，覆盖东欧、中亚语言",
-      "函数调用与工具使用能力突出"
+      "超长上下文处理",
+      "强大的推理与代码能力",
+      "稳定的函数调用与结构化输出"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文处理",
+        "强大的推理与代码能力",
+        "稳定的函数调用与结构化输出"
+      ],
+      "en": [
+        "Massive 128K context handling",
+        "Strong reasoning and code generation",
+        "Reliable function calling and structured output"
+      ],
+      "ru": [
+        "Обработка контекста до 128K",
+        "Мощные рассуждения и генерация кода",
+        "Надёжный вызов функций и структурированный вывод"
+      ],
+      "tr": [
+        "128K dev bağlam işleme",
+        "Güçlü akıl yürütme ve kod üretimi",
+        "Güvenilir fonksiyon çağrısı ve yapılandırılmış çıktı"
+      ]
+    },
     "whyChoose": {
-      "en": "Best price-performance ratio for long-context, multilingual AI applications in emerging markets.",
-      "ru": "Лучшее соотношение цены и производительности для многоязычных AI-приложений с длинным контекстом на развивающихся рынках.",
-      "tr": "Gelişmekte olan pazarlarda uzun bağlamlı, çok dilli yapay zeka uygulamaları için en iyi fiyat-performans oranı."
+      "en": "Best-in-class reasoning and code generation with a massive 128K context window.",
+      "ru": "Лучшие в своём классе рассуждения и генерация кода с окном контекста 128K.",
+      "tr": "128K bağlam penceresiyle sınıfının en iyi akıl yürütme ve kod üretimi."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.6\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.6\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.6\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4.6\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4.6\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4.6\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "glm-4.7",
-    "name": "Z.ai: GLM 4.7",
-    "provider": "智谱 Z.ai",
+    "name": "GLM-4.7",
+    "provider": "Zhipu",
     "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-4.7 是智谱最新旗舰模型，专为复杂任务而生。编程能力大幅提升，多步推理更稳定，轻松驾驭智能体工作流。适合需要高精度代码生成、逻辑推理和稳定输出的开发者。免费使用，快速响应，流式输出，助你高效构建下一代 AI 应用。",
+    "description": "GLM-4.7 是智谱最新一代大语言模型，在推理、代码生成和长文本处理上实现了显著突破。128K 超长上下文让你轻松处理整本小说或复杂项目文档。支持函数调用、JSON 模式和流式输出，非常适合构建智能客服、代码助手和数据分析工具。通过 AiFlowHub 单一 API 即可调用，按量付费，无需分别注册。适合需要高性价比、强推理能力的 AI 应用的开发者。",
     "descriptions": {
-      "zh": "GLM-4.7 是智谱最新旗舰模型，专为复杂任务而生。编程能力大幅提升，多步推理更稳定，轻松驾驭智能体工作流。适合需要高精度代码生成、逻辑推理和稳定输出的开发者。免费使用，快速响应，流式输出，助你高效构建下一代 AI 应用。",
-      "en": "GLM-4.7 is Z.ai's latest flagship, built for developers who need reliable, multi-step reasoning and top-tier code generation. It excels at complex agent tasks, delivering stable outputs and faster responses. Whether you're building tools, automating workflows, or integrating AI into your product, GLM-4.7 gives you the precision and speed to ship with confidence. Free to use, streaming support included.",
-      "ru": "GLM-4.7 — новый флагман от Z.ai, созданный для разработчиков, которым нужно надежное многошаговое рассуждение и генерация кода высокого уровня. Модель отлично справляется с комплексными агентными задачами, обеспечивая стабильные результаты и быстрый ответ. Бесплатно, с поддержкой потокового вывода. Идеально для создания инструментов, автоматизации и интеграции ИИ в продукты.",
-      "tr": "GLM-4.7, Z.ai'nin en yeni amiral gemisi modelidir. Karmaşık görevler için tasarlanmış olup, kod üretimi ve çok adımlı akıl yürütme konusunda üstün performans sunar. Geliştiricilere güvenilir, hızlı ve akış çıktılı bir yapay zeka deneyimi sağlar. Ücretsiz kullanım, hızlı yanıt ve akış desteğiyle öne çıkar."
+      "zh": "GLM-4.7 是智谱最新一代大语言模型，在推理、代码生成和长文本处理上实现了显著突破。128K 超长上下文让你轻松处理整本小说或复杂项目文档。支持函数调用、JSON 模式和流式输出，非常适合构建智能客服、代码助手和数据分析工具。通过 AiFlowHub 单一 API 即可调用，按量付费，无需分别注册。适合需要高性价比、强推理能力的 AI 应用的开发者。",
+      "en": "GLM-4.7 is Zhipu's latest generation large language model, delivering breakthroughs in reasoning, code generation, and long-context processing. With a 128K context window, you can handle entire novels or complex project documents with ease. It supports function calling, JSON mode, and streaming — making it ideal for building intelligent chatbots, code assistants, and data analysis tools. Accessible via AiFlowHub's single API, pay-as-you-go, no separate registrations needed. Perfect for developers who need high performance at a competitive price.",
+      "ru": "GLM-4.7 — новейшая большая языковая модель от Zhipu, обеспечивающая прорыв в рассуждениях, генерации кода и обработке длинных текстов. Окно контекста в 128K позволяет легко обрабатывать целые романы или сложные проектные документы. Поддерживает вызов функций, режим JSON и потоковую передачу — идеально подходит для создания интеллектуальных чат-ботов, помощников по коду и инструментов анализа данных. Доступ через единый API AiFlowHub, оплата по мере использования, без отдельной регистрации. Подходит для разработчиков, которым нужна высокая производительность по конкурентоспособной цене.",
+      "tr": "GLM-4.7, Zhipu'nun en yeni nesil büyük dil modelidir ve akıl yürütme, kod üretimi ve uzun metin işlemede önemli atılımlar sunar. 128K bağlam penceresiyle bütün romanları veya karmaşık proje belgelerini kolayca işleyebilirsiniz. Fonksiyon çağrısı, JSON modu ve akış desteği sayesinde akıllı sohbet robotları, kod yardımcıları ve veri analizi araçları oluşturmak için idealdir. AiFlowHub'ın tek API'si üzerinden erişilebilir, kullandıkça öde, ayrı kayıt gerekmez. Yüksek performansı rekabetçi fiyatla arayan geliştiriciler için mükemmeldir."
     },
-    "inputPrice": "$0.40",
-    "outputPrice": "$1.75",
-    "contextWindow": "202K",
-    "maxTokens": "131K",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
-    "category": "code",
+    "category": "chat",
     "features": [
-      "免费使用",
-      "快速响应",
-      "流式输出",
-      "编程优化",
-      "多步推理"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "复杂代码生成与调试",
-      "多步骤推理与智能体工作流",
-      "自动化工具与 AI 集成开发"
+      "智能客服与对话系统",
+      "代码生成与辅助编程",
+      "文档分析与摘要",
+      "数据分析与报告生成"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话系统",
+        "代码生成与辅助编程",
+        "文档分析与摘要",
+        "数据分析与报告生成"
+      ],
+      "en": [
+        "Intelligent customer service & chatbots",
+        "Code generation & assisted programming",
+        "Document analysis & summarization",
+        "Data analysis & report generation"
+      ],
+      "ru": [
+        "Интеллектуальная поддержка клиентов и чат-боты",
+        "Генерация кода и помощь в программировании",
+        "Анализ и суммаризация документов",
+        "Анализ данных и генерация отчетов"
+      ],
+      "tr": [
+        "Akıllı müşteri hizmetleri ve sohbet robotları",
+        "Kod üretimi ve yardımcı programlama",
+        "Belge analizi ve özetleme",
+        "Veri analizi ve rapor oluşturma"
+      ]
+    },
     "strengths": [
-      "编程能力大幅提升，代码生成更精准",
-      "多步推理更稳定，智能体任务执行可靠",
-      "免费使用，快速响应，支持流式输出"
+      "超长上下文处理能力",
+      "强大的推理与代码生成",
+      "高性价比，按量付费",
+      "易于集成，单一 API"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文处理能力",
+        "强大的推理与代码生成",
+        "高性价比，按量付费",
+        "易于集成，单一 API"
+      ],
+      "en": [
+        "Ultra-long context handling",
+        "Strong reasoning and code generation",
+        "Cost-effective, pay-as-you-go",
+        "Easy integration, single API"
+      ],
+      "ru": [
+        "Обработка сверхдлинного контекста",
+        "Мощные рассуждения и генерация кода",
+        "Экономичность, оплата по мере использования",
+        "Простая интеграция, единый API"
+      ],
+      "tr": [
+        "Ultra uzun bağlam işleme",
+        "Güçlü akıl yürütme ve kod üretimi",
+        "Uygun maliyetli, kullandıkça öde",
+        "Kolay entegrasyon, tek API"
+      ]
+    },
     "whyChoose": {
-      "en": "Reliable multi-step reasoning and top-tier code generation — free and fast.",
-      "ru": "Надёжное многошаговое рассуждение и генерация кода высшего уровня — бесплатно и быстро.",
-      "tr": "Güvenilir çok adımlı akıl yürütme ve üst düzey kod üretimi — ücretsiz ve hızlı."
+      "en": "Unmatched reasoning and long-context at a fraction of the cost.",
+      "ru": "Непревзойденные рассуждения и длинный контекст по низкой цене.",
+      "tr": "Düşük maliyetle benzersiz akıl yürütme ve uzun bağlam."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.7\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.7\",\n    messages=[{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.7\",\n  messages: [{ role: \"user\", content: \"今天天气如何\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4.7\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4.7\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4.7\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
+    },
+    "enriched": true
+  },
+  {
+    "id": "glm-4v",
+    "name": "GLM-4V",
+    "provider": "Zhipu",
+    "providerLogo": "/logos/zhipu.png",
+    "description": "GLM-4V 是智谱推出的多模态模型，能同时理解文本与图像。它拥有 128K 超长上下文，可一次性处理整本书或长篇文档，并精准回答细节问题。支持函数调用、JSON 模式和流式输出，轻松集成到您的应用。适合构建智能客服、文档分析、教育辅导等场景。通过 AiFlowHub 单一 API 即可使用，按量付费，无需注册多家平台。",
+    "descriptions": {
+      "zh": "GLM-4V 是智谱推出的多模态模型，能同时理解文本与图像。它拥有 128K 超长上下文，可一次性处理整本书或长篇文档，并精准回答细节问题。支持函数调用、JSON 模式和流式输出，轻松集成到您的应用。适合构建智能客服、文档分析、教育辅导等场景。通过 AiFlowHub 单一 API 即可使用，按量付费，无需注册多家平台。",
+      "en": "GLM-4V is Zhipu's multimodal model that understands both text and images. With a 128K context window, it processes entire books or long documents in one go and answers detailed questions accurately. It supports function calling, JSON mode, and streaming, making integration seamless. Ideal for building intelligent chatbots, document analysis, and tutoring apps. Access it via AiFlowHub's single API — pay as you go, no multiple sign-ups.",
+      "ru": "GLM-4V — это мультимодальная модель от Zhipu, которая понимает текст и изображения. Окно контекста 128K позволяет обрабатывать целые книги или длинные документы за один раз и точно отвечать на вопросы. Поддерживает вызов функций, режим JSON и потоковую передачу, что упрощает интеграцию. Идеально для чат-ботов, анализа документов и образовательных приложений. Доступ через единый API AiFlowHub — оплата по мере использования, без регистрации на нескольких платформах.",
+      "tr": "GLM-4V, Zhipu'nun hem metni hem de görselleri anlayan çok modlu modelidir. 128K bağlam penceresiyle tüm kitapları veya uzun belgeleri tek seferde işler ve ayrıntılı sorulara doğru yanıtlar verir. Fonksiyon çağrısı, JSON modu ve akış desteğiyle entegrasyonu kolaylaştırır. Akıllı sohbet robotları, belge analizi ve eğitim uygulamaları için idealdir. AiFlowHub'ın tek API'si ile erişin — kullandıkça ödeyin, birden fazla kayda gerek yok."
+    },
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
+    ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
+    "useCases": [
+      "智能客服与问答系统",
+      "文档分析与信息提取",
+      "教育辅导与内容生成"
+    ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与问答系统",
+        "文档分析与信息提取",
+        "教育辅导与内容生成"
+      ],
+      "en": [
+        "Intelligent customer service and Q&A systems",
+        "Document analysis and information extraction",
+        "Educational tutoring and content generation"
+      ],
+      "ru": [
+        "Интеллектуальные системы поддержки и вопросов-ответов",
+        "Анализ документов и извлечение информации",
+        "Образовательное репетиторство и генерация контента"
+      ],
+      "tr": [
+        "Akıllı müşteri hizmetleri ve soru-cevap sistemleri",
+        "Belge analizi ve bilgi çıkarma",
+        "Eğitim koçluğu ve içerik oluşturma"
+      ]
+    },
+    "strengths": [
+      "多模态理解文本与图像",
+      "128K 超长上下文处理",
+      "支持函数调用与结构化输出"
+    ],
+    "strengthsI18n": {
+      "zh": [
+        "多模态理解文本与图像",
+        "128K 超长上下文处理",
+        "支持函数调用与结构化输出"
+      ],
+      "en": [
+        "Multimodal understanding of text and images",
+        "128K ultra-long context handling",
+        "Supports function calling and structured output"
+      ],
+      "ru": [
+        "Мультимодальное понимание текста и изображений",
+        "Обработка сверхдлинного контекста 128K",
+        "Поддержка вызова функций и структурированного вывода"
+      ],
+      "tr": [
+        "Metin ve görselleri çok modlu anlama",
+        "128K ultra-uzun bağlam işleme",
+        "Fonksiyon çağrısı ve yapılandırılmış çıktı desteği"
+      ]
+    },
+    "whyChoose": {
+      "en": "One model for text and vision, with massive context — simplify your stack.",
+      "ru": "Одна модель для текста и изображений с большим контекстом — упростите свой стек.",
+      "tr": "Metin ve görme için tek model, devasa bağlam — yığınınızı basitleştirin."
+    },
+    "codeExample": {
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-4v\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-4v\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-4v\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "glm-5",
-    "name": "Z.ai: GLM 5",
-    "provider": "智谱 Z.ai",
+    "name": "GLM-5",
+    "provider": "Zhipu",
     "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-5 是智谱 Z.ai 推出的旗舰开源基础模型，专为复杂系统设计和长期智能体工作流打造。它提供生产级性能，尤其擅长大规模编程任务，同时支持多语言、函数调用和超长上下文。适合需要构建可靠、高效 AI 应用的专家开发者。",
+    "description": "GLM-5 是智谱最新一代旗舰大模型，在复杂推理、长文本处理和指令遵循上实现显著突破。128K 超长上下文让您一次性处理整本书或完整代码库，配合函数调用与 JSON 模式，轻松构建稳定可靠的 AI 应用。无论是智能客服、代码助手还是数据分析，GLM-5 都能以更低成本提供更优效果。专为追求高性能与性价比的开发者打造。",
     "descriptions": {
-      "zh": "GLM-5 是智谱 Z.ai 推出的旗舰开源基础模型，专为复杂系统设计和长期智能体工作流打造。它提供生产级性能，尤其擅长大规模编程任务，同时支持多语言、函数调用和超长上下文。适合需要构建可靠、高效 AI 应用的专家开发者。",
-      "en": "GLM-5 is Z.ai's flagship open-source foundation model, built for complex system design and long-horizon agent workflows. It delivers production-grade performance on large-scale programming tasks and excels in multilingual communication, function calling, and handling massive contexts. Ideal for expert developers building reliable, high-performance AI applications in emerging markets.",
-      "ru": "GLM-5 — флагманская открытая фундаментальная модель от Z.ai, созданная для проектирования сложных систем и долгосрочных агентных рабочих процессов. Она обеспечивает производительность производственного уровня в крупномасштабных задачах программирования, а также отлично справляется с многоязычным общением, вызовом функций и обработкой огромных контекстов. Идеально подходит для опытных разработчиков, создающих надежные и высокопроизводительные AI-приложения.",
-      "tr": "GLM-5, Z.ai'nin amiral gemisi açık kaynak temel modelidir ve karmaşık sistem tasarımı ile uzun vadeli ajan iş akışları için üretilmiştir. Büyük ölçekli programlama görevlerinde üretim düzeyinde performans sunar; çok dilli iletişim, fonksiyon çağrısı ve devasa bağlamları işlemede üstündür. Güvenilir ve yüksek performanslı AI uygulamaları geliştiren uzman geliştiriciler için idealdir."
+      "zh": "GLM-5 是智谱最新一代旗舰大模型，在复杂推理、长文本处理和指令遵循上实现显著突破。128K 超长上下文让您一次性处理整本书或完整代码库，配合函数调用与 JSON 模式，轻松构建稳定可靠的 AI 应用。无论是智能客服、代码助手还是数据分析，GLM-5 都能以更低成本提供更优效果。专为追求高性能与性价比的开发者打造。",
+      "en": "GLM-5 is Zhipu's latest flagship model, engineered for developers who demand top-tier reasoning, long-context understanding, and reliable tool use. With a 128K context window, it handles entire codebases, lengthy documents, and complex multi-step workflows in a single pass. Native function calling and JSON mode make it a breeze to build production-ready agents and structured outputs. Whether you're powering a customer support bot, a code assistant, or a data extraction pipeline, GLM-5 delivers high accuracy at competitive pricing. Built for the AiFlowHub platform — one API, no hassle. Ideal for developers in Armenia, Georgia, Kazakhstan, and beyond who want Chinese AI quality without the registration headache.",
+      "ru": "GLM-5 — флагманская модель Zhipu, созданная для разработчиков, которым нужны передовые рассуждения, длинный контекст и надежная интеграция. 128K контекстного окна позволяет обрабатывать целые кодовые базы, длинные документы и сложные многоэтапные сценарии за один проход. Встроенные вызов функций и JSON-режим упрощают создание готовых к продакшену агентов и структурированных выводов. Будь то чат-бот поддержки, ассистент кода или конвейер извлечения данных — GLM-5 обеспечивает высокую точность по конкурентоспособной цене. Создан для платформы AiFlowHub — один API, никаких хлопот. Идеально для разработчиков из СНГ, желающих получить качество китайского AI без лишней регистрации.",
+      "tr": "GLM-5, Zhipu'nun en yeni amiral gemisi modelidir ve üstün akıl yürütme, uzun bağlam anlama ve güvenilir araç kullanımı sunar. 128K bağlam penceresiyle tüm kod tabanlarını, uzun belgeleri ve karmaşık çok adımlı iş akışlarını tek seferde işler. Yerel fonksiyon çağrısı ve JSON modu, üretime hazır ajanlar ve yapılandırılmış çıktılar oluşturmayı kolaylaştırır. İster bir müşteri destek botu, ister kod asistanı veya veri çıkarma hattı oluşturun, GLM-5 rekabetçi fiyatlarla yüksek doğruluk sunar. AiFlowHub platformu için üretildi — tek API, sorun yok. Türkiye'deki geliştiriciler için ideal: Çin AI kalitesini kayıt derdi olmadan kullanın."
     },
-    "inputPrice": "$0.60",
-    "outputPrice": "$1.92",
-    "contextWindow": "202K",
-    "maxTokens": "—",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
-    "category": "code",
+    "category": "chat",
     "features": [
-      "多语言",
-      "函数调用",
-      "工具使用",
-      "长文档处理",
-      "流式输出"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "复杂软件系统开发与调试",
-      "长文档分析与智能体工作流",
-      "多语言客户支持与自动化工具"
+      "智能客服与对话系统",
+      "代码助手与自动补全",
+      "文档分析与数据提取"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话系统",
+        "代码助手与自动补全",
+        "文档分析与数据提取"
+      ],
+      "en": [
+        "Customer support chatbots and virtual assistants",
+        "Code generation, review, and autocomplete",
+        "Document analysis and structured data extraction"
+      ],
+      "ru": [
+        "Чат-боты поддержки и виртуальные ассистенты",
+        "Генерация, ревью и автодополнение кода",
+        "Анализ документов и извлечение структурированных данных"
+      ],
+      "tr": [
+        "Müşteri destek sohbet robotları ve sanal asistanlar",
+        "Kod oluşturma, inceleme ve otomatik tamamlama",
+        "Belge analizi ve yapılandırılmış veri çıkarma"
+      ]
+    },
     "strengths": [
-      "生产级编程性能",
-      "超长上下文窗口（202K）",
-      "多语言与函数调用支持",
-      "开源可定制"
+      "128K 超长上下文，一次性处理整本书或完整代码库",
+      "函数调用与 JSON 模式，构建稳定可靠的 AI 应用",
+      "高性价比，旗舰性能仅需 $0.14/1M 输入"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "128K 超长上下文，一次性处理整本书或完整代码库",
+        "函数调用与 JSON 模式，构建稳定可靠的 AI 应用",
+        "高性价比，旗舰性能仅需 $0.14/1M 输入"
+      ],
+      "en": [
+        "128K context window — process entire codebases or books in one go",
+        "Native function calling and JSON mode for production-ready agents",
+        "Flagship performance at a fraction of the cost — $0.14/1M input"
+      ],
+      "ru": [
+        "Окно контекста 128K — обрабатывайте целые кодовые базы и книги за один раз",
+        "Встроенные вызов функций и JSON-режим для готовых к продакшену агентов",
+        "Флагманская производительность по низкой цене — $0.14/1M ввод"
+      ],
+      "tr": [
+        "128K bağlam penceresi — tüm kod tabanlarını veya kitapları tek seferde işleyin",
+        "Yerel fonksiyon çağrısı ve JSON modu ile üretime hazır ajanlar",
+        "Düşük maliyetle amiral gemisi performansı — $0.14/1M giriş"
+      ]
+    },
     "whyChoose": {
-      "en": "Production-grade performance for complex programming and agent workflows, with 202K context and open-source flexibility.",
-      "ru": "Производительность производственного уровня для сложного программирования и агентных рабочих процессов с контекстом 202K и гибкостью открытого исходного кода.",
-      "tr": "Karmaşık programlama ve ajan iş akışları için üretim düzeyinde performans, 202K bağlam ve açık kaynak esnekliği."
+      "en": "Flagship reasoning and long context at a fraction of the cost.",
+      "ru": "Флагманские рассуждения и длинный контекст по низкой цене.",
+      "tr": "Amiral gemisi akıl yürütme ve uzun bağlam, düşük maliyetle."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-5\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-5\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-5\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "glm-5-turbo",
-    "name": "Z.ai: GLM 5 Turbo",
-    "provider": "智谱 Z.ai",
+    "name": "GLM-5 Turbo",
+    "provider": "Zhipu",
     "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-5 Turbo 是智谱最新推出的高性能推理模型，专为智能体驱动的复杂场景深度优化。它拥有超长上下文窗口，能够高效处理海量文档与多轮交互，同时在函数调用与工具使用上表现出色。无论是搭建自动化工作流、构建知识密集型应用，还是开发多语言服务，GLM-5 Turbo 都能以极速响应和稳定输出，成为你项目落地的强力引擎。适合追求效率与可靠性的开发者。",
+    "description": "GLM-5 Turbo 是智谱最新一代高性能对话模型，专为需要快速、可靠 AI 助手的开发者打造。它拥有 128K 超长上下文，能轻松处理整本小说或复杂文档分析。支持函数调用、JSON 模式和流式输出，让开发更灵活。无论是构建智能客服、内容生成工具还是数据分析助手，GLM-5 Turbo 都能以极低延迟和精准理解力胜任。通过 AiFlowHub 单一 API 即可调用，无需单独注册，按量付费，是东欧、中亚开发者接入中国顶尖 AI 能力的最便捷通道。",
     "descriptions": {
-      "zh": "GLM-5 Turbo 是智谱最新推出的高性能推理模型，专为智能体驱动的复杂场景深度优化。它拥有超长上下文窗口，能够高效处理海量文档与多轮交互，同时在函数调用与工具使用上表现出色。无论是搭建自动化工作流、构建知识密集型应用，还是开发多语言服务，GLM-5 Turbo 都能以极速响应和稳定输出，成为你项目落地的强力引擎。适合追求效率与可靠性的开发者。",
-      "en": "GLM-5 Turbo is Z.ai's latest high-performance reasoning model, purpose-built for agent-driven workflows and complex real-world tasks. With an ultra-long context window and deep optimization for function calling and tool use, it excels in processing massive documents, orchestrating multi-step automation, and powering multilingual applications. Designed for developers who need speed, reliability, and seamless integration, GLM-5 Turbo turns your ambitious ideas into production-ready solutions. Perfect for teams in Armenia, Georgia, and Central Asia building the next generation of intelligent systems.",
-      "ru": "GLM-5 Turbo — новейшая высокопроизводительная модель от Z.ai, созданная для агентных сценариев и сложных задач реального мира. Благодаря сверхдлинному контекстному окну и глубокой оптимизации вызова функций и использования инструментов, она отлично справляется с обработкой больших документов, автоматизацией многошаговых процессов и созданием многоязычных приложений. Для разработчиков из Казахстана и Центральной Азии, которые ценят скорость, надёжность и лёгкую интеграцию, GLM-5 Turbo станет надёжным двигателем для воплощения амбициозных проектов.",
-      "tr": "GLM-5 Turbo, Z.ai'nin ajan odaklı iş akışları ve karmaşık gerçek dünya görevleri için özel olarak geliştirilmiş yeni nesil yüksek performanslı akıl yürütme modelidir. Devasa bağlam penceresi, fonksiyon çağırma ve araç kullanımındaki derin optimizasyon sayesinde büyük belgeleri işleme, çok adımlı otomasyonu yönetme ve çok dilli uygulamalar geliştirme konusunda üstün performans sunar. Hız, güvenilirlik ve sorunsuz entegrasyon arayan geliştiriciler için GLM-5 Turbo, iddialı fikirlerinizi üretime hazır çözümlere dönüştürür. Türkiye'deki geliştiriciler için ideal."
+      "zh": "GLM-5 Turbo 是智谱最新一代高性能对话模型，专为需要快速、可靠 AI 助手的开发者打造。它拥有 128K 超长上下文，能轻松处理整本小说或复杂文档分析。支持函数调用、JSON 模式和流式输出，让开发更灵活。无论是构建智能客服、内容生成工具还是数据分析助手，GLM-5 Turbo 都能以极低延迟和精准理解力胜任。通过 AiFlowHub 单一 API 即可调用，无需单独注册，按量付费，是东欧、中亚开发者接入中国顶尖 AI 能力的最便捷通道。",
+      "en": "GLM-5 Turbo is Zhipu's latest high-performance conversational model, built for developers who need a fast, reliable AI assistant. With a massive 128K context window, it handles entire novels or complex document analysis with ease. It supports Function Calling, JSON Mode, and Streaming, giving you the flexibility to build smart chatbots, content generators, or data analysis tools. Low latency, high accuracy, and seamless integration through AiFlowHub's single API — no separate sign-ups, just pay-as-you-go. For developers in Armenia, Georgia, and Kazakhstan, GLM-5 Turbo is your gateway to China's top AI, simplified.",
+      "ru": "GLM-5 Turbo — новейшая высокопроизводительная диалоговая модель от Zhipu, созданная для разработчиков, которым нужен быстрый и надёжный ИИ-ассистент. Огромное контекстное окно в 128K позволяет обрабатывать целые романы или сложные документы. Поддерживает вызов функций, режим JSON и потоковую передачу — гибкость для создания умных чат-ботов, генераторов контента или инструментов анализа данных. Низкая задержка, высокая точность и единый API от AiFlowHub без отдельных регистраций, оплата по мере использования. Для разработчиков из СНГ это простейший способ получить доступ к передовым китайским ИИ-моделям.",
+      "tr": "GLM-5 Turbo, Zhipu'nun en yeni yüksek performanslı diyalog modelidir; hızlı ve güvenilir bir AI asistanına ihtiyaç duyan geliştiriciler için üretilmiştir. 128K devasa bağlam penceresi sayesinde tüm bir romanı veya karmaşık belge analizini kolayca işler. Fonksiyon Çağrısı, JSON Modu ve Akış desteği ile akıllı sohbet botları, içerik oluşturucular veya veri analizi araçları geliştirmede esneklik sağlar. Düşük gecikme, yüksek doğruluk ve AiFlowHub'ın tek API'si ile sorunsuz entegrasyon — ayrı kayıt gerektirmez, kullandıkça öde. Türkiye'deki geliştiriciler için GLM-5 Turbo, Çin'in önde gelen AI'sına en kolay geçiş yoludur."
     },
-    "inputPrice": "$1.20",
-    "outputPrice": "$4.00",
-    "contextWindow": "202K",
-    "maxTokens": "131K",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
-    "category": "reasoning",
+    "category": "chat",
     "features": [
-      "长上下文",
-      "函数调用",
-      "工具使用",
-      "流式输出",
-      "多语言支持"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "构建自动化智能体与工作流",
-      "长文档分析与知识库问答",
-      "多语言客服与内容生成系统"
+      "智能客服与虚拟助手",
+      "内容生成与摘要",
+      "数据分析与报告",
+      "文档问答与知识库"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与虚拟助手",
+        "内容生成与摘要",
+        "数据分析与报告",
+        "文档问答与知识库"
+      ],
+      "en": [
+        "Smart customer support & virtual assistants",
+        "Content generation & summarization",
+        "Data analysis & reporting",
+        "Document Q&A & knowledge bases"
+      ],
+      "ru": [
+        "Умная поддержка клиентов и виртуальные ассистенты",
+        "Генерация контента и реферирование",
+        "Анализ данных и отчёты",
+        "Вопросы по документам и базы знаний"
+      ],
+      "tr": [
+        "Akıllı müşteri desteği ve sanal asistanlar",
+        "İçerik oluşturma ve özetleme",
+        "Veri analizi ve raporlama",
+        "Belge soru-cevap ve bilgi tabanları"
+      ]
+    },
     "strengths": [
-      "超长上下文处理，轻松应对海量文档",
-      "深度优化的智能体工作流支持",
-      "出色的函数调用与工具使用能力",
-      "多语言场景下的稳定表现"
+      "超长上下文处理",
+      "精准理解与低延迟",
+      "灵活的开发接口",
+      "高性价比的按量付费"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文处理",
+        "精准理解与低延迟",
+        "灵活的开发接口",
+        "高性价比的按量付费"
+      ],
+      "en": [
+        "Massive context handling",
+        "Accurate understanding with low latency",
+        "Flexible developer interfaces",
+        "Cost-effective pay-as-you-go"
+      ],
+      "ru": [
+        "Обработка огромного контекста",
+        "Точное понимание с низкой задержкой",
+        "Гибкие интерфейсы разработчика",
+        "Экономичная оплата по факту"
+      ],
+      "tr": [
+        "Büyük bağlam işleme",
+        "Düşük gecikmeyle hassas anlama",
+        "Esnek geliştirici arayüzleri",
+        "Uygun maliyetli kullandıkça öde"
+      ]
+    },
     "whyChoose": {
-      "en": "Best balance of speed, context length, and agentic capability for production workloads.",
-      "ru": "Лучший баланс скорости, длины контекста и агентных возможностей для продакшн-нагрузок.",
-      "tr": "Üretim iş yükleri için hız, bağlam uzunluğu ve ajan yetenekleri arasında en iyi denge."
+      "en": "The fastest way to integrate China's best AI with a single API.",
+      "ru": "Самый быстрый способ интеграции лучшего китайского ИИ через единый API.",
+      "tr": "Tek bir API ile Çin'in en iyi yapay zekasını entegre etmenin en hızlı yolu."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-5-turbo\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-5-turbo\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-5-turbo\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   },
   {
     "id": "glm-5.1",
-    "name": "Z.ai: GLM 5.1",
-    "provider": "智谱 Z.ai",
+    "name": "GLM-5.1",
+    "provider": "Zhipu",
     "providerLogo": "/logos/zhipu.png",
-    "description": "GLM-5.1 是智谱最新一代大语言模型，专为需要深度推理和长程任务处理的场景打造。它不仅能流畅处理超过20万token的上下文，还能独立、持续地完成复杂编码任务，大幅提升开发效率。无论是构建智能代理、处理海量文档，还是实现多语言应用，GLM-5.1 都以更低的成本带来更稳定的表现。适合追求可靠性与性价比的开发者。",
+    "description": "GLM-5.1 是智谱最新一代语言模型，在复杂推理、长文本理解和代码生成上实现了显著突破。128K 超长上下文让你轻松处理整本书或大型代码库，16K 输出 token 满足深度分析需求。支持函数调用和 JSON 模式，完美适配自动化工作流与结构化输出。无论是构建智能客服、代码助手，还是数据分析平台，GLM-5.1 都能以极低延迟提供可靠结果。通过 AiFlowHub 一键接入，按量付费，无需绑定长期合约。",
     "descriptions": {
-      "zh": "GLM-5.1 是智谱最新一代大语言模型，专为需要深度推理和长程任务处理的场景打造。它不仅能流畅处理超过20万token的上下文，还能独立、持续地完成复杂编码任务，大幅提升开发效率。无论是构建智能代理、处理海量文档，还是实现多语言应用，GLM-5.1 都以更低的成本带来更稳定的表现。适合追求可靠性与性价比的开发者。",
-      "en": "GLM-5.1 is Zhipu AI's latest leap in large language models, designed for deep reasoning and long-horizon tasks. With a 202K context window, it handles massive documents and complex coding projects with ease. It works independently and continuously, not just in short interactions. Perfect for developers building intelligent agents, multilingual apps, or automation tools in emerging markets. Cost-effective at $0.98/M input tokens. Built for reliability and performance.",
-      "ru": "GLM-5.1 — это новейшая языковая модель от Zhipu AI, созданная для глубокого анализа и длительных задач. Окно контекста в 202K токенов позволяет обрабатывать огромные документы и сложные проекты по кодированию. Модель работает автономно и непрерывно, а не только в коротких диалогах. Идеально подходит для разработчиков, создающих интеллектуальных агентов, мультиязычные приложения или инструменты автоматизации. Экономически эффективна: $0,98 за миллион входных токенов.",
-      "tr": "GLM-5.1, Zhipu AI'nın derin mantıksal çıkarım ve uzun vadeli görevler için tasarlanmış en yeni dil modelidir. 202K token bağlam penceresi ile büyük belgeleri ve karmaşık kodlama projelerini kolayca işler. Kısa etkileşimlerle sınırlı kalmayıp bağımsız ve sürekli çalışır. Akıllı ajanlar, çok dilli uygulamalar veya otomasyon araçları geliştiren geliştiriciler için idealdir. Giriş token başına $0,98 ile uygun maliyetlidir."
+      "zh": "GLM-5.1 是智谱最新一代语言模型，在复杂推理、长文本理解和代码生成上实现了显著突破。128K 超长上下文让你轻松处理整本书或大型代码库，16K 输出 token 满足深度分析需求。支持函数调用和 JSON 模式，完美适配自动化工作流与结构化输出。无论是构建智能客服、代码助手，还是数据分析平台，GLM-5.1 都能以极低延迟提供可靠结果。通过 AiFlowHub 一键接入，按量付费，无需绑定长期合约。",
+      "en": "GLM-5.1 is Zhipu's latest generation language model, delivering breakthroughs in complex reasoning, long-context comprehension, and code generation. With a 128K context window, you can process entire books or large codebases in one go, while 16K output tokens support deep analysis. Native function calling and JSON mode make it a natural fit for automation pipelines and structured outputs. Whether you're building a customer support chatbot, a code assistant, or a data analysis tool, GLM-5.1 delivers reliable results with low latency. Access it via AiFlowHub's single API — pay as you go, no long-term commitment. Built for developers in Armenia, Georgia, Kazakhstan, and beyond.",
+      "ru": "GLM-5.1 — новейшая языковая модель от Zhipu, демонстрирующая прорыв в сложных рассуждениях, понимании длинных контекстов и генерации кода. Окно контекста 128K позволяет обрабатывать целые книги или большие базы кода за один раз, а 16K выходных токенов подходят для глубокого анализа. Встроенная поддержка вызова функций и JSON-режима делает модель идеальной для автоматизации и структурированных выходных данных. Создаёте ли вы чат-бота для поддержки, ассистента по коду или инструмент анализа данных — GLM-5.1 обеспечивает надёжные результаты с низкой задержкой. Доступ через единый API AiFlowHub, оплата по мере использования, без долгосрочных контрактов. Для разработчиков из СНГ.",
+      "tr": "GLM-5.1, Zhipu'nun en yeni nesil dil modeli olup karmaşık akıl yürütme, uzun bağlam anlama ve kod üretiminde çığır açıyor. 128K bağlam penceresiyle tek seferde kitap boyutunda metinler veya büyük kod tabanlarını işleyebilir, 16K çıktı tokenı ile derinlemesine analiz yapabilirsiniz. Yerleşik fonksiyon çağrısı ve JSON modu, otomasyon iş akışları ve yapılandırılmış çıktılar için idealdir. İster bir müşteri destek sohbet robotu, ister kod asistanı veya veri analizi aracı oluşturun, GLM-5.1 düşük gecikmeyle güvenilir sonuçlar sunar. AiFlowHub'ın tek API'si ile erişin, kullandıkça ödeyin, uzun vadeli taahhüt yok. Türkiye'deki geliştiriciler için tasarlandı."
     },
-    "inputPrice": "$0.98",
-    "outputPrice": "$3.08",
-    "contextWindow": "202K",
-    "maxTokens": "—",
+    "inputPrice": "$0.14/1M",
+    "outputPrice": "$0.28/1M",
+    "contextWindow": "128K",
+    "maxTokens": "16K",
     "status": "available",
-    "category": "code",
+    "category": "chat",
     "features": [
-      "长上下文处理",
-      "函数调用",
-      "工具使用",
-      "流式输出",
-      "多语言支持"
+      "Function Calling",
+      "JSON Mode",
+      "Streaming"
     ],
+    "featuresI18n": {
+      "en": [
+        "Function Calling",
+        "JSON Mode",
+        "Streaming"
+      ],
+      "zh": [
+        "函数调用",
+        "JSON 模式",
+        "流式输出"
+      ],
+      "ru": [
+        "Вызов функций",
+        "Режим JSON",
+        "Потоковая передача"
+      ],
+      "tr": [
+        "Fonksiyon Çağrısı",
+        "JSON Modu",
+        "Akış"
+      ]
+    },
     "useCases": [
-      "智能代理与自动化工作流",
-      "长文档分析与摘要",
-      "多语言代码生成与调试",
-      "复杂逻辑推理与问题解决"
+      "智能客服与对话系统",
+      "代码生成与辅助编程",
+      "长文档分析与知识提取",
+      "自动化工作流与数据管道"
     ],
+    "useCasesI18n": {
+      "zh": [
+        "智能客服与对话系统",
+        "代码生成与辅助编程",
+        "长文档分析与知识提取",
+        "自动化工作流与数据管道"
+      ],
+      "en": [
+        "Customer support chatbots & conversational AI",
+        "Code generation & programming assistant",
+        "Long-document analysis & knowledge extraction",
+        "Automation workflows & data pipelines"
+      ],
+      "ru": [
+        "Чат-боты поддержки и диалоговые системы",
+        "Генерация кода и помощь в программировании",
+        "Анализ длинных документов и извлечение знаний",
+        "Автоматизация рабочих процессов и конвейеры данных"
+      ],
+      "tr": [
+        "Müşteri destek sohbet robotları ve diyalog sistemleri",
+        "Kod üretimi ve programlama asistanı",
+        "Uzun belge analizi ve bilgi çıkarma",
+        "Otomasyon iş akışları ve veri hatları"
+      ]
+    },
     "strengths": [
-      "超长上下文处理能力",
-      "独立持续执行复杂任务",
-      "卓越的编码与推理性能",
-      "高性价比，降低开发成本"
+      "超长上下文处理，128K 窗口一次读完一本书",
+      "精准的函数调用与 JSON 输出，工程友好",
+      "低延迟流式响应，实时交互体验",
+      "最新一代推理能力，复杂任务更可靠"
     ],
+    "strengthsI18n": {
+      "zh": [
+        "超长上下文处理，128K 窗口一次读完一本书",
+        "精准的函数调用与 JSON 输出，工程友好",
+        "低延迟流式响应，实时交互体验",
+        "最新一代推理能力，复杂任务更可靠"
+      ],
+      "en": [
+        "128K context window – process entire books in one shot",
+        "Precise function calling & JSON output for engineering workflows",
+        "Low-latency streaming for real-time interactions",
+        "State-of-the-art reasoning for complex tasks"
+      ],
+      "ru": [
+        "Окно контекста 128K – обрабатывайте целые книги за один раз",
+        "Точный вызов функций и JSON-вывод для инженерных задач",
+        "Потоковая передача с низкой задержкой для реального времени",
+        "Современные способности к рассуждению для сложных задач"
+      ],
+      "tr": [
+        "128K bağlam penceresi – tek seferde kitap boyutunda metin işleme",
+        "Hassas fonksiyon çağrısı ve JSON çıktısı ile mühendislik dostu",
+        "Düşük gecikmeli akış ile gerçek zamanlı etkileşim",
+        "Karmaşık görevler için son teknoloji akıl yürütme"
+      ]
+    },
     "whyChoose": {
-      "en": "Best value for long-context, autonomous coding and reasoning tasks in emerging markets.",
-      "ru": "Лучшее соотношение цены и качества для длинных контекстов, автономного кодирования и задач логического вывода на развивающихся рынках.",
-      "tr": "Gelişmekte olan pazarlarda uzun bağlam, otonom kodlama ve mantıksal çıkarım görevleri için en iyi değer."
+      "en": "Best-in-class reasoning and long context at a developer-friendly price.",
+      "ru": "Лучшие в своём классе рассуждения и длинный контекст по доступной цене.",
+      "tr": "Sınıfının en iyi akıl yürütme ve uzun bağlamı, geliştirici dostu fiyatlarla."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+      "curl": "curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $AIFLOWHUB_API_KEY\" \\\n  -d '{\"model\":\"glm-5.1\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello\"}]}'",
+      "python": "import requests\n\nresponse = requests.post(\n    \"https://api.aiflowhub.ai/v1/chat/completions\",\n    headers={\"Authorization\": f\"Bearer AIFLOWHUB_API_KEY\"},\n    json={\"model\": \"glm-5.1\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}\n)",
+      "nodejs": "const response = await fetch(\"https://api.aiflowhub.ai/v1/chat/completions\", {\n  method: \"POST\",\n  headers: { \"Authorization\": \"Bearer \" + process.env.AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: \"glm-5.1\", messages: [{ role: \"user\", content: \"Hello\" }] })\n});"
     },
     "enriched": true
   }

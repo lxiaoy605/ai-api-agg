@@ -22,8 +22,6 @@ import json
 import os
 import sys
 import time
-import urllib.request
-import urllib.error
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -121,12 +119,11 @@ def is_complete(model_data: dict) -> bool:
     for lang in langs:
         if not desc.get(lang) or len(desc.get(lang, "")) < 40:
             return False
-    if not model_data.get("features"):
-        return False
-    if not model_data.get("strengths"):
-        return False
-    if not model_data.get("useCases"):
-        return False
+    # Also check i18n fields now
+    for field in ["featuresI18n", "strengthsI18n", "useCasesI18n"]:
+        i18n = model_data.get(field, {})
+        if not i18n or not i18n.get("zh") or not i18n.get("en"):
+            return False
     return True
 
 
@@ -175,6 +172,24 @@ def build_prompt(model: dict, existing_ids: list) -> str:
   "inputPrice": "$0.14/1M",
   "outputPrice": "$0.28/1M",
   "features": ["Function Calling", "JSON Mode", "Streaming"],
+  "featuresI18n": {{
+    "en": ["Function Calling", "JSON Mode", "Streaming"],
+    "zh": ["函数调用", "JSON 模式", "流式输出"],
+    "ru": ["Вызов функций", "Режим JSON", "Потоковая передача"],
+    "tr": ["Fonksiyon Çağrısı", "JSON Modu", "Akış"]
+  }},
+  "strengthsI18n": {{
+    "zh": ["优势1", "优势2", "优势3"],
+    "en": ["Strength 1", "Strength 2", "Strength 3"],
+    "ru": ["Сильная сторона 1", "Сильная сторона 2", "Сильная сторона 3"],
+    "tr": ["Güçlü yön 1", "Güçlü yön 2", "Güçlü yön 3"]
+  }},
+  "useCasesI18n": {{
+    "zh": ["场景1", "场景2", "场景3"],
+    "en": ["Use case 1", "Use case 2", "Use case 3"],
+    "ru": ["Сценарий 1", "Сценарий 2", "Сценарий 3"],
+    "tr": ["Kullanım 1", "Kullanım 2", "Kullanım 3"]
+  }},
   "strengths": ["优势1(中文)", "优势2", "优势3"],
   "useCases": ["推荐场景1(中文)", "推荐场景2", "推荐场景3"],
   "whyChoose": {{
@@ -187,8 +202,8 @@ def build_prompt(model: dict, existing_ids: list) -> str:
 
 重要：
 1. contextWindow/maxTokens/inputPrice/outputPrice 请填写你已知的最新数据（价格按每百万 token）。如果不知道，填 "—"
-2. features 用英文标签（如 "Function Calling", "Streaming", "Vision"）
-3. strengths/useCases 用中文
+2. features: 技术特性英文标签，featuresI18n: 四语言翻译，zh 保持中文技术术语
+3. strengthsI18n / useCasesI18n: 每项 3-4 条，zh/en/ru/tr 四语言，zh 要自然、en 要 native
 4. 中文文案要自然，不要机翻腔
 5. 英文要 native SaaS 风格
 
@@ -196,37 +211,36 @@ def build_prompt(model: dict, existing_ids: list) -> str:
 
 
 def call_llm(prompt: str, api_base: str, api_key: str, model: str) -> dict:
-    body = json.dumps({
-        "model": model,
-        "messages": [
-            {"role": "system", "content": "你是一个精确的 JSON 生成器。只输出合法 JSON 对象，不输出任何其他内容。"},
-            {"role": "user", "content": prompt}
-        ],
-        "temperature": 0.7,
-        "max_tokens": 2048,
-        "response_format": {"type": "json_object"},
-    }).encode()
-
-    req = urllib.request.Request(f"{api_base}/chat/completions", data=body, headers={
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}",
-    })
-
     try:
-        with urllib.request.urlopen(req, timeout=90) as resp:
-            result = json.loads(resp.read().decode())
-            content = result["choices"][0]["message"]["content"].strip()
-            if content.startswith("```"):
-                content = content.split("\n", 1)[-1]
-                if content.endswith("```"):
-                    content = content[:-3]
-            return json.loads(content)
+        import requests
+        resp = requests.post(
+            f"{api_base}/chat/completions",
+            json={
+                "model": model,
+                "messages": [
+                    {"role": "system", "content": "你是一个精确的 JSON 生成器。只输出合法 JSON 对象，不输出任何其他内容。"},
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.7,
+                "max_tokens": 2048,
+                "response_format": {"type": "json_object"},
+            },
+            headers={"Authorization": f"Bearer {api_key}"},
+            timeout=90,
+        )
+        resp.raise_for_status()
+        result = resp.json()
+        content = result["choices"][0]["message"]["content"].strip()
+        if content.startswith("```"):
+            content = content.split("\n", 1)[-1]
+            if content.endswith("```"):
+                content = content[:-3]
+        return json.loads(content)
     except json.JSONDecodeError:
         print(f"   ⚠️ JSON 解析失败，原始内容: {content[:300]}")
         raise
     except Exception as e:
-        body_str = e.read().decode() if hasattr(e, "read") else str(e)
-        print(f"   ❌ API 调用失败: {body_str[:400]}")
+        print(f"   ❌ API 调用失败: {e}")
         raise
 
 
@@ -259,8 +273,11 @@ def merge_model(platform: dict, llm_result: dict) -> dict:
         "status": "available",
         "category": platform.get("category", llm_result.get("category", "chat")),
         "features": llm_result.get("features", []),
+        "featuresI18n": llm_result.get("featuresI18n", {}),
         "useCases": llm_result.get("useCases", []),
+        "useCasesI18n": llm_result.get("useCasesI18n", {}),
         "strengths": llm_result.get("strengths", []),
+        "strengthsI18n": llm_result.get("strengthsI18n", {}),
         "whyChoose": llm_result.get("whyChoose", {"en": "", "ru": "", "tr": ""}),
         "codeExample": build_code_example(platform["id"]),
         "enriched": True,
@@ -273,6 +290,7 @@ def _provider_slug(provider: str) -> str:
 
 def download_logos():
     """下载所有厂商 logo 到 public/logos/"""
+    import requests
     LOGOS_DIR.mkdir(parents=True, exist_ok=True)
     for provider, urls in PROVIDER_LOGOS.items():
         slug = _provider_slug(provider)
@@ -283,15 +301,14 @@ def download_logos():
         downloaded = False
         for url in urls:
             try:
-                req = urllib.request.Request(url, headers={"User-Agent": "AiFlowHub/1.0"})
-                with urllib.request.urlopen(req, timeout=10) as resp:
-                    data = resp.read()
-                    # 即使是 ICO 也存为 png 扩展名（浏览器能识别）
-                    with open(dest, "wb") as f:
-                        f.write(data)
-                    print(f"  ✅ {provider}: {url} → {dest} ({len(data)} bytes)")
-                    downloaded = True
-                    break
+                resp = requests.get(url, headers={"User-Agent": "AiFlowHub/1.0"}, timeout=10)
+                resp.raise_for_status()
+                data = resp.content
+                with open(dest, "wb") as f:
+                    f.write(data)
+                print(f"  ✅ {provider}: {url} → {dest} ({len(data)} bytes)")
+                downloaded = True
+                break
             except Exception as e:
                 print(f"  ⚠️ {provider}: {url} 失败 ({e})")
         if not downloaded:
