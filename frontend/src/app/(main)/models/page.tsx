@@ -79,11 +79,8 @@ function buildModelViews(locale: string): ModelView[] {
   const lang = locale as "en" | "ru" | "tr";
   return PLATFORM_MODEL_IDS.map((mid) => {
     const meta = getPlatformMeta(mid)!;
-    // 查找富化数据
-    const enriched =
-      meta.enrichedId
-        ? enrichedModels.find((m) => m.id === meta.enrichedId)
-        : null;
+    // 查找富化数据（现已统一使用平台模型 ID）
+    const enriched = enrichedModels.find((m) => m.id === mid);
 
     if (enriched) {
       return {
