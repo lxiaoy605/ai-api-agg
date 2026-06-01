@@ -46,6 +46,14 @@ backend/data/
 stack/.env
 docker/.env
 
+# OAuth 密钥文件
+client_secret_*.json
+github_OAuth.txt
+github_auto.txt
+
+# 备份文件
+*.bak
+
 # 构建产物
 frontend/.next/
 frontend/out/

@@ -1,0 +1,699 @@
+[
+  {
+    "id": "qwen/qwen3-next-80b-a3b-instruct:free",
+    "name": "Qwen: Qwen3 Next 80B A3B Instruct (free)",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-Next-80B-A3B-Instruct 是阿里通义千问最新一代指令微调模型，专为追求极致响应速度与稳定性的开发者打造。它采用创新的混合专家架构，在保持 80B 级参数知识广度的同时，通过 A3B 激活实现闪电般的推理效率。无需等待“思考”痕迹，直接输出精准答案——无论是复杂代码生成、多语言知识问答，还是结构化数据提取，都能流畅应对。完全免费，适合高并发、低延迟的生产环境。",
+    "descriptions": {
+      "zh": "Qwen3-Next-80B-A3B-Instruct 是阿里通义千问最新一代指令微调模型，专为追求极致响应速度与稳定性的开发者打造。它采用创新的混合专家架构，在保持 80B 级参数知识广度的同时，通过 A3B 激活实现闪电般的推理效率。无需等待“思考”痕迹，直接输出精准答案——无论是复杂代码生成、多语言知识问答，还是结构化数据提取，都能流畅应对。完全免费，适合高并发、低延迟的生产环境。",
+      "en": "Qwen3-Next-80B-A3B-Instruct is Alibaba's latest instruction-tuned model built for developers who need speed without compromise. Using a novel MoE architecture, it activates only 3B parameters per token while retaining the knowledge of an 80B model—delivering instant, stable responses with no thinking traces. Perfect for code generation, multilingual QA, and structured outputs. It's completely free, making it ideal for high-throughput production workloads in emerging markets.",
+      "ru": "Qwen3-Next-80B-A3B-Instruct — новейшая модель от Alibaba, оптимизированная для разработчиков, которым нужна скорость без компромиссов. Благодаря архитектуре MoE, она активирует всего 3B параметров на токен, сохраняя знания 80B-модели, и выдаёт мгновенные, стабильные ответы без следов «размышлений». Идеально подходит для генерации кода, многоязычных вопросов-ответов и структурированных выводов. Полностью бесплатна — отличный выбор для высоконагруженных продакшн-систем в странах Центральной Азии.",
+      "tr": "Qwen3-Next-80B-A3B-Instruct, Alibaba'nın hızdan ödün vermeyen geliştiriciler için son talimat ayarlı modelidir. Yenilikçi MoE mimarisi sayesinde token başına yalnızca 3B parametreyi etkinleştirirken 80B modelinin bilgisini korur—düşünce izleri olmadan anında, kararlı yanıtlar sunar. Kod oluşturma, çok dilli soru-cevap ve yapılandırılmış çıktılar için mükemmeldir. Tamamen ücretsizdir, bu da onu yüksek verimli üretim iş yükleri için ideal kılar."
+    },
+    "inputPrice": "免费",
+    "outputPrice": "免费",
+    "contextWindow": "262K",
+    "maxTokens": "—",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "函数调用",
+      "结构化输出",
+      "流式输出",
+      "JSON模式",
+      "超长上下文"
+    ],
+    "useCases": [
+      "高并发代码生成与审查",
+      "多语言客服与知识问答系统",
+      "结构化数据提取与函数调用"
+    ],
+    "strengths": [
+      "极速推理，无思考痕迹",
+      "免费使用，成本为零",
+      "80B参数知识，3B激活效率"
+    ],
+    "whyChoose": {
+      "en": "The fastest free 80B-level model with zero thinking overhead.",
+      "ru": "Самая быстрая бесплатная модель уровня 80B без задержек на «размышления».",
+      "tr": "Sıfır düşünme yüküyle en hızlı ücretsiz 80B seviyesindeki model."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-next-80b-a3b-instruct:free\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-next-80b-a3b-instruct:free\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-next-80b-a3b-instruct:free\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-next-80b-a3b-thinking",
+    "name": "Qwen: Qwen3 Next 80B A3B Thinking",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-Next-80B-A3B-Thinking 是阿里通义千问推出的推理优先型对话模型。它默认输出结构化思考轨迹，专为数学证明、代码合成与调试、逻辑推理等复杂多步任务设计。262K 超长上下文、极低价格，让深度思考不再昂贵。适合需要强大推理能力的开发者、研究者和智能体构建者。",
+    "descriptions": {
+      "zh": "Qwen3-Next-80B-A3B-Thinking 是阿里通义千问推出的推理优先型对话模型。它默认输出结构化思考轨迹，专为数学证明、代码合成与调试、逻辑推理等复杂多步任务设计。262K 超长上下文、极低价格，让深度思考不再昂贵。适合需要强大推理能力的开发者、研究者和智能体构建者。",
+      "en": "Qwen3-Next-80B-A3B-Thinking is a reasoning-first chat model from Alibaba's Qwen team. It outputs structured thinking traces by default, making it ideal for hard multi-step problems like math proofs, code synthesis/debugging, and logic. With a 262K context window and affordable pricing, it brings deep reasoning within reach. Built for developers, researchers, and agent builders who need reliable, transparent thinking.",
+      "ru": "Qwen3-Next-80B-A3B-Thinking — это модель чата с приоритетом рассуждений от Alibaba Qwen. Она по умолчанию выводит структурированные следы мышления, что делает её идеальной для сложных многошаговых задач: математических доказательств, синтеза и отладки кода, логики. Окно контекста в 262K и доступная цена делают глубокое мышление реальным. Для разработчиков, исследователей и создателей агентов.",
+      "tr": "Qwen3-Next-80B-A3B-Thinking, Alibaba Qwen ekibinin öncelikli olarak akıl yürütme üzerine tasarlanmış bir sohbet modelidir. Varsayılan olarak yapılandırılmış düşünce izleri üretir, bu da onu matematik kanıtları, kod sentezi/hata ayıklama ve mantık gibi zorlu çok adımlı görevler için ideal kılar. 262K bağlam penceresi ve uygun fiyatlandırma ile derin düşünmeyi erişilebilir kılar. Güvenilir, şeffaf akıl yürütme ihtiyacı duyan geliştiriciler, araştırmacılar ve ajan yapıcılar için."
+    },
+    "inputPrice": "$0.10",
+    "outputPrice": "$0.78",
+    "contextWindow": "262K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "深度思考",
+      "结构化输出",
+      "函数调用",
+      "JSON 模式",
+      "流式输出"
+    ],
+    "useCases": [
+      "数学证明与逻辑推理",
+      "代码合成与调试",
+      "智能体与工具调用场景"
+    ],
+    "strengths": [
+      "推理优先，输出结构化思考轨迹",
+      "262K 超长上下文，处理复杂多步任务",
+      "极低价格，深度思考成本可控"
+    ],
+    "whyChoose": {
+      "en": "Get deep, transparent reasoning at a fraction of the cost.",
+      "ru": "Получите глубокое и прозрачное мышление по доступной цене.",
+      "tr": "Derin ve şeffaf akıl yürütmeyi düşük maliyetle elde edin."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-next-80b-a3b-thinking\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-next-80b-a3b-thinking\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-next-80b-a3b-thinking\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-vl-235b-a22b-instruct",
+    "name": "Qwen: Qwen3 VL 235B A22B Instruct",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-VL-235B-A22B Instruct 是阿里通义千问推出的多模态大模型，专为需要同时理解文本与视觉内容的场景设计。它能够处理图像、文档、图表和视频，并生成精准的文本输出。无论是视觉问答、文档解析还是数据图表分析，这款模型都能胜任。对于东欧、中亚和高加索地区的开发者而言，它提供了高性价比的 API 接入，成本极低，却拥有 262K 的超长上下文窗口，适合处理大规模文档或复杂视觉任务。如果你在构建需要视觉理解的应用——从智能客服到自动化文档处理——这款模型值得一试。",
+    "descriptions": {
+      "zh": "Qwen3-VL-235B-A22B Instruct 是阿里通义千问推出的多模态大模型，专为需要同时理解文本与视觉内容的场景设计。它能够处理图像、文档、图表和视频，并生成精准的文本输出。无论是视觉问答、文档解析还是数据图表分析，这款模型都能胜任。对于东欧、中亚和高加索地区的开发者而言，它提供了高性价比的 API 接入，成本极低，却拥有 262K 的超长上下文窗口，适合处理大规模文档或复杂视觉任务。如果你在构建需要视觉理解的应用——从智能客服到自动化文档处理——这款模型值得一试。",
+      "en": "Qwen3-VL-235B-A22B Instruct is a multimodal AI model from Alibaba's Qwen series, designed to bridge text generation with visual understanding. It processes images, documents, charts, and video, outputting accurate text responses. For developers in emerging markets like Armenia, Georgia, and Central Asia, this model offers a powerful yet affordable solution—extremely low pricing per token with a massive 262K context window. Whether you're building a visual QA system, parsing invoices, or analyzing charts, it delivers enterprise-grade performance without the enterprise price tag. Ideal for cost-conscious teams that need reliable vision-language capabilities. Try it for your next project that combines images and text.",
+      "ru": "Qwen3-VL-235B-A22B Instruct — это мультимодальная модель от Alibaba Qwen, объединяющая генерацию текста с пониманием изображений и видео. Она обрабатывает документы, графики и таблицы, выдавая точные текстовые ответы. Для разработчиков из Казахстана и Центральной Азии это доступное и мощное решение: низкая цена за токен и контекстное окно 262K. Идеально подходит для визуальных вопросно-ответных систем, анализа документов и обработки графиков. Если вам нужна надёжная модель для работы с изображениями и текстом — обратите внимание на Qwen3-VL.",
+      "tr": "Qwen3-VL-235B-A22B Instruct, Alibaba'nın Qwen serisinden, metin üretimi ile görsel anlama yeteneklerini birleştiren çok modlu bir modeldir. Görseller, belgeler, grafikler ve videoları işleyerek doğru metin çıktıları üretir. Türkiye'deki geliştiriciler için bu model, düşük token maliyeti ve 262K bağlam penceresi ile uygun fiyatlı ve güçlü bir seçenek sunar. Görsel soru-cevap sistemleri, belge ayrıştırma veya grafik analizi gibi uygulamalar için idealdir. Görsel ve metin verilerini birleştiren projeleriniz için bu modeli deneyin."
+    },
+    "inputPrice": "$0.20",
+    "outputPrice": "$0.88",
+    "contextWindow": "262K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "函数调用",
+      "JSON模式",
+      "结构化输出",
+      "流式输出"
+    ],
+    "useCases": [
+      "视觉问答系统",
+      "文档解析与信息提取",
+      "图表与表格数据分析"
+    ],
+    "strengths": [
+      "极低的价格，每百万 token 仅 $0.20",
+      "262K 超长上下文，适合处理大文档",
+      "多模态能力：图像、文档、图表、视频理解"
+    ],
+    "whyChoose": {
+      "en": "Best value multimodal model with 262K context and lowest pricing.",
+      "ru": "Лучшая мультимодальная модель по соотношению цена/качество с контекстом 262K.",
+      "tr": "262K bağlam ve en düşük fiyatla en iyi değer sunan çok modlu model."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-vl-235b-a22b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-vl-235b-a22b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-vl-235b-a22b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-vl-235b-a22b-thinking",
+    "name": "Qwen: Qwen3 VL 235B A22B Thinking",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-VL-235B-A22B Thinking 是阿里通义千问推出的多模态深度思考模型。它不仅能理解图像和视频，还能进行复杂的逻辑推理，尤其擅长 STEM 领域的数学和科学问题。模型采用混合专家架构，在保持强大视觉理解的同时，实现了高效推理。适合需要高精度多模态分析的中高级开发场景，如科研辅助、教育技术、自动化文档处理等。支持函数调用和流式输出，方便集成到现有工作流中。",
+    "descriptions": {
+      "zh": "Qwen3-VL-235B-A22B Thinking 是阿里通义千问推出的多模态深度思考模型。它不仅能理解图像和视频，还能进行复杂的逻辑推理，尤其擅长 STEM 领域的数学和科学问题。模型采用混合专家架构，在保持强大视觉理解的同时，实现了高效推理。适合需要高精度多模态分析的中高级开发场景，如科研辅助、教育技术、自动化文档处理等。支持函数调用和流式输出，方便集成到现有工作流中。",
+      "en": "Qwen3-VL-235B-A22B Thinking is a multimodal reasoning powerhouse from Alibaba's Qwen team. It combines deep visual understanding with chain-of-thought reasoning, making it ideal for STEM tasks, math problems, and complex document analysis. With a 131K context window and support for function calling, JSON mode, and streaming, it fits seamlessly into your existing pipeline. Designed for developers who need accurate, explainable AI for image and video understanding. Perfect for building intelligent tutoring systems, automated research assistants, or next-gen content analysis tools.",
+      "ru": "Qwen3-VL-235B-A22B Thinking — мультимодальная модель от Alibaba Qwen, оптимизированная для глубокого рассуждения. Она понимает изображения и видео, решает сложные задачи STEM и математики, используя цепочки рассуждений. Контекстное окно 131K, поддержка вызова функций, JSON-режима и потокового вывода. Идеально подходит для разработчиков, создающих интеллектуальные системы обучения, анализа документов или обработки визуальных данных. Сочетает точность, скорость и гибкость интеграции.",
+      "tr": "Qwen3-VL-235B-A22B Thinking, Alibaba'nın Qwen ekibinden gelen, görsel anlama ve derinlemesine akıl yürütmeyi birleştiren çok modlu bir modeldir. STEM alanındaki karmaşık matematik ve fen problemlerini çözmek için optimize edilmiştir. 131K bağlam penceresi, fonksiyon çağırma, JSON modu ve akış çıktısı desteği ile mevcut iş akışlarınıza kolayca entegre olur. Görüntü ve video analizi, akıllı eğitim asistanları veya belge işleme araçları geliştiren geliştiriciler için idealdir."
+    },
+    "inputPrice": "$0.26",
+    "outputPrice": "$2.60",
+    "contextWindow": "131K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态推理",
+      "深度思考",
+      "函数调用",
+      "JSON 模式",
+      "流式输出"
+    ],
+    "useCases": [
+      "科研辅助与自动化数据分析",
+      "智能教育辅导与解题系统",
+      "复杂文档与图像内容理解"
+    ],
+    "strengths": [
+      "强大的多模态深度推理能力，尤其擅长 STEM 和数学",
+      "混合专家架构，高效平衡性能与计算成本",
+      "支持函数调用和 JSON 模式，易于集成"
+    ],
+    "whyChoose": {
+      "en": "Best-in-class multimodal reasoning for STEM at a competitive price, with flexible integration options.",
+      "ru": "Лучшая в своем классе мультимодальная модель для STEM-задач по конкурентоспособной цене с гибкой интеграцией.",
+      "tr": "Rekabetçi fiyatla STEM alanında en iyi çok modlu akıl yürütme ve esnek entegrasyon seçenekleri."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-vl-235b-a22b-thinking\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-vl-235b-a22b-thinking\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-vl-235b-a22b-thinking\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-vl-30b-a3b-instruct",
+    "name": "Qwen: Qwen3 VL 30B A3B Instruct",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-VL-30B-A3B-Instruct 是阿里通义千问推出的多模态模型，融合文本生成与图像、视频理解能力。它擅长精准遵循指令，在视觉问答、文档分析等场景表现出色。适合需要同时处理文字和视觉信息的开发者，比如构建智能客服、内容审核或教育工具。",
+    "descriptions": {
+      "zh": "Qwen3-VL-30B-A3B-Instruct 是阿里通义千问推出的多模态模型，融合文本生成与图像、视频理解能力。它擅长精准遵循指令，在视觉问答、文档分析等场景表现出色。适合需要同时处理文字和视觉信息的开发者，比如构建智能客服、内容审核或教育工具。",
+      "en": "Qwen3-VL-30B-A3B-Instruct is a multimodal model from Alibaba's Qwen team, combining strong text generation with visual understanding for images and videos. It excels at following instructions, making it ideal for tasks like visual Q&A, document analysis, and content moderation. Perfect for developers building smart assistants, data extraction tools, or educational apps that need to process both text and visuals seamlessly.",
+      "ru": "Qwen3-VL-30B-A3B-Instruct — мультимодальная модель от Alibaba Qwen, объединяющая генерацию текста с пониманием изображений и видео. Она отлично следует инструкциям, что делает её идеальной для визуальных вопросов-ответов, анализа документов и модерации контента. Подходит разработчикам, создающим интеллектуальные ассистенты, инструменты извлечения данных или образовательные приложения, работающие с текстом и визуальной информацией.",
+      "tr": "Qwen3-VL-30B-A3B-Instruct, Alibaba Qwen ekibi tarafından geliştirilmiş, metin üretimini görüntü ve video anlama ile birleştiren çok modlu bir modeldir. Talimatları takip etmede başarılıdır; görsel soru-cevap, belge analizi ve içerik denetimi gibi görevler için idealdir. Metin ve görselleri sorunsuz işlemesi gereken akıllı asistanlar, veri çıkarma araçları veya eğitim uygulamaları geliştirenler için mükemmeldir."
+    },
+    "inputPrice": "$0.13",
+    "outputPrice": "$0.52",
+    "contextWindow": "262K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "指令遵循",
+      "函数调用",
+      "结构化输出",
+      "长上下文"
+    ],
+    "useCases": [
+      "智能客服系统：结合图片和文字理解用户问题",
+      "文档分析与数据提取：从扫描件、表格中提取信息",
+      "内容审核：自动识别图片和视频中的违规内容"
+    ],
+    "strengths": [
+      "多模态理解：同时处理文本、图像和视频",
+      "指令遵循能力强，输出精准可控",
+      "上下文窗口高达262K，适合长文档分析",
+      "支持函数调用和结构化输出，便于集成"
+    ],
+    "whyChoose": {
+      "en": "Best multimodal value for developers needing strong instruction-following and visual understanding at a low cost.",
+      "ru": "Лучшее мультимодальное соотношение цены и качества для разработчиков, которым нужны точное следование инструкциям и понимание визуальной информации.",
+      "tr": "Düşük maliyetle güçlü talimat takibi ve görsel anlama ihtiyacı olan geliştiriciler için en iyi çok modlu seçenek."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-vl-30b-a3b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-vl-30b-a3b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-vl-30b-a3b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-vl-30b-a3b-thinking",
+    "name": "Qwen: Qwen3 VL 30B A3B Thinking",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-VL-30B-A3B-Thinking 是一款多模态推理模型，融合了强大的文本生成与图像、视频理解能力。它专为复杂任务设计，在STEM、数学和深度思考场景中表现出色。适合需要精准视觉理解与逻辑推理的开发者，助力构建下一代智能应用。",
+    "descriptions": {
+      "zh": "Qwen3-VL-30B-A3B-Thinking 是一款多模态推理模型，融合了强大的文本生成与图像、视频理解能力。它专为复杂任务设计，在STEM、数学和深度思考场景中表现出色。适合需要精准视觉理解与逻辑推理的开发者，助力构建下一代智能应用。",
+      "en": "Qwen3-VL-30B-A3B-Thinking is a multimodal reasoning model that combines powerful text generation with deep visual understanding for images and videos. Built for complex tasks, it excels in STEM, math, and advanced reasoning. Ideal for developers building intelligent applications that require both vision and logic.",
+      "ru": "Qwen3-VL-30B-A3B-Thinking — это мультимодальная модель, объединяющая мощную генерацию текста с глубоким пониманием изображений и видео. Она создана для сложных задач и превосходно справляется с STEM, математикой и логическими рассуждениями. Идеально подходит разработчикам, создающим интеллектуальные приложения, требующие как зрения, так и логики.",
+      "tr": "Qwen3-VL-30B-A3B-Thinking, güçlü metin üretimini görüntü ve video anlayışıyla birleştiren çok modlu bir akıl yürütme modelidir. STEM, matematik ve karmaşık görevlerde üstün performans gösterir. Hem görüş hem de mantık gerektiren akıllı uygulamalar geliştirenler için idealdir."
+    },
+    "inputPrice": "$0.13",
+    "outputPrice": "$1.56",
+    "contextWindow": "131K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "深度思考",
+      "函数调用",
+      "JSON模式",
+      "结构化输出",
+      "流式输出"
+    ],
+    "useCases": [
+      "视觉问答与文档分析",
+      "科学图表与数学题解",
+      "多模态智能客服系统"
+    ],
+    "strengths": [
+      "多模态深度推理",
+      "131K超长上下文",
+      "高性价比定价"
+    ],
+    "whyChoose": {
+      "en": "Best balance of vision, reasoning, and cost for multimodal AI applications.",
+      "ru": "Лучший баланс зрения, рассуждений и стоимости для мультимодальных AI-приложений.",
+      "tr": "Çok modlu AI uygulamaları için görüş, akıl yürütme ve maliyet dengesi en iyi seçenek."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-vl-30b-a3b-thinking\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-vl-30b-a3b-thinking\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-vl-30b-a3b-thinking\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-vl-32b-instruct",
+    "name": "Qwen: Qwen3 VL 32B Instruct",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-VL-32B-Instruct 是阿里通义千问推出的多模态视觉语言模型，能同时理解文本、图像和视频。它拥有32B参数，擅长高精度视觉推理，适合文档分析、图表理解、内容审核等场景。模型支持函数调用和JSON输出，便于集成到现有工作流。价格极具竞争力，输入仅$0.10/百万token，是新兴市场开发者构建多模态应用的理想选择。",
+    "descriptions": {
+      "zh": "Qwen3-VL-32B-Instruct 是阿里通义千问推出的多模态视觉语言模型，能同时理解文本、图像和视频。它拥有32B参数，擅长高精度视觉推理，适合文档分析、图表理解、内容审核等场景。模型支持函数调用和JSON输出，便于集成到现有工作流。价格极具竞争力，输入仅$0.10/百万token，是新兴市场开发者构建多模态应用的理想选择。",
+      "en": "Qwen3-VL-32B-Instruct is a powerful multimodal model from Alibaba's Qwen team that understands text, images, and video with high precision. With 32B parameters, it excels at visual reasoning tasks like document analysis, chart interpretation, and content moderation. It supports function calling and JSON mode, making it easy to integrate into your existing workflows. At just $0.10 per million input tokens, it's an affordable choice for developers in emerging markets building multimodal applications.",
+      "ru": "Qwen3-VL-32B-Instruct — это мультимодальная модель от Alibaba Qwen, которая понимает текст, изображения и видео с высокой точностью. Благодаря 32 миллиардам параметров она отлично справляется с визуальными задачами: анализ документов, интерпретация диаграмм, модерация контента. Поддерживает вызов функций и JSON-режим, что упрощает интеграцию в существующие процессы. Цена всего $0,10 за миллион входных токенов — идеальный выбор для разработчиков на развивающихся рынках.",
+      "tr": "Qwen3-VL-32B-Instruct, Alibaba'nın Qwen ekibi tarafından geliştirilen, metin, görüntü ve videoyu yüksek hassasiyetle anlayan çok modlu bir modeldir. 32 milyar parametre ile belge analizi, grafik yorumlama ve içerik denetimi gibi görsel akıl yürütme görevlerinde mükemmeldir. Fonksiyon çağırma ve JSON modunu destekler, mevcut iş akışlarınıza kolayca entegre olur. Girişte milyon token başına sadece $0,10 ile gelişmekte olan pazarlardaki geliştiriciler için uygun fiyatlı bir seçenektir."
+    },
+    "inputPrice": "$0.10",
+    "outputPrice": "$0.42",
+    "contextWindow": "262K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "函数调用",
+      "JSON模式",
+      "流式输出",
+      "高精度视觉推理"
+    ],
+    "useCases": [
+      "文档分析与表格提取",
+      "图表解读与数据可视化",
+      "内容审核与图像描述生成",
+      "多模态对话与智能助手"
+    ],
+    "strengths": [
+      "高精度多模态理解（文本+图像+视频）",
+      "32B参数，深度视觉推理能力",
+      "支持函数调用和JSON结构化输出",
+      "极低价格，性价比突出"
+    ],
+    "whyChoose": {
+      "en": "Affordable multimodal AI with top-tier vision-language reasoning, perfect for emerging market developers.",
+      "ru": "Доступный мультимодальный ИИ с первоклассным визуально-языковым мышлением, идеально подходящий для разработчиков на развивающихся рынках.",
+      "tr": "Gelişmekte olan piyasadaki geliştiriciler için uygun fiyatlı, üst düzey görsel-dil akıl yürütmesine sahip çok modlu yapay zeka."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-vl-32b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-vl-32b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-vl-32b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-vl-8b-instruct",
+    "name": "Qwen: Qwen3 VL 8B Instruct",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-VL-8B-Instruct 是阿里通义千问推出的多模态视觉语言模型，能同时理解文本、图像和视频。它采用先进的 Interleaved-MRoPE 融合技术，支持 256K 超长上下文，在复杂推理和精细理解上表现出色。适合需要处理多模态数据的开发者，如文档分析、内容审核、智能客服等场景。价格极具竞争力，输入仅 $0.08/百万 token，输出 $0.50/百万 token，让你以低成本获得高质量能力。",
+    "descriptions": {
+      "zh": "Qwen3-VL-8B-Instruct 是阿里通义千问推出的多模态视觉语言模型，能同时理解文本、图像和视频。它采用先进的 Interleaved-MRoPE 融合技术，支持 256K 超长上下文，在复杂推理和精细理解上表现出色。适合需要处理多模态数据的开发者，如文档分析、内容审核、智能客服等场景。价格极具竞争力，输入仅 $0.08/百万 token，输出 $0.50/百万 token，让你以低成本获得高质量能力。",
+      "en": "Qwen3-VL-8B-Instruct is a multimodal vision-language model from Alibaba's Tongyi Qianwen, designed to understand and reason across text, images, and video with high fidelity. Built with Interleaved-MRoPE for superior multimodal fusion, it handles up to 256K tokens of context, making it ideal for complex tasks like document analysis, content moderation, and intelligent customer support. At just $0.08 per million input tokens and $0.50 per million output tokens, it offers exceptional value without compromising quality. Perfect for developers in emerging markets who need a powerful, cost-effective multimodal solution.",
+      "ru": "Qwen3-VL-8B-Instruct — это мультимодальная языковая модель от Alibaba Tongyi Qianwen, способная понимать и рассуждать на основе текста, изображений и видео. Благодаря технологии Interleaved-MRoPE она обеспечивает высокое качество слияния модальностей и поддерживает контекст до 256K токенов, что идеально для анализа документов, модерации контента и интеллектуальной поддержки клиентов. Цена составляет всего $0,08 за миллион входных токенов и $0,50 за миллион выходных — отличное соотношение цены и производительности для разработчиков.",
+      "tr": "Qwen3-VL-8B-Instruct, Alibaba'nın Tongyi Qianwen ekibi tarafından geliştirilmiş, metin, görüntü ve videoyu yüksek doğrulukla anlayıp akıl yürütebilen çok modlu bir görsel-dil modelidir. Interleaved-MRoPE sayesinde üstün çok modlu füzyon sunar ve 256K token'a kadar bağlam işleyebilir. Belge analizi, içerik denetimi ve akıllı müşteri desteği gibi karmaşık görevler için idealdir. Girişte milyon token başına yalnızca $0,08, çıkışta ise $0,50 ile uygun maliyetli bir çözüm sunar."
+    },
+    "inputPrice": "$0.08",
+    "outputPrice": "$0.50",
+    "contextWindow": "256K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "函数调用",
+      "结构化输出",
+      "超长上下文",
+      "高性价比"
+    ],
+    "useCases": [
+      "文档分析与信息提取（发票、合同、报告）",
+      "内容审核与安全过滤（图片、视频、文本）",
+      "智能客服与多模态问答（结合截图和用户问题）"
+    ],
+    "strengths": [
+      "多模态理解，同时处理文本、图像和视频",
+      "256K超长上下文，适合复杂文档和长视频分析",
+      "极致性价比，输入仅$0.08/百万token"
+    ],
+    "whyChoose": {
+      "en": "Best value multimodal model for developers needing vision-language AI without breaking the bank.",
+      "ru": "Лучшая мультимодальная модель по соотношению цена-качество для разработчиков, которым нужен AI для работы с изображениями и текстом.",
+      "tr": "Görsel-dil yapay zekasına uygun fiyatla ihtiyaç duyan geliştiriciler için en iyi değer."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-vl-8b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-vl-8b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-vl-8b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-vl-8b-thinking",
+    "name": "Qwen: Qwen3 VL 8B Thinking",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-VL-8B-Thinking 是阿里通义千问推出的多模态推理模型，专为复杂视觉与文本理解场景设计。它不仅能看图说话，更能深度思考——结合图像、文档和时序信息，给出精准分析。适合需要高精度视觉问答、文档解析或逻辑推理的开发者。256K 超长上下文，轻松处理长文档或视频帧序列。价格亲民，性能强劲，是你的多模态应用首选。",
+    "descriptions": {
+      "zh": "Qwen3-VL-8B-Thinking 是阿里通义千问推出的多模态推理模型，专为复杂视觉与文本理解场景设计。它不仅能看图说话，更能深度思考——结合图像、文档和时序信息，给出精准分析。适合需要高精度视觉问答、文档解析或逻辑推理的开发者。256K 超长上下文，轻松处理长文档或视频帧序列。价格亲民，性能强劲，是你的多模态应用首选。",
+      "en": "Qwen3-VL-8B-Thinking is Alibaba's multimodal reasoning model built for developers who need more than just image captioning. It combines vision and language with deep reasoning — perfect for complex scene understanding, document analysis, and temporal sequence tasks. With a 256K context window, it handles long documents or video frames effortlessly. Affordable pricing ($0.12/$1.36 per million tokens) makes it ideal for startups and scale-ups in emerging markets. Whether you're building a smart document reader, visual QA bot, or content moderation tool, this model thinks before it answers.",
+      "ru": "Qwen3-VL-8B-Thinking — это мультимодальная модель от Alibaba, оптимизированная для глубокого анализа изображений и текста. Она не просто распознаёт объекты, а рассуждает: понимает сложные сцены, документы и временные последовательности. Окно контекста 256K позволяет обрабатывать длинные документы или видео. Низкая цена ($0.12/$1.36 за миллион токенов) делает её доступной для стартапов и разработчиков в Центральной Азии. Идеально подходит для визуальных вопросно-ответных систем, анализа документов и модерации контента.",
+      "tr": "Qwen3-VL-8B-Thinking, Alibaba'nın görsel ve metinsel derin düşünme için optimize edilmiş multimodal modelidir. Sadece nesneleri tanımakla kalmaz, mantıksal çıkarımlar yapar — karmaşık sahneleri, belgeleri ve zaman dizilerini anlar. 256K bağlam penceresi sayesinde uzun belgeleri veya video karelerini işler. Uygun fiyatlandırması ($0.12/$1.36 milyon token başına) onu gelişmekte olan pazarlardaki geliştiriciler için ideal kılar. Akıllı belge okuyucular, görsel QA botları veya içerik moderasyon araçları için mükemmeldir."
+    },
+    "inputPrice": "$0.12",
+    "outputPrice": "$1.36",
+    "contextWindow": "256K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态推理",
+      "256K上下文",
+      "结构化输出",
+      "函数调用",
+      "流式输出"
+    ],
+    "useCases": [
+      "智能文档分析与问答",
+      "复杂场景理解与视觉推理",
+      "视频帧序列分析与时序理解"
+    ],
+    "strengths": [
+      "多模态深度推理，不只是看图说话",
+      "256K超长上下文，轻松处理长文档和视频",
+      "价格低至$0.12/百万token，性价比极高",
+      "支持函数调用和结构化输出，易于集成"
+    ],
+    "whyChoose": {
+      "en": "Best multimodal reasoning model for developers who need deep visual understanding at an unbeatable price.",
+      "ru": "Лучшая мультимодальная модель для разработчиков, которым нужно глубокое понимание изображений по доступной цене.",
+      "tr": "Uygun fiyata derin görsel anlama ihtiyacı olan geliştiriciler için en iyi multimodal akıl yürütme modeli."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-vl-8b-thinking\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-vl-8b-thinking\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-vl-8b-thinking\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3.5-397b-a17b",
+    "name": "Qwen: Qwen3.5 397B A17B",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3.5-397B-A17B 是阿里通义千问最新推出的原生视觉语言模型，融合线性注意力与稀疏 MoE 架构，推理效率极高。它不仅能理解文本、图像和视频，还能进行深度思考、函数调用和结构化输出。适合需要多模态理解、复杂推理和高性价比的开发者，特别是在资源受限的环境中也能流畅运行。",
+    "descriptions": {
+      "zh": "Qwen3.5-397B-A17B 是阿里通义千问最新推出的原生视觉语言模型，融合线性注意力与稀疏 MoE 架构，推理效率极高。它不仅能理解文本、图像和视频，还能进行深度思考、函数调用和结构化输出。适合需要多模态理解、复杂推理和高性价比的开发者，特别是在资源受限的环境中也能流畅运行。",
+      "en": "Qwen3.5-397B-A17B is Alibaba's latest native vision-language model, combining linear attention with sparse MoE for exceptional inference efficiency. It processes text, images, and video, supports deep reasoning, function calling, and structured output. Ideal for developers building multilingual, multimodal applications on a budget—without sacrificing quality.",
+      "ru": "Qwen3.5-397B-A17B — новейшая native vision-language модель от Alibaba, сочетающая линейное внимание и разреженный MoE для высокой эффективности инференса. Она обрабатывает текст, изображения и видео, поддерживает глубокое рассуждение, вызов функций и структурированный вывод. Идеально подходит для разработчиков, создающих мультимодальные приложения с ограниченным бюджетом.",
+      "tr": "Qwen3.5-397B-A17B, Alibaba'nın lineer dikkat ve seyrek MoE mimarisini birleştiren en yeni native görsel-dil modelidir. Metin, görsel ve videoyu işler; derin düşünme, fonksiyon çağrısı ve yapılandırılmış çıktıyı destekler. Bütçe dostu fiyatlarla çok dilli, çok modlu uygulamalar geliştirenler için ideal."
+    },
+    "inputPrice": "$0.39",
+    "outputPrice": "$2.34",
+    "contextWindow": "262K",
+    "maxTokens": "65K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "深度思考",
+      "函数调用",
+      "结构化输出",
+      "流式输出"
+    ],
+    "useCases": [
+      "多模态内容分析与摘要",
+      "复杂推理与代码生成",
+      "智能客服与对话系统"
+    ],
+    "strengths": [
+      "极高性价比，百万token仅$0.39/$2.34",
+      "原生多模态（文本+图像+视频输入）",
+      "深度思考与结构化输出能力"
+    ],
+    "whyChoose": {
+      "en": "Best value multimodal model with deep reasoning for budget-conscious developers.",
+      "ru": "Лучшая мультимодальная модель по соотношению цена/качество для разработчиков с ограниченным бюджетом.",
+      "tr": "Bütçe bilincine sahip geliştiriciler için en iyi değer sunan, derin düşünme yetenekli multimodal model."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3.5-397b-a17b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3.5-397b-a17b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3.5-397b-a17b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3.5-plus-02-15",
+    "name": "Qwen: Qwen3.5 Plus 2026-02-15",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3.5 Plus 是阿里通义千问最新推出的原生视觉语言大模型，专为需要处理图像、视频和文本混合输入的场景打造。它采用混合注意力架构与稀疏混合专家技术，在长文本理解、多模态推理和结构化输出上表现优异。适合构建智能客服、内容分析、文档处理等企业级应用。",
+    "descriptions": {
+      "zh": "Qwen3.5 Plus 是阿里通义千问最新推出的原生视觉语言大模型，专为需要处理图像、视频和文本混合输入的场景打造。它采用混合注意力架构与稀疏混合专家技术，在长文本理解、多模态推理和结构化输出上表现优异。适合构建智能客服、内容分析、文档处理等企业级应用。",
+      "en": "Qwen3.5 Plus is Alibaba's next-generation native vision-language model, designed for developers who need to process images, videos, and text together. Built on a hybrid architecture with sparse mixture-of-experts, it excels at long-context understanding, multimodal reasoning, and structured outputs. Perfect for building smart assistants, content analyzers, and enterprise document processors.",
+      "ru": "Qwen3.5 Plus — это новейшая нативная визуально-языковая модель от Alibaba, созданная для обработки изображений, видео и текста. Благодаря гибридной архитектуре с разреженными экспертами, она отлично справляется с длинными контекстами, мультимодальными рассуждениями и структурированными выводами. Идеально подходит для умных ассистентов, анализа контента и обработки документов.",
+      "tr": "Qwen3.5 Plus, Alibaba'nın en yeni yerel görsel-dil modelidir ve görüntü, video ve metni birlikte işlemesi gereken geliştiriciler için tasarlanmıştır. Seyrek uzman karışımına sahip hibrit bir mimari üzerine inşa edilen model, uzun bağlam anlama, çok modlu akıl yürütme ve yapılandırılmış çıktılarda mükemmeldir. Akıllı asistanlar, içerik analizörleri ve kurumsal belge işlemciler oluşturmak için idealdir."
+    },
+    "inputPrice": "$0.26",
+    "outputPrice": "$1.56",
+    "contextWindow": "1000K",
+    "maxTokens": "65K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "函数调用",
+      "结构化输出",
+      "深度思考",
+      "流式输出"
+    ],
+    "useCases": [
+      "企业级文档分析与摘要",
+      "智能客服与多模态问答",
+      "视频内容理解与审核"
+    ],
+    "strengths": [
+      "超长上下文处理（100万token）",
+      "多模态融合推理（图文视频）",
+      "高性价比，输入仅$0.26/百万token"
+    ],
+    "whyChoose": {
+      "en": "Best balance of long-context, multimodal capability, and cost-efficiency for production AI apps.",
+      "ru": "Лучший баланс длинного контекста, мультимодальности и экономичности для production AI-приложений.",
+      "tr": "Üretim AI uygulamaları için uzun bağlam, çok modlu yetenek ve maliyet verimliliği arasında en iyi denge."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3.5-plus-02-15\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3.5-plus-02-15\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3.5-plus-02-15\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3.5-plus-20260420",
+    "name": "Qwen: Qwen3.5 Plus 2026-04-20",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3.5 Plus 是阿里通义千问最新一代多模态大模型，能同时理解文本、图片和视频，并输出精准的文字结果。它拥有超长上下文窗口，轻松处理整本书或数小时视频内容。深度思考模式让复杂推理更加可靠，结构化输出和函数调用则完美适配企业级应用。无论是构建智能客服、自动化文档分析、还是视频内容摘要，Qwen3.5 Plus 都能以极低的成本提供卓越性能。面向追求效率与品质的开发者，这是你不可错过的多模态引擎。",
+    "descriptions": {
+      "zh": "Qwen3.5 Plus 是阿里通义千问最新一代多模态大模型，能同时理解文本、图片和视频，并输出精准的文字结果。它拥有超长上下文窗口，轻松处理整本书或数小时视频内容。深度思考模式让复杂推理更加可靠，结构化输出和函数调用则完美适配企业级应用。无论是构建智能客服、自动化文档分析、还是视频内容摘要，Qwen3.5 Plus 都能以极低的成本提供卓越性能。面向追求效率与品质的开发者，这是你不可错过的多模态引擎。",
+      "en": "Qwen3.5 Plus is Alibaba's next-generation multimodal AI, designed to understand text, images, and video — and deliver precise text outputs. With a massive context window, it can process entire books or hours of video in one go. The deep reasoning mode handles complex logic with ease, while structured outputs and function calls make it a natural fit for production-grade applications. Whether you're building a smart assistant, automating document workflows, or generating video summaries, Qwen3.5 Plus delivers enterprise-level performance at a fraction of the cost. For developers in Armenia, Georgia, and Central Asia who need a reliable, scalable, and affordable multimodal model — this is your engine.",
+      "ru": "Qwen3.5 Plus — это мультимодальная модель нового поколения от Alibaba, способная обрабатывать текст, изображения и видео, выдавая точные текстовые ответы. Огромный контекстный размер позволяет за один раз анализировать целые книги или многочасовые видео. Режим глубокого мышления справляется со сложными логическими задачами, а структурированный вывод и вызов функций идеально подходят для промышленных приложений. Создаёте ли вы интеллектуального ассистента, автоматизируете обработку документов или генерируете сводки видео — Qwen3.5 Plus обеспечивает производительность корпоративного уровня при минимальных затратах. Для разработчиков из Казахстана и Центральной Азии, которым нужна надёжная, масштабируемая и доступная мультимодальная модель — это ваш выбор.",
+      "tr": "Qwen3.5 Plus, Alibaba'nın en yeni nesil multimodal yapay zeka modelidir; metin, görsel ve videoyu anlayıp hassas metin çıktıları üretir. Devasa bağlam penceresi sayesinde tek seferde tüm kitapları veya saatlerce süren videoları işleyebilir. Derin düşünme modu karmaşık mantığı kolayca hallederken, yapılandırılmış çıktılar ve fonksiyon çağrıları onu kurumsal uygulamalar için doğal bir seçim haline getirir. İster akıllı bir asistan oluşturun, ister belge iş akışlarını otomatikleştirin, ister video özetleri çıkarın — Qwen3.5 Plus, düşük maliyetle kurumsal düzeyde performans sunar. Türkiye'deki geliştiriciler için güvenilir, ölçeklenebilir ve uygun fiyatlı bir multimodal model arıyorsanız, işte motorunuz."
+    },
+    "inputPrice": "$0.30",
+    "outputPrice": "$1.80",
+    "contextWindow": "1000K",
+    "maxTokens": "65K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "深度思考",
+      "结构化输出",
+      "函数调用",
+      "超长上下文"
+    ],
+    "useCases": [
+      "智能客服与对话系统",
+      "视频内容分析与摘要",
+      "文档自动化处理与知识库问答"
+    ],
+    "strengths": [
+      "超长上下文窗口，一次处理海量内容",
+      "多模态理解，文本+图片+视频全覆盖",
+      "深度思考模式，复杂推理更可靠",
+      "结构化输出与函数调用，企业级就绪",
+      "极低价格，高性价比之选"
+    ],
+    "whyChoose": {
+      "en": "Unmatched multimodal power with a massive context window at the lowest cost per token.",
+      "ru": "Непревзойдённая мультимодальная мощность с огромным контекстным окном по самой низкой цене за токен.",
+      "tr": "Devasa bağlam penceresiyle benzersiz multimodal güç, token başına en düşük maliyetle."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3.5-plus-20260420\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3.5-plus-20260420\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3.5-plus-20260420\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3.5-122b-a10b",
+    "name": "Qwen: Qwen3.5-122B-A10B",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3.5-122B-A10B 是阿里通义千问最新视觉语言模型，融合线性注意力与稀疏 MoE 架构，推理速度更快。支持图像、视频与文本混合输入，精准生成结构化输出。深度思考模式让复杂推理更可靠，函数调用与 JSON 模式无缝集成开发流程。适合需要多模态理解与高效推理的生产级应用。",
+    "descriptions": {
+      "zh": "Qwen3.5-122B-A10B 是阿里通义千问最新视觉语言模型，融合线性注意力与稀疏 MoE 架构，推理速度更快。支持图像、视频与文本混合输入，精准生成结构化输出。深度思考模式让复杂推理更可靠，函数调用与 JSON 模式无缝集成开发流程。适合需要多模态理解与高效推理的生产级应用。",
+      "en": "Qwen3.5-122B-A10B is Alibaba's latest vision-language model with a hybrid architecture combining linear attention and sparse MoE for faster inference. It handles images, video, and text inputs, delivering structured outputs with deep reasoning. Built-in function calling and JSON mode streamline development. Ideal for production apps needing multimodal understanding and efficient reasoning.",
+      "ru": "Qwen3.5-122B-A10B — новейшая визуально-языковая модель от Alibaba с гибридной архитектурой, объединяющей линейное внимание и разреженный MoE для более быстрого вывода. Поддерживает изображения, видео и текст, выдавая структурированные результаты с глубоким мышлением. Встроенные вызовы функций и JSON-режим упрощают разработку. Идеально для продакшн-приложений, требующих мультимодального понимания и эффективного рассуждения.",
+      "tr": "Qwen3.5-122B-A10B, Alibaba'nın en son görsel-dil modeli olup, doğrusal dikkat ve seyrek MoE mimarisini birleştirerek daha hızlı çıkarım sağlar. Görüntü, video ve metin girdilerini işler, derin düşünme ile yapılandırılmış çıktılar üretir. Yerleşik fonksiyon çağrıları ve JSON modu geliştirmeyi kolaylaştırır. Çok modlu anlama ve verimli akıl yürütme gerektiren üretim uygulamaları için idealdir."
+    },
+    "inputPrice": "$0.26",
+    "outputPrice": "$2.08",
+    "contextWindow": "262K",
+    "maxTokens": "262K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "深度思考",
+      "函数调用",
+      "JSON模式",
+      "结构化输出"
+    ],
+    "useCases": [
+      "多模态内容分析",
+      "复杂推理与决策",
+      "自动化工作流集成"
+    ],
+    "strengths": [
+      "混合架构推理快",
+      "多模态理解能力强",
+      "深度思考与结构化输出"
+    ],
+    "whyChoose": {
+      "en": "Fast, multimodal, and reasoning-ready — the smartest choice for production AI.",
+      "ru": "Быстрая, мультимодальная и готовая к рассуждениям — лучший выбор для продакшн AI.",
+      "tr": "Hızlı, çok modlu ve akıl yürütmeye hazır — üretim AI için en akıllı seçim."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3.5-122b-a10b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3.5-122b-a10b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3.5-122b-a10b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3.5-27b",
+    "name": "Qwen: Qwen3.5-27B",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3.5 27B 是阿里通义千问最新一代视觉语言模型，原生支持图像、视频与文本的深度理解，并能在 262K 超长上下文中保持精准。它采用线性注意力机制，推理速度快、成本极低，同时支持函数调用、结构化输出与深度思考模式。适合需要高性价比多模态能力、长文档分析或复杂逻辑推理的开发者。",
+    "descriptions": {
+      "zh": "Qwen3.5 27B 是阿里通义千问最新一代视觉语言模型，原生支持图像、视频与文本的深度理解，并能在 262K 超长上下文中保持精准。它采用线性注意力机制，推理速度快、成本极低，同时支持函数调用、结构化输出与深度思考模式。适合需要高性价比多模态能力、长文档分析或复杂逻辑推理的开发者。",
+      "en": "Qwen3.5 27B is Alibaba's latest vision-language model that natively understands images, video, and text within a 262K context window. Its linear attention architecture delivers fast, cost-efficient inference without sacrificing quality. With built-in function calling, structured output, and deep reasoning, it's ideal for developers building intelligent applications on a budget—from document analysis to multimodal agents. Perfect for startups and teams in emerging markets who need enterprise-grade AI at a fraction of the cost.",
+      "ru": "Qwen3.5 27B — новейшая визуально-языковая модель от Alibaba, которая понимает изображения, видео и текст в окне контекста до 262K токенов. Благодаря линейному механизму внимания она обеспечивает быстрый ответ и низкую стоимость. Поддержка вызова функций, структурированного вывода и глубокого мышления делает её идеальной для разработчиков, создающих интеллектуальные приложения с ограниченным бюджетом. Отличный выбор для стартапов и команд в Центральной Азии и Казахстане.",
+      "tr": "Qwen3.5 27B, Alibaba'nın en yeni görsel-dil modelidir; görselleri, videoları ve metni 262K token bağlam penceresinde anlar. Doğrusal dikkat mekanizması sayesinde hızlı ve düşük maliyetli çıkarım sunar. Fonksiyon çağırma, yapılandırılmış çıktı ve derin düşünme desteği ile akıllı uygulamalar geliştiren geliştiriciler için idealdir. Türkiye'deki girişimler ve ekipler için kurumsal düzeyde yapay zeka, düşük maliyetle."
+    },
+    "inputPrice": "$0.20",
+    "outputPrice": "$1.56",
+    "contextWindow": "262K",
+    "maxTokens": "65K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "函数调用",
+      "结构化输出",
+      "深度思考",
+      "流式输出"
+    ],
+    "useCases": [
+      "多模态文档分析（图文混合）",
+      "长视频内容摘要与问答",
+      "复杂逻辑推理与代码生成"
+    ],
+    "strengths": [
+      "超长上下文与多模态理解",
+      "极低推理成本",
+      "线性注意力机制保证高速响应",
+      "深度思考与结构化输出能力"
+    ],
+    "whyChoose": {
+      "en": "Best price-performance ratio for multimodal AI with long context and reasoning.",
+      "ru": "Лучшее соотношение цены и производительности для мультимодального ИИ с длинным контекстом.",
+      "tr": "Uzun bağlam ve akıl yürütme ile multimodal AI için en iyi fiyat-performans oranı."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3.5-27b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3.5-27b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3.5-27b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3.5-35b-a3b",
+    "name": "Qwen: Qwen3.5-35B-A3B",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3.5-35B-A3B 是阿里通义千问推出的原生视觉语言模型，采用混合架构融合线性注意力与稀疏专家模型，推理效率极高。它支持超长上下文（262K token），能同时处理文本、图像和视频输入，并输出精准文本。特别适合需要深度思考、结构化输出和函数调用的复杂任务，比如文档分析、多模态问答和自动化工作流。东欧和中亚的开发者可以用它构建智能客服、内容审核或数据处理系统，成本仅为同类模型的几分之一。",
+    "descriptions": {
+      "zh": "Qwen3.5-35B-A3B 是阿里通义千问推出的原生视觉语言模型，采用混合架构融合线性注意力与稀疏专家模型，推理效率极高。它支持超长上下文（262K token），能同时处理文本、图像和视频输入，并输出精准文本。特别适合需要深度思考、结构化输出和函数调用的复杂任务，比如文档分析、多模态问答和自动化工作流。东欧和中亚的开发者可以用它构建智能客服、内容审核或数据处理系统，成本仅为同类模型的几分之一。",
+      "en": "Qwen3.5-35B-A3B is a native vision-language model from Alibaba's Tongyi Qianwen series, built with a hybrid architecture that combines linear attention and sparse mixture-of-experts for blazing-fast inference. With a massive 262K context window, it processes text, images, and video to deliver accurate text outputs. Ideal for developers in Armenia, Georgia, and Central Asia who need deep reasoning, structured outputs, and function calling—without breaking the bank. Use it for document analysis, multimodal chatbots, or automated workflows. It's like having a super-efficient AI that understands everything you throw at it.",
+      "ru": "Qwen3.5-35B-A3B — это нативная визуально-языковая модель от Alibaba Tongyi Qianwen, использующая гибридную архитектуру с линейным вниманием и разреженным ансамблем экспертов для сверхэффективного вывода. Окно контекста в 262K токенов позволяет обрабатывать текст, изображения и видео, выдавая точные текстовые ответы. Идеально подходит для разработчиков из Казахстана и Центральной Азии, которым нужно глубокое рассуждение, структурированный вывод и вызов функций. Применяйте для анализа документов, мультимодальных чат-ботов или автоматизации рабочих процессов — по цене, доступной каждому.",
+      "tr": "Qwen3.5-35B-A3B, Alibaba'nın Tongyi Qianwen serisinden, doğal görsel-dil modelidir. Doğrusal dikkat mekanizmaları ve seyrek uzman karışımını birleştiren hibrit mimarisi sayesinde son derece verimli çıkarım yapar. 262K tokenlik dev bağlam penceresiyle metin, görüntü ve videoyu işleyerek doğru metin çıktıları üretir. Türkiye'deki geliştiriciler için derin düşünme, yapılandırılmış çıktı ve fonksiyon çağrısı gerektiren görevlerde idealdir. Belge analizi, çok modlu sohbet robotları veya otomatik iş akışları oluşturmak için kullanın — rakipsiz fiyat-performans oranıyla."
+    },
+    "inputPrice": "$0.14",
+    "outputPrice": "$1.00",
+    "contextWindow": "262K",
+    "maxTokens": "262K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态输入",
+      "深度思考",
+      "函数调用",
+      "结构化输出",
+      "超长上下文"
+    ],
+    "useCases": [
+      "多模态文档分析与问答",
+      "智能客服与内容审核",
+      "复杂工作流自动化与函数调用"
+    ],
+    "strengths": [
+      "超长上下文窗口，支持262K token",
+      "多模态输入（文本+图像+视频）高效处理",
+      "混合架构实现极速推理与低成本"
+    ],
+    "whyChoose": {
+      "en": "Best price-performance for multimodal tasks with deep reasoning and ultra-long context.",
+      "ru": "Лучшее соотношение цены и производительности для мультимодальных задач с глубоким рассуждением.",
+      "tr": "Derin düşünme ve ultra uzun bağlam ile multimodal görevlerde en iyi fiyat-performans."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3.5-35b-a3b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3.5-35b-a3b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3.5-35b-a3b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  }
+]

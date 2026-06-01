@@ -15,7 +15,72 @@
     "actions": "İşlemler",
     "input": "Giriş",
     "output": "Çıkış",
-    "recommended": "Önerilen"
+    "recommended": "Önerilen",
+    "getStarted": "Başlayın",
+    "profile": "Profil",
+    "signIn": "Giriş Yap",
+    "signUp": "Kaydol",
+    "signOut": "Çıkış Yap",
+    "console": "Konsol",
+    "viewDocs": "Dokümanlar",
+    "viewPricing": "Fiyatlandırma",
+    "noData": "Veri yok",
+    "closeMenu": "Menüyü kapat",
+    "openMenu": "Menüyü aç",
+    "userMenu": "Kullanıcı menüsü"
+  },
+  "auth": {
+    "signInTitle": "Giriş Yap",
+    "signUpTitle": "Hesap Oluştur",
+    "emailLabel": "E-posta",
+    "passwordLabel": "Parola",
+    "confirmPasswordLabel": "Parolayı Onayla",
+    "passwordMinLength": "En az 6 karakter",
+    "passwordsMatch": "Parolalar eşleşiyor",
+    "passwordsMismatch": "Parolalar eşleşmiyor",
+    "signingIn": "Giriş yapılıyor...",
+    "creatingAccount": "Hesabınız oluşturuluyor...",
+    "invalidCredentials": "Geçersiz e-posta veya parola. Lütfen tekrar deneyin.",
+    "alreadyRegistered": "Bu e-posta zaten kayıtlı.",
+    "signInInstead": "Bunun yerine giriş yapmak ister misiniz?",
+    "networkError": "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.",
+    "alreadySignedIn": "Zaten giriş yaptınız.",
+    "goToDashboard": "Kontrol Paneline Git",
+    "forgotPassword": "Şifrenizi mi unuttunuz?",
+    "dontHaveAccount": "Hesabınız yok mu?",
+    "alreadyHaveAccount": "Zaten hesabınız var mı?"
+  },
+  "profile": {
+    "title": "Profil",
+    "email": "E-posta",
+    "memberSince": "Kayıt tarihi",
+    "accountType": "Hesap türü",
+    "balance": "Bakiye",
+    "loadError": "Profil yüklenemedi. Lütfen tekrar deneyin."
+  },
+  "pricing": {
+    "title": "Basit ve şeffaf fiyatlandırma",
+    "freeTitle": "Ücretsiz",
+    "freePrice": "$0",
+    "freePeriod": "/ ay",
+    "freeDesc": "$5 ücretsiz kredi ile başlayın",
+    "freeFeature1": "Tüm modellere erişim",
+    "freeFeature2": "API hız limitleri uygulanır",
+    "starterTitle": "Kullandıkça öde",
+    "starterPrice": "",
+    "starterPeriod": "",
+    "starterDesc": "Yalnızca kullandığınız kadar ödeyin",
+    "starterFeature1": "Tüm modeller",
+    "starterFeature2": "Standart destek",
+    "proTitle": "Hacim indirimleri",
+    "proPrice": "",
+    "proPeriod": "",
+    "proDesc": "Özel fiyatlandırma için bizimle iletişime geçin",
+    "proFeature1": "Tüm modeller",
+    "proFeature2": "Öncelikli destek",
+    "proFeature3": "Özel hız limitleri",
+    "contactUs": "İletişime Geçin",
+    "getStarted": "Başlayın"
   },
   "nav": {
     "brand": "AiFlowHub",
@@ -26,19 +91,45 @@
     "usage": "Kullanım İstatistikleri",
     "recharge": "Bakiye Yükle",
     "settings": "Ayarlar",
-    "collapse": "Daralt"
+    "collapse": "Daralt",
+    "pricing": "Fiyatlandırma"
   },
   "home": {
-    "title": "AI API Aggregator",
-    "subtitle": "OneAPI açık kaynak ağ geçidi üzerine kurulu AI model API aktarım hizmeti. Ermenistan ve çevre pazarlardaki bağımsız geliştiriciler için DeepSeek, Zhipu, Xiaomi MiMo ve diğer Çinli model sağlayıcılarına düşük maliyetli API erişimi.",
+    "title": "Çin AI Modelleri, Tek Basit API",
+    "subtitle": "DeepSeek, GLM, Qwen, MiniMax ve daha fazlasına tek bir OpenAI uyumlu uç nokta üzerinden erişin — gelişmekte olan pazarlardaki geliştiriciler için optimize edildi.",
     "comingSoon": "MVP Aşaması · Yakında Yayında",
-    "moreProviders": "Daha fazla sağlayıcı ekleniyor..."
+    "moreProviders": "Daha fazla sağlayıcı ekleniyor",
+    "ctaPrimary": "API Anahtarı Alın",
+    "ctaSecondary": "Dokümanları İncele",
+    "freeTrial": "Ücretsiz $5 kredi · Taahhüt yok",
+    "whyUs": "Neden AiFlowHub?",
+    "whyUsDesc": "Çin'in lider AI modelleri için tek uç nokta. BDT, Orta Doğu ve EMEA için optimize edildi. İlk günden itibaren OpenAI uyumlu.",
+    "modelsSection": "Desteklenen Modeller",
+    "modelsDesc": "DeepSeek V4, GLM-5, Qwen3, MiniMax, Moonshot — Çin AI'nın en iyileri, tek bir API'de.",
+    "featureUnifiedTitle": "Tek Noktadan Erişim",
+    "featureUnifiedDesc": "Çin'in lider AI modelleri için tek uç nokta.",
+    "featureLatencyTitle": "Düşük Gecikme",
+    "featureLatencyDesc": "BDT, Orta Doğu ve EMEA için optimize edilmiş yönlendirme.",
+    "featureCompatibleTitle": "OpenAI Uyumlu",
+    "featureCompatibleDesc": "OpenAI SDK'larından minimum değişiklikle geçiş yapın.",
+    "whySectionTitle": "Neden AiFlowHub?",
+    "whyItem1": "Çin AI modellerine tek noktadan erişim",
+    "whyItem2": "OpenAI uyumlu API'ler",
+    "whyItem3": "EMEA ve BDT bölgeleri için düşük gecikme",
+    "whyItem4": "USD ve kripto dostu ödeme",
+    "whyItem5": "Optimize yönlendirme ve yedekleme",
+    "whyItem6": "Çin hesabı gerektirmez",
+    "footerDesc": "Çin AI Modelleri, Tek Basit API",
+    "terms": "Kullanım Şartları",
+    "privacy": "Gizlilik",
+    "copyright": "© 2026 AiFlowHub. Tüm hakları saklıdır."
   },
   "dashboard": {
     "title": "Kontrol Paneli",
     "subtitle": "API toplama platformu genel görünümü",
     "activeChannels": "Aktif Kanallar",
     "totalChannels": "Toplam {count} kanal",
+    "totalChannels_short": "Kanallar",
     "todayRequests": "Bugünkü İstekler",
     "vsYesterday": "düne göre",
     "remainingQuota": "Kalan Kota",
@@ -55,7 +146,9 @@
     "tableCost": "Maliyet",
     "modelUsageBreakdown": "Model Kullanım Dağılımı",
     "requestsTrend": "İstek Trendi",
-    "tokenTrend": "Token Tüketim Trendi"
+    "tokenTrend": "Token Tüketim Trendi",
+    "welcomeBanner": "Başlamak için ilk API anahtarınızı oluşturun",
+    "createFirstKey": "API Anahtarı Oluştur"
   },
   "status": {
     "healthy": "Sağlıklı",
@@ -91,7 +184,10 @@
     "createSaved": "Kaydettim, kapat",
     "deleteTitle": "API Anahtarını Sil",
     "deleteConfirm": "{name} anahtarını silmek istediğinize emin misiniz?",
-    "deleteWarning": "Bu işlem geri alınamaz. Bu anahtarı kullanan tüm uygulamalar API erişimini hemen kaybeder."
+    "deleteWarning": "Bu işlem geri alınamaz. Bu anahtarı kullanan tüm uygulamalar API erişimini hemen kaybeder.",
+    "emptyTitle": "Henüz API anahtarı yok",
+    "emptyDesc": "API çağrıları yapmaya başlamak için ilk anahtarınızı oluşturun.",
+    "delete": "Sil"
   },
   "models": {
     "title": "Model Kataloğu",
@@ -113,37 +209,176 @@
     "details": {
       "deepseek-v4-flash": {
         "description": "Yüksek eşzamanlılık senaryoları için hafif ve hızlı model, son derece hızlı yanıt",
-        "features": ["Fonksiyon Çağrısı", "JSON Modu", "Akış Çıktısı", "Yüksek Eşzamanlılık"]
+        "features": [
+          "Fonksiyon Çağrısı",
+          "JSON Modu",
+          "Akış Çıktısı",
+          "Yüksek Eşzamanlılık"
+        ]
       },
       "deepseek-v4-pro": {
         "description": "Karmaşık mantık ve kod üretimi için derin düşünme moduna sahip amiral gemisi akıl yürütme modeli",
-        "features": ["Derin Düşünme", "Kod Üretimi", "Mantıksal Çıkarım", "Uzun Bağlam", "Akış Çıktısı"]
+        "features": [
+          "Derin Düşünme",
+          "Kod Üretimi",
+          "Mantıksal Çıkarım",
+          "Uzun Bağlam",
+          "Akış Çıktısı"
+        ]
       },
       "glm-5_1": {
         "description": "Zhipu'nun en yeni amiral gemisi modeli, güçlü çok yönlü performans, Çince ve İngilizcede mükemmel",
-        "features": ["Çok Dilli", "Fonksiyon Çağrısı", "Araç Kullanımı", "Uzun Doküman", "Akış Çıktısı"]
+        "features": [
+          "Çok Dilli",
+          "Fonksiyon Çağrısı",
+          "Araç Kullanımı",
+          "Uzun Doküman",
+          "Akış Çıktısı"
+        ]
       },
       "mimo-v2_5-pro": {
         "description": "Metin, görüntü ve ses anlama ve üretimini destekleyen Xiaomi çok modlu amiral gemisi modeli",
-        "features": ["Çok Modlu", "Görüntü Anlama", "Metin Üretimi", "Ses İşleme", "TTS"]
+        "features": [
+          "Çok Modlu",
+          "Görüntü Anlama",
+          "Metin Üretimi",
+          "Ses İşleme",
+          "TTS"
+        ]
       },
       "gpt-4o": {
         "description": "OpenAI amiral gemisi çok modlu model, çok yönlü performans",
-        "features": ["Çok Modlu", "Fonksiyon Çağrısı", "JSON Modu", "Akış Çıktısı", "Yüksek Hassasiyet"]
+        "features": [
+          "Çok Modlu",
+          "Fonksiyon Çağrısı",
+          "JSON Modu",
+          "Akış Çıktısı",
+          "Yüksek Hassasiyet"
+        ]
       },
       "gpt-4o-mini": {
         "description": "Basit görevler ve yüksek verim senaryoları için son derece düşük maliyetli hafif model",
-        "features": ["Fonksiyon Çağrısı", "JSON Modu", "Akış Çıktısı", "Düşük Maliyet"]
+        "features": [
+          "Fonksiyon Çağrısı",
+          "JSON Modu",
+          "Akış Çıktısı",
+          "Düşük Maliyet"
+        ]
       },
       "claude-3.5-sonnet": {
         "description": "Üstün kod yazma ve akıl yürütme yeteneklerine sahip Anthropic amiral gemisi modeli",
-        "features": ["Kod Üretimi", "Uzun Dokümanlar", "Güvenlik Koruması", "Fonksiyon Çağrısı", "Akış Çıktısı"]
+        "features": [
+          "Kod Üretimi",
+          "Uzun Dokümanlar",
+          "Güvenlik Koruması",
+          "Fonksiyon Çağrısı",
+          "Akış Çıktısı"
+        ]
       },
       "glm-4_7-flash": {
         "description": "Prototipleme ve test için Zhipu ücretsiz hafif modeli",
-        "features": ["Ücretsiz", "Hızlı Yanıt", "Akış Çıktısı"]
+        "features": [
+          "Ücretsiz",
+          "Hızlı Yanıt",
+          "Akış Çıktısı"
+        ]
+      },
+      "glm-4_5": {
+        "description": "Zhipu GLM-4.5. Stabil ve uygun maliyetli, üretim iş yükleri için ideal.",
+        "features": [
+          "Çok Dilli",
+          "Fonksiyon Çağrısı",
+          "Akış Çıktısı",
+          "Bütçe Dostu"
+        ]
+      },
+      "glm-4_5-air": {
+        "description": "Zhipu GLM-4.5 hafif sürümü. Hızlı ve verimli.",
+        "features": [
+          "Hızlı Yanıt",
+          "Düşük Maliyet",
+          "Akış Çıktısı",
+          "Yüksek Verim"
+        ]
+      },
+      "glm-4_6": {
+        "description": "Zhipu GLM-4.6. Genel amaçlı görevler için dengeli performans.",
+        "features": [
+          "Çok Dilli",
+          "Fonksiyon Çağrısı",
+          "Akış Çıktısı",
+          "Güvenilir"
+        ]
+      },
+      "glm-4_7": {
+        "description": "Zhipu GLM-4.7. Güçlü akıl yürütme ve çok dilli destek.",
+        "features": [
+          "Çok Dilli",
+          "Akıl Yürütme",
+          "Fonksiyon Çağrısı",
+          "Akış Çıktısı"
+        ]
+      },
+      "glm-5": {
+        "description": "Zhipu GLM-5 amiral gemisi. Çince ve İngilizcede üstün çift dilli performans.",
+        "features": [
+          "Çok Dilli",
+          "Fonksiyon Çağrısı",
+          "Araç Kullanımı",
+          "Uzun Bağlam",
+          "Akış Çıktısı"
+        ]
+      },
+      "glm-5-turbo": {
+        "description": "Zhipu GLM-5 Turbo. GLM-5 amiral gemisinin yüksek hızlı sürümü.",
+        "features": [
+          "Hızlı Yanıt",
+          "Çok Dilli",
+          "Fonksiyon Çağrısı",
+          "Akış Çıktısı"
+        ]
+      },
+      "mimo-v2-flash": {
+        "description": "Xiaomi'nin en hızlı ve en uygun maliyetli modeli. Yüksek eşzamanlılık için harika.",
+        "features": [
+          "Hızlı Yanıt",
+          "Düşük Maliyet",
+          "Akış Çıktısı",
+          "Yüksek Verim"
+        ]
+      },
+      "mimo-v2-omni": {
+        "description": "Xiaomi'nin omni modeli. Metin, görüntü ve ses tek modelde.",
+        "features": [
+          "Çok Modlu",
+          "Görüntü Anlama",
+          "Ses İşleme",
+          "Akış Çıktısı"
+        ]
+      },
+      "mimo-v2-pro": {
+        "description": "Xiaomi'nin pro seviye modeli. Güçlü akıl yürütme ve kodlama.",
+        "features": [
+          "Kod Üretimi",
+          "Akıl Yürütme",
+          "Fonksiyon Çağrısı",
+          "Akış Çıktısı"
+        ]
+      },
+      "mimo-v2_5": {
+        "description": "Xiaomi'nin en yeni nesil modeli. Dengeli performans ve maliyet.",
+        "features": [
+          "Hızlı Yanıt",
+          "Fonksiyon Çağrısı",
+          "JSON Modu",
+          "Akış Çıktısı"
+        ]
       }
-    }
+    },
+    "searchPlaceholder": "Modelleri ada, sağlayıcıya göre ara...",
+    "features": "Özellikler",
+    "useCases": "Kullanım Alanları",
+    "strengths": "Güçlü Yönler"
   },
   "docs": {
     "title": "Dokümantasyon",
@@ -172,7 +407,17 @@
       "mimo-v2_5-pro": "Xiaomi MiMo Amiral Gemisi",
       "gpt-4o": "OpenAI GPT-4o",
       "gpt-4o-mini": "OpenAI GPT-4o Mini",
-      "claude-3.5-sonnet": "Anthropic Claude 3.5"
+      "claude-3.5-sonnet": "Anthropic Claude 3.5",
+      "glm-4_5": "Zhipu GLM-4.5",
+      "glm-4_5-air": "Zhipu GLM-4.5 Air",
+      "glm-4_6": "Zhipu GLM-4.6",
+      "glm-4_7": "Zhipu GLM-4.7",
+      "glm-5": "Zhipu GLM-5",
+      "glm-5-turbo": "Zhipu GLM-5 Turbo",
+      "mimo-v2-flash": "MiMo V2 Flash",
+      "mimo-v2-omni": "MiMo V2 Omni",
+      "mimo-v2-pro": "MiMo V2 Pro",
+      "mimo-v2_5": "MiMo V2.5"
     },
     "endpoints": {
       "chat": "Sohbet Tamamlama (Chat Completions)",
@@ -267,7 +512,11 @@
     "erc20": "USDT-ERC20 (Ethereum Ağı)",
     "bep20": "USDT-BEP20 (BSC Ağı)",
     "feeLabel": "İşlem Ücreti",
-    "confirmTimeLabel": "yaklaşık {time} onay"
+    "confirmTimeLabel": "yaklaşık {time} onay",
+    "cardTab": "Kredi Kartı",
+    "usdtTab": "USDT",
+    "cardComingSoon": "Kredi kartı ödemeleri yakında gelecek",
+    "cardComingSoonDesc": "Kartla ödeme seçeneği üzerinde çalışıyoruz. Bu arada USDT ile bakiye yükleyebilirsiniz."
   },
   "usage": {
     "title": "Kullanım İstatistikleri",
@@ -285,6 +534,7 @@
     "requests": "İstekler",
     "tokens": "Tokenlar",
     "today": "Bugün",
+    "noData": "Veri yok",
     "last7d": "Son 7 Gün",
     "last30d": "Son 30 Gün",
     "requestCount": "İstekler",

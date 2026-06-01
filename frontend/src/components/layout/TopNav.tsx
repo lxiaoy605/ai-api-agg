@@ -1,21 +1,25 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 import BrandLogo from "@/components/brand/BrandLogo";
 import ThemeSwitcher from "@/components/theme/ThemeSwitcher";
+import LocaleSwitcher from "@/components/layout/LocaleSwitcher";
+import { Mail } from "lucide-react";
+
+const SUPPORT_EMAIL = "user@aiflowhub.com";
 
 export default function TopNav() {
   const t = useTranslations();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const pathname = usePathname();
+  const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showMail, setShowMail] = useState(false);
 
-  useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem("token"));
-    setUsername(localStorage.getItem("username") || "");
-  }, []);
+  const isLoggedIn = !!user;
 
   const navLinks = [
     { href: "/models", label: t("nav.models") },
@@ -24,35 +28,63 @@ export default function TopNav() {
   ];
 
   const handleSignOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
+    logout();
+    setMenuOpen(false);
     window.location.href = "/";
   };
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--page-bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--page-bg)]/60">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+    <header className="fixed top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--page-bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--page-bg)]/60">
+      <div className="flex h-14 items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
           <BrandLogo />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              prefetch={link.href === "/pricing" ? false : undefined}
-              className="text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden md:flex items-center gap-2">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                prefetch={link.href === "/pricing" ? false : undefined}
+                className={`text-sm px-3 py-1.5 rounded-lg transition-all ${
+                  isActive
+                    ? "bg-brand-500/10 text-brand-300 font-medium"
+                    : "text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-brand-500/8"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Desktop auth + theme */}
         <div className="hidden md:flex items-center gap-3">
+          {/* 客服邮箱 */}
+          <div className="relative">
+            <button
+              onClick={() => setShowMail(!showMail)}
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-[var(--surface-raised)] transition-colors"
+              aria-label="Contact support"
+            >
+              <Mail className="h-4 w-4" />
+            </button>
+            {showMail && (
+              <div className="absolute right-0 mt-2 w-56 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] py-2 px-3 shadow-lg">
+                <p className="text-xs text-[var(--muted-text)]">Support</p>
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="text-sm text-brand-400 hover:text-brand-300 break-all">
+                  {SUPPORT_EMAIL}
+                </a>
+              </div>
+            )}
+          </div>
+          <LocaleSwitcher />
           <ThemeSwitcher />
           {isLoggedIn ? (
             <div className="relative">
@@ -61,30 +93,23 @@ export default function TopNav() {
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-white text-xs font-bold hover:bg-brand-700 transition-colors"
                 aria-label={t("common.userMenu")}
               >
-                {(username || "U").charAt(0).toUpperCase()}
+                {user.email.charAt(0).toUpperCase()}
               </button>
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-36 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] py-1 shadow-lg">
+                <div className="absolute right-0 mt-2 w-40 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] py-1 shadow-lg">
                   <Link
                     href="/dashboard"
                     className="block px-4 py-2 text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-[var(--surface-raised)]"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                   >
                     {t("common.console")}
                   </Link>
                   <Link
-                    href="/api-keys"
+                    href="/profile"
                     className="block px-4 py-2 text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-[var(--surface-raised)]"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                   >
-                    {t("nav.apiKeys")}
-                  </Link>
-                  <Link
-                    href="/recharge"
-                    className="block px-4 py-2 text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-[var(--surface-raised)]"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {t("nav.recharge")}
+                    Profile
                   </Link>
                   <hr className="my-1 border-[var(--border-color)]" />
                   <button
@@ -101,14 +126,14 @@ export default function TopNav() {
               <Link
                 href="/login"
                 prefetch={false}
-                className="text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] transition-colors"
+                className="text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-brand-500/8 transition-all rounded-lg px-3 py-2"
               >
                 {t("common.signIn")}
               </Link>
               <Link
                 href="/register"
                 prefetch={false}
-                className="inline-flex items-center rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
+                className="inline-flex items-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-all"
               >
                 {t("common.signUp")}
               </Link>
@@ -135,25 +160,32 @@ export default function TopNav() {
       {/* Mobile nav */}
       {menuOpen && (
         <div className="md:hidden border-t border-[var(--border-color)] bg-[var(--page-bg)] px-4 py-3 space-y-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              prefetch={link.href === "/pricing" ? false : undefined}
-              className="block text-sm text-[var(--muted-text)] py-1.5"
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                prefetch={link.href === "/pricing" ? false : undefined}
+                className={`block text-sm px-3 py-2 rounded-lg transition-all ${
+                  isActive
+                    ? "bg-brand-500/10 text-brand-300 font-medium"
+                    : "text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-brand-500/8"
+                }`}
+                onClick={closeMenu}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+          <hr className="border-[var(--border-color)]" />
           {isLoggedIn ? (
             <>
-              <hr className="border-[var(--border-color)]" />
-              <Link href="/dashboard" className="block text-sm font-medium text-[var(--body-text)] py-1.5" onClick={() => setMenuOpen(false)}>
+              <Link href="/dashboard" className="block text-sm font-medium text-[var(--body-text)] py-1.5" onClick={closeMenu}>
                 {t("common.console")}
               </Link>
-              <Link href="/api-keys" className="block text-sm text-[var(--muted-text)] py-1.5" onClick={() => setMenuOpen(false)}>
-                {t("nav.apiKeys")}
+              <Link href="/profile" className="block text-sm text-[var(--muted-text)] py-1.5" onClick={closeMenu}>
+                Profile
               </Link>
               <button onClick={handleSignOut} className="block text-sm text-error py-1.5">
                 {t("common.signOut")}
@@ -161,15 +193,14 @@ export default function TopNav() {
             </>
           ) : (
             <>
-              <hr className="border-[var(--border-color)]" />
-              <Link href="/login" prefetch={false} className="block text-sm text-[var(--muted-text)] py-1.5" onClick={() => setMenuOpen(false)}>
+              <Link href="/login" prefetch={false} className="block text-sm text-[var(--muted-text)] hover:text-[var(--body-text)] active:text-[var(--body-text)] py-1.5" onClick={closeMenu}>
                 {t("common.signIn")}
               </Link>
               <Link
                 href="/register"
                 prefetch={false}
                 className="inline-flex items-center rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white"
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMenu}
               >
                 {t("common.signUp")}
               </Link>

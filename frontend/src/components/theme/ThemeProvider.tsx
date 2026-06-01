@@ -14,18 +14,18 @@ const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 const STORAGE_KEY = "aiflowhub-theme";
 
 function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
+  if (typeof window === "undefined") return "light";
 
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored === "light" || stored === "dark") return stored;
 
   if (window.matchMedia("(prefers-color-scheme: light)").matches) return "light";
 
-  return "dark";
+  return "light";
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -48,13 +48,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   }, []);
 
-  // Prevent flash of unstyled content during SSR hydration
-  if (!mounted) {
-    return <>{children}</>;
-  }
+  // Provide context even before mount to avoid SSR hook errors
+  const value = { theme, toggleTheme };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={value}>
+      {!mounted ? null : (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute('data-theme','${theme}');document.documentElement.className='${theme}'`,
+          }}
+        />
+      )}
       {children}
     </ThemeContext.Provider>
   );

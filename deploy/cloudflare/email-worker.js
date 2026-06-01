@@ -1,0 +1,165 @@
+// Cloudflare Email Worker — Catch-all for aiflowhub.ai
+
+const BOT_TOKEN = "8812183039:AAHOB6OkhQVrSQy40ijeE_GHwoqz-FlELK8";
+const CHAT_ID = "8798788738";
+
+function escapeHTML(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function truncate(str, max = 200) {
+  if (!str) return "(empty)";
+  return str.length > max ? str.slice(0, max) + "…" : str;
+}
+
+function decodeMIME(str) {
+  if (!str) return "";
+  return str.replace(
+    /=\?([^?]+)\?([BbQq])\?([^?]*)\?=/g,
+    (_, charset, encoding, data) => {
+      try {
+        if (encoding.toLowerCase() === "b") {
+          const u8 = Uint8Array.from(atob(data), (c) => c.charCodeAt(0));
+          return new TextDecoder(charset).decode(u8);
+        }
+        if (encoding.toLowerCase() === "q") {
+          return decodeURIComponent(
+            data.replace(/_/g, " ").replace(/=([0-9A-F]{2})/gi, "%$1"));
+        }
+      } catch {}
+      return data;
+    }
+  );
+}
+
+function decodeTransfer(body, encoding) {
+  if (!encoding) return body;
+  const enc = encoding.toLowerCase().trim();
+  try {
+    if (enc === "base64") {
+      const clean = body.replace(/\s/g, "");
+      const u8 = Uint8Array.from(atob(clean), (c) => c.charCodeAt(0));
+      return new TextDecoder("utf-8").decode(u8);
+    }
+    if (enc === "quoted-printable") {
+      return body.replace(/=\r?\n/g, "").replace(
+        /=([0-9A-F]{2})/gi, (_, h) => String.fromCharCode(parseInt(h, 16)));
+    }
+  } catch {}
+  return body;
+}
+
+function stripHTML(html) {
+  return html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/div>/gi, "\n")
+    .replace(/<\/p>/gi, "\n")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&quot;/g, '"')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+// 去掉回复引用
+function stripQuoted(text) {
+  return text
+    // 删除 "xxx wrote:" 行及之后的所有引用
+    .replace(/\n[^\n]*wrote:\s*\n[>].*/is, "")
+    // 删除 "于xxx写道：" 行及之后的引用（中文 Gmail 格式）
+    .replace(/\n[^\n]*[于在]\d{4}[^\n]*[写道说]\s*[：:]\s*\n[>].*/is, "")
+    // 删除单独的引用行
+    .replace(/^>[^\n]*\n?/gm, "")
+    // 清理多余空行
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function parseEmailBody(raw) {
+  const blankLine = raw.search(/\r?\n\r?\n/);
+  if (blankLine === -1) return decodeTransfer(raw, "");
+
+  const headers = raw.slice(0, blankLine);
+  const body = raw.slice(blankLine).trim();
+
+  const bMatch = headers.match(/boundary\s*=\s*"?([^";\s\r\n]+)/i);
+  if (!bMatch) return stripQuoted(body);
+
+  const boundary = bMatch[1];
+  const parts = body.split("--" + boundary);
+
+  let textBody = "";
+  let htmlBody = "";
+
+  for (const part of parts) {
+    const headerEnd = part.search(/\r?\n\r?\n/);
+    if (headerEnd === -1) continue;
+    const pHeaders = part.slice(0, headerEnd);
+    const pBody = part.slice(headerEnd).trim();
+
+    const ctMatch = pHeaders.match(/content-type:\s*text\/(plain|html)/i);
+    if (!ctMatch) continue;
+
+    const ceMatch = pHeaders.match(
+      /content-transfer-encoding:\s*(\S+)/i);
+    const enc = ceMatch ? ceMatch[1].replace(/;$/, "") : "";
+
+    if (ctMatch[1].toLowerCase() === "plain") {
+      textBody = decodeTransfer(pBody, enc);
+    } else {
+      htmlBody = decodeTransfer(pBody, enc);
+    }
+  }
+
+  if (textBody) return stripQuoted(textBody).trim();
+  if (htmlBody) return stripQuoted(stripHTML(htmlBody));
+  return stripQuoted(body.slice(0, 500));
+}
+
+async function sendTelegram(text) {
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: CHAT_ID, text, parse_mode: "HTML",
+      disable_web_page_preview: true,
+    }),
+  });
+}
+
+export default {
+  async email(message, env, ctx) {
+    const from = escapeHTML(
+      decodeMIME(message.from || message.headers.get("from") || "unknown"));
+    const to = escapeHTML(message.to || message.headers.get("to") || "unknown");
+    const subject = escapeHTML(
+      decodeMIME(message.headers.get("subject") || "(no subject)"));
+    const date = escapeHTML(message.headers.get("date") || "");
+
+    let raw = "";
+    try {
+      if (message.raw) raw = await new Response(message.raw).text();
+    } catch (e) {
+      raw = "read error: " + e.message;
+    }
+
+    const body = escapeHTML(parseEmailBody(raw));
+
+    const lines = [];
+    lines.push(`📧 <b>${truncate(subject, 100)}</b>`);
+    lines.push(`<b>From:</b> ${truncate(from, 80)}`);
+    lines.push(`<b>To:</b> ${truncate(to, 80)}`);
+    if (date) lines.push(`<b>Date:</b> ${truncate(date, 30)}`);
+    lines.push("");
+    lines.push(truncate(body, 1500));
+
+    await sendTelegram(lines.join("\n"));
+  },
+};

@@ -490,6 +490,79 @@ main() {
     fi
   done
 
+  # --- 阶段 2.5: 同步 abilities（渠道→模型映射）---
+  step "阶段 2.5: 同步 abilities（渠道→模型映射）"
+  info "同步中..."
+  ABL_ADDED=0; ABL_SKIPPED=0
+  for entry in "${VALID_PROVIDERS[@]}"; do
+    IFS='|' read -r name base_url api_key models otype <<< "$entry"
+    # 获取渠道 ID
+    cid=$(curl -s --max-time 5 -H "Authorization: Bearer $ADMIN_KEY" \
+      "$ONEAPI_URL/api/channel/?p=0&page_size=100" | \
+      python3 -c "
+import json,sys
+data=json.load(sys.stdin).get('data',[])
+matches=[c for c in data if c.get('name')=='$name']
+print(matches[0]['id'] if matches else '')
+" 2>/dev/null)
+    if [ -z "$cid" ]; then continue; fi
+
+    # 获取已有 abilities
+    existing_models=$(curl -s --max-time 5 -H "Authorization: Bearer $ADMIN_KEY" \
+      "$ONEAPI_URL/api/channel/ability/?p=0&page_size=500" | \
+      python3 -c "
+import json,sys
+data=json.load(sys.stdin).get('data',[])
+print('\\n'.join([a['model'] for a in data if a.get('channel_id')==$cid]))
+" 2>/dev/null || echo "")
+
+    IFS=',' read -ra model_arr <<< "$models"
+    for m in "${model_arr[@]}"; do
+      m="$(echo "$m" | xargs | tr '[:upper:]' '[:lower:]')"
+      if echo "$existing_models" | grep -qFx "$m"; then
+        ABL_SKIPPED=$((ABL_SKIPPED + 1))
+        continue
+      fi
+      curl -s --max-time 5 -X POST \
+        -H "Authorization: Bearer $ADMIN_KEY" \
+        -H "Content-Type: application/json" \
+        -d "{\"group\":\"default\",\"model\":\"$m\",\"channel_id\":$cid,\"enabled\":true,\"priority\":0}" \
+        "$ONEAPI_URL/api/channel/ability/" > /dev/null 2>&1 && \
+        { info "  $m → $name"; ABL_ADDED=$((ABL_ADDED + 1)); }
+      sleep 0.2
+    done
+  done
+  ok "abilities 同步完成：新增 $ABL_ADDED，已存在 $ABL_SKIPPED"
+
+  # --- 阶段 2.6: 创建系统令牌（后端→OneAPI 通信用）---
+  step "阶段 2.6: 系统令牌"
+  SYSTEM_TOKEN_NAME="system-api"
+  existing_token=$(curl -s --max-time 5 -H "Authorization: Bearer $ADMIN_KEY" \
+    "$ONEAPI_URL/api/token/?p=0&page_size=100" | \
+    python3 -c "
+import json,sys
+data=json.load(sys.stdin).get('data',[])
+matches=[t for t in data if t.get('name')=='$SYSTEM_TOKEN_NAME']
+print(matches[0]['key'] if matches else '')
+" 2>/dev/null)
+
+  if [ -n "$existing_token" ]; then
+    ok "系统令牌已存在: ${existing_token:0:12}****"
+    echo "  ONEAPI_API_KEY=$existing_token" >> "$ENV_FILE.tmp" 2>/dev/null || true
+  else
+    token_resp=$(curl -s --max-time 5 -X POST \
+      -H "Authorization: Bearer $ADMIN_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"name":"system-api","remain_quota":999999999,"unlimited_quota":true}' \
+      "$ONEAPI_URL/api/token/")
+    new_token=$(echo "$token_resp" | python3 -c "import json,sys; print(json.load(sys.stdin).get('data',{}).get('key',''))" 2>/dev/null)
+    if [ -n "$new_token" ]; then
+      ok "系统令牌已创建（无限配额）: ${new_token:0:12}****"
+    else
+      warn "系统令牌创建失败，请手动在 OneAPI 后台创建"
+    fi
+  fi
+
   # --- 阶段 3: 系统设置 ---
   if [ "$FAILED" -eq 0 ]; then
     update_system_options

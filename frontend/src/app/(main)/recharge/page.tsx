@@ -13,6 +13,8 @@ import {
   Loader2,
   ArrowLeft,
   RefreshCw,
+  CreditCard,
+  Wallet,
 } from "lucide-react";
 import {
   amountOptions,
@@ -21,6 +23,7 @@ import {
   fetchCurrencies,
   createPayment,
   fetchPaymentStatus,
+  getMinAmount,
   estimateTokens,
 } from "@/data/recharge";
 import type {
@@ -46,14 +49,18 @@ export default function RechargePage() {
   const t = useTranslations("recharge");
   const tc = useTranslations("common");
 
+  // Tab state
+  const [activeTab, setActiveTab] = useState<"usdt" | "card">("usdt");
+
   // 选择状态
-  const [selectedAmount, setSelectedAmount] = useState<number>(10);
+  const [selectedAmount, setSelectedAmount] = useState<number>(20);
   const [customAmount, setCustomAmount] = useState("");
   const [networkId, setNetworkId] = useState("trc20");
 
   // 页面状态
   const [pageState, setPageState] = useState<PageState>("select");
   const [errorMsg, setErrorMsg] = useState("");
+  const [amountError, setAmountError] = useState<string | null>(null);
 
   // 支付信息
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo | null>(null);
@@ -103,7 +110,7 @@ export default function RechargePage() {
     QRCode.toDataURL(qrContent, {
       width: 200,
       margin: 2,
-      color: { dark: "var(--color-neutral-0)", light: "var(--color-neutral-800)" },
+      color: { dark: "#111111", light: "#ffffff" },
     })
       .then(setQrDataUrl)
       .catch(console.error);
@@ -133,16 +140,33 @@ export default function RechargePage() {
 
   // ========== 操作 ==========
 
+  function cleanErrorMessage(msg: string): string {
+    try {
+      const match = msg.match(/"message":"([^"]+)"/);
+      if (match) return match[1];
+    } catch {}
+    return msg;
+  }
+
   const handlePay = useCallback(async () => {
     if (displayAmount < 5) {
-      setErrorMsg(t("minAmountError"));
+      setAmountError(t("minAmountError"));
       return;
     }
 
+    setAmountError(null);
     setErrorMsg("");
     setPageState("creating");
 
     try {
+      // 先获取最低金额校验
+      const minAmount = await getMinAmount("usdt", currentNetwork.currencyCode);
+      if (displayAmount < minAmount) {
+        setAmountError(t("minAmountError"));
+        setPageState("select");
+        return;
+      }
+
       const info = await createPayment(amountCents, currentNetwork.currencyCode);
       setPaymentInfo(info);
       setCountdown(3600);
@@ -150,6 +174,8 @@ export default function RechargePage() {
       startPolling(info.payment_id);
     } catch (err: any) {
       console.error("Payment creation failed:", err);
+      const cleaned = cleanErrorMessage(err.message || t("subtitleFallback"));
+      setErrorMsg(cleaned);
       setPageState("fallback");
     }
   }, [displayAmount, amountCents, currentNetwork.currencyCode, t]);
@@ -210,6 +236,7 @@ export default function RechargePage() {
     setPageState("select");
     setPaymentInfo(null);
     setErrorMsg("");
+    setAmountError(null);
     setQrDataUrl("");
     setPollCount(0);
   }, []);
@@ -227,7 +254,7 @@ export default function RechargePage() {
   // ========== 渲染 ==========
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-[var(--body-text)]">{t("title")}</h1>
         <p className="text-[var(--muted-text)] text-sm mt-1">{pageSubtitle[pageState]}</p>
@@ -240,9 +267,43 @@ export default function RechargePage() {
         </div>
       )}
 
-      {/* ===== 状态: 选择金额 ===== */}
-      {(pageState === "select" || pageState === "creating") && (
+      {/* ===== Tab Switcher ===== */}
+      {pageState === "select" && (
+        <div className="flex items-center gap-1 p-1 bg-[var(--surface-raised)] rounded-xl w-fit border border-[var(--border-color)]">
+          <button
+            onClick={() => setActiveTab("usdt")}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              activeTab === "usdt"
+                ? "bg-brand-600 text-white shadow-sm"
+                : "text-[var(--muted-text)] hover:text-[var(--body-text)]"
+            }`}
+          >
+            <Wallet className="h-4 w-4" />
+            {t("usdtTab")}
+          </button>
+          <button
+            onClick={() => setActiveTab("card")}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              activeTab === "card"
+                ? "bg-brand-600 text-white shadow-sm"
+                : "text-[var(--muted-text)] hover:text-[var(--body-text)]"
+            }`}
+          >
+            <CreditCard className="h-4 w-4" />
+            {t("cardTab")}
+          </button>
+        </div>
+      )}
+
+      {/* ===== 状态: 选择金额 (USDT) ===== */}
+      {(pageState === "select" || pageState === "creating") && activeTab === "usdt" && (
         <>
+          {amountError && (
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+              <AlertTriangle className="h-4 w-4 text-red-400 shrink-0" />
+              <p className="text-sm text-red-400">{amountError}</p>
+            </div>
+          )}
           {errorMsg && (
             <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/10">
               <AlertTriangle className="h-4 w-4 text-yellow-400 shrink-0" />
@@ -380,7 +441,7 @@ export default function RechargePage() {
               <button
                 onClick={handlePay}
                 disabled={pageState === "creating" || displayAmount < 5}
-                className="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-600 disabled:text-[var(--muted-text)] text-[var(--body-text)] font-semibold text-base transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-600 disabled:text-neutral-400 text-white font-semibold text-base transition-all flex items-center justify-center gap-2"
               >
                 {pageState === "creating" ? (
                   <>
@@ -534,7 +595,7 @@ export default function RechargePage() {
 
             <button
               onClick={handleReset}
-              className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-[var(--body-text)] font-semibold transition-colors"
+              className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold transition-colors"
             >
               {t("continueRecharge")}
             </button>
@@ -573,6 +634,12 @@ export default function RechargePage() {
                 {t("fallbackTitle")}
               </h3>
             </div>
+
+            {errorMsg && (
+              <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+                <p className="text-sm text-red-400">{errorMsg}</p>
+              </div>
+            )}
 
             <div className="flex justify-center mb-4 p-3 bg-white rounded-xl">
               {qrDataUrl ? (
@@ -620,8 +687,23 @@ export default function RechargePage() {
         </div>
       )}
 
+      {/* ===== Credit Card Placeholder ===== */}
+      {pageState === "select" && activeTab === "card" && (
+        <div className="flex items-center justify-center py-16">
+          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-12 text-center max-w-md">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[var(--surface-raised)] flex items-center justify-center">
+              <CreditCard className="h-8 w-8 text-[var(--muted-text)]" />
+            </div>
+            <h3 className="text-lg font-semibold text-[var(--body-text)] mb-2">{t("cardComingSoon")}</h3>
+            <p className="text-sm text-[var(--muted-text)] leading-relaxed">
+              {t("cardComingSoonDesc")}
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* ===== 支付说明 ===== */}
-      {(pageState === "select" || pageState === "creating") && (
+      {(pageState === "select" || pageState === "creating") && activeTab === "usdt" && (
         <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-6">
           <h3 className="text-sm font-semibold text-[var(--body-text)] mb-4">{t("infoTitle")}</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

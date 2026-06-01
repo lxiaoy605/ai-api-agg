@@ -1,0 +1,704 @@
+[
+  {
+    "id": "z-ai/glm-4.6v",
+    "name": "Z.ai: GLM 4.6V",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "GLM-4.6V 是智谱推出的多模态大模型，能理解文本、图像和视频，并处理长达 131K token 的上下文。它擅长高精度视觉理解与复杂文档推理，支持函数调用与工具使用，可轻松集成到你的工作流中。适合需要多模态分析、长文档处理或构建智能助手的开发者。",
+    "descriptions": {
+      "zh": "GLM-4.6V 是智谱推出的多模态大模型，能理解文本、图像和视频，并处理长达 131K token 的上下文。它擅长高精度视觉理解与复杂文档推理，支持函数调用与工具使用，可轻松集成到你的工作流中。适合需要多模态分析、长文档处理或构建智能助手的开发者。",
+      "en": "GLM-4.6V is a multimodal powerhouse from Z.ai that understands text, images, and video in one unified model. With a 131K context window, it excels at visual reasoning, document analysis, and long-form content understanding. Supports function calling and tool use, making it a drop-in upgrade for your AI stack. Built for developers who need reliable, high-fidelity multimodal AI without the complexity.",
+      "ru": "GLM-4.6V — это мультимодальная модель от Z.ai, которая обрабатывает текст, изображения и видео. Окно контекста в 131K токенов позволяет глубоко анализировать документы, визуальные данные и смешанный контент. Поддерживает вызов функций и использование инструментов, что упрощает интеграцию в существующие системы. Идеально подходит для разработчиков, создающих приложения с продвинутым визуальным пониманием и длинным контекстом.",
+      "tr": "GLM-4.6V, Z.ai tarafından geliştirilen ve metin, görsel ile videoyu tek bir modelde işleyen çok modlu bir yapay zekadır. 131K token bağlam penceresi sayesinde görsel akıl yürütme, belge analizi ve uzun içerik anlamada üstün performans sunar. Fonksiyon çağırma ve araç kullanımını destekler, mevcut AI altyapınıza kolayca entegre olur. Karmaşık çok modlu görevler için güvenilir bir çözüm arayan geliştiricilere yöneliktir."
+    },
+    "inputPrice": "$0.30",
+    "outputPrice": "$0.90",
+    "contextWindow": "131K",
+    "maxTokens": "24K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "函数调用",
+      "工具使用",
+      "流式输出",
+      "长上下文"
+    ],
+    "useCases": [
+      "复杂文档分析与推理",
+      "多模态内容审核与摘要",
+      "智能助手与自动化工作流"
+    ],
+    "strengths": [
+      "高保真视觉理解",
+      "超长上下文支持",
+      "多模态统一处理"
+    ],
+    "whyChoose": {
+      "en": "Best-in-class multimodal reasoning with massive context and seamless tool integration.",
+      "ru": "Лучшее в своем классе мультимодальное понимание с огромным контекстом и интеграцией инструментов.",
+      "tr": "Devasa bağlam ve araç entegrasyonu ile en iyi çok modlu akıl yürütme."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.6\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.6\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.6\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "z-ai/glm-4.7",
+    "name": "Z.ai: GLM 4.7",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "GLM-4.7 是智谱最新旗舰模型，专为复杂任务而生。编程能力大幅提升，多步推理更稳定，轻松驾驭智能体工作流。适合需要高精度代码生成、逻辑推理和稳定输出的开发者。免费使用，快速响应，流式输出，助你高效构建下一代 AI 应用。",
+    "descriptions": {
+      "zh": "GLM-4.7 是智谱最新旗舰模型，专为复杂任务而生。编程能力大幅提升，多步推理更稳定，轻松驾驭智能体工作流。适合需要高精度代码生成、逻辑推理和稳定输出的开发者。免费使用，快速响应，流式输出，助你高效构建下一代 AI 应用。",
+      "en": "GLM-4.7 is Z.ai's latest flagship, built for developers who need reliable, multi-step reasoning and top-tier code generation. It excels at complex agent tasks, delivering stable outputs and faster responses. Whether you're building tools, automating workflows, or integrating AI into your product, GLM-4.7 gives you the precision and speed to ship with confidence. Free to use, streaming support included.",
+      "ru": "GLM-4.7 — новый флагман от Z.ai, созданный для разработчиков, которым нужно надежное многошаговое рассуждение и генерация кода высокого уровня. Модель отлично справляется с комплексными агентными задачами, обеспечивая стабильные результаты и быстрый ответ. Бесплатно, с поддержкой потокового вывода. Идеально для создания инструментов, автоматизации и интеграции ИИ в продукты.",
+      "tr": "GLM-4.7, Z.ai'nin en yeni amiral gemisi modelidir. Karmaşık görevler için tasarlanmış olup, kod üretimi ve çok adımlı akıl yürütme konusunda üstün performans sunar. Geliştiricilere güvenilir, hızlı ve akış çıktılı bir yapay zeka deneyimi sağlar. Ücretsiz kullanım, hızlı yanıt ve akış desteğiyle öne çıkar."
+    },
+    "inputPrice": "$0.40",
+    "outputPrice": "$1.75",
+    "contextWindow": "202K",
+    "maxTokens": "131K",
+    "status": "available",
+    "category": "code",
+    "features": [
+      "免费使用",
+      "快速响应",
+      "流式输出",
+      "编程优化",
+      "多步推理"
+    ],
+    "useCases": [
+      "复杂代码生成与调试",
+      "多步骤推理与智能体工作流",
+      "自动化工具与 AI 集成开发"
+    ],
+    "strengths": [
+      "编程能力大幅提升，代码生成更精准",
+      "多步推理更稳定，智能体任务执行可靠",
+      "免费使用，快速响应，支持流式输出"
+    ],
+    "whyChoose": {
+      "en": "Reliable multi-step reasoning and top-tier code generation — free and fast.",
+      "ru": "Надёжное многошаговое рассуждение и генерация кода высшего уровня — бесплатно и быстро.",
+      "tr": "Güvenilir çok adımlı akıl yürütme ve üst düzey kod üretimi — ücretsiz ve hızlı."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.7\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.7\",\n    messages=[{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.7\",\n  messages: [{ role: \"user\", content: \"今天天气如何\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "z-ai/glm-4.7-flash",
+    "name": "Z.ai: GLM 4.7 Flash",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "GLM-4.7-Flash 是智谱推出的高效推理模型，专为需要快速响应的场景设计。它平衡了性能与效率，在代码生成、长程任务规划等 Agent 场景表现出色。适合追求低延迟、高并发，又不想牺牲质量的开发者。免费使用，上手即用。",
+    "descriptions": {
+      "zh": "GLM-4.7-Flash 是智谱推出的高效推理模型，专为需要快速响应的场景设计。它平衡了性能与效率，在代码生成、长程任务规划等 Agent 场景表现出色。适合追求低延迟、高并发，又不想牺牲质量的开发者。免费使用，上手即用。",
+      "en": "GLM-4.7-Flash is a fast, efficient model built for real-time applications. It excels in agentic coding and long-horizon tasks, delivering strong performance without the latency. Perfect for developers in Armenia, Georgia, and Central Asia who need a free, responsive AI that just works. Start building instantly.",
+      "ru": "GLM-4.7-Flash — это быстрая и эффективная модель для задач в реальном времени. Она отлично справляется с агентным кодингом и долгосрочным планированием, обеспечивая высокую производительность без задержек. Идеально подходит разработчикам из Казахстана и Центральной Азии, которым нужна бесплатная и отзывчивая AI-модель. Начинайте прямо сейчас.",
+      "tr": "GLM-4.7-Flash, gerçek zamanlı uygulamalar için oluşturulmuş hızlı ve verimli bir modeldir. Aracılı kodlama ve uzun vadeli görev planlamada mükemmeldir, gecikme olmadan güçlü performans sunar. Türkiye'deki geliştiriciler için ücretsiz, duyarlı ve hemen çalışmaya başlayan bir AI arıyorsanız idealdir."
+    },
+    "inputPrice": "$0.06",
+    "outputPrice": "$0.40",
+    "contextWindow": "202K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "code",
+    "features": [
+      "免费使用",
+      "快速响应",
+      "流式输出",
+      "Agent 优化",
+      "代码生成"
+    ],
+    "useCases": [
+      "实时聊天与客服",
+      "代码生成与辅助编程",
+      "长程任务规划与自动化"
+    ],
+    "strengths": [
+      "免费使用，零成本上手",
+      "快速响应，低延迟",
+      "代码与 Agent 场景优化"
+    ],
+    "whyChoose": {
+      "en": "Free, fast, and optimized for agentic coding — the best balance of performance and cost.",
+      "ru": "Бесплатно, быстро и оптимизировано для агентного кодинга — лучший баланс производительности и стоимости.",
+      "tr": "Ücretsiz, hızlı ve aracılı kodlama için optimize edilmiş — performans ve maliyet dengesinin en iyisi."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.7\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.7\",\n    messages=[{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.7\",\n  messages: [{ role: \"user\", content: \"今天天气如何\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "z-ai/glm-5",
+    "name": "Z.ai: GLM 5",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "GLM-5 是智谱 Z.ai 推出的旗舰开源基础模型，专为复杂系统设计和长期智能体工作流打造。它提供生产级性能，尤其擅长大规模编程任务，同时支持多语言、函数调用和超长上下文。适合需要构建可靠、高效 AI 应用的专家开发者。",
+    "descriptions": {
+      "zh": "GLM-5 是智谱 Z.ai 推出的旗舰开源基础模型，专为复杂系统设计和长期智能体工作流打造。它提供生产级性能，尤其擅长大规模编程任务，同时支持多语言、函数调用和超长上下文。适合需要构建可靠、高效 AI 应用的专家开发者。",
+      "en": "GLM-5 is Z.ai's flagship open-source foundation model, built for complex system design and long-horizon agent workflows. It delivers production-grade performance on large-scale programming tasks and excels in multilingual communication, function calling, and handling massive contexts. Ideal for expert developers building reliable, high-performance AI applications in emerging markets.",
+      "ru": "GLM-5 — флагманская открытая фундаментальная модель от Z.ai, созданная для проектирования сложных систем и долгосрочных агентных рабочих процессов. Она обеспечивает производительность производственного уровня в крупномасштабных задачах программирования, а также отлично справляется с многоязычным общением, вызовом функций и обработкой огромных контекстов. Идеально подходит для опытных разработчиков, создающих надежные и высокопроизводительные AI-приложения.",
+      "tr": "GLM-5, Z.ai'nin amiral gemisi açık kaynak temel modelidir ve karmaşık sistem tasarımı ile uzun vadeli ajan iş akışları için üretilmiştir. Büyük ölçekli programlama görevlerinde üretim düzeyinde performans sunar; çok dilli iletişim, fonksiyon çağrısı ve devasa bağlamları işlemede üstündür. Güvenilir ve yüksek performanslı AI uygulamaları geliştiren uzman geliştiriciler için idealdir."
+    },
+    "inputPrice": "$0.60",
+    "outputPrice": "$1.92",
+    "contextWindow": "202K",
+    "maxTokens": "—",
+    "status": "available",
+    "category": "code",
+    "features": [
+      "多语言",
+      "函数调用",
+      "工具使用",
+      "长文档处理",
+      "流式输出"
+    ],
+    "useCases": [
+      "复杂软件系统开发与调试",
+      "长文档分析与智能体工作流",
+      "多语言客户支持与自动化工具"
+    ],
+    "strengths": [
+      "生产级编程性能",
+      "超长上下文窗口（202K）",
+      "多语言与函数调用支持",
+      "开源可定制"
+    ],
+    "whyChoose": {
+      "en": "Production-grade performance for complex programming and agent workflows, with 202K context and open-source flexibility.",
+      "ru": "Производительность производственного уровня для сложного программирования и агентных рабочих процессов с контекстом 202K и гибкостью открытого исходного кода.",
+      "tr": "Karmaşık programlama ve ajan iş akışları için üretim düzeyinde performans, 202K bağlam ve açık kaynak esnekliği."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "z-ai/glm-5-turbo",
+    "name": "Z.ai: GLM 5 Turbo",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "GLM-5 Turbo 是智谱最新推出的高性能推理模型，专为智能体驱动的复杂场景深度优化。它拥有超长上下文窗口，能够高效处理海量文档与多轮交互，同时在函数调用与工具使用上表现出色。无论是搭建自动化工作流、构建知识密集型应用，还是开发多语言服务，GLM-5 Turbo 都能以极速响应和稳定输出，成为你项目落地的强力引擎。适合追求效率与可靠性的开发者。",
+    "descriptions": {
+      "zh": "GLM-5 Turbo 是智谱最新推出的高性能推理模型，专为智能体驱动的复杂场景深度优化。它拥有超长上下文窗口，能够高效处理海量文档与多轮交互，同时在函数调用与工具使用上表现出色。无论是搭建自动化工作流、构建知识密集型应用，还是开发多语言服务，GLM-5 Turbo 都能以极速响应和稳定输出，成为你项目落地的强力引擎。适合追求效率与可靠性的开发者。",
+      "en": "GLM-5 Turbo is Z.ai's latest high-performance reasoning model, purpose-built for agent-driven workflows and complex real-world tasks. With an ultra-long context window and deep optimization for function calling and tool use, it excels in processing massive documents, orchestrating multi-step automation, and powering multilingual applications. Designed for developers who need speed, reliability, and seamless integration, GLM-5 Turbo turns your ambitious ideas into production-ready solutions. Perfect for teams in Armenia, Georgia, and Central Asia building the next generation of intelligent systems.",
+      "ru": "GLM-5 Turbo — новейшая высокопроизводительная модель от Z.ai, созданная для агентных сценариев и сложных задач реального мира. Благодаря сверхдлинному контекстному окну и глубокой оптимизации вызова функций и использования инструментов, она отлично справляется с обработкой больших документов, автоматизацией многошаговых процессов и созданием многоязычных приложений. Для разработчиков из Казахстана и Центральной Азии, которые ценят скорость, надёжность и лёгкую интеграцию, GLM-5 Turbo станет надёжным двигателем для воплощения амбициозных проектов.",
+      "tr": "GLM-5 Turbo, Z.ai'nin ajan odaklı iş akışları ve karmaşık gerçek dünya görevleri için özel olarak geliştirilmiş yeni nesil yüksek performanslı akıl yürütme modelidir. Devasa bağlam penceresi, fonksiyon çağırma ve araç kullanımındaki derin optimizasyon sayesinde büyük belgeleri işleme, çok adımlı otomasyonu yönetme ve çok dilli uygulamalar geliştirme konusunda üstün performans sunar. Hız, güvenilirlik ve sorunsuz entegrasyon arayan geliştiriciler için GLM-5 Turbo, iddialı fikirlerinizi üretime hazır çözümlere dönüştürür. Türkiye'deki geliştiriciler için ideal."
+    },
+    "inputPrice": "$1.20",
+    "outputPrice": "$4.00",
+    "contextWindow": "202K",
+    "maxTokens": "131K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "长上下文",
+      "函数调用",
+      "工具使用",
+      "流式输出",
+      "多语言支持"
+    ],
+    "useCases": [
+      "构建自动化智能体与工作流",
+      "长文档分析与知识库问答",
+      "多语言客服与内容生成系统"
+    ],
+    "strengths": [
+      "超长上下文处理，轻松应对海量文档",
+      "深度优化的智能体工作流支持",
+      "出色的函数调用与工具使用能力",
+      "多语言场景下的稳定表现"
+    ],
+    "whyChoose": {
+      "en": "Best balance of speed, context length, and agentic capability for production workloads.",
+      "ru": "Лучший баланс скорости, длины контекста и агентных возможностей для продакшн-нагрузок.",
+      "tr": "Üretim iş yükleri için hız, bağlam uzunluğu ve ajan yetenekleri arasında en iyi denge."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "z-ai/glm-5.1",
+    "name": "Z.ai: GLM 5.1",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "GLM-5.1 是智谱最新一代大语言模型，专为需要深度推理和长程任务处理的场景打造。它不仅能流畅处理超过20万token的上下文，还能独立、持续地完成复杂编码任务，大幅提升开发效率。无论是构建智能代理、处理海量文档，还是实现多语言应用，GLM-5.1 都以更低的成本带来更稳定的表现。适合追求可靠性与性价比的开发者。",
+    "descriptions": {
+      "zh": "GLM-5.1 是智谱最新一代大语言模型，专为需要深度推理和长程任务处理的场景打造。它不仅能流畅处理超过20万token的上下文，还能独立、持续地完成复杂编码任务，大幅提升开发效率。无论是构建智能代理、处理海量文档，还是实现多语言应用，GLM-5.1 都以更低的成本带来更稳定的表现。适合追求可靠性与性价比的开发者。",
+      "en": "GLM-5.1 is Zhipu AI's latest leap in large language models, designed for deep reasoning and long-horizon tasks. With a 202K context window, it handles massive documents and complex coding projects with ease. It works independently and continuously, not just in short interactions. Perfect for developers building intelligent agents, multilingual apps, or automation tools in emerging markets. Cost-effective at $0.98/M input tokens. Built for reliability and performance.",
+      "ru": "GLM-5.1 — это новейшая языковая модель от Zhipu AI, созданная для глубокого анализа и длительных задач. Окно контекста в 202K токенов позволяет обрабатывать огромные документы и сложные проекты по кодированию. Модель работает автономно и непрерывно, а не только в коротких диалогах. Идеально подходит для разработчиков, создающих интеллектуальных агентов, мультиязычные приложения или инструменты автоматизации. Экономически эффективна: $0,98 за миллион входных токенов.",
+      "tr": "GLM-5.1, Zhipu AI'nın derin mantıksal çıkarım ve uzun vadeli görevler için tasarlanmış en yeni dil modelidir. 202K token bağlam penceresi ile büyük belgeleri ve karmaşık kodlama projelerini kolayca işler. Kısa etkileşimlerle sınırlı kalmayıp bağımsız ve sürekli çalışır. Akıllı ajanlar, çok dilli uygulamalar veya otomasyon araçları geliştiren geliştiriciler için idealdir. Giriş token başına $0,98 ile uygun maliyetlidir."
+    },
+    "inputPrice": "$0.98",
+    "outputPrice": "$3.08",
+    "contextWindow": "202K",
+    "maxTokens": "—",
+    "status": "available",
+    "category": "code",
+    "features": [
+      "长上下文处理",
+      "函数调用",
+      "工具使用",
+      "流式输出",
+      "多语言支持"
+    ],
+    "useCases": [
+      "智能代理与自动化工作流",
+      "长文档分析与摘要",
+      "多语言代码生成与调试",
+      "复杂逻辑推理与问题解决"
+    ],
+    "strengths": [
+      "超长上下文处理能力",
+      "独立持续执行复杂任务",
+      "卓越的编码与推理性能",
+      "高性价比，降低开发成本"
+    ],
+    "whyChoose": {
+      "en": "Best value for long-context, autonomous coding and reasoning tasks in emerging markets.",
+      "ru": "Лучшее соотношение цены и качества для длинных контекстов, автономного кодирования и задач логического вывода на развивающихся рынках.",
+      "tr": "Gelişmekte olan pazarlarda uzun bağlam, otonom kodlama ve mantıksal çıkarım görevleri için en iyi değer."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "z-ai/glm-5v-turbo",
+    "name": "Z.ai: GLM 5V Turbo",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "ZP",
+    "description": "GLM-5V-Turbo 是智谱首个原生多模态智能体基座模型，专为视觉编程和智能体任务打造。它原生支持图像、视频和文本输入，擅长长期规划与复杂编码，能以自然语言理解并操作屏幕内容。对于需要构建多模态 AI 应用的开发者来说，这意味着更少的集成工作、更高的任务完成率。适合构建自动化测试、视觉助手、智能客服等场景。",
+    "descriptions": {
+      "zh": "GLM-5V-Turbo 是智谱首个原生多模态智能体基座模型，专为视觉编程和智能体任务打造。它原生支持图像、视频和文本输入，擅长长期规划与复杂编码，能以自然语言理解并操作屏幕内容。对于需要构建多模态 AI 应用的开发者来说，这意味着更少的集成工作、更高的任务完成率。适合构建自动化测试、视觉助手、智能客服等场景。",
+      "en": "GLM-5V-Turbo is Z.ai’s first native multimodal agent foundation model, designed for vision-based coding and agent-driven tasks. It natively handles image, video, and text inputs, excelling at long-horizon planning and complex coding. For developers in emerging markets, this means less integration effort and higher task completion rates. Ideal for building UI automation, visual assistants, and intelligent agents that understand and act on screen content.",
+      "ru": "GLM-5V-Turbo — первая нативная мультимодальная агентная фундаментальная модель от Z.ai, созданная для визуального программирования и агентных задач. Она изначально поддерживает ввод изображений, видео и текста, отлично справляется с долгосрочным планированием и сложным кодированием. Для разработчиков из Центральной Азии это означает меньше интеграционных усилий и более высокую эффективность выполнения задач. Идеально подходит для создания автоматизации интерфейсов, визуальных ассистентов и интеллектуальных агентов.",
+      "tr": "GLM-5V-Turbo, Z.ai'nin görsel kodlama ve ajan odaklı görevler için tasarlanmış ilk yerel çok modlu ajan temel modelidir. Görüntü, video ve metin girdilerini doğal olarak işler, uzun vadeli planlama ve karmaşık kodlamada mükemmeldir. Gelişmekte olan pazarlardaki geliştiriciler için daha az entegrasyon çabası ve daha yüksek görev tamamlama oranı anlamına gelir. UI otomasyonu, görsel asistanlar ve ekran içeriğini anlayıp hareket eden akıllı ajanlar oluşturmak için idealdir."
+    },
+    "inputPrice": "$1.20",
+    "outputPrice": "$4.00",
+    "contextWindow": "202K",
+    "maxTokens": "131K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "智能体能力",
+      "函数调用",
+      "流式输出",
+      "长文档处理"
+    ],
+    "useCases": [
+      "UI自动化测试和屏幕操作",
+      "视觉助手与多模态智能客服",
+      "复杂编程和自动化工作流"
+    ],
+    "strengths": [
+      "原生多模态智能体，原生支持图像、视频和文本",
+      "擅长长期规划和复杂编码任务",
+      "减少集成工作，提高任务完成率"
+    ],
+    "whyChoose": {
+      "en": "Choose GLM-5V-Turbo for its native multimodal agent capabilities that simplify vision-based automation and complex coding.",
+      "ru": "Выберите GLM-5V-Turbo за его нативные мультимодальные агентные возможности, которые упрощают визуальную автоматизацию и сложное кодирование.",
+      "tr": "GLM-5V-Turbo'yu, görsel tabanlı otomasyonu ve karmaşık kodlamayı basitleştiren yerel çok modlu ajan yetenekleri için seçin."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k2",
+    "name": "MoonshotAI: Kimi K2 0711",
+    "provider": "月之暗面 Moonshot",
+    "providerLogo": "MK",
+    "description": "Kimi K2 是月之暗面推出的新一代 MoE 大语言模型，总参数量达 1 万亿，每次推理仅激活 320 亿参数，兼顾高性能与低延迟。它拥有 131K 超长上下文窗口，能一次性处理整本书或复杂代码库，特别适合需要深度理解与推理的任务。无论是构建智能客服、代码助手还是多轮对话应用，Kimi K2 都能以极低的成本（输入仅 $0.57/百万 token）提供卓越表现。为追求效率与质量的开发者而生。",
+    "descriptions": {
+      "zh": "Kimi K2 是月之暗面推出的新一代 MoE 大语言模型，总参数量达 1 万亿，每次推理仅激活 320 亿参数，兼顾高性能与低延迟。它拥有 131K 超长上下文窗口，能一次性处理整本书或复杂代码库，特别适合需要深度理解与推理的任务。无论是构建智能客服、代码助手还是多轮对话应用，Kimi K2 都能以极低的成本（输入仅 $0.57/百万 token）提供卓越表现。为追求效率与质量的开发者而生。",
+      "en": "Kimi K2 is the latest MoE large language model from Moonshot AI, with 1 trillion total parameters and only 32 billion activated per forward pass—delivering top-tier performance at minimal cost. Its 131K context window handles entire codebases or lengthy documents in one go, making it ideal for complex reasoning, code generation, and multi-turn conversations. With input pricing at just $0.57 per million tokens, it's built for developers who demand both power and affordability. Available now via API with streaming and function calling support.",
+      "ru": "Kimi K2 — это новейшая MoE-модель от Moonshot AI с 1 триллионом параметров, из которых активируется только 32 миллиарда за один проход. Благодаря контекстному окну в 131K токенов она обрабатывает целые кодовые базы и длинные документы за один раз, идеально подходя для сложных рассуждений, генерации кода и многошаговых диалогов. Стоимость входа — всего $0.57 за миллион токенов. Разработана для разработчиков, которым нужны мощь и доступность.",
+      "tr": "Kimi K2, Moonshot AI'nin en yeni MoE dil modelidir. Toplam 1 trilyon parametreye sahip olup her ileri geçişte yalnızca 32 milyar parametreyi etkinleştirir. 131K tokenlik bağlam penceresiyle tüm kod tabanlarını veya uzun belgeleri tek seferde işler; karmaşık akıl yürütme, kod üretimi ve çok turlu sohbetler için idealdir. Giriş fiyatı milyon token başına yalnızca $0.57. Hem güç hem de uygun fiyat isteyen geliştiriciler için tasarlanmıştır."
+    },
+    "inputPrice": "$0.57",
+    "outputPrice": "$2.30",
+    "contextWindow": "131K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "MoE 架构",
+      "131K 上下文",
+      "函数调用",
+      "流式输出",
+      "低价格"
+    ],
+    "useCases": [
+      "复杂代码生成与调试",
+      "长文档理解与问答",
+      "多轮智能对话与客服系统"
+    ],
+    "strengths": [
+      "超长上下文，131K token 一次性处理",
+      "万亿参数 MoE，激活参数仅 320 亿，高效低成本",
+      "支持流式输出与函数调用，灵活集成"
+    ],
+    "whyChoose": {
+      "en": "Unmatched efficiency with 1T MoE, 131K context, and ultra-low cost—ideal for complex tasks.",
+      "ru": "Непревзойденная эффективность: 1T MoE, контекст 131K и сверхнизкая стоимость — идеально для сложных задач.",
+      "tr": "1T MoE, 131K bağlam ve ultra düşük maliyetle benzersiz verimlilik—karmaşık görevler için ideal."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"moonshotai/kimi-k2\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"moonshotai/kimi-k2\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"moonshotai/kimi-k2\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k2-0905",
+    "name": "MoonshotAI: Kimi K2 0905",
+    "provider": "月之暗面 Moonshot",
+    "providerLogo": "MK",
+    "description": "Kimi K2 0905 是月之暗面最新的大规模 MoE 模型，拥有 1 万亿参数，以惊人的 262K 超长上下文和极低延迟著称。它专为复杂推理、长文档分析和精准结构化输出而生，特别适合需要处理海量信息、执行函数调用的高要求场景。无论是构建智能客服、代码助手还是企业级 AI 应用，Kimi K2 都能以极低成本提供顶级性能。面向东欧、中亚开发者，它让你的应用在数据密集任务中快人一步。",
+    "descriptions": {
+      "zh": "Kimi K2 0905 是月之暗面最新的大规模 MoE 模型，拥有 1 万亿参数，以惊人的 262K 超长上下文和极低延迟著称。它专为复杂推理、长文档分析和精准结构化输出而生，特别适合需要处理海量信息、执行函数调用的高要求场景。无论是构建智能客服、代码助手还是企业级 AI 应用，Kimi K2 都能以极低成本提供顶级性能。面向东欧、中亚开发者，它让你的应用在数据密集任务中快人一步。",
+      "en": "Kimi K2 0905 is Moonshot AI’s latest large-scale MoE model with 1 trillion parameters, offering an enormous 262K context window and blazing-fast inference. It excels at complex reasoning, long-document analysis, and precise structured outputs—perfect for demanding tasks like function calling and JSON mode. With industry-leading pricing at $0.60/M input tokens, it delivers top-tier performance at a fraction of the cost. Built for developers in Armenia, Georgia, and Central Asia, Kimi K2 empowers your apps to handle data-heavy workloads with ease. Choose it when you need speed, scale, and accuracy without breaking the bank.",
+      "ru": "Kimi K2 0905 — это последняя крупномасштабная MoE-модель от Moonshot AI с 1 триллионом параметров, отличающаяся огромным контекстным окном в 262K и высокой скоростью работы. Она превосходно справляется со сложными рассуждениями, анализом длинных документов и точным структурированным выводом — идеально для задач, требующих вызова функций и работы в JSON-режиме. По цене всего $0,60 за миллион входных токенов эта модель обеспечивает производительность топ-уровня по доступной цене. Для разработчиков из Казахстана и Центральной Азии Kimi K2 — это выбор, когда нужны скорость, масштаб и точность без лишних затрат.",
+      "tr": "Kimi K2 0905, Moonshot AI'nin 1 trilyon parametreli en yeni büyük ölçekli MoE modelidir. 262K geniş bağlam penceresi ve yüksek hızıyla karmaşık akıl yürütme, uzun belge analizi ve hassas yapılandırılmış çıktılar için idealdir. Giriş tokenları başına yalnızca $0,60 fiyatla üst düzey performans sunar. Türkiye'deki geliştiriciler için Kimi K2, veri yoğun iş yüklerini kolaylıkla yönetmenizi sağlar. Hız, ölçek ve doğruluk gerektiğinde tercih edin."
+    },
+    "inputPrice": "$0.60",
+    "outputPrice": "$2.50",
+    "contextWindow": "262K",
+    "maxTokens": "262K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "函数调用",
+      "JSON 模式",
+      "结构化输出",
+      "流式输出",
+      "超长上下文"
+    ],
+    "useCases": [
+      "长文档问答与摘要",
+      "复杂数据提取与结构化输出",
+      "智能客服与对话系统",
+      "代码生成与辅助编程",
+      "企业级知识库检索与分析"
+    ],
+    "strengths": [
+      "1万亿参数 MoE 架构，性能强劲",
+      "262K 超长上下文，处理海量文本无压力",
+      "极低延迟推理，适合实时应用",
+      "支持函数调用与结构化输出，开发友好",
+      "性价比极高，输入仅 $0.60/百万 token"
+    ],
+    "whyChoose": {
+      "en": "Unmatched context length and speed at the lowest price—ideal for data-heavy apps in emerging markets.",
+      "ru": "Непревзойденная длина контекста и скорость по самой низкой цене — идеально для приложений с большими данными на развивающихся рынках.",
+      "tr": "En düşük fiyata eşsiz bağlam uzunluğu ve hız—gelişmekte olan pazarlardaki veri yoğun uygulamalar için ideal."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"moonshotai/kimi-k2-0905\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"moonshotai/kimi-k2-0905\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"moonshotai/kimi-k2-0905\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k2-thinking",
+    "name": "MoonshotAI: Kimi K2 Thinking",
+    "provider": "月之暗面 Moonshot",
+    "providerLogo": "MK",
+    "description": "Kimi K2 Thinking 是月之暗面最新推出的深度推理模型，专为复杂任务而生。基于万亿参数 MoE 架构，它能在长上下文场景中保持连贯思考，精准执行函数调用和结构化输出。无论是构建智能代理、处理海量文档，还是需要分步推理的难题，K2 Thinking 都能以极低成本提供卓越表现。适合追求高性价比和可靠推理的开发者。",
+    "descriptions": {
+      "zh": "Kimi K2 Thinking 是月之暗面最新推出的深度推理模型，专为复杂任务而生。基于万亿参数 MoE 架构，它能在长上下文场景中保持连贯思考，精准执行函数调用和结构化输出。无论是构建智能代理、处理海量文档，还是需要分步推理的难题，K2 Thinking 都能以极低成本提供卓越表现。适合追求高性价比和可靠推理的开发者。",
+      "en": "Kimi K2 Thinking is Moonshot AI's latest reasoning powerhouse, built for complex, multi-step tasks. With a 262K context window and advanced tool-use capabilities, it excels at agentic workflows, deep document analysis, and structured outputs—all at a fraction of the cost. Designed for developers who need reliable, long-horizon reasoning without breaking the bank. Perfect for building intelligent agents, parsing large codebases, or solving logic-heavy problems in production.",
+      "ru": "Kimi K2 Thinking — новейшая модель рассуждений от Moonshot AI, созданная для сложных многоэтапных задач. Благодаря контекстному окну в 262K токенов и расширенным возможностям работы с инструментами, она отлично справляется с агентными сценариями, глубоким анализом документов и структурированным выводом — и всё это по доступной цене. Идеально подходит для разработчиков, которым нужно надёжное долгосрочное рассуждение без лишних затрат.",
+      "tr": "Kimi K2 Thinking, Moonshot AI'nin karmaşık, çok adımlı görevler için tasarlanmış en yeni akıl yürütme modelidir. 262K token bağlam penceresi ve gelişmiş araç kullanımı sayesinde ajan iş akışları, derin doküman analizi ve yapılandırılmış çıktılarda mükemmeldir—tüm bunları düşük maliyetle sunar. Bütçeyi zorlamadan güvenilir, uzun vadeli akıl yürütme arayan geliştiriciler için idealdir."
+    },
+    "inputPrice": "$0.60",
+    "outputPrice": "$2.50",
+    "contextWindow": "262K",
+    "maxTokens": "262K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "深度思考",
+      "函数调用",
+      "结构化输出",
+      "超长上下文",
+      "流式输出"
+    ],
+    "useCases": [
+      "构建智能代理和自动化工作流",
+      "大规模文档分析与知识提取",
+      "复杂代码库理解和重构",
+      "需要分步推理的学术或商业问题"
+    ],
+    "strengths": [
+      "万亿参数MoE架构，推理能力强",
+      "262K超长上下文，处理海量信息",
+      "支持函数调用和结构化输出，适合工程化部署",
+      "深度思考模式，解决复杂逻辑问题",
+      "性价比极高，输入仅$0.60/百万token"
+    ],
+    "whyChoose": {
+      "en": "Best bang for your buck for long-horizon reasoning with tool use.",
+      "ru": "Лучшее соотношение цены и качества для долгосрочных рассуждений с использованием инструментов.",
+      "tr": "Araç kullanımıyla uzun vadeli akıl yürütme için en iyi fiyat-performans oranı."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"moonshotai/kimi-k2-thinking\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"moonshotai/kimi-k2-thinking\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"moonshotai/kimi-k2-thinking\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k2.5",
+    "name": "MoonshotAI: Kimi K2.5",
+    "provider": "月之暗面 Moonshot",
+    "providerLogo": "MK",
+    "description": "Kimi K2.5 是月之暗面推出的原生多模态模型，专为视觉编码与自主智能体集群设计。它不仅能理解图文混合输入，还能像人类一样“边看边想”，在复杂逻辑推理和代码生成任务中表现惊艳。无论是构建智能客服、自动化工作流，还是处理超长文档（如代码库或合同），Kimi K2.5 都能以极低的成本提供接近人类专家的输出质量。适合追求高性价比、需要深度思考与多模态能力的开发团队。",
+    "descriptions": {
+      "zh": "Kimi K2.5 是月之暗面推出的原生多模态模型，专为视觉编码与自主智能体集群设计。它不仅能理解图文混合输入，还能像人类一样“边看边想”，在复杂逻辑推理和代码生成任务中表现惊艳。无论是构建智能客服、自动化工作流，还是处理超长文档（如代码库或合同），Kimi K2.5 都能以极低的成本提供接近人类专家的输出质量。适合追求高性价比、需要深度思考与多模态能力的开发团队。",
+      "en": "Kimi K2.5 is Moonshot AI's next-generation multimodal model, engineered for visual coding and autonomous agent swarms. It processes both text and images, then reasons step-by-step to deliver human-like intelligence in code generation, logical analysis, and long-context tasks. With a 262K context window and aggressive pricing, it's built for developers who need deep reasoning without breaking the bank. Ideal for building AI agents, automating complex workflows, or analyzing massive documents—all at a fraction of the cost of competing models.",
+      "ru": "Kimi K2.5 — это нативная мультимодальная модель от Moonshot AI, созданная для визуального кодирования и автономных агентных роев. Она обрабатывает текст и изображения, затем шаг за шагом рассуждает, обеспечивая человеческий уровень интеллекта в генерации кода, логическом анализе и работе с длинным контекстом. Окно контекста в 262K токенов и доступная цена делают её идеальным выбором для разработчиков, которым нужны глубокие рассуждения без высоких затрат. Подходит для создания AI-агентов, автоматизации сложных рабочих процессов и анализа больших документов.",
+      "tr": "Kimi K2.5, Moonshot AI'nin görsel kodlama ve otonom ajan sürüleri için tasarlanmış yerel çok modlu modelidir. Metin ve görselleri işler, ardından adım adım akıl yürüterek kod üretimi, mantıksal analiz ve uzun bağlam görevlerinde insan benzeri zeka sunar. 262K token bağlam penceresi ve uygun fiyatlandırması sayesinde, derin düşünme yeteneğine ihtiyaç duyan ancak bütçesini zorlamak istemeyen geliştiriciler için idealdir. AI ajanları oluşturmak, karmaşık iş akışlarını otomatikleştirmek veya büyük belgeleri analiz etmek için mükemmeldir."
+    },
+    "inputPrice": "$0.40",
+    "outputPrice": "$1.90",
+    "contextWindow": "262K",
+    "maxTokens": "262K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "深度思考",
+      "超长上下文",
+      "函数调用",
+      "结构化输出"
+    ],
+    "useCases": [
+      "构建自主智能体（Agent）与工作流自动化",
+      "复杂代码生成与视觉编程任务",
+      "超长文档分析（合同、论文、代码库）"
+    ],
+    "strengths": [
+      "原生多模态，图文混合理解与生成",
+      "262K超长上下文，可处理整本代码库或合同",
+      "深度思考能力，复杂逻辑推理与代码生成领先",
+      "极低价格，高性价比适合大规模部署"
+    ],
+    "whyChoose": {
+      "en": "Best value for deep reasoning and multimodal tasks with a massive context window.",
+      "ru": "Лучшее соотношение цены и качества для глубоких рассуждений и мультимодальных задач с огромным окном контекста.",
+      "tr": "Derin düşünme ve çok modlu görevler için dev bağlam penceresiyle en iyi fiyat-performans."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"moonshotai/kimi-k2.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"moonshotai/kimi-k2.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"moonshotai/kimi-k2.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k2.6",
+    "name": "MoonshotAI: Kimi K2.6",
+    "provider": "月之暗面 Moonshot",
+    "providerLogo": "MK",
+    "description": "Kimi K2.6 是月之暗面推出的新一代多模态模型，专为长周期编程、UI/UX 生成和多智能体编排设计。它擅长处理 Python、Rust、Go 等语言的复杂端到端任务，让开发者从构思到部署一气呵成。无论是构建自动化工具、生成交互界面，还是协调多个 AI 代理协同工作，Kimi K2.6 都能以极低的成本提供高效、可靠的输出。特别适合东欧、中亚地区的技术团队，助力产品快速迭代。",
+    "descriptions": {
+      "zh": "Kimi K2.6 是月之暗面推出的新一代多模态模型，专为长周期编程、UI/UX 生成和多智能体编排设计。它擅长处理 Python、Rust、Go 等语言的复杂端到端任务，让开发者从构思到部署一气呵成。无论是构建自动化工具、生成交互界面，还是协调多个 AI 代理协同工作，Kimi K2.6 都能以极低的成本提供高效、可靠的输出。特别适合东欧、中亚地区的技术团队，助力产品快速迭代。",
+      "en": "Kimi K2.6 is Moonshot AI's next-gen multimodal model built for long-horizon coding, UI/UX generation, and multi-agent orchestration. It excels at complex end-to-end tasks in Python, Rust, and Go, turning ideas into deployed solutions seamlessly. Whether you're building automation tools, generating interactive interfaces, or coordinating multiple AI agents, Kimi K2.6 delivers high-quality results at a fraction of the cost. Designed for developers in Armenia, Georgia, and Central Asia—accelerate your product development with cutting-edge AI.",
+      "ru": "Kimi K2.6 — это новейшая мультимодальная модель от Moonshot AI, созданная для длительного программирования, генерации UI/UX и оркестрации нескольких агентов. Она отлично справляется со сложными сквозными задачами на Python, Rust и Go, превращая идеи в готовые решения. Будь то создание инструментов автоматизации, генерация интерактивных интерфейсов или координация нескольких ИИ-агентов, Kimi K2.6 обеспечивает высокое качество при низкой стоимости. Разработана для разработчиков из Казахстана и Центральной Азии — ускорьте разработку продуктов с помощью передового ИИ.",
+      "tr": "Kimi K2.6, Moonshot AI'nin uzun vadeli kodlama, UI/UX oluşturma ve çoklu ajan orkestrasyonu için tasarlanmış yeni nesil çok modlu modelidir. Python, Rust ve Go'da karmaşık uçtan uca görevlerde başarılıdır, fikirleri sorunsuz bir şekilde dağıtılmış çözümlere dönüştürür. İster otomasyon araçları oluşturun, ister etkileşimli arayüzler üretin veya birden fazla AI ajanını koordine edin, Kimi K2.6 düşük maliyetle yüksek kaliteli sonuçlar sunar. Türkiye'deki geliştiriciler için tasarlandı—ürün geliştirmenizi son teknoloji yapay zeka ile hızlandırın."
+    },
+    "inputPrice": "$0.68",
+    "outputPrice": "$3.42",
+    "contextWindow": "262K",
+    "maxTokens": "262K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "函数调用",
+      "JSON模式",
+      "深度思考",
+      "流式输出",
+      "结构化输出"
+    ],
+    "useCases": [
+      "自动化工具开发",
+      "UI/UX 界面生成",
+      "多代理系统构建"
+    ],
+    "strengths": [
+      "超长上下文窗口，支持复杂编程任务",
+      "多模态能力，可处理图文混合输入",
+      "端到端代码生成，从构思到部署",
+      "多智能体编排，协调多个AI协同工作"
+    ],
+    "whyChoose": {
+      "en": "Kimi K2.6 delivers enterprise-grade coding and multimodal AI at a fraction of the cost.",
+      "ru": "Kimi K2.6 обеспечивает корпоративное качество кодирования и мультимодального ИИ по низкой цене.",
+      "tr": "Kimi K2.6, düşük maliyetle kurumsal düzeyde kodlama ve çok modlu yapay zeka sunar."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"moonshotai/kimi-k2.6\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"moonshotai/kimi-k2.6\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"moonshotai/kimi-k2.6\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k2.6:free",
+    "name": "MoonshotAI: Kimi K2.6 (free)",
+    "provider": "月之暗面 Moonshot",
+    "providerLogo": "MK",
+    "description": "Kimi K2.6 是月之暗面推出的新一代多模态模型，专为长周期编程、UI/UX 生成和多智能体编排设计。它支持 262K 超长上下文，可处理复杂端到端编码任务，覆盖 Python、Rust 和 Go 等语言。深度思考与函数调用能力让它在自动化工作流和智能代理场景中表现出色。适合需要高效完成大型项目、追求前沿 AI 能力的开发者团队。",
+    "descriptions": {
+      "zh": "Kimi K2.6 是月之暗面推出的新一代多模态模型，专为长周期编程、UI/UX 生成和多智能体编排设计。它支持 262K 超长上下文，可处理复杂端到端编码任务，覆盖 Python、Rust 和 Go 等语言。深度思考与函数调用能力让它在自动化工作流和智能代理场景中表现出色。适合需要高效完成大型项目、追求前沿 AI 能力的开发者团队。",
+      "en": "Kimi K2.6 is Moonshot AI's next-generation multimodal model, built for long-horizon coding, UI/UX generation, and multi-agent orchestration. With a 262K context window and deep reasoning, it handles complex end-to-end tasks across Python, Rust, and Go. It's free, fast, and designed for developers who need to automate workflows, build intelligent agents, or generate production-ready code. Perfect for teams in emerging markets looking to ship faster and smarter.",
+      "ru": "Kimi K2.6 — это мультимодальная модель нового поколения от Moonshot AI, созданная для длительного программирования, генерации UI/UX и оркестрации мультиагентов. С контекстным окном 262K и глубоким мышлением она справляется со сложными сквозными задачами на Python, Rust и Go. Бесплатно, быстро, идеально для разработчиков, автоматизирующих рабочие процессы, создающих интеллектуальных агентов или генерирующих готовый к продакшену код. Отличный выбор для команд в развивающихся рынках.",
+      "tr": "Kimi K2.6, Moonshot AI'nin yeni nesil multimodal modelidir; uzun vadeli kodlama, UI/UX oluşturma ve çoklu ajan orkestrasyonu için tasarlanmıştır. 262K bağlam penceresi ve derin düşünme yeteneği ile Python, Rust ve Go dillerinde karmaşık uçtan uca görevleri halleder. Ücretsiz, hızlı ve iş akışlarını otomatikleştirmek, akıllı ajanlar oluşturmak veya üretime hazır kod üretmek isteyen geliştiriciler için idealdir. Gelişmekte olan pazarlardaki ekipler için mükemmel bir seçim."
+    },
+    "inputPrice": "免费",
+    "outputPrice": "免费",
+    "contextWindow": "262K",
+    "maxTokens": "—",
+    "status": "available",
+    "category": "code",
+    "features": [
+      "函数调用",
+      "深度思考",
+      "流式输出",
+      "多模态理解",
+      "超长上下文"
+    ],
+    "useCases": [
+      "长期编程项目与代码生成",
+      "UI/UX 自动化生成与设计",
+      "多智能体系统搭建与编排"
+    ],
+    "strengths": [
+      "超长上下文窗口，支持复杂项目级编码",
+      "深度思考与函数调用能力，适合智能代理编排",
+      "免费使用，降低开发成本"
+    ],
+    "whyChoose": {
+      "en": "Free, powerful, and built for complex coding and multi-agent tasks — ideal for ambitious developers.",
+      "ru": "Бесплатно, мощно и создано для сложных задач кодирования и мультиагентов — идеально для амбициозных разработчиков.",
+      "tr": "Ücretsiz, güçlü ve karmaşık kodlama ile çoklu ajan görevleri için üretilmiş — hırslı geliştiriciler için ideal."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"moonshotai/kimi-k2.6:free\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"moonshotai/kimi-k2.6:free\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"moonshotai/kimi-k2.6:free\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "baidu/ernie-4.5-300b-a47b",
+    "name": "Baidu: ERNIE 4.5 300B A47B ",
+    "provider": "百度文心",
+    "providerLogo": "BD",
+    "description": "文心 ERNIE 4.5 是一款 300B 参数的 MoE 大模型，每次推理仅激活 47B 参数，兼顾高性能与低延迟。它拥有 131K 超长上下文，能处理复杂文档、多轮对话和长文本分析。价格极具竞争力——输入仅 $0.28/M tokens，输出 $1.10/M tokens。支持 JSON 模式和流式输出，适合构建智能客服、内容生成、代码辅助等应用。面向追求性价比的中高级开发者，在复杂推理和长上下文场景中表现出色。",
+    "descriptions": {
+      "zh": "文心 ERNIE 4.5 是一款 300B 参数的 MoE 大模型，每次推理仅激活 47B 参数，兼顾高性能与低延迟。它拥有 131K 超长上下文，能处理复杂文档、多轮对话和长文本分析。价格极具竞争力——输入仅 $0.28/M tokens，输出 $1.10/M tokens。支持 JSON 模式和流式输出，适合构建智能客服、内容生成、代码辅助等应用。面向追求性价比的中高级开发者，在复杂推理和长上下文场景中表现出色。",
+      "en": "ERNIE 4.5 is Baidu's state-of-the-art MoE language model with 300B total parameters and 47B activated per token, delivering top-tier performance at low cost. With a 131K context window, it handles long documents, complex conversations, and deep analysis effortlessly. At just $0.28/M input tokens and $1.10/M output tokens, it's one of the most cost-effective models for production. Supports JSON mode and streaming. Ideal for developers building intelligent chatbots, content generation pipelines, or code assistants in Central Asia, the Caucasus, and beyond.",
+      "ru": "ERNIE 4.5 — это передовая языковая модель от Baidu на архитектуре MoE с 300B параметров, активируя лишь 47B на токен. Благодаря контекстному окну в 131K токенов, она отлично справляется с длинными документами, сложными диалогами и глубоким анализом. Цена — всего $0.28 за миллион входных токенов и $1.10 за выходные, что делает модель одной из самых экономичных для продакшена. Поддерживает JSON и стриминг. Идеально подходит разработчикам в Казахстане, Грузии и Центральной Азии для создания чат-ботов, генерации контента и ассистентов кода.",
+      "tr": "ERNIE 4.5, Baidu'nun 300B parametreli MoE dil modelidir ve her token için yalnızca 47B parametreyi aktifleştirerek yüksek performans ve düşük maliyet sunar. 131K token bağlam penceresiyle uzun belgeler, karmaşık diyaloglar ve derin analizler için idealdir. Giriş token'ları yalnızca $0.28/M, çıkış token'ları $1.10/M ile üretim için en uygun maliyetli modellerden biridir. JSON modu ve akış çıktısını destekler. Türkiye'deki geliştiriciler için akıllı sohbet botları, içerik üretimi ve kod asistanları oluşturmak için mükemmeldir."
+    },
+    "inputPrice": "$0.28",
+    "outputPrice": "$1.10",
+    "contextWindow": "131K",
+    "maxTokens": "12K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "JSON 模式",
+      "流式输出",
+      "频率惩罚",
+      "重复惩罚",
+      "种子控制"
+    ],
+    "useCases": [
+      "智能客服与多轮对话系统",
+      "长文档摘要与内容生成",
+      "代码辅助与自动补全"
+    ],
+    "strengths": [
+      "超长上下文 (131K)，轻松处理大型文档和复杂对话",
+      "高性价比，输入仅 $0.28/M tokens，输出 $1.10/M tokens",
+      "MoE 架构，47B 激活参数，兼顾性能与延迟"
+    ],
+    "whyChoose": {
+      "en": "Affordable MoE model with massive 131K context for complex tasks.",
+      "ru": "Доступная MoE-модель с огромным контекстом 131K для сложных задач.",
+      "tr": "Karmaşık görevler için dev 131K bağlamına sahip uygun fiyatlı MoE modeli."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"baidu/ernie-4.5-300b-a47b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"baidu/ernie-4.5-300b-a47b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"baidu/ernie-4.5-300b-a47b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "baidu/ernie-4.5-vl-28b-a3b",
+    "name": "Baidu: ERNIE 4.5 VL 28B A3B",
+    "provider": "百度文心",
+    "providerLogo": "BD",
+    "description": "百度文心ERNIE 4.5 VL是一款多模态MoE模型，总参数量28B，每token仅激活3B参数，在文本与视觉理解上表现卓越。它支持131K上下文窗口，集成深度思考与函数调用能力，输入价格低至$0.14/百万token，适合构建高性价比的AI应用。面向需要处理图像与文字混合任务的开发者，如文档分析、视觉问答等场景。",
+    "descriptions": {
+      "zh": "百度文心ERNIE 4.5 VL是一款多模态MoE模型，总参数量28B，每token仅激活3B参数，在文本与视觉理解上表现卓越。它支持131K上下文窗口，集成深度思考与函数调用能力，输入价格低至$0.14/百万token，适合构建高性价比的AI应用。面向需要处理图像与文字混合任务的开发者，如文档分析、视觉问答等场景。",
+      "en": "ERNIE 4.5 VL by Baidu is a multimodal MoE model that excels in both text and vision understanding with only 3B activated parameters per token. It features a 131K context window, deep reasoning, and function calling, all at an unbeatable price ($0.14/M input tokens). Perfect for developers building cost-efficient apps that need to process images and text together, from document analysis to visual Q&A.",
+      "ru": "ERNIE 4.5 VL от Baidu — это мультимодальная модель MoE, которая превосходно понимает текст и изображения, активируя всего 3B параметров на токен. Она поддерживает контекстное окно в 131K токенов, глубокое рассуждение и вызов функций, а стоимость составляет всего $0.14 за миллион входных токенов. Идеально подходит для разработчиков, создающих экономичные приложения для анализа документов, визуальных вопросов-ответов и других смешанных задач.",
+      "tr": "Baidu'nun ERNIE 4.5 VL modeli, token başına yalnızca 3B parametre aktive ederek metin ve görüntü anlamada üstün performans sunan çok modlu bir MoE modelidir. 131K token bağlam penceresi, derin düşünme ve fonksiyon çağırma özelliklerine sahiptir ve giriş token'ları milyon başına yalnızca $0.14 maliyetle sunulur. Belge analizi, görsel soru-cevap gibi görüntü ve metin karışımı görevler için uygun maliyetli uygulamalar geliştiren geliştiriciler için idealdir."
+    },
+    "inputPrice": "$0.14",
+    "outputPrice": "$0.56",
+    "contextWindow": "131K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "深度思考",
+      "函数调用",
+      "流式输出"
+    ],
+    "useCases": [
+      "文档分析与信息提取",
+      "视觉问答与图像描述",
+      "多模态对话与智能客服"
+    ],
+    "strengths": [
+      "极低成本实现多模态理解",
+      "每token仅激活3B参数，推理高效",
+      "支持深度思考与函数调用，灵活集成"
+    ],
+    "whyChoose": {
+      "en": "Best multimodal value with ultra-low cost and high efficiency.",
+      "ru": "Лучшее соотношение цены и качества для мультимодальных задач.",
+      "tr": "Çok düşük maliyetle en iyi çok modlu değer."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"baidu/ernie-4.5-vl-28b-a3b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"baidu/ernie-4.5-vl-28b-a3b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"baidu/ernie-4.5-vl-28b-a3b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  }
+]

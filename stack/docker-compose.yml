@@ -1,332 +1,343 @@
-# =============================================
-# AI API 聚合平台 — Docker Compose 编排
-# =============================================
-# 项目名: ai-api-agg
-# 快速启动: docker-compose -f stack/docker-compose.yml up -d
-
 name: ai-api-agg
-
 services:
-  # ========================================
-  # OneAPI 网关 — 蓝绿部署
-  # 注：仅保留蓝绿双实例，去除单实例 oneapi 服务（端口冲突）
-  # ========================================
   oneapi-blue:
     image: justsong/one-api:latest
     container_name: ai-api-agg-oneapi-blue
     restart: unless-stopped
     ports:
-      - "3001:3000"
+    - 3001:3000
     volumes:
-      - oneapi_blue_data:/data
+    - oneapi_blue_data:/data
     environment:
-      - TZ=Asia/Shanghai
+    - TZ=Asia/Shanghai
     env_file:
-      - ./oneapi/.env
+    - ./oneapi/.env
     networks:
-      - app-net
+    - app-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/status"]
+      test:
+      - CMD
+      - wget
+      - --no-verbose
+      - --tries=1
+      - --spider
+      - http://localhost:3000/api/status
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 15s
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
+        max-size: 10m
+        max-file: '3'
   oneapi-green:
     image: justsong/one-api:latest
     container_name: ai-api-agg-oneapi-green
     restart: unless-stopped
     ports:
-      - "3002:3000"
+    - 3002:3000
     volumes:
-      - oneapi_green_data:/data
+    - oneapi_green_data:/data
     environment:
-      - TZ=Asia/Shanghai
+    - TZ=Asia/Shanghai
     env_file:
-      - ./oneapi/.env
+    - ./oneapi/.env
     networks:
-      - app-net
+    - app-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/status"]
+      test:
+      - CMD
+      - wget
+      - --no-verbose
+      - --tries=1
+      - --spider
+      - http://localhost:3000/api/status
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 15s
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
-  # ========================================
-  # Go 后端 — 蓝绿部署
-  # ========================================
+        max-size: 10m
+        max-file: '3'
   backend-blue:
     image: ai-api-agg-backend:latest
     container_name: ai-api-agg-backend-blue
     restart: unless-stopped
     ports:
-      - "8082:8080"
+    - 8082:8080
     volumes:
-      - backend_data:/app/data
+    - backend_data:/app/data
     environment:
-      - PORT=8080
-      - DB_PATH=/app/data/app.db
-      - GIN_MODE=release
+    - PORT=8080
+    - DB_PATH=/app/data/app.db
+    - GIN_MODE=release
     env_file:
-      - ../backend/.env.development
-      - .env
+    - ../backend/.env.development
+    - .env
     networks:
-      - app-net
+    - app-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test:
+      - CMD
+      - wget
+      - --no-verbose
+      - --tries=1
+      - --spider
+      - http://localhost:8080/health
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
+        max-size: 10m
+        max-file: '3'
   backend-green:
     image: ai-api-agg-backend:latest
     container_name: ai-api-agg-backend-green
     restart: unless-stopped
     ports:
-      - "8083:8080"
+    - 8083:8080
     volumes:
-      - backend_data:/app/data
+    - backend_data:/app/data
     environment:
-      - PORT=8080
-      - DB_PATH=/app/data/app.db
-      - GIN_MODE=release
+    - PORT=8080
+    - DB_PATH=/app/data/app.db
+    - GIN_MODE=release
     env_file:
-      - ../backend/.env.development
-      - .env
+    - ../backend/.env.development
+    - .env
     networks:
-      - app-net
+    - app-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test:
+      - CMD
+      - wget
+      - --no-verbose
+      - --tries=1
+      - --spider
+      - http://localhost:8080/health
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
-  # ========================================
-  # HAProxy — 蓝绿负载均衡
-  # ========================================
+        max-size: 10m
+        max-file: '3'
   haproxy:
     image: haproxy:lts-alpine
     container_name: ai-api-agg-haproxy
     restart: unless-stopped
     ports:
-      - "8080:8080"
-      - "8081:8081"
+    - 8080:8080
+    - 8081:8081
     volumes:
-      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     networks:
-      - app-net
+    - app-net
     depends_on:
-      - oneapi-blue
-      - oneapi-green
-      - backend-blue
-      - backend-green
+    - oneapi-blue
+    - oneapi-green
+    - backend-blue
+    - backend-green
     healthcheck:
-      test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+      test:
+      - CMD
+      - haproxy
+      - -c
+      - -f
+      - /usr/local/etc/haproxy/haproxy.cfg
       interval: 30s
       timeout: 5s
       retries: 3
-
-  # ========================================
-  # Next.js 用户前端（挂载模式，避免构建上下文过大）
-  # ========================================
   frontend:
     image: node:22
     container_name: ai-api-agg-frontend
     restart: unless-stopped
-    # 仅内网访问，通过 Nginx 代理
-    expose:
-      - "3000"
     working_dir: /app
     volumes:
-      - ../frontend:/app
-    command: ["npx", "next", "start"]
+    - ../frontend:/app
+    command:
+    - npx
+    - next
+    - start
     environment:
-      - NODE_ENV=production
+    - NODE_ENV=production
+    - HOSTNAME=0.0.0.0
     networks:
-      - app-net
+    - app-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      test:
+      - CMD
+      - wget
+      - --no-verbose
+      - --tries=1
+      - --spider
+      - http://localhost:3000
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 30s
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
-  # ========================================
-  # Nginx — 反向代理 + 静态文件
-  # ========================================
+        max-size: 10m
+        max-file: '3'
+    ports:
+    - 3000:3000
   nginx:
     image: nginx:latest
     container_name: ai-api-agg-nginx
     restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
+    network_mode: host
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/docker-entrypoint.sh:/docker-entrypoint.sh:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-      - nginx_ssl_data:/etc/nginx/ssl
-      - /var/www/certbot:/var/www/certbot:ro
-      - nginx_logs:/var/log/nginx
-    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"]
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./nginx/conf.d:/etc/nginx/conf.d
+    - ./nginx/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+    - /etc/letsencrypt:/etc/letsencrypt:ro
+    - nginx_ssl_data:/etc/nginx/ssl
+    - /var/www/certbot:/var/www/certbot:ro
+    - nginx_logs:/var/log/nginx
+    entrypoint:
+    - /bin/sh
+    - /docker-entrypoint.sh
     environment:
-      - DOMAIN_NAME=${DOMAIN_NAME:-localhost}
-    networks:
-      - app-net
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
+    - DOMAIN_NAME=${DOMAIN_NAME:-localhost}
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
-  # ========================================
-  # 监控 — Prometheus + Grafana
-  # ========================================
+        max-size: 10m
+        max-file: '3'
   prometheus:
     image: prom/prometheus:latest
     container_name: ai-api-agg-prometheus
     restart: unless-stopped
     ports:
-      - "9090:9090"
+    - 9090:9090
     volumes:
-      - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - ../monitoring/alerting-rules.yml:/etc/prometheus/alerting-rules.yml:ro
-      - prometheus_data:/prometheus
+    - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    - ../monitoring/alerting-rules.yml:/etc/prometheus/alerting-rules.yml:ro
+    - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-      - '--web.console.templates=/usr/share/prometheus/consoles'
+    - --config.file=/etc/prometheus/prometheus.yml
+    - --storage.tsdb.path=/prometheus
+    - --web.console.libraries=/usr/share/prometheus/console_libraries
+    - --web.console.templates=/usr/share/prometheus/consoles
     networks:
-      - app-net
+    - app-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      test:
+      - CMD
+      - wget
+      - --no-verbose
+      - --tries=1
+      - --spider
+      - http://localhost:9090/-/healthy
       interval: 30s
       timeout: 10s
       retries: 3
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
+        max-size: 10m
+        max-file: '3'
   alertmanager:
     image: prom/alertmanager:latest
     container_name: ai-api-agg-alertmanager
     restart: unless-stopped
     ports:
-      - "9093:9093"
+    - 9093:9093
     volumes:
-      - ../monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
-      - alertmanager_data:/alertmanager
+    - ../monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    - alertmanager_data:/alertmanager
     command:
-      - '--config.file=/etc/alertmanager/alertmanager.yml'
-      - '--storage.path=/alertmanager'
+    - --config.file=/etc/alertmanager/alertmanager.yml
+    - --storage.path=/alertmanager
     networks:
-      - app-net
+    - app-net
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
+        max-size: 10m
+        max-file: '3'
   blackbox-exporter:
     image: prom/blackbox-exporter:latest
     container_name: ai-api-agg-blackbox
     restart: unless-stopped
     ports:
-      - "9115:9115"
+    - 9115:9115
     volumes:
-      - ../monitoring/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
+    - ../monitoring/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
     command:
-      - '--config.file=/etc/blackbox_exporter/config.yml'
+    - --config.file=/etc/blackbox_exporter/config.yml
     networks:
-      - app-net
+    - app-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9115/health"]
+      test:
+      - CMD
+      - wget
+      - --no-verbose
+      - --tries=1
+      - --spider
+      - http://localhost:9115/health
       interval: 30s
       timeout: 5s
       retries: 3
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
+        max-size: 10m
+        max-file: '3'
   grafana:
     image: grafana/grafana:latest
     container_name: ai-api-agg-grafana
     restart: unless-stopped
     ports:
-      - "3030:3000"
+    - 3030:3000
     volumes:
-      - grafana_data:/var/lib/grafana
-      - ../monitoring/grafana/provisioning/datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus.yml:ro
-      - ../monitoring/grafana/provisioning/dashboards/default.yml:/etc/grafana/provisioning/dashboards/default.yml:ro
-      - ../monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards/json:ro
+    - grafana_data:/var/lib/grafana
+    - ../monitoring/grafana/provisioning/datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus.yml:ro
+    - ../monitoring/grafana/provisioning/dashboards/default.yml:/etc/grafana/provisioning/dashboards/default.yml:ro
+    - ../monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards/json:ro
     environment:
-      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
-      - GF_SERVER_HTTP_PORT=3000
-      - GF_INSTALL_PLUGINS=grafana-clock-panel
+    - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+    - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+    - GF_SERVER_HTTP_PORT=3000
+    - GF_INSTALL_PLUGINS=grafana-clock-panel
     networks:
-      - app-net
+    - app-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      test:
+      - CMD
+      - wget
+      - --no-verbose
+      - --tries=1
+      - --spider
+      - http://localhost:3000/api/health
       interval: 30s
       timeout: 5s
       retries: 3
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
-
+        max-size: 10m
+        max-file: '3'
 networks:
   app-net:
     driver: bridge
-
 volumes:
-  oneapi_data:
-  oneapi_blue_data:
-  oneapi_green_data:
-  backend_data:
-  nginx_logs:
-  nginx_ssl_data:
-  prometheus_data:
-  alertmanager_data:
-  grafana_data:
+  oneapi_data: null
+  oneapi_blue_data: null
+  oneapi_green_data: null
+  backend_data: null
+  nginx_logs: null
+  nginx_ssl_data: null
+  prometheus_data: null
+  alertmanager_data: null
+  grafana_data: null

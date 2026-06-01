@@ -31,12 +31,22 @@ export default function BrandLogo({
       className="shrink-0"
     >
       <defs>
+        {/* Liquid flow gradient — animated */}
         <linearGradient id="brand-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#3B2FCE" />
-          <stop offset="100%" stopColor="#7B61FF" />
+          <stop offset="0%" stopColor="#3B2FCE">
+            <animate attributeName="stop-color" values="#3B2FCE;#7B61FF;#5B4FEE;#3B2FCE" dur="4s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="50%" stopColor="#7B61FF">
+            <animate attributeName="stop-color" values="#7B61FF;#3B2FCE;#A78BFA;#7B61FF" dur="4s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="100%" stopColor="#3B2FCE">
+            <animate attributeName="stop-color" values="#3B2FCE;#5B4FEE;#3B2FCE;#7B61FF" dur="4s" repeatCount="indefinite" />
+          </stop>
         </linearGradient>
         <radialGradient id="brand-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="rgba(123,97,255,0.4)" />
+          <stop offset="0%" stopColor="rgba(123,97,255,0.5)">
+            <animate attributeName="stop-color" values="rgba(123,97,255,0.5);rgba(59,47,206,0.3);rgba(167,139,250,0.4);rgba(123,97,255,0.5)" dur="3s" repeatCount="indefinite" />
+          </stop>
           <stop offset="100%" stopColor="rgba(59,47,206,0)" />
         </radialGradient>
       </defs>
@@ -71,11 +81,13 @@ export default function BrandLogo({
     <span className={`inline-flex items-center gap-2 ${className}`}>
       {icon}
       <span
-        className="text-lg font-bold tracking-tight whitespace-nowrap"
+        className="text-lg font-bold tracking-tight whitespace-nowrap animated-brand-text"
         style={{
-          background: "linear-gradient(135deg, #3B2FCE, #7B61FF)",
+          background: "linear-gradient(135deg, #3B2FCE, #7B61FF, #A78BFA, #3B2FCE)",
+          backgroundSize: "200% 200%",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
+          animation: "brand-liquid 3s ease-in-out infinite",
         }}
       >
         AiFlowHub

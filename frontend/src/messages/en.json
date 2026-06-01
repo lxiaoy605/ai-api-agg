@@ -26,6 +26,60 @@
     "closeMenu": "Close menu",
     "openMenu": "Open menu",
     "userMenu": "User menu",
+    "getStarted": "Get Started",
+    "profile": "Profile"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signUpTitle": "Create your account",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "passwordMinLength": "At least 6 characters",
+    "passwordsMatch": "Passwords match",
+    "passwordsMismatch": "Passwords do not match",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating your account...",
+    "invalidCredentials": "Invalid email or password. Please try again.",
+    "alreadyRegistered": "This email is already registered.",
+    "signInInstead": "Would you like to sign in instead?",
+    "networkError": "Something went wrong. Please try again later.",
+    "alreadySignedIn": "You are already signed in.",
+    "goToDashboard": "Go to Dashboard",
+    "forgotPassword": "Forgot password?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?"
+  },
+  "profile": {
+    "title": "Profile",
+    "email": "Email",
+    "memberSince": "Member since",
+    "accountType": "Account type",
+    "balance": "Balance",
+    "loadError": "Unable to load profile. Please try again."
+  },
+  "pricing": {
+    "title": "Simple, transparent pricing",
+    "freeTitle": "Free",
+    "freePrice": "$0",
+    "freePeriod": "/ month",
+    "freeDesc": "Get started with $5 free credit",
+    "freeFeature1": "Access to all models",
+    "freeFeature2": "API rate limits apply",
+    "starterTitle": "Pay as you go",
+    "starterPrice": "",
+    "starterPeriod": "",
+    "starterDesc": "Only pay for what you use",
+    "starterFeature1": "All models",
+    "starterFeature2": "Standard support",
+    "proTitle": "Volume discounts",
+    "proPrice": "",
+    "proPeriod": "",
+    "proDesc": "Contact us for custom pricing",
+    "proFeature1": "All models",
+    "proFeature2": "Priority support",
+    "proFeature3": "Custom rate limits",
+    "contactUs": "Contact us",
     "getStarted": "Get Started"
   },
   "nav": {
@@ -64,7 +118,7 @@
     "whyItem4": "USD & crypto friendly billing",
     "whyItem5": "Optimized routing and failover",
     "whyItem6": "No Chinese account required",
-    "footerDesc": "Chinese AI Models One Global API",
+    "footerDesc": "Chinese AI Models, One Simple API",
     "terms": "Terms",
     "privacy": "Privacy",
     "copyright": "© 2026 AiFlowHub. All rights reserved."
@@ -74,6 +128,7 @@
     "subtitle": "API platform overview",
     "activeChannels": "Active Channels",
     "totalChannels": "{count} channels",
+    "totalChannels_short": "Channels",
     "todayRequests": "Today's Requests",
     "vsYesterday": "vs yesterday",
     "remainingQuota": "Remaining Quota",
@@ -116,6 +171,7 @@
     "tableActions": "Actions",
     "copyKey": "Copy Key",
     "deleteKey": "Delete Key",
+    "delete": "Delete",
     "empty": "No API keys yet. Create one to get started.",
     "usageRequests": "Requests",
     "usageTokens": "Tokens",
@@ -128,7 +184,9 @@
     "createSaved": "I've saved it — close",
     "deleteTitle": "Delete API Key",
     "deleteConfirm": "Are you sure you want to delete \"{name}\"?",
-    "deleteWarning": "This cannot be undone. Applications using this key will lose access immediately."
+    "deleteWarning": "This cannot be undone. Applications using this key will lose access immediately.",
+    "emptyTitle": "No API keys yet",
+    "emptyDesc": "Create your first key to start making API calls."
   },
   "models": {
     "title": "Models",
@@ -150,65 +208,147 @@
     "details": {
       "deepseek-v4-flash": {
         "description": "Fast and lightweight. Great for high-concurrency scenarios.",
-        "features": ["Function calling", "JSON mode", "Streaming", "High throughput"]
+        "features": [
+          "Function calling",
+          "JSON mode",
+          "Streaming",
+          "High throughput"
+        ]
       },
       "deepseek-v4-pro": {
         "description": "Premium reasoning model. Deep thinking mode for complex logic and code.",
-        "features": ["Deep reasoning", "Code generation", "Logic inference", "Long context", "Streaming"]
+        "features": [
+          "Deep reasoning",
+          "Code generation",
+          "Logic inference",
+          "Long context",
+          "Streaming"
+        ]
       },
       "glm-5_1": {
         "description": "Zhipu's latest flagship. Strong bilingual performance in Chinese and English.",
-        "features": ["Multilingual", "Function calling", "Tool use", "Long document", "Streaming"]
+        "features": [
+          "Multilingual",
+          "Function calling",
+          "Tool use",
+          "Long document",
+          "Streaming"
+        ]
       },
       "mimo-v2_5-pro": {
         "description": "Xiaomi's multimodal flagship. Text, image and audio understanding and generation.",
-        "features": ["Multimodal", "Image understanding", "Text generation", "Audio processing", "TTS"]
+        "features": [
+          "Multimodal",
+          "Image understanding",
+          "Text generation",
+          "Audio processing",
+          "TTS"
+        ]
       },
       "glm-4_5": {
         "description": "Zhipu GLM-4.5. Stable and cost-effective, ideal for production workloads.",
-        "features": ["Multilingual", "Function calling", "Streaming", "Budget-friendly"]
+        "features": [
+          "Multilingual",
+          "Function calling",
+          "Streaming",
+          "Budget-friendly"
+        ]
       },
       "glm-4_5-air": {
         "description": "Zhipu GLM-4.5 lightweight variant. Fast and efficient.",
-        "features": ["Fast responses", "Low cost", "Streaming", "High throughput"]
+        "features": [
+          "Fast responses",
+          "Low cost",
+          "Streaming",
+          "High throughput"
+        ]
       },
       "glm-4_6": {
         "description": "Zhipu GLM-4.6. Balanced performance for general-purpose tasks.",
-        "features": ["Multilingual", "Function calling", "Streaming", "Reliable"]
+        "features": [
+          "Multilingual",
+          "Function calling",
+          "Streaming",
+          "Reliable"
+        ]
       },
       "glm-4_7": {
         "description": "Zhipu GLM-4.7. Strong reasoning and multilingual support.",
-        "features": ["Multilingual", "Reasoning", "Function calling", "Streaming"]
+        "features": [
+          "Multilingual",
+          "Reasoning",
+          "Function calling",
+          "Streaming"
+        ]
       },
       "glm-4_7-flash": {
         "description": "Zhipu's free lightweight model. Great for prototyping and testing.",
-        "features": ["Free tier", "Fast responses", "Streaming"]
+        "features": [
+          "Free tier",
+          "Fast responses",
+          "Streaming"
+        ]
       },
       "glm-5-turbo": {
         "description": "Zhipu GLM-5 Turbo. High-speed variant of the GLM-5 flagship.",
-        "features": ["Fast responses", "Multilingual", "Function calling", "Streaming"]
+        "features": [
+          "Fast responses",
+          "Multilingual",
+          "Function calling",
+          "Streaming"
+        ]
       },
       "glm-5": {
         "description": "Zhipu GLM-5 flagship. Superior bilingual performance in Chinese and English.",
-        "features": ["Multilingual", "Function calling", "Tool use", "Long context", "Streaming"]
+        "features": [
+          "Multilingual",
+          "Function calling",
+          "Tool use",
+          "Long context",
+          "Streaming"
+        ]
       },
       "mimo-v2-flash": {
         "description": "Xiaomi's fastest and most cost-effective model. Great for high-concurrency.",
-        "features": ["Fast responses", "Low cost", "Streaming", "High throughput"]
+        "features": [
+          "Fast responses",
+          "Low cost",
+          "Streaming",
+          "High throughput"
+        ]
       },
       "mimo-v2-omni": {
         "description": "Xiaomi's omni model. Text, image and audio in one.",
-        "features": ["Multimodal", "Image understanding", "Audio processing", "Streaming"]
+        "features": [
+          "Multimodal",
+          "Image understanding",
+          "Audio processing",
+          "Streaming"
+        ]
       },
       "mimo-v2-pro": {
         "description": "Xiaomi's pro-tier model. Strong reasoning and coding.",
-        "features": ["Code generation", "Reasoning", "Function calling", "Streaming"]
+        "features": [
+          "Code generation",
+          "Reasoning",
+          "Function calling",
+          "Streaming"
+        ]
       },
       "mimo-v2_5": {
         "description": "Xiaomi's latest generation model. Balanced performance and cost.",
-        "features": ["Fast responses", "Function calling", "JSON mode", "Streaming"]
+        "features": [
+          "Fast responses",
+          "Function calling",
+          "JSON mode",
+          "Streaming"
+        ]
       }
-    }
+    },
+    "searchPlaceholder": "Search models by name, provider, feature...",
+    "features": "Features",
+    "useCases": "Use Cases",
+    "strengths": "Strengths"
   },
   "docs": {
     "title": "Docs",
@@ -317,7 +457,7 @@
     "payFailed": "Top up incomplete",
     "payFailedMsg": "Payment expired or was cancelled",
     "retryRecharge": "Try again",
-    "fallbackTitle": "Payment gateway is temporarily unavailable. Please send funds manually.",
+    "fallbackTitle": "Payment could not be processed. Please try again or contact support.",
     "fallbackStep1": "Send USDT on {network} to the address on the left",
     "fallbackStep2": "Include your user ID in the memo",
     "fallbackStep3": "Credit is added automatically within {time}",
@@ -339,7 +479,11 @@
     "erc20": "USDT-ERC20 (Ethereum)",
     "bep20": "USDT-BEP20 (BNB Chain)",
     "feeLabel": "Fee",
-    "confirmTimeLabel": "~{time} confirmation"
+    "confirmTimeLabel": "~{time} confirmation",
+    "cardTab": "Credit Card",
+    "usdtTab": "USDT",
+    "cardComingSoon": "Credit card payments coming soon",
+    "cardComingSoonDesc": "We're working on bringing you card payments. In the meantime, top up with USDT."
   },
   "usage": {
     "title": "Usage",
@@ -357,6 +501,7 @@
     "requests": "Requests",
     "tokens": "Tokens",
     "today": "Today",
+    "noData": "No data available",
     "last7d": "Last 7 days",
     "last30d": "Last 30 days",
     "requestCount": "Requests",

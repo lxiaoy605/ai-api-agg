@@ -52,7 +52,7 @@ type CurrencyItem struct {
 
 // PaymentInfo 支付信息（返回前端）
 type PaymentInfo struct {
-	PaymentID     int64   `json:"payment_id"`
+	PaymentID     string  `json:"payment_id"`
 	OrderID       string  `json:"order_id"`
 	Status        string  `json:"status"`
 	PayAddress    string  `json:"pay_address"`
@@ -98,10 +98,19 @@ func (h *Handler) CreatePayment(c *gin.Context) {
 	cancelURL := getEnvOrDefault("NOWPAYMENTS_CANCEL_URL", "")
 
 	// 调用 NOWPayments 创建支付
-	npResp, err := h.client.CreatePayment(priceAmount, payCurrency, orderID, description, ipnURL, successURL, cancelURL)
+	npResp, err := h.client.CreatePayment(&PaymentRequest{
+		PriceAmount:      priceAmount,
+		PriceCurrency:    "usd",
+		PayCurrency:      payCurrency,
+		OrderID:          orderID,
+		OrderDescription: description,
+		IPNCallbackURL:   ipnURL,
+		SuccessURL:       successURL,
+		CancelURL:        cancelURL,
+	})
 	if err != nil {
 		log.Printf("[支付] 创建支付失败: user=%d amount=%.2f err=%v", userID, priceAmount, err)
-		middleware.InternalError(c, "创建支付失败，请稍后重试")
+		middleware.InternalError(c, err.Error())
 		return
 	}
 
@@ -112,21 +121,20 @@ func (h *Handler) CreatePayment(c *gin.Context) {
 
 	// 写入 payment_log
 	now := time.Now().Unix()
-	paymentIDStr := strconv.FormatInt(npResp.PaymentID, 10)
 	_, dbErr := h.db.Exec(`
 		INSERT INTO payment_log (user_id, payment_id, provider, amount_cents, currency, tokens, bonus, status, memo, created_at, updated_at)
 		VALUES (?, ?, 'nowpayments', ?, 'USD', ?, ?, 'waiting', ?, ?, ?)`,
-		userID, paymentIDStr, req.AmountCents, totalTokens, bonus, orderID, now, now)
+		userID, npResp.PaymentID.String(), req.AmountCents, totalTokens, bonus, orderID, now, now)
 	if dbErr != nil {
 		log.Printf("[支付] 写入 payment_log 失败: %v", dbErr)
 	}
 
 	// 审计日志
-	audit.Log(h.db, "payment_create", fmt.Sprintf("user:%d", userID), paymentIDStr,
+	audit.Log(h.db, "payment_create", fmt.Sprintf("user:%d", userID), npResp.PaymentID.String(),
 		fmt.Sprintf("金额:$%.2f Token:%d 币种:%s 状态:%s", priceAmount, totalTokens, payCurrency, npResp.PaymentStatus), "")
 
 	middleware.Success(c, PaymentInfo{
-		PaymentID:   npResp.PaymentID,
+		PaymentID:   npResp.PaymentID.String(),
 		OrderID:     orderID,
 		Status:      npResp.PaymentStatus,
 		PayAddress:  npResp.PayAddress,
@@ -162,7 +170,7 @@ func (h *Handler) PaymentStatus(c *gin.Context) {
 	}
 
 	middleware.Success(c, gin.H{
-		"payment_id":     npResp.PaymentID,
+		"payment_id":     npResp.PaymentID.String(),
 		"order_id":       npResp.OrderID,
 		"status":         npResp.PaymentStatus,
 		"pay_address":    npResp.PayAddress,
@@ -219,7 +227,7 @@ func (h *Handler) Webhook(c *gin.Context) {
 
 	// 验证 IPN 签名
 	sigHeader := c.GetHeader("x-nowpayments-sig")
-	if !h.client.VerifyIPNSignature(body, sigHeader) {
+	if !h.client.VerifyIPN(body, sigHeader) {
 		log.Printf("[支付] IPN 签名验证失败")
 		c.JSON(400, gin.H{"error": "invalid signature"})
 		return
@@ -232,13 +240,76 @@ func (h *Handler) Webhook(c *gin.Context) {
 		return
 	}
 
-	log.Printf("[支付] IPN 回调: payment_id=%d order_id=%s status=%s",
-		ipnData.PaymentID, ipnData.OrderID, ipnData.PaymentStatus)
+	log.Printf("[支付] IPN 回调: payment_id=%s order_id=%s status=%s",
+		ipnData.PaymentID.String(), ipnData.OrderID, ipnData.PaymentStatus)
 
-	paymentIDStr := strconv.FormatInt(ipnData.PaymentID, 10)
-	h.tryCompletePayment(paymentIDStr, &ipnData)
+	h.tryCompletePayment(ipnData.PaymentID.String(), &ipnData)
 
 	c.JSON(200, gin.H{"status": "ok"})
+}
+
+// MinAmount GET /api/payment/min-amount（无需认证）
+func (h *Handler) MinAmount(c *gin.Context) {
+	currencyFrom := c.DefaultQuery("currency_from", "usd")
+	currencyTo := c.DefaultQuery("currency_to", "usdttrc20")
+
+	if h.client.apiKey != "" {
+		resp, err := h.client.GetMinAmount(currencyFrom, currencyTo)
+		if err == nil {
+			middleware.Success(c, gin.H{
+				"currency_from": resp.CurrencyFrom,
+				"currency_to":   resp.CurrencyTo,
+				"min_amount":    resp.MinAmount,
+			})
+			return
+		}
+		log.Printf("[支付] 获取最低金额失败: %v", err)
+	}
+
+	// Fallback 默认值
+	middleware.Success(c, gin.H{
+		"currency_from": currencyFrom,
+		"currency_to":   currencyTo,
+		"min_amount":    10.0,
+	})
+}
+
+// EstimateAmount GET /api/payment/estimate（无需认证）
+func (h *Handler) EstimateAmount(c *gin.Context) {
+	amountStr := c.Query("amount")
+	if amountStr == "" {
+		middleware.BadRequest(c, "缺少 amount 参数")
+		return
+	}
+
+	amount, err := strconv.ParseFloat(amountStr, 64)
+	if err != nil || amount <= 0 {
+		middleware.BadRequest(c, "amount 参数无效")
+		return
+	}
+
+	currencyFrom := c.DefaultQuery("currency_from", "usd")
+	currencyTo := c.DefaultQuery("currency_to", "usdttrc20")
+
+	if h.client.apiKey != "" {
+		resp, err := h.client.GetEstimate(amount, currencyFrom, currencyTo)
+		if err == nil {
+			middleware.Success(c, gin.H{
+				"currency_from":    resp.CurrencyFrom,
+				"currency_to":      resp.CurrencyTo,
+				"estimated_amount": resp.EstimatedAmount,
+			})
+			return
+		}
+		log.Printf("[支付] 获取估算金额失败: %v", err)
+	}
+
+	// Fallback：以 amount 作为默认值
+	middleware.Success(c, gin.H{
+		"currency_from":    currencyFrom,
+		"currency_to":      currencyTo,
+		"estimated_amount": amount,
+	})
 }
 
 // ========== 内部方法 ==========

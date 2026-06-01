@@ -1,0 +1,702 @@
+[
+  {
+    "id": "baidu/ernie-4.5-vl-424b-a47b",
+    "name": "Baidu: ERNIE 4.5 VL 424B A47B ",
+    "provider": "百度文心",
+    "providerLogo": "BD",
+    "description": "百度文心ERNIE-4.5-VL-424B-A47B是新一代多模态MoE模型，支持图文混合输入，精准理解复杂场景。131K超大上下文窗口，深度思考与流式输出兼备，适合构建智能客服、文档分析、内容生成等应用。价格仅为同类模型的几分之一，高性价比之选。",
+    "descriptions": {
+      "zh": "百度文心ERNIE-4.5-VL-424B-A47B是新一代多模态MoE模型，支持图文混合输入，精准理解复杂场景。131K超大上下文窗口，深度思考与流式输出兼备，适合构建智能客服、文档分析、内容生成等应用。价格仅为同类模型的几分之一，高性价比之选。",
+      "en": "Baidu ERNIE-4.5-VL-424B-A47B is a cutting-edge multimodal MoE model that processes both text and images to generate accurate text outputs. With a massive 131K context window and deep reasoning capabilities, it excels at complex tasks like document analysis, visual question answering, and content generation. Cost-effective pricing makes it ideal for startups and enterprises building intelligent applications in emerging markets.",
+      "ru": "Baidu ERNIE-4.5-VL-424B-A47B — это современная мультимодальная модель MoE, которая обрабатывает текст и изображения для создания точных текстовых ответов. Огромное контекстное окно в 131K и возможности глубокого мышления позволяют эффективно решать сложные задачи: анализ документов, ответы на вопросы по изображениям и генерацию контента. Доступная цена делает её идеальным выбором для стартапов и компаний, создающих интеллектуальные приложения.",
+      "tr": "Baidu ERNIE-4.5-VL-424B-A47B, hem metin hem de görselleri işleyerek doğru metin çıktıları üreten son teknoloji çok modlu bir MoE modelidir. 131K bağlam penceresi ve derin düşünme yetenekleri sayesinde belge analizi, görsel soru yanıtlama ve içerik oluşturma gibi karmaşık görevlerde mükemmeldir. Uygun fiyatlandırması, gelişmekte olan pazarlardaki girişimler ve işletmeler için idealdir."
+    },
+    "inputPrice": "$0.42",
+    "outputPrice": "$1.25",
+    "contextWindow": "131K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态",
+      "长上下文",
+      "深度思考",
+      "流式输出",
+      "高性价比"
+    ],
+    "useCases": [
+      "智能客服与问答系统",
+      "文档与报表分析",
+      "内容生成与摘要",
+      "视觉推理应用"
+    ],
+    "strengths": [
+      "多模态图文理解",
+      "131K超长上下文",
+      "深度思考能力",
+      "极高性价比"
+    ],
+    "whyChoose": {
+      "en": "Best-in-class multimodal understanding at a fraction of the cost.",
+      "ru": "Лучшее в своем классе мультимодальное понимание по доступной цене.",
+      "tr": "Rakipsiz çok modlu anlama yeteneği, çok düşük maliyetle."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"baidu/ernie-4.5-vl-424b-a47b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"baidu/ernie-4.5-vl-424b-a47b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"baidu/ernie-4.5-vl-424b-a47b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "tencent/hunyuan-a13b-instruct",
+    "name": "Tencent: Hunyuan A13B Instruct",
+    "provider": "腾讯混元",
+    "providerLogo": "HY",
+    "description": "腾讯混元 Hunyuan-A13B 是一款高效的 MoE 大模型，仅激活 13B 参数即可实现 80B 参数的推理能力。它支持超长上下文（131K tokens）和深度思考，特别适合需要复杂推理与结构化输出的场景。无论是构建智能客服、内容生成还是数据分析应用，Hunyuan-A13B 都能以极低的成本提供卓越性能，是新兴市场开发者打造高性价比 AI 产品的理想选择。",
+    "descriptions": {
+      "zh": "腾讯混元 Hunyuan-A13B 是一款高效的 MoE 大模型，仅激活 13B 参数即可实现 80B 参数的推理能力。它支持超长上下文（131K tokens）和深度思考，特别适合需要复杂推理与结构化输出的场景。无论是构建智能客服、内容生成还是数据分析应用，Hunyuan-A13B 都能以极低的成本提供卓越性能，是新兴市场开发者打造高性价比 AI 产品的理想选择。",
+      "en": "Meet Hunyuan-A13B, Tencent's cutting-edge MoE language model that delivers the power of 80B parameters while activating only 13B. With a massive 131K context window and built-in chain-of-thought reasoning, it excels at complex tasks requiring deep understanding and structured outputs. Perfect for developers in emerging markets who need a cost-effective, high-performance model for chatbots, content generation, and data analysis. Get enterprise-grade AI without the enterprise price tag.",
+      "ru": "Представляем Hunyuan-A13B — передовую языковую модель MoE от Tencent, которая обеспечивает мощность 80B параметров, активируя лишь 13B. С окном контекста в 131K токенов и встроенным цепочным мышлением, она отлично справляется со сложными задачами, требующими глубокого понимания и структурированных ответов. Идеальный выбор для разработчиков на развивающихся рынках, которым нужна экономичная и производительная модель для чат-ботов, генерации контента и анализа данных. Корпоративный ИИ без корпоративной цены.",
+      "tr": "Hunyuan-A13B ile tanışın: Tencent'in son teknoloji MoE dil modeli, yalnızca 13B parametreyi aktifleştirerek 80B parametrenin gücünü sunar. 131K tokenlık dev bağlam penceresi ve zincirleme düşünme yeteneği sayesinde, derin anlayış ve yapılandırılmış çıktı gerektiren karmaşık görevlerde üstün performans gösterir. Gelişmekte olan pazarlardaki geliştiriciler için sohbet robotları, içerik oluşturma ve veri analizi alanında uygun maliyetli, yüksek performanslı bir model. Kurumsal yapay zeka, kurumsal fiyat etiketi olmadan."
+    },
+    "inputPrice": "$0.14",
+    "outputPrice": "$0.57",
+    "contextWindow": "131K",
+    "maxTokens": "131K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "JSON模式",
+      "结构化输出",
+      "深度思考",
+      "流式输出"
+    ],
+    "useCases": [
+      "复杂对话与智能客服",
+      "长文档分析与摘要",
+      "结构化数据生成与抽取"
+    ],
+    "strengths": [
+      "超低激活参数，极高性价比",
+      "131K超长上下文，支持深度推理",
+      "腾讯出品，稳定可靠"
+    ],
+    "whyChoose": {
+      "en": "The most cost-effective MoE model for complex reasoning with a massive context window.",
+      "ru": "Самая экономичная модель MoE для сложных рассуждений с огромным окном контекста.",
+      "tr": "Karmaşık akıl yürütme için dev bağlam penceresine sahip en uygun maliyetli MoE modeli."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"tencent/hunyuan-a13b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"tencent/hunyuan-a13b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"tencent/hunyuan-a13b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "tencent/hy3-preview",
+    "name": "Tencent: Hy3 preview",
+    "provider": "腾讯混元",
+    "providerLogo": "HY",
+    "description": "腾讯混元 Hy3 Preview 是一款高效 MoE 模型，专为 Agent 工作流和生产环境打造。它支持可配置的推理深度（禁用/低/高），让开发者灵活平衡速度与思考能力。无论是构建智能助手、自动化任务还是复杂推理应用，Hy3 都能以极低的成本提供卓越性能。适合追求性价比与可控推理的团队。",
+    "descriptions": {
+      "zh": "腾讯混元 Hy3 Preview 是一款高效 MoE 模型，专为 Agent 工作流和生产环境打造。它支持可配置的推理深度（禁用/低/高），让开发者灵活平衡速度与思考能力。无论是构建智能助手、自动化任务还是复杂推理应用，Hy3 都能以极低的成本提供卓越性能。适合追求性价比与可控推理的团队。",
+      "en": "Tencent's Hy3 Preview is a high-efficiency MoE model built for agentic workflows and production use. With configurable reasoning levels—disabled, low, or high—you control the trade-off between speed and deep thinking. Ideal for building smart assistants, automating complex tasks, or powering reasoning-heavy applications. Get enterprise-grade performance at a fraction of the cost. Designed for developers who demand both power and flexibility.",
+      "ru": "Hy3 Preview от Tencent — это высокоэффективная MoE-модель, созданная для агентных рабочих процессов и промышленного использования. Благодаря настраиваемым уровням рассуждения (отключено, низкий, высокий) вы управляете балансом между скоростью и глубиной мышления. Идеально подходит для создания интеллектуальных ассистентов, автоматизации сложных задач и приложений, требующих глубоких рассуждений. Получите производительность корпоративного уровня по доступной цене.",
+      "tr": "Tencent'in Hy3 Preview modeli, ajan iş akışları ve üretim kullanımı için tasarlanmış yüksek verimli bir MoE modelidir. Yapılandırılabilir akıl yürütme seviyeleri (devre dışı, düşük, yüksek) ile hız ve derin düşünme arasındaki dengeyi kontrol edersiniz. Akıllı asistanlar oluşturmak, karmaşık görevleri otomatikleştirmek veya yoğun akıl yürütme gerektiren uygulamalar için idealdir. Kurumsal düzeyde performansı düşük maliyetle elde edin."
+    },
+    "inputPrice": "$0.06",
+    "outputPrice": "$0.21",
+    "contextWindow": "262K",
+    "maxTokens": "—",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "深度思考",
+      "函数调用",
+      "流式输出",
+      "低成本",
+      "可控推理"
+    ],
+    "useCases": [
+      "智能客服与对话助手",
+      "自动化数据处理与工作流",
+      "复杂逻辑推理与决策"
+    ],
+    "strengths": [
+      "灵活配置推理深度",
+      "极低成本高性能",
+      "专为Agent工作流优化"
+    ],
+    "whyChoose": {
+      "en": "Hy3 delivers production-grade reasoning with flexible depth control at the best price-performance ratio.",
+      "ru": "Hy3 обеспечивает производственное качество рассуждений с гибким контролем глубины при лучшем соотношении цены и производительности.",
+      "tr": "Hy3, en iyi fiyat-performans oranıyla esnek derinlik kontrolü sunarak üretim kalitesinde akıl yürütme sağlar."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"tencent/hy3-preview\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"tencent/hy3-preview\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"tencent/hy3-preview\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "stepfun/step-3.5-flash",
+    "name": "StepFun: Step 3.5 Flash",
+    "provider": "阶跃星辰 StepFun",
+    "providerLogo": "SF",
+    "description": "Step 3.5 Flash 是阶跃星辰最新一代高效推理模型，采用 MoE 架构，仅激活 11B 参数即可实现 196B 级性能。它拥有 262K 超长上下文，支持深度思考、函数调用和流式输出，输入价格低至 $0.09/百万 token。专为需要高性价比、高吞吐的实时应用场景设计，适合构建智能助手、客服系统和内容生成工具。",
+    "descriptions": {
+      "zh": "Step 3.5 Flash 是阶跃星辰最新一代高效推理模型，采用 MoE 架构，仅激活 11B 参数即可实现 196B 级性能。它拥有 262K 超长上下文，支持深度思考、函数调用和流式输出，输入价格低至 $0.09/百万 token。专为需要高性价比、高吞吐的实时应用场景设计，适合构建智能助手、客服系统和内容生成工具。",
+      "en": "Step 3.5 Flash is StepFun's latest efficient reasoning model, built on a MoE architecture that activates only 11B of its 196B parameters per token. With a 262K context window and support for deep thinking, function calling, and streaming, it delivers flagship performance at a fraction of the cost—$0.09/M input tokens. Ideal for building cost-effective chatbots, real-time assistants, and content tools in emerging markets.",
+      "ru": "Step 3.5 Flash — это новейшая эффективная модель рассуждений от StepFun, построенная на архитектуре MoE, которая активирует только 11B из 196B параметров на токен. С контекстным окном в 262K и поддержкой глубокого мышления, вызова функций и потоковой передачи, она обеспечивает флагманскую производительность по цене всего $0.09 за миллион входных токенов. Идеально подходит для создания экономичных чат-ботов, ассистентов реального времени и инструментов для генерации контента.",
+      "tr": "Step 3.5 Flash, StepFun'ın en yeni verimli muhakeme modelidir. MoE mimarisi sayesinde token başına 196B parametresinden yalnızca 11B'sini etkinleştirir. 262K bağlam penceresi, derin düşünme, fonksiyon çağırma ve akış desteğiyle, maliyetin çok altında amiral gemisi performansı sunar—girişte milyon token başına yalnızca $0.09. Gelişmekte olan pazarlarda uygun maliyetli sohbet robotları, gerçek zamanlı asistanlar ve içerik araçları oluşturmak için idealdir."
+    },
+    "inputPrice": "$0.09",
+    "outputPrice": "$0.30",
+    "contextWindow": "262K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "深度思考",
+      "函数调用",
+      "流式输出",
+      "JSON模式",
+      "超长上下文"
+    ],
+    "useCases": [
+      "高并发智能客服与聊天机器人",
+      "实时内容生成与摘要工具",
+      "复杂推理与函数调用驱动的自动化工作流"
+    ],
+    "strengths": [
+      "极高性价比，输入仅 $0.09/百万 token",
+      "MoE 架构，11B 激活参数实现 196B 级性能",
+      "262K 超长上下文，支持深度思考与流式输出"
+    ],
+    "whyChoose": {
+      "en": "Get flagship-level reasoning and long context at budget-friendly pricing—perfect for scaling your AI applications.",
+      "ru": "Получите рассуждения флагманского уровня и длинный контекст по доступной цене — идеально для масштабирования ваших AI-приложений.",
+      "tr": "Bütçe dostu fiyatlarla amiral gemisi seviyesinde muhakeme ve uzun bağlam elde edin—AI uygulamalarınızı ölçeklendirmek için mükemmel."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"stepfun/step-3.5-flash\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"stepfun/step-3.5-flash\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"stepfun/step-3.5-flash\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "stepfun/step-3.7-flash",
+    "name": "StepFun: Step 3.7 Flash",
+    "provider": "阶跃星辰 StepFun",
+    "providerLogo": "SF",
+    "description": "Step 3.7 Flash 是阶跃星辰最新推出的高效多模态 MoE 模型，专为需要同时处理文本、图像和视频的场景设计。它拥有 196B 参数的语言骨干和视觉编码器，每次推理仅激活约 11B 参数，在速度与效果之间取得完美平衡。支持 256K 上下文窗口、函数调用和深度思考，适合构建智能客服、内容审核、视频分析等复杂应用。价格极具竞争力，是开发者低成本实现多模态 AI 的理想选择。",
+    "descriptions": {
+      "zh": "Step 3.7 Flash 是阶跃星辰最新推出的高效多模态 MoE 模型，专为需要同时处理文本、图像和视频的场景设计。它拥有 196B 参数的语言骨干和视觉编码器，每次推理仅激活约 11B 参数，在速度与效果之间取得完美平衡。支持 256K 上下文窗口、函数调用和深度思考，适合构建智能客服、内容审核、视频分析等复杂应用。价格极具竞争力，是开发者低成本实现多模态 AI 的理想选择。",
+      "en": "Step 3.7 Flash is StepFun's latest high-efficiency multimodal MoE model, designed for developers who need to process text, images, and video in a single pipeline. With a 196B-parameter backbone and vision encoder, it activates only ~11B parameters per inference, delivering blazing speed without sacrificing quality. It supports 256K context, function calling, and deep reasoning, making it perfect for building chatbots, content moderation, and video analysis tools. At just $0.20 per million input tokens, it's the cost-effective choice for emerging markets. Built for real-world applications, Step 3.7 Flash scales with your ambition.",
+      "ru": "Step 3.7 Flash — новейшая высокоэффективная мультимодальная модель MoE от StepFun, созданная для разработчиков, работающих с текстом, изображениями и видео. Языковая основа на 196B параметров и визуальный энкодер активируют всего ~11B параметров на один вывод, обеспечивая высокую скорость без потери качества. Поддерживает контекст до 256K, вызов функций и глубокое рассуждение — идеально для чат-ботов, модерации контента и анализа видео. Цена всего $0.20 за миллион входных токенов — экономичный выбор для рынков Центральной Азии и Кавказа. Step 3.7 Flash масштабируется под ваши задачи.",
+      "tr": "Step 3.7 Flash, StepFun'un en yeni yüksek verimli çok modlu MoE modelidir. Metin, görüntü ve videoyu tek bir hatta işlemek isteyen geliştiriciler için tasarlanmıştır. 196B parametreli dil omurgası ve görsel kodlayıcı ile her çıkarımda yalnızca ~11B parametreyi etkinleştirir, kaliteden ödün vermeden yüksek hız sunar. 256K bağlam, fonksiyon çağrısı ve derin düşünme desteği ile sohbet robotları, içerik denetimi ve video analizi için idealdir. Milyon giriş token başına sadece $0.20 ile gelişmekte olan pazarlar için uygun maliyetli bir seçenektir."
+    },
+    "inputPrice": "$0.20",
+    "outputPrice": "$1.15",
+    "contextWindow": "256K",
+    "maxTokens": "256K",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "函数调用",
+      "深度思考",
+      "流式输出",
+      "256K上下文"
+    ],
+    "useCases": [
+      "智能客服与对话系统",
+      "内容审核与安全过滤",
+      "视频摘要与多模态分析"
+    ],
+    "strengths": [
+      "高效多模态MoE，激活参数少速度快",
+      "256K长上下文，支持复杂场景理解",
+      "价格极低，适合预算敏感型应用"
+    ],
+    "whyChoose": {
+      "en": "Best cost-performance ratio for multimodal AI in emerging markets.",
+      "ru": "Лучшее соотношение цены и производительности для мультимодального ИИ на развивающихся рынках.",
+      "tr": "Gelişmekte olan pazarlarda çok modlu AI için en iyi fiyat-performans oranı."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"stepfun/step-3.7-flash\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"stepfun/step-3.7-flash\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"stepfun/step-3.7-flash\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen-2.5-72b-instruct",
+    "name": "Qwen2.5 72B Instruct",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen2.5 72B 是阿里通义千问最新一代大语言模型，专为需要高精度、长上下文和结构化输出的开发者打造。它拥有131K的超长上下文窗口，能轻松处理复杂文档、代码库和长篇对话。支持函数调用、JSON模式和流式输出，让AI无缝集成到你的应用中。无论是构建智能客服、代码助手还是数据分析工具，Qwen2.5 72B 都能以极低的成本（输入$0.36/M，输出$0.40/M）提供卓越性能。适合追求性价比和稳定性的开发者。",
+    "descriptions": {
+      "zh": "Qwen2.5 72B 是阿里通义千问最新一代大语言模型，专为需要高精度、长上下文和结构化输出的开发者打造。它拥有131K的超长上下文窗口，能轻松处理复杂文档、代码库和长篇对话。支持函数调用、JSON模式和流式输出，让AI无缝集成到你的应用中。无论是构建智能客服、代码助手还是数据分析工具，Qwen2.5 72B 都能以极低的成本（输入$0.36/M，输出$0.40/M）提供卓越性能。适合追求性价比和稳定性的开发者。",
+      "en": "Qwen2.5 72B is Alibaba's latest flagship language model, designed for developers who demand precision, long context, and structured outputs. With a 131K context window, it handles complex documents, codebases, and multi-turn conversations with ease. Native support for function calling, JSON mode, and streaming makes it a breeze to integrate into your apps. Whether you're building a smart assistant, a code copilot, or a data analysis tool, Qwen2.5 delivers top-tier performance at a fraction of the cost ($0.36/M input, $0.40/M output). Perfect for developers in emerging markets who need quality without breaking the bank.",
+      "ru": "Qwen2.5 72B — это новейшая языковая модель от Alibaba, созданная для разработчиков, которым нужна высокая точность, длинный контекст и структурированный вывод. Окно контекста в 131K токенов позволяет обрабатывать сложные документы, кодовые базы и многошаговые диалоги. Встроенная поддержка вызова функций, JSON-режима и потоковой передачи упрощает интеграцию в ваши приложения. Строите ли вы умного ассистента, помощника по коду или инструмент анализа данных — Qwen2.5 72B обеспечивает отличную производительность по низкой цене ($0.36/M ввод, $0.40/M вывод). Идеально для разработчиков в Центральной Азии, которым нужно качество без переплаты.",
+      "tr": "Qwen2.5 72B, Alibaba'nın en yeni dil modelidir ve hassasiyet, uzun bağlam ve yapılandırılmış çıktı isteyen geliştiriciler için tasarlanmıştır. 131K tokenlik bağlam penceresiyle karmaşık belgeleri, kod tabanlarını ve çok aşamalı diyalogları kolayca işler. Fonksiyon çağırma, JSON modu ve akış çıktısı gibi yerel destekler sayesinde uygulamalarınıza entegrasyonu çok kolaydır. İster akıllı bir asistan, ister bir kod yardımcısı, ister bir veri analizi aracı oluşturun, Qwen2.5 72B düşük maliyetle (giriş $0.36/M, çıkış $0.40/M) üst düzey performans sunar. Kaliteden ödün vermek istemeyen geliştiriciler için ideal."
+    },
+    "inputPrice": "$0.36",
+    "outputPrice": "$0.40",
+    "contextWindow": "131K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "函数调用",
+      "JSON模式",
+      "流式输出",
+      "结构化输出",
+      "超长上下文"
+    ],
+    "useCases": [
+      "智能客服与对话系统",
+      "代码生成与辅助编程",
+      "文档分析与数据抽取"
+    ],
+    "strengths": [
+      "超长上下文窗口（131K）",
+      "低成本高性价比",
+      "结构化输出支持完善"
+    ],
+    "whyChoose": {
+      "en": "Top-tier performance at a fraction of the cost, with native structured output support.",
+      "ru": "Отличная производительность по низкой цене с поддержкой структурированного вывода.",
+      "tr": "Düşük maliyetle üst düzey performans ve yapılandırılmış çıktı desteği."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen-2.5-72b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen-2.5-72b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen-2.5-72b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen-2.5-coder-32b-instruct",
+    "name": "Qwen2.5 Coder 32B Instruct",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen2.5-Coder 是阿里通义千问专为代码场景打造的旗舰模型。它不仅是代码生成器，更是你编程全流程的智能搭档——从快速原型搭建到复杂算法推理，从跨语言迁移到大型项目重构，都能提供精准、高效的代码输出。128K 上下文让你轻松处理整个代码库，0.66 美元/百万 token 的输入价格让规模化使用毫无压力。特别适合追求高性价比、需要流式交互的独立开发者与中小企业团队。",
+    "descriptions": {
+      "zh": "Qwen2.5-Coder 是阿里通义千问专为代码场景打造的旗舰模型。它不仅是代码生成器，更是你编程全流程的智能搭档——从快速原型搭建到复杂算法推理，从跨语言迁移到大型项目重构，都能提供精准、高效的代码输出。128K 上下文让你轻松处理整个代码库，0.66 美元/百万 token 的输入价格让规模化使用毫无压力。特别适合追求高性价比、需要流式交互的独立开发者与中小企业团队。",
+      "en": "Qwen2.5-Coder is Alibaba's state-of-the-art model built for code. More than a code generator, it's your intelligent pair programmer — from rapid prototyping to complex algorithmic reasoning, cross-language migration to large-scale refactoring. With a 128K context window, it handles entire codebases effortlessly. At just $0.66/M input tokens, it delivers enterprise-grade performance at indie-friendly pricing. Perfect for developers in Armenia, Georgia, and Central Asia who need reliable, affordable, and fast code assistance. Stream responses in real time.",
+      "ru": "Qwen2.5-Coder — флагманская модель от Alibaba для работы с кодом. Это не просто генератор кода, а ваш интеллектуальный напарник в программировании: от быстрого прототипирования до сложных алгоритмических задач, от переноса кода между языками до рефакторинга крупных проектов. Контекст в 128K токенов позволяет легко обрабатывать целые кодовые базы. Цена $0.66 за миллион входных токенов делает масштабирование доступным. Идеально для разработчиков из Казахстана и Центральной Азии, которым нужна надёжная, доступная и быстрая помощь в кодинге с потоковым выводом.",
+      "tr": "Qwen2.5-Coder, Alibaba'nın kod için özel olarak geliştirdiği en yeni modelidir. Sadece bir kod üretici değil, akıllı bir eş programcıdır: hızlı prototiplemeden karmaşık algoritmik akıl yürütmeye, diller arası geçişten büyük ölçekli yeniden düzenlemeye kadar. 128K bağlam penceresi ile tüm kod tabanlarını zahmetsizce işler. Giriş token başına yalnızca $0.66 ile kurumsal düzeyde performansı bağımsız geliştiriciler için uygun fiyata sunar. Türkiye'deki geliştiriciler için güvenilir, uygun fiyatlı ve hızlı kod yardımı. Gerçek zamanlı akış çıktısı."
+    },
+    "inputPrice": "$0.66",
+    "outputPrice": "$1.00",
+    "contextWindow": "128K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "code",
+    "features": [
+      "代码生成",
+      "代码推理",
+      "流式输出",
+      "超长上下文",
+      "高性价比"
+    ],
+    "useCases": [
+      "快速原型开发与MVP构建",
+      "复杂算法实现与代码重构",
+      "跨编程语言迁移与适配"
+    ],
+    "strengths": [
+      "代码生成与推理能力显著提升",
+      "128K超长上下文，轻松处理整个代码库",
+      "高性价比，输入仅$0.66/百万token",
+      "支持流式输出，交互实时",
+      "跨语言、跨项目场景表现优秀"
+    ],
+    "whyChoose": {
+      "en": "Best value for money in code models with a 128K context window.",
+      "ru": "Лучшее соотношение цены и качества среди моделей для кода с контекстом 128K.",
+      "tr": "128K bağlam penceresi ile kod modellerinde en iyi fiyat-performans oranı."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen-2.5-coder-32b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen-2.5-coder-32b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen-2.5-coder-32b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen-plus-2025-07-28",
+    "name": "Qwen: Qwen Plus 0728",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen Plus 0728 是阿里通义千问推出的混合推理模型，专为处理超长上下文场景设计。它基于 Qwen3 架构，在性能、速度和成本之间取得理想平衡。无论是复杂的代码生成、多轮对话，还是大规模文档分析，它都能提供稳定可靠的结果。特别适合需要高性价比和深度推理能力的开发者。",
+    "descriptions": {
+      "zh": "Qwen Plus 0728 是阿里通义千问推出的混合推理模型，专为处理超长上下文场景设计。它基于 Qwen3 架构，在性能、速度和成本之间取得理想平衡。无论是复杂的代码生成、多轮对话，还是大规模文档分析，它都能提供稳定可靠的结果。特别适合需要高性价比和深度推理能力的开发者。",
+      "en": "Qwen Plus 0728 is Alibaba's next-gen hybrid reasoning model, built on Qwen3. It excels at handling massive contexts up to 1M tokens while delivering balanced performance, speed, and cost. Whether you're building complex chatbots, analyzing large documents, or generating structured outputs, it offers reliable, high-quality results. Ideal for developers in emerging markets who need affordable, powerful AI without compromise.",
+      "ru": "Qwen Plus 0728 — гибридная модель рассуждений от Alibaba на базе Qwen3, оптимизированная для работы с длинным контекстом. Она обеспечивает идеальный баланс производительности, скорости и стоимости. Подходит для сложных диалогов, анализа больших документов и генерации кода. Отличный выбор для разработчиков, которым нужно мощное и доступное решение.",
+      "tr": "Qwen Plus 0728, Alibaba'nın Qwen3 tabanlı hibrit akıl yürütme modelidir. 1 milyon token'a kadar bağlamı işleyebilir ve performans, hız ve maliyet arasında mükemmel denge sunar. Karmaşık sohbet robotları, büyük belge analizi veya yapılandırılmış çıktılar için idealdir. Uygun fiyatlı ve güçlü bir yapay zeka arayan geliştiriciler için biçilmiş kaftan."
+    },
+    "inputPrice": "$0.26",
+    "outputPrice": "$0.78",
+    "contextWindow": "1000K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "函数调用",
+      "JSON 模式",
+      "结构化输出",
+      "流式输出"
+    ],
+    "useCases": [
+      "大规模文档分析与摘要",
+      "复杂多轮对话系统",
+      "代码生成与调试"
+    ],
+    "strengths": [
+      "超长上下文处理，支持百万 token",
+      "混合推理，平衡性能与成本",
+      "稳定可靠的结构化输出能力"
+    ],
+    "whyChoose": {
+      "en": "Best balance of cost, speed, and quality for long-context tasks.",
+      "ru": "Лучший баланс цены, скорости и качества для задач с длинным контекстом.",
+      "tr": "Uzun bağlamlı görevler için maliyet, hız ve kalite dengesi en iyi model."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen-plus-2025-07-28\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen-plus-2025-07-28\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen-plus-2025-07-28\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen-plus-2025-07-28:thinking",
+    "name": "Qwen: Qwen Plus 0728 (thinking)",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen Plus 0728 是阿里通义千问最新推出的混合推理模型，拥有百万级上下文窗口，在性能、速度和成本之间达到理想平衡。它深度思考能力强，支持函数调用和结构化输出，特别适合需要处理超长文档、复杂推理和精准数据提取的开发者。无论是构建智能客服、代码助手还是分析工具，Qwen Plus 都能以更低成本提供卓越体验。",
+    "descriptions": {
+      "zh": "Qwen Plus 0728 是阿里通义千问最新推出的混合推理模型，拥有百万级上下文窗口，在性能、速度和成本之间达到理想平衡。它深度思考能力强，支持函数调用和结构化输出，特别适合需要处理超长文档、复杂推理和精准数据提取的开发者。无论是构建智能客服、代码助手还是分析工具，Qwen Plus 都能以更低成本提供卓越体验。",
+      "en": "Qwen Plus 0728 is Alibaba's latest hybrid reasoning model, delivering an ideal balance of performance, speed, and cost. With a 1M token context window, it excels at deep reasoning, function calling, and structured outputs—perfect for developers building intelligent applications that handle long documents, complex logic, or precise data extraction. Whether you're creating a smart assistant, code copilot, or analytics tool, Qwen Plus offers enterprise-grade capabilities at a developer-friendly price. Built for builders in Armenia, Georgia, and Central Asia who demand quality without breaking the bank.",
+      "ru": "Qwen Plus 0728 — новейшая гибридная модель рассуждений от Alibaba, обеспечивающая идеальный баланс производительности, скорости и стоимости. С окном контекста в 1 млн токенов она отлично справляется с глубокими рассуждениями, вызовом функций и структурированным выводом — идеально для разработчиков, создающих интеллектуальные приложения для работы с длинными документами, сложной логикой или точным извлечением данных. Создавайте умных ассистентов, помощников по коду или инструменты аналитики с корпоративными возможностями по доступной цене. Для разработчиков из Казахстана и Центральной Азии, которые ценят качество без переплаты.",
+      "tr": "Qwen Plus 0728, Alibaba'nın en yeni hibrit akıl yürütme modelidir ve performans, hız ve maliyet arasında ideal bir denge sunar. 1 milyon token bağlam penceresiyle derin düşünme, fonksiyon çağırma ve yapılandırılmış çıktılarda mükemmeldir—uzun belgeler, karmaşık mantık veya hassas veri çıkarma işleyen akıllı uygulamalar geliştiren geliştiriciler için idealdir. İster akıllı asistan, ister kod yardımcısı veya analitik aracı oluşturun, Qwen Plus uygun fiyata kurumsal düzeyde yetenekler sunar. Türkiye'deki geliştiriciler için tasarlandı."
+    },
+    "inputPrice": "$0.26",
+    "outputPrice": "$0.78",
+    "contextWindow": "1000K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "深度思考",
+      "函数调用",
+      "结构化输出",
+      "流式输出",
+      "百万上下文"
+    ],
+    "useCases": [
+      "超长文档分析与摘要",
+      "复杂逻辑推理与代码生成",
+      "智能客服与对话系统",
+      "数据提取与结构化处理",
+      "知识库问答与检索增强生成"
+    ],
+    "strengths": [
+      "百万级超长上下文",
+      "深度推理与思考能力",
+      "性能与成本的最佳平衡",
+      "原生支持函数调用与结构化输出",
+      "流式输出低延迟"
+    ],
+    "whyChoose": {
+      "en": "Best balance of deep reasoning, long context, and low cost for production apps.",
+      "ru": "Лучший баланс глубоких рассуждений, длинного контекста и низкой стоимости для продакшн-приложений.",
+      "tr": "Üretim uygulamaları için derin akıl yürütme, uzun bağlam ve düşük maliyetin en iyi dengesi."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen-plus-2025-07-28:thinking\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen-plus-2025-07-28:thinking\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen-plus-2025-07-28:thinking\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen-plus",
+    "name": "Qwen: Qwen-Plus",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen-Plus 是阿里通义千问推出的旗舰文本模型，基于 Qwen2.5 架构，拥有超长上下文窗口和极致的性价比。它擅长处理复杂逻辑、长文档分析与多轮对话，支持函数调用与结构化输出，是构建智能客服、代码助手、内容生成系统的理想选择。专为追求效率与可靠性的开发者打造。",
+    "descriptions": {
+      "zh": "Qwen-Plus 是阿里通义千问推出的旗舰文本模型，基于 Qwen2.5 架构，拥有超长上下文窗口和极致的性价比。它擅长处理复杂逻辑、长文档分析与多轮对话，支持函数调用与结构化输出，是构建智能客服、代码助手、内容生成系统的理想选择。专为追求效率与可靠性的开发者打造。",
+      "en": "Qwen-Plus is Alibaba's flagship text model built on Qwen2.5, offering a massive context window and exceptional cost-performance ratio. It excels at complex reasoning, long-document analysis, and multi-turn conversations, with native support for function calling and structured output. Ideal for developers building intelligent chatbots, coding assistants, and content generation systems. Designed for those who demand both power and efficiency.",
+      "ru": "Qwen-Plus — флагманская текстовая модель от Alibaba на базе Qwen2.5, с огромным контекстным окном и отличным соотношением цены и производительности. Она отлично справляется со сложными рассуждениями, анализом длинных документов и многошаговыми диалогами, поддерживает вызов функций и структурированный вывод. Идеальный выбор для разработчиков, создающих умные чат-боты, помощников по коду и системы генерации контента.",
+      "tr": "Qwen-Plus, Alibaba'nın Qwen2.5 tabanlı amiral gemisi metin modelidir. Devasa bağlam penceresi ve üstün fiyat-performans oranı sunar. Karmaşık akıl yürütme, uzun belge analizi ve çok turlu diyaloglarda mükemmeldir; fonksiyon çağrısı ve yapılandırılmış çıktıyı yerel olarak destekler. Akıllı sohbet robotları, kod yardımcıları ve içerik üretim sistemleri oluşturan geliştiriciler için idealdir."
+    },
+    "inputPrice": "$0.26",
+    "outputPrice": "$0.78",
+    "contextWindow": "1000K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "函数调用",
+      "JSON模式",
+      "流式输出",
+      "超长上下文",
+      "高性价比"
+    ],
+    "useCases": [
+      "复杂文档分析与摘要",
+      "多轮智能对话系统",
+      "代码生成与辅助编程"
+    ],
+    "strengths": [
+      "超长上下文处理能力",
+      "高性价比，适合大规模部署",
+      "强大的函数调用与结构化输出"
+    ],
+    "whyChoose": {
+      "en": "Best balance of context length, performance, and cost for production workloads.",
+      "ru": "Лучший баланс длины контекста, производительности и стоимости для рабочих нагрузок.",
+      "tr": "Üretim iş yükleri için bağlam uzunluğu, performans ve maliyet arasında en iyi denge."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen-plus\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen-plus\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen-plus\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen-2.5-7b-instruct",
+    "name": "Qwen: Qwen2.5 7B Instruct",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen2.5 7B 是阿里通义千问最新一代语言模型，知识储备更丰富，代码能力显著提升。它拥有 131K 的超长上下文窗口，一次能处理整本小说。价格极具竞争力，输入仅每百万 token 0.04 美元，输出 0.10 美元。支持流式输出和多种参数微调，适合构建聊天机器人、智能客服、代码助手等应用。面向东欧、中亚、高加索地区的开发者，是性价比与性能兼备的优质选择。",
+    "descriptions": {
+      "zh": "Qwen2.5 7B 是阿里通义千问最新一代语言模型，知识储备更丰富，代码能力显著提升。它拥有 131K 的超长上下文窗口，一次能处理整本小说。价格极具竞争力，输入仅每百万 token 0.04 美元，输出 0.10 美元。支持流式输出和多种参数微调，适合构建聊天机器人、智能客服、代码助手等应用。面向东欧、中亚、高加索地区的开发者，是性价比与性能兼备的优质选择。",
+      "en": "Qwen2.5 7B is Alibaba's latest language model, packed with more knowledge and stronger coding skills. With a 131K context window, it handles entire documents in one go. At just $0.04/M tokens input and $0.10/M output, it's a steal. Stream output and fine-tuning parameters give you full control. Perfect for developers in Armenia, Georgia, and Central Asia building chatbots, code assistants, or content tools. Get enterprise-grade AI without the enterprise price tag.",
+      "ru": "Qwen2.5 7B — новейшая языковая модель от Alibaba, обладающая расширенными знаниями и улучшенными навыками программирования. Окно контекста в 131K позволяет обрабатывать целые документы за один раз. Цена впечатляет: всего $0,04 за миллион токенов на входе и $0,10 на выходе. Поддерживает потоковый вывод и тонкую настройку параметров. Идеально для разработчиков из Казахстана и Центральной Азии, создающих чат-ботов, ассистентов кода или инструменты для работы с контентом. Получите ИИ корпоративного уровня без корпоративных затрат.",
+      "tr": "Qwen2.5 7B, Alibaba'nın en yeni dil modeli olup daha fazla bilgi ve gelişmiş kodlama yetenekleri sunar. 131K bağlam penceresiyle tüm belgeleri tek seferde işler. Girişte milyon token başına yalnızca $0,04 ve çıkışta $0,10 gibi rekabetçi bir fiyata sahiptir. Akış çıktısı ve ince ayar parametreleriyle tam kontrol sağlar. Türkiye'deki geliştiriciler için sohbet robotları, kod yardımcıları veya içerik araçları oluşturmak için idealdir. Kurumsal seviye yapay zekayı kurumsal fiyat olmadan elde edin."
+    },
+    "inputPrice": "$0.04",
+    "outputPrice": "$0.10",
+    "contextWindow": "131K",
+    "maxTokens": "32K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "流式输出",
+      "超长上下文",
+      "编程优化",
+      "参数微调",
+      "多语言支持"
+    ],
+    "useCases": [
+      "智能聊天机器人",
+      "代码生成与辅助",
+      "长文档分析与摘要",
+      "多语言内容创作"
+    ],
+    "strengths": [
+      "超长上下文窗口（131K）",
+      "卓越的编程能力",
+      "极具竞争力的价格",
+      "丰富的参数可调性"
+    ],
+    "whyChoose": {
+      "en": "Top-tier performance at a fraction of the cost — ideal for budget-conscious developers.",
+      "ru": "Производительность высшего уровня за малую долю стоимости — идеально для разработчиков с ограниченным бюджетом.",
+      "tr": "Üst düzey performans, maliyetin çok altında — bütçe bilincine sahip geliştiriciler için ideal."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen-2.5-7b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen-2.5-7b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen-2.5-7b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen2.5-vl-72b-instruct",
+    "name": "Qwen: Qwen2.5 VL 72B Instruct",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen2.5-VL 是阿里通义千问最新一代视觉语言模型，能同时理解文字和图像。它擅长识别花鸟鱼虫等常见物体，也能精准分析图片中的文本、图表、图标和布局。无论是构建智能文档处理、图像搜索还是多模态客服系统，它都能以极低的成本（输入仅$0.25/百万token）提供卓越性能。特别适合需要结构化输出和JSON模式的场景，支持流式输出，让您的应用响应更快。面向东欧、中亚、高加索地区的开发者，助您快速打造AI产品。",
+    "descriptions": {
+      "zh": "Qwen2.5-VL 是阿里通义千问最新一代视觉语言模型，能同时理解文字和图像。它擅长识别花鸟鱼虫等常见物体，也能精准分析图片中的文本、图表、图标和布局。无论是构建智能文档处理、图像搜索还是多模态客服系统，它都能以极低的成本（输入仅$0.25/百万token）提供卓越性能。特别适合需要结构化输出和JSON模式的场景，支持流式输出，让您的应用响应更快。面向东欧、中亚、高加索地区的开发者，助您快速打造AI产品。",
+      "en": "Qwen2.5-VL is Alibaba's next-generation vision-language model that understands both text and images. It excels at recognizing common objects like flowers, birds, fish, and insects, and can accurately analyze text, charts, icons, and layouts within images. Whether you're building intelligent document processing, image search, or multimodal customer support, this model delivers top-tier performance at a fraction of the cost—input at only $0.25 per million tokens. It supports JSON mode and structured output for seamless integration, plus streaming for faster responses. Designed for developers in Armenia, Georgia, and Central Asia, it's your go-to model for building production-ready AI applications.",
+      "ru": "Qwen2.5-VL — это новейшая визуально-языковая модель от Alibaba, которая понимает как текст, так и изображения. Она отлично распознаёт распространённые объекты: цветы, птиц, рыб, насекомых, а также точно анализирует текст, диаграммы, иконки и макеты внутри изображений. Будь то обработка документов, поиск по изображениям или мультимодальная поддержка клиентов — модель обеспечивает высокую производительность при минимальных затратах (всего $0.25 за миллион токенов на вход). Поддерживает JSON-режим и структурированный вывод для лёгкой интеграции, а также потоковую передачу для быстрых ответов. Разработана для разработчиков из Казахстана и Центральной Азии, чтобы быстро создавать готовые AI-продукты.",
+      "tr": "Qwen2.5-VL, Alibaba'nın hem metni hem de görselleri anlayan yeni nesil görsel-dil modelidir. Çiçekler, kuşlar, balıklar ve böcekler gibi yaygın nesneleri tanımada ve görseller içindeki metin, grafik, simge ve düzenleri analiz etmede son derece başarılıdır. Akıllı belge işleme, görsel arama veya çok modlu müşteri desteği oluştururken, düşük maliyetle (giriş başına milyon token başına yalnızca $0.25) üstün performans sunar. JSON modu ve yapılandırılmış çıktı ile sorunsuz entegrasyon, akış çıktısı ile daha hızlı yanıtlar sağlar. Türkiye'deki geliştiriciler için tasarlanmıştır ve üretime hazır AI uygulamaları oluşturmak için ideal modeldir."
+    },
+    "inputPrice": "$0.25",
+    "outputPrice": "$0.75",
+    "contextWindow": "131K",
+    "maxTokens": "—",
+    "status": "available",
+    "category": "multimodal",
+    "features": [
+      "多模态理解",
+      "JSON 模式",
+      "结构化输出",
+      "流式输出",
+      "高性价比"
+    ],
+    "useCases": [
+      "智能文档处理：从扫描件、PDF中提取并分析文本与图表",
+      "图像搜索与标注：识别图片内容，生成结构化描述",
+      "多模态客服：理解用户发送的截图或照片，提供精准回复"
+    ],
+    "strengths": [
+      "多模态理解：同时处理文字和图像，识别常见物体与图文内容",
+      "极低成本：输入仅$0.25/百万token，性价比极高",
+      "结构化输出：支持JSON模式和流式输出，便于集成"
+    ],
+    "whyChoose": {
+      "en": "Top-tier vision-language performance at the lowest price point — perfect for building multimodal apps in emerging markets.",
+      "ru": "Лучшее соотношение цены и производительности среди визуально-языковых моделей — идеально для создания мультимодальных приложений.",
+      "tr": "En düşük fiyatla en iyi görsel-dil performansı — gelişmekte olan pazarlarda çok modlu uygulamalar oluşturmak için mükemmel."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen2.5-vl-72b-instruct\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen2.5-vl-72b-instruct\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen2.5-vl-72b-instruct\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-14b",
+    "name": "Qwen: Qwen3 14B",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-14B 是阿里通义千问最新推出的高效推理模型，专为需要深度思考与快速响应的场景设计。它能在“思考”与“对话”模式间无缝切换，轻松处理复杂逻辑、函数调用和结构化输出。无论是构建智能客服、数据分析助手，还是集成到现有工作流中，它都能以极低的成本提供可靠表现。适合追求性价比与灵活性的开发者团队。",
+    "descriptions": {
+      "zh": "Qwen3-14B 是阿里通义千问最新推出的高效推理模型，专为需要深度思考与快速响应的场景设计。它能在“思考”与“对话”模式间无缝切换，轻松处理复杂逻辑、函数调用和结构化输出。无论是构建智能客服、数据分析助手，还是集成到现有工作流中，它都能以极低的成本提供可靠表现。适合追求性价比与灵活性的开发者团队。",
+      "en": "Qwen3-14B is Alibaba's latest reasoning model that balances deep thinking with fast, efficient dialogue. It seamlessly switches between a 'thinking' mode for complex problem-solving and a standard chat mode for everyday interactions. With native support for function calling, JSON mode, and structured outputs, it's built for developers who need reliable, low-cost AI that fits into real-world workflows. Ideal for teams in Armenia, Georgia, and Central Asia building intelligent apps without breaking the bank.",
+      "ru": "Qwen3-14B — это новейшая модель рассуждений от Alibaba, которая сочетает глубокое мышление с быстрым и эффективным диалогом. Она плавно переключается между режимом «размышления» для сложных задач и обычным режимом чата для повседневного общения. С нативной поддержкой вызова функций, режима JSON и структурированного вывода она создана для разработчиков, которым нужен надежный и недорогой ИИ, вписывающийся в реальные рабочие процессы. Идеально подходит для команд из Казахстана и Центральной Азии, создающих интеллектуальные приложения без лишних затрат.",
+      "tr": "Qwen3-14B, Alibaba'nın derin düşünme ile hızlı ve verimli diyaloğu birleştiren en yeni akıl yürütme modelidir. Karmaşık problem çözme için 'düşünme' modu ile günlük etkileşimler için standart sohbet modu arasında sorunsuz geçiş yapar. Fonksiyon çağırma, JSON modu ve yapılandırılmış çıktı için yerel destekle, gerçek dünya iş akışlarına uyan güvenilir, düşük maliyetli bir yapay zeka arayan geliştiriciler için üretilmiştir. Türkiye'deki geliştiriciler için idealdir."
+    },
+    "inputPrice": "$0.10",
+    "outputPrice": "$0.24",
+    "contextWindow": "131K",
+    "maxTokens": "40K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "函数调用",
+      "JSON模式",
+      "结构化输出",
+      "深度思考",
+      "流式输出"
+    ],
+    "useCases": [
+      "智能客服与对话系统",
+      "数据分析与报告生成",
+      "工作流自动化与API集成"
+    ],
+    "strengths": [
+      "深度思考与快速对话无缝切换",
+      "原生支持函数调用和结构化输出",
+      "超高性价比，适合大规模部署"
+    ],
+    "whyChoose": {
+      "en": "Best balance of reasoning power and cost for production apps in emerging markets.",
+      "ru": "Лучший баланс мощности рассуждений и стоимости для продакшн-приложений на развивающихся рынках.",
+      "tr": "Gelişmekte olan pazarlardaki üretim uygulamaları için akıl yürütme gücü ve maliyet arasında en iyi denge."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-14b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-14b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-14b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-235b-a22b",
+    "name": "Qwen: Qwen3 235B A22B",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-235B-A22B 是阿里通义千问推出的高效 MoE 大模型，每次推理仅激活 22B 参数，兼顾性能与成本。它支持深度思考模式，擅长复杂推理、数学和代码任务，同时保持快速响应。配备 131K 超长上下文，适合处理大规模文档或代码库。函数调用、JSON 模式、流式输出一应俱全，是构建智能代理和高级应用的理想选择。面向追求极致性价比的开发者。",
+    "descriptions": {
+      "zh": "Qwen3-235B-A22B 是阿里通义千问推出的高效 MoE 大模型，每次推理仅激活 22B 参数，兼顾性能与成本。它支持深度思考模式，擅长复杂推理、数学和代码任务，同时保持快速响应。配备 131K 超长上下文，适合处理大规模文档或代码库。函数调用、JSON 模式、流式输出一应俱全，是构建智能代理和高级应用的理想选择。面向追求极致性价比的开发者。",
+      "en": "Qwen3-235B-A22B is Alibaba's cutting-edge MoE model that delivers exceptional reasoning and coding capabilities at a fraction of the cost. With only 22B parameters activated per query, it balances deep thinking with fast performance. The 131K context window handles massive codebases or documents effortlessly. Built for developers building intelligent agents, complex workflows, or multilingual applications—especially in emerging markets where every dollar counts.",
+      "ru": "Qwen3-235B-A22B — это эффективная MoE-модель от Alibaba, активирующая всего 22B параметров за запрос. Она сочетает глубокое рассуждение с быстрым ответом, отлично справляясь с математикой, кодом и сложной логикой. Контекст 131K позволяет обрабатывать большие документы и кодовые базы. Поддержка вызова функций, JSON-режима и потокового вывода делает её идеальной для создания интеллектуальных агентов. Выбор разработчиков, ценящих производительность и экономию.",
+      "tr": "Qwen3-235B-A22B, Alibaba'nın yüksek verimli MoE modelidir ve her sorguda yalnızca 22B parametreyi etkinleştirir. Karmaşık akıl yürütme, matematik ve kod görevlerinde üstün performans sunarken hızlı yanıt verir. 131K bağlam penceresi, büyük kod tabanlarını veya belgeleri kolayca işler. Fonksiyon çağırma, JSON modu ve akış çıktısı ile akıllı ajanlar ve gelişmiş uygulamalar oluşturmak için idealdir. Maliyet-performans dengesi arayan geliştiriciler için."
+    },
+    "inputPrice": "$0.45",
+    "outputPrice": "$1.82",
+    "contextWindow": "131K",
+    "maxTokens": "8K",
+    "status": "available",
+    "category": "reasoning",
+    "features": [
+      "深度思考",
+      "函数调用",
+      "JSON模式",
+      "流式输出",
+      "超长上下文"
+    ],
+    "useCases": [
+      "构建智能代理与自动化工作流",
+      "复杂代码生成与调试",
+      "大规模文档分析与摘要",
+      "多语言翻译与本地化应用"
+    ],
+    "strengths": [
+      "极致性价比，激活参数少但性能强劲",
+      "深度思考模式，擅长复杂推理与数学",
+      "超长上下文窗口，适合大规模文档处理",
+      "完整功能支持：函数调用、JSON模式、流式输出"
+    ],
+    "whyChoose": {
+      "en": "Best price-to-performance ratio for complex reasoning and coding tasks.",
+      "ru": "Лучшее соотношение цены и производительности для сложных задач рассуждения и кодирования.",
+      "tr": "Karmaşık akıl yürütme ve kodlama görevlerinde en iyi fiyat-performans oranı."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-235b-a22b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-235b-a22b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-235b-a22b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  },
+  {
+    "id": "qwen/qwen3-235b-a22b-2507",
+    "name": "Qwen: Qwen3 235B A22B Instruct 2507",
+    "provider": "阿里通义千问",
+    "providerLogo": "QW",
+    "description": "Qwen3-235B-A22B 是阿里通义千问最新推出的混合专家模型，每次推理仅激活 22B 参数，兼顾高性能与低成本。它支持 262K 超长上下文，适合处理复杂文档、代码库和多轮对话。专为新兴市场开发者打造，在中文、英文及多语言任务上表现优异。无论是构建智能客服、内容生成还是代码助手，都能以极低的价格获得顶级体验。",
+    "descriptions": {
+      "zh": "Qwen3-235B-A22B 是阿里通义千问最新推出的混合专家模型，每次推理仅激活 22B 参数，兼顾高性能与低成本。它支持 262K 超长上下文，适合处理复杂文档、代码库和多轮对话。专为新兴市场开发者打造，在中文、英文及多语言任务上表现优异。无论是构建智能客服、内容生成还是代码助手，都能以极低的价格获得顶级体验。",
+      "en": "Qwen3-235B-A22B is Alibaba's latest MoE model that activates only 22B parameters per forward pass, delivering high performance at a fraction of the cost. With a 262K context window, it excels at processing long documents, codebases, and complex conversations. Built for developers in emerging markets, it offers top-tier multilingual support. Ideal for building intelligent chatbots, content generators, or coding assistants—all at an unbeatable price.",
+      "ru": "Qwen3-235B-A22B — новейшая модель смеси экспертов от Alibaba, активирующая всего 22B параметров за проход, что обеспечивает высокую производительность при низкой стоимости. Окно контекста в 262K позволяет обрабатывать длинные документы, кодовые базы и сложные диалоги. Создана для разработчиков на развивающихся рынках, отлично поддерживает многоязычность. Идеально подходит для чат-ботов, генерации контента и помощников по коду.",
+      "tr": "Qwen3-235B-A22B, Alibaba'nın en yeni MoE modelidir ve her ileri geçişte yalnızca 22B parametreyi etkinleştirerek düşük maliyetle yüksek performans sunar. 262K bağlam penceresi sayesinde uzun belgeleri, kod tabanlarını ve karmaşık diyalogları işlemede mükemmeldir. Gelişmekte olan pazarlardaki geliştiriciler için tasarlanmış olup çok dilli desteğiyle öne çıkar. Akıllı sohbet robotları, içerik oluşturma veya kod asistanları için idealdir."
+    },
+    "inputPrice": "$0.07",
+    "outputPrice": "$0.10",
+    "contextWindow": "262K",
+    "maxTokens": "16K",
+    "status": "available",
+    "category": "chat",
+    "features": [
+      "函数调用",
+      "JSON模式",
+      "结构化输出",
+      "流式输出",
+      "超长上下文"
+    ],
+    "useCases": [
+      "长文档分析与摘要",
+      "代码生成与辅助",
+      "多语言智能客服"
+    ],
+    "strengths": [
+      "超长上下文支持",
+      "高性价比推理",
+      "多语言能力出色"
+    ],
+    "whyChoose": {
+      "en": "Best price-performance ratio for long-context tasks with multilingual support.",
+      "ru": "Лучшее соотношение цены и производительности для задач с длинным контекстом и поддержкой многоязычности.",
+      "tr": "Uzun bağlam gerektiren görevler için en iyi fiyat-performans oranı ve çok dilli destek."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"qwen/qwen3-235b-a22b-2507\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"qwen/qwen3-235b-a22b-2507\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"qwen/qwen3-235b-a22b-2507\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    }
+  }
+]

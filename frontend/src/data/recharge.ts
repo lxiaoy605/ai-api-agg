@@ -46,9 +46,10 @@ export interface AmountOption {
   tokens: string;
 }
 
+// 最低金额取决于 NOWPayments 实时汇率，前端选项仅做预设参考
+// 实际支付时需调用 getMinAmount() 校验
+// $5 不再作为选项出现，因为 NOWPayments 对大多数币种最低限额 > $5
 export const amountOptions: AmountOption[] = [
-  { value: 5, label: "$5", tokens: "500" },
-  { value: 10, label: "$10", tokens: "1,050" },
   { value: 20, label: "$20", tokens: "2,200" },
   { value: 50, label: "$50", tokens: "5,750" },
   { value: 100, label: "$100", tokens: "12,000" },
@@ -102,17 +103,22 @@ export const fallbackUSDTAddresses: Record<string, string> = {
 
 // ========== API 调用 ==========
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+function getApiBase(): string {
+  if (typeof window === "undefined") return "";
+  return window.location.hostname === "localhost"
+    ? "http://localhost:8082"
+    : window.location.origin;
+}
 
 function authHeaders(): Record<string, string> {
   if (typeof window === "undefined") return {};
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("ai_api_agg_token") || localStorage.getItem("token");
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 /** 获取可用币种 */
 export async function fetchCurrencies(): Promise<CurrencyItem[]> {
-  const res = await fetch(`${API_BASE}/api/payment/currencies`);
+  const res = await fetch(`${getApiBase()}/api/payment/currencies`);
   const json = await res.json();
   if (json.code !== 0) throw new Error(json.message || "获取币种失败");
   return json.data as CurrencyItem[];
@@ -123,7 +129,7 @@ export async function createPayment(
   amountCents: number,
   payCurrency: string
 ): Promise<PaymentInfo> {
-  const res = await fetch(`${API_BASE}/api/payment/create`, {
+  const res = await fetch(`${getApiBase()}/api/payment/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -136,9 +142,29 @@ export async function createPayment(
   return json.data as PaymentInfo;
 }
 
+/** 获取最低支付金额 */
+export async function getMinAmount(currencyFrom: string, currencyTo: string): Promise<number> {
+  const res = await fetch(`${getApiBase()}/api/payment/min-amount?currency_from=${currencyFrom}&currency_to=${currencyTo}`, {
+    headers: authHeaders(),
+  });
+  if (!res.ok) return 10; // fallback
+  const json = await res.json();
+  return json.data?.min_amount ?? 10;
+}
+
+/** 获取估算金额 */
+export async function getEstimatedAmount(amount: number, currencyFrom: string, currencyTo: string): Promise<number> {
+  const res = await fetch(`${getApiBase()}/api/payment/estimate?amount=${amount}&currency_from=${currencyFrom}&currency_to=${currencyTo}`, {
+    headers: authHeaders(),
+  });
+  if (!res.ok) return amount;
+  const json = await res.json();
+  return json.data?.estimated_amount ?? amount;
+}
+
 /** 查询支付状态 */
 export async function fetchPaymentStatus(paymentId: number): Promise<PaymentStatus> {
-  const res = await fetch(`${API_BASE}/api/payment/status/${paymentId}`, {
+  const res = await fetch(`${getApiBase()}/api/payment/status/${paymentId}`, {
     headers: authHeaders(),
   });
   const json = await res.json();

@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
+	"strings"
 	"syscall"
 	"time"
 
@@ -18,7 +19,9 @@ import (
 	"github.com/ai-api-agg/backend/internal/middleware"
 	"github.com/ai-api-agg/backend/internal/notify"
 	"github.com/ai-api-agg/backend/internal/payment"
+	"github.com/ai-api-agg/backend/internal/proxy"
 	"github.com/ai-api-agg/backend/internal/usdt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -44,6 +47,21 @@ func main() {
 
 	// 创建处理器
 	authHandler := auth.NewHandler(db, cfg.JWTSecret)
+
+	// OAuth handler
+	oauthConfig := auth.OAuthConfig{
+		Google: auth.OAuthProvider{
+			ClientID:     cfg.GoogleClientID,
+			ClientSecret: cfg.GoogleClientSecret,
+			RedirectURL:  strings.TrimRight(cfg.PublicURL, "/") + "/auth/oauth/google/callback",
+		},
+		GitHub: auth.OAuthProvider{
+			ClientID:     cfg.GitHubClientID,
+			ClientSecret: cfg.GitHubClientSecret,
+			RedirectURL:  strings.TrimRight(cfg.PublicURL, "/") + "/auth/oauth/github/callback",
+		},
+	}
+	oauthHandler := auth.NewOAuthHandler(db, cfg.JWTSecret, oauthConfig, cfg.FrontendURL)
 	apikeyHandler := apikey.NewHandler(db, cfg.EncryptionKey)
 
 	// 确定项目根目录（从 backend/ 运行，项目根是 ..）
@@ -56,12 +74,35 @@ func main() {
 	// 创建支付处理器（NOWPayments）
 	paymentHandler := payment.NewHandler(db, cfg.NowPaymentsAPIKey, cfg.NowPaymentsSecret, cfg.NowPaymentsURL)
 
+	// 创建代理处理器（OneAPI 转发）
+	proxyHandler := proxy.NewHandler(db, cfg.EncryptionKey, cfg.OneAPIURL, cfg.OneAPIKey)
+
 	// 启动 USDT 监听引擎（goroutine）
 	usdtMonitor := usdt.NewMonitor(db, tg)
 	go usdtMonitor.Start(30 * time.Second) // 每 30 秒轮询
 
-	// 创建 Gin 引擎
-	r := gin.Default()
+	// 创建 Gin 引擎（启用方法不匹配告警以处理 OPTIONS preflight）
+	r := gin.New()
+	r.HandleMethodNotAllowed = true
+	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
+
+	// CORS 跨域（允许前端 dev server 及线上域名）
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3333", "http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:3003", "http://localhost:3456", "https://aiflowhub.ai", "http://aiflowhub.ai"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization", "X-Requested-With"},
+		AllowCredentials: true,
+	}))
+
+	// 处理 OPTIONS preflight（CORS 中间件处理前 headers 已设置，这里返回 204）
+	r.NoMethod(func(c *gin.Context) {
+		if c.Request.Method == http.MethodOptions {
+			c.AbortWithStatus(http.StatusNoContent)
+			return
+		}
+		middleware.NotFound(c, "method not allowed")
+	})
 
 	// 健康检查端点
 	r.GET("/health", func(c *gin.Context) {
@@ -76,6 +117,17 @@ func main() {
 	{
 		authGroup.POST("/register", authHandler.Register)
 		authGroup.POST("/login", authHandler.Login)
+		authGroup.POST("/forgot-password", authHandler.ForgotPassword)
+		authGroup.POST("/reset-password", authHandler.ResetPassword)
+
+		// OAuth 路由
+		oauthGroup := authGroup.Group("/oauth")
+		{
+			oauthGroup.GET("/google", oauthHandler.LoginGoogle)
+			oauthGroup.GET("/google/callback", oauthHandler.CallbackGoogle)
+			oauthGroup.GET("/github", oauthHandler.LoginGitHub)
+			oauthGroup.GET("/github/callback", oauthHandler.CallbackGitHub)
+		}
 	}
 
 	// 需要 JWT 认证的路由
@@ -110,6 +162,8 @@ func main() {
 	{
 		// 公开端点（无需认证）
 		paymentGroup.GET("/currencies", paymentHandler.Currencies)
+		paymentGroup.GET("/min-amount", paymentHandler.MinAmount)
+		paymentGroup.GET("/estimate", paymentHandler.EstimateAmount)
 		paymentGroup.POST("/webhook", paymentHandler.Webhook)
 
 		// 需要 JWT 认证
@@ -120,6 +174,10 @@ func main() {
 			paymentAuth.GET("/status/:payment_id", paymentHandler.PaymentStatus)
 		}
 	}
+
+	// 模型目录管理（管理员导入）
+	// 模型代理路由（通过 API Key 认证，不需要 JWT）
+	r.POST("/v1/chat/completions", proxyHandler.ChatCompletions)
 
 	// 监听端口（通过环境变量 PORT 配置，默认 8080）
 	port := os.Getenv("PORT")

@@ -1,153 +1,41 @@
-# AI API 聚合平台 (ai-api-agg)
+# AI API Aggregation Platform (AiFlowHub)
 
-AI API 聚合与转售服务。单一 OpenAI 兼容端点，统一接入 DeepSeek、智谱、小米 MiMo 等模型。
-
-**状态：** MVP 运行中 | 蓝绿部署 | 前端上线
-
----
-
-## 项目结构
-
-```
-ai-api-agg/
-├── backend/                    # Go 后端 (API 代理 + 业务逻辑)
-│   ├── cmd/server/             # 主入口
-│   └── internal/
-│       ├── admin/              # 管理 API
-│       ├── apikey/             # API Key 管理
-│       ├── audit/              # 审计日志
-│       ├── config/             # 配置管理
-│       ├── database/           # 数据库
-│       ├── middleware/         # 中间件 (认证/限流/CORS)
-│       ├── models/             # 数据模型
-│       ├── notify/             # 通知 (Telegram)
-│       └── payment/            # 支付 (NOWPayments/USDT)
-│
-├── frontend/                   # Next.js 前端
-│   └── src/
-│       ├── app/                # App Router 页面
-│       │   ├── page.tsx               # Landing
-│       │   └── (main)/
-│       │       ├── dashboard/         # 仪表盘
-│       │       ├── api-keys/          # API Key 管理
-│       │       ├── models/            # 模型列表
-│       │       ├── docs/              # 文档
-│       │       ├── recharge/          # 充值
-│       │       └── usage/             # 用量分析
-│       ├── components/
-│       │   ├── layout/         # 布局组件 (Sidebar/TopNav)
-│       │   └── charts/         # 图表组件
-│       └── messages/           # i18n (en/ru/tr)
-│
-├── stack/                      # Docker Compose 生产部署
-│   ├── docker-compose.yml      # 完整服务编排
-│   ├── .env                    # 环境变量 (API Keys)
-│   ├── haproxy/                # 负载均衡 (蓝绿)
-│   ├── nginx/                  # HTTPS 反向代理
-│   ├── keepalived/             # VIP 高可用
-│   └── oneapi/                 # OneAPI 引擎 (.env)
-│
-├── scripts/                    # 运维脚本
-│   ├── init.sh                 # 一键初始化 (Key 验证→模型发现→渠道创建)
-│   ├── deploy.sh               # 部署脚本
-│   ├── bluegreen-deploy.sh     # 蓝绿部署
-│   ├── bluegreen-switch.sh     # 蓝绿切换
-│   ├── backup.sh               # 自动备份
-│   ├── restore.sh              # 备份恢复
-│   ├── healthcheck.sh          # 健康检查
-│   ├── balance-monitor.py      # 余额监控
-│   ├── ops-daily-report.sh     # 每日运营报告
-│   └── rotate-channel-key.sh   # Key 轮换
-│
-├── monitoring/                 # 可观测性
-│   ├── prometheus.yml          # Prometheus 配置
-│   └── grafana/                # Grafana 仪表盘
-│
-├── tests/
-│   └── e2e/                    # 端到端测试
-│       ├── test-api.sh
-│       └── run-all.sh
-│
-├── channels/                   # 渠道配置
-│   ├── channel-configs.json    # 模型渠道定义
-│   └── channel-setup.sh        # 渠道初始化
-│
-└── docs/                       # 项目文档
-```
-
-## 技术栈
-
-| 层 | 技术 | 说明 |
-|----|------|------|
-| 前端 | Next.js 15 (App Router) + Tailwind CSS 4 | React 19, SSR, i18n (en/ru/tr) |
-| 后端 | Go 1.21+ | API 代理、Key 管理、支付集成 |
-| API 引擎 | OneAPI | 渠道管理、负载均衡、配额 |
-| 负载均衡 | HAProxy | 蓝绿部署、健康检查 |
-| 反向代理 | Nginx | HTTPS、静态文件、路由 |
-| 数据库 | SQLite | 轻量级单机数据库 |
-| 监控 | Prometheus + Grafana | 指标收集、可视化、告警 |
-| 支付 | NOWPayments | 非托管加密网关 (USDT) |
-| 容器 | Docker Compose | 一键部署 |
-
-## 架构
-
-```
-用户 → Nginx (443) → Frontend (3000)
-                    → API (8080) → HAProxy → OneAPI Blue (3001) → Provider APIs
-                                            → OneAPI Green (3002)
-                    监控层: Prometheus (9090) → Grafana (3030)
-```
-
-- **蓝绿部署**：两套 OneAPI 实例，HAProxy 按健康检查切换，零停机更新
-- **Key 轮换**：自动检测过期 Key，支持热替换
-- **支付系统**：NOWPayments 自动回调确认，USDT 链上对账
+AI 模型 API 聚合平台，统一 API 接入国内模型厂商。
 
 ## 快速开始
+- 开发环境：见 [开发规范](docs/06-开发规范.md)
+- 部署：见 [部署报告](docs/09-部署报告.md)
 
-```bash
-# 一键初始化
-bash scripts/init.sh
+### 端口约定（固定，不再自动跳变）
+| 端口 | 服务 | 启动方式 |
+|------|------|----------|
+| 3000 | 前端（Docker / `npm start`） | `docker compose up -d` 或 `npm run start` |
+| 3005 | 前端（热重载开发） | `npm run dev:alt`（Docker 占 3000 时用） |
+| 8080 | HAProxy → Backend | Docker compose |
+| 8082 | Backend Blue | Docker compose |
+| 8083 | Backend Green | Docker compose |
 
-# 或分步执行
-bash scripts/deploy.sh          # 构建并启动所有服务
-bash scripts/init.sh --dry-run  # 先验证 Key 有效性
+> ⚠️ `npm run dev` 固定 3000。如果 Docker 已占 3000，用 `npm run dev:alt`（3005）或先停 Docker 前端。
 
-# 查看状态
-docker compose -f stack/docker-compose.yml ps
-```
+## 文档索引
+1. [需求调研报告](docs/01-需求调研报告.md)
+2. [落地执行方案](docs/02-落地执行方案.md)
+3. [技术执行方案](docs/03-技术执行方案.md)
+4. [产品及交互设计与流程细化](docs/04-产品及交互设计与流程细化.md)
+5. [开发及测试任务派发清单](docs/05-开发及测试任务派发清单.md)
+6. [开发规范](docs/06-开发规范.md)
+7. [测试规范](docs/07-测试规范.md)
+8. [测试验收审查报告](docs/08-测试验收审查报告.md)
+9. [部署报告](docs/09-部署报告.md)
+10. [生产验收报告](docs/10-生产验收报告.md)（待完成）
 
-### 服务端口
+## 运维文档
+- [操作指引](docs/操作指引.md)
+- [运维手册](docs/运维手册.md)
+- [VPS开通说明](docs/VPS开通说明.md)
 
-| 说明 | 地址 |
-|------|------|
-| 前端 | https://api-hub.local |
-| OneAPI Blue | http://localhost:3001 |
-| OneAPI Green | http://localhost:3002 |
-| HAProxy 统计 | http://localhost:8081 |
-| Grafana | http://localhost:3030 |
-| Prometheus | http://localhost:9090 |
+## 技术栈
+Go (Gin) + Next.js 16 + Tailwind v4 + SQLite + Docker Compose
 
-## 环境变量 (`stack/.env`)
-
-```bash
-# DeepSeek
-DEEPSEEK_API_KEY=sk-xxx
-DEEPSEEK_API_KEY_2=sk-xxx
-
-# 智谱 Z.ai
-ZHIPU_API_KEY=xxx
-ZHIPU_API_KEY_2=xxx
-
-# 小米 MiMo
-MIMO_API_KEY=xxx
-MIMO_API_KEY_2=xxx
-MIMO_API_BASE=https://token-plan-sgp.xiaomimimo.com/v1
-```
-
-## 活跃任务
-
-见顶部「关键进度」及 `TASKS.md`。
-
----
-
-_最后更新：2026-05-29_
+## 客户端密钥
+`google_client_secret*.json` / `github_*.txt` — 保存在项目根目录，仅用于 OAuth

@@ -13,6 +13,7 @@ import {
   Server,
   Key,
 } from "lucide-react";
+import Link from "next/link";
 
 const langTabs = [
   { key: "curl", label: "cURL" },
@@ -118,7 +119,7 @@ export default function DocsPage() {
   };
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-[var(--body-text)]">{td("title")}</h1>
         <p className="text-[var(--muted-text)] text-sm mt-1">{td("subtitle")}</p>
@@ -133,7 +134,7 @@ export default function DocsPage() {
         <p className="text-sm text-[var(--muted-text)]">{td("quickStartDesc")}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-5">
+          <Link href="/api-keys" className="cursor-pointer bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-5 hover:border-brand-500/30 hover:bg-[var(--surface-raised)] transition-colors">
             <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center mb-3">
               <Key className="h-4 w-4 text-brand-300" />
             </div>
@@ -141,8 +142,8 @@ export default function DocsPage() {
               {td("step1Title")}
             </h3>
             <p className="text-xs text-[var(--muted-text)]">{td("step1Desc")}</p>
-          </div>
-          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-5">
+          </Link>
+          <a href="#quick-start-code" className="cursor-pointer bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-5 hover:border-brand-500/30 hover:bg-[var(--surface-raised)] transition-colors">
             <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center mb-3">
               <Server className="h-4 w-4 text-brand-300" />
             </div>
@@ -155,8 +156,8 @@ export default function DocsPage() {
                 https://api.example.com/v1
               </code>
             </p>
-          </div>
-          <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-5">
+          </a>
+          <Link href="/models" className="cursor-pointer bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] p-5 hover:border-brand-500/30 hover:bg-[var(--surface-raised)] transition-colors">
             <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center mb-3">
               <ArrowRight className="h-4 w-4 text-brand-300" />
             </div>
@@ -164,10 +165,10 @@ export default function DocsPage() {
               {td("step3Title")}
             </h3>
             <p className="text-xs text-[var(--muted-text)]">{td("step3Desc")}</p>
-          </div>
+          </Link>
         </div>
 
-        <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] overflow-hidden">
+        <div id="quick-start-code" className="bg-[var(--card-bg)] rounded-xl border border-[var(--border-color)] overflow-hidden">
           <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--border-color)]">
             <div className="flex rounded-lg bg-[var(--surface-raised)] p-0.5">
               {langTabs.map((tab) => (

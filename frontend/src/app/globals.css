@@ -159,6 +159,9 @@ h2 { line-height: 1.2; }
  * ============================================================ */
 .light,
 [data-theme="light"] {
+  /* Brand — darker variants for Light mode contrast */
+  --color-brand-300: #5A33C4;  /* replaces #C4B5FD — readable on light bg */
+
   /* Neutral palette (light mode) */
   --color-neutral-0: #0A0A10;
   --color-neutral-50: #F8F9FC;
@@ -257,6 +260,12 @@ h2 { line-height: 1.2; }
   to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes brand-liquid {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .animate-fade-in {
   animation: fade-in 0.8s ease-out;
 }
@@ -292,5 +301,17 @@ h2 { line-height: 1.2; }
 
 /* Firefox */
 * { scrollbar-width: thin; scrollbar-color: var(--border-color) var(--page-bg); }
+
+/* Global cursor:pointer on interactive elements */
+button:not(:disabled),
+a,
+[role="button"],
+input[type="submit"],
+select {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
 
 /* prefers-reduced-motion — already declared above; respected globally */

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import TopNav from "@/components/layout/TopNav";
+
 import {
   Cpu,
   Zap,
@@ -45,22 +45,22 @@ export default function Home() {
     }
   }, []);
 
-  if (!ready) return null;
-
   return (
+    !ready ? (
+      <div className="min-h-screen" style={{ background: "var(--hero-bg)" }} />
+    ) : (
     <div className="min-h-screen" style={{ background: "var(--hero-bg)" }}>
-      <TopNav />
 
       {/* Hero */}
       <section className="pt-10 pb-8 sm:pt-10 sm:pb-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
-          <h1 className="animate-slide-up text-5xl font-bold tracking-tight text-[var(--body-text)] sm:text-6xl lg:text-7xl" style={{ animationDelay: "0.1s" }}>
+          <h1 className="opacity-0 animate-slide-up text-5xl font-bold tracking-tight text-[var(--body-text)] sm:text-6xl lg:text-7xl" style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}>
             {t("title")}
           </h1>
-          <p className="animate-slide-up mx-auto mt-4 max-w-xl text-base leading-relaxed text-[var(--muted-text)] sm:text-lg" style={{ animationDelay: "0.25s" }}>
+          <p className="opacity-0 animate-slide-up mx-auto mt-4 max-w-xl text-base leading-relaxed text-[var(--muted-text)] sm:text-lg" style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}>
             {t("subtitle")}
           </p>
-          <div className="animate-fade-in mt-6 flex items-center justify-center gap-4" style={{ animationDelay: "0.45s" }}>
+          <div className="mt-6 flex items-center justify-center gap-4">
             <Link
               href="/register"
               className="inline-flex items-center rounded-lg bg-brand-600 px-6 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
@@ -179,12 +179,19 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-[var(--border-color)] py-6">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-          <div className="flex items-center gap-2 text-xs text-[var(--muted-text)]">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col items-center gap-3">
+          {/* Brand + Desc + EU badge */}
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-[var(--muted-text)]">
             <span className="font-medium text-[var(--body-text)]">AiFlowHub</span>
-            <span className="text-[var(--muted-text)]">·</span>
+            <span className="text-[var(--muted-text)] hidden sm:inline">·</span>
             <span>{t("footerDesc")}</span>
+            <span className="text-[var(--muted-text)] hidden sm:inline">·</span>
+            <span className="inline-flex items-center gap-1.5">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect width="24" height="24" rx="12" fill="#003399"/><circle cx="12" cy="12" r="5" fill="#FFCC00"/></svg>
+              <span>EU Infrastructure</span>
+            </span>
           </div>
+          {/* Links */}
           <div className="flex items-center gap-4 text-xs text-[var(--muted-text)]">
             <Link href="/terms" className="hover:text-[var(--body-text)]">{t("terms")}</Link>
             <Link href="/privacy" className="hover:text-[var(--body-text)]">{t("privacy")}</Link>
@@ -192,5 +199,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  );
+  )
+);
 }

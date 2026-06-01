@@ -18,6 +18,14 @@ type Config struct {
 	NowPaymentsAPIKey string // NOWPayments API Key
 	NowPaymentsSecret string // NOWPayments IPN Secret（可选回调验证）
 	NowPaymentsURL    string // NOWPayments API 基础 URL
+	OneAPIURL         string // OneAPI 代理地址（如 http://oneapi-blue:3000）
+	OneAPIKey         string // OneAPI 系统访问令牌
+	GoogleClientID     string // Google OAuth Client ID
+	GoogleClientSecret string // Google OAuth Client Secret
+	GitHubClientID     string // GitHub OAuth Client ID
+	GitHubClientSecret string // GitHub OAuth Client Secret
+	PublicURL          string // 站点公开 URL（用于 OAuth 回调）
+	FrontendURL        string // 前端 URL（OAuth 登入后重定向目标）
 }
 
 // Load 从环境变量加载配置
@@ -34,6 +42,14 @@ func Load() *Config {
 		NowPaymentsAPIKey: getEnv("NOWPAYMENTS_API_KEY", ""),
 		NowPaymentsSecret: getEnv("NOWPAYMENTS_IPN_SECRET", ""),
 		NowPaymentsURL:    getEnv("NOWPAYMENTS_API_URL", "https://api.nowpayments.io/v1"),
+		OneAPIURL:         getEnv("ONEAPI_URL", "http://localhost:3000"),
+		OneAPIKey:         getEnv("ONEAPI_API_KEY", ""),
+		GoogleClientID:     getEnv("GOOGLE_CLIENT_ID", ""),
+		GoogleClientSecret: getEnv("GOOGLE_CLIENT_SECRET", ""),
+		GitHubClientID:     getEnv("GITHUB_CLIENT_ID", ""),
+		GitHubClientSecret: getEnv("GITHUB_CLIENT_SECRET", ""),
+		PublicURL:          getEnv("PUBLIC_URL", "http://localhost:8082"),
+		FrontendURL:        getEnv("FRONTEND_URL", "http://localhost:3000"),
 	}
 }
 

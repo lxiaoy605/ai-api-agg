@@ -11,7 +11,7 @@ export default function MainLayout({
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-[calc(100vh-3.5rem)]">
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
       <main
         className={`flex-1 p-6 lg:p-8 transition-all duration-200 ${
