@@ -2,8 +2,8 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { models as allModels, searchModels } from "@/data/models";
-import { isPlatformModel } from "@/data/platform-models";
+import { models as enrichedModels } from "@/data/models";
+import { PLATFORM_MODEL_IDS, getPlatformMeta } from "@/data/platform-models";
 import {
   ChevronDown,
   ChevronUp,
@@ -34,11 +34,113 @@ const providerIcons: Record<string, React.ComponentType<{ className?: string }>>
 
 const providerColors: Record<string, string> = {
   DeepSeek: "bg-[#4A90D9]/10 text-[#4A90D9]",
-  "Zhipu Z.ai": "bg-purple-500/10 text-purple-400",
+  Zhipu: "bg-purple-500/10 text-purple-400",
+  ZhipuGLM: "bg-purple-500/10 text-purple-400",
+  MiniMax: "bg-blue-500/10 text-blue-400",
   "Xiaomi MiMo": "bg-orange-500/10 text-orange-400",
-  OpenAI: "bg-emerald-500/10 text-emerald-400",
-  Anthropic: "bg-amber-500/10 text-amber-400",
 };
+
+/** 平台模型视图（合并富化数据） */
+interface ModelView {
+  /** 平台模型 ID */
+  id: string;
+  /** 显示名 */
+  name: string;
+  /** 分类 */
+  category: string;
+  /** 厂商 */
+  provider: string;
+  /** 上下文窗口 */
+  contextWindow: string;
+  /** 最大输出 */
+  maxTokens: string;
+  /** 输入价格 */
+  inputPrice: string;
+  /** 输出价格 */
+  outputPrice: string;
+  /** 特性标签 */
+  features: string[];
+  /** 多语言描述 */
+  description: string;
+  descriptions: Record<string, string>;
+  /** 优势（中文） */
+  strengths: string[];
+  /** 场景（中文） */
+  useCases: string[];
+  /** 代码示例 */
+  codeExample: Record<string, string>;
+  /** 是否有富化数据 */
+  enriched: boolean;
+}
+
+function buildModelViews(locale: string): ModelView[] {
+  const lang = locale as "en" | "ru" | "tr";
+  return PLATFORM_MODEL_IDS.map((mid) => {
+    const meta = getPlatformMeta(mid)!;
+    // 查找富化数据
+    const enriched =
+      meta.enrichedId
+        ? enrichedModels.find((m) => m.id === meta.enrichedId)
+        : null;
+
+    if (enriched) {
+      return {
+        id: mid,
+        name: enriched.name || meta.displayName,
+        category: meta.category || enriched.category,
+        provider: meta.provider,
+        contextWindow: enriched.contextWindow,
+        maxTokens: enriched.maxTokens,
+        inputPrice: enriched.inputPrice,
+        outputPrice: enriched.outputPrice,
+        features: enriched.features,
+        description: enriched.descriptions?.[lang] || enriched.descriptions?.zh || enriched.description || "",
+        descriptions: { ...enriched.descriptions } as unknown as Record<string, string>,
+        strengths: enriched.strengths,
+        useCases: enriched.useCases,
+        codeExample: enriched.codeExample,
+        enriched: true,
+      };
+    }
+
+    // Fallback: 无富化数据，用基本信息
+    const fallbackCode = {
+      curl: `curl https://api.aiflowhub.ai/v1/chat/completions \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer $AIFLOWHUB_API_KEY" \\
+  -d '{"model":"${mid}","messages":[{"role":"user","content":"Hello"}]}'`,
+      python: `import requests\n\nresponse = requests.post(\n    "https://api.aiflowhub.ai/v1/chat/completions",\n    headers={"Authorization": f"Bearer {AIFLOWHUB_API_KEY}"},\n    json={"model": "${mid}", "messages": [{"role": "user", "content": "Hello"}]}\n)`,
+      nodejs: `const response = await fetch("https://api.aiflowhub.ai/v1/chat/completions", {\n  method: "POST",\n  headers: { "Authorization": "Bearer " + AIFLOWHUB_API_KEY },\n  body: JSON.stringify({ model: "${mid}", messages: [{ role: "user", content: "Hello" }] })\n});`,
+    };
+    return {
+      id: mid,
+      name: meta.displayName,
+      category: meta.category,
+      provider: meta.provider,
+      contextWindow: "—",
+      maxTokens: "—",
+      inputPrice: "—",
+      outputPrice: "—",
+      features: [],
+      description: `${meta.displayName} by ${meta.provider}`,
+      descriptions: { en: `${meta.displayName} by ${meta.provider}` },
+      strengths: [],
+      useCases: [],
+      codeExample: fallbackCode,
+      enriched: false,
+    };
+  });
+}
+
+function searchModelViews(models: ModelView[], query: string): ModelView[] {
+  const q = query.toLowerCase().trim();
+  if (!q) return models;
+  return models.filter(
+    (m) =>
+      m.id.toLowerCase().includes(q) ||
+      m.name.toLowerCase().includes(q)
+  );
+}
 
 export default function ModelsPage() {
   const t = useTranslations("models");
@@ -51,21 +153,17 @@ export default function ModelsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [committedQuery, setCommittedQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("all");
-  const [showAll, setShowAll] = useState(false);
 
-  const onlineModels = useMemo(() => allModels.filter((m) => isPlatformModel(m.id)), []);
-  const baseModels = showAll ? allModels : onlineModels;
+  const allViews = useMemo(() => buildModelViews(locale), [locale]);
 
   const filtered = useMemo(() => {
     const q = committedQuery || searchQuery;
-    let result = q
-      ? searchModels(q, locale as "en" | "ru" | "tr")
-      : baseModels;
+    let result = q ? searchModelViews(allViews, q) : allViews;
     if (filterCategory !== "all") {
       result = result.filter((m) => m.category === filterCategory);
     }
     return result;
-  }, [searchQuery, committedQuery, filterCategory, locale, baseModels]);
+  }, [searchQuery, committedQuery, filterCategory, allViews]);
 
   const handleSearch = useCallback(() => {
     setCommittedQuery(searchQuery);
@@ -90,11 +188,6 @@ export default function ModelsPage() {
         <h1 className="text-2xl font-bold text-[var(--body-text)]">{t("title")}</h1>
         <p className="text-[var(--muted-text)] text-sm mt-1">
           {t("subtitle")}
-          {!showAll && (
-            <span className="ml-2 text-brand-400">
-              ({onlineModels.length} of {allModels.length} online)
-            </span>
-          )}
         </p>
       </div>
 
@@ -104,7 +197,7 @@ export default function ModelsPage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-text)]" />
           <input
             type="text"
-            placeholder={t("searchPlaceholder") || "Search models..."}
+            placeholder={t("searchPlaceholder") || "Search models by name or ID..."}
             value={searchQuery}
             onChange={(e) => {
               setSearchQuery(e.target.value);
@@ -155,38 +248,27 @@ export default function ModelsPage() {
             {t(`category.${key}`)}
           </button>
         ))}
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${
-            showAll
-              ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
-              : "text-[var(--muted-text)] hover:text-[var(--body-text)] bg-[var(--surface-raised)]/50"
-          }`}
-        >
-          {showAll ? "Online only" : "Show all"}
-        </button>
       </div>
 
-      {/* 搜索结果计数 */}
+      {/* 结果计数 */}
       {committedQuery && (
         <p className="text-sm text-[var(--muted-text)] -mt-4">
-          Found {filtered.length} results
+          Found {filtered.length} results for "{committedQuery}"
         </p>
       )}
 
-      {/* 模型列表 — 单列行布局 */}
+      {/* 模型列表 */}
       <div className="space-y-3">
         {filtered.map((model) => {
           const isExpanded = expandedId === model.id;
-          const ProviderIcon = providerIcons[model.provider];
+          const iconKey = Object.keys(providerIcons).find(
+            (k) => model.provider.toLowerCase().includes(k.toLowerCase())
+          );
+          const ProviderIcon = iconKey ? providerIcons[iconKey] : Brain;
           const colorClass =
-            providerColors[model.provider] ||
-            "bg-[var(--surface-raised)] text-[var(--muted-text)]";
-          const descText =
-            model.descriptions?.[locale as "en" | "ru" | "tr"] ||
-            model.descriptions?.zh ||
-            model.description ||
-            "";
+            Object.entries(providerColors).find(([k]) =>
+              model.provider.toLowerCase().includes(k.toLowerCase())
+            )?.[1] || "bg-[var(--surface-raised)] text-[var(--muted-text)]";
 
           return (
             <div
@@ -203,11 +285,7 @@ export default function ModelsPage() {
                   <div
                     className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${colorClass}`}
                   >
-                    {ProviderIcon ? (
-                      <ProviderIcon className="h-5 w-5" />
-                    ) : (
-                      <Brain className="h-5 w-5" />
-                    )}
+                    <ProviderIcon className="h-5 w-5" />
                   </div>
 
                   {/* 模型信息 */}
@@ -216,38 +294,37 @@ export default function ModelsPage() {
                       <h3 className="text-sm font-semibold text-[var(--body-text)]">
                         {model.name}
                       </h3>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--surface-raised)] text-[var(--muted-text)]">
-                        {model.provider}
-                      </span>
-                      <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${
-                          model.status === "available"
-                            ? "bg-brand-500/10 text-brand-300"
-                            : "bg-yellow-500/10 text-yellow-400"
-                        }`}
-                      >
-                        {ts(model.status)}
+                      <code className="text-xs px-2 py-0.5 rounded-full bg-[var(--surface-raised)] text-[var(--muted-text)] font-mono">
+                        {model.id}
+                      </code>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                        model.enriched ? "bg-brand-500/10 text-brand-300" : "bg-yellow-500/10 text-yellow-400"
+                      }`}>
+                        {model.enriched ? "Available" : "Beta"}
                       </span>
                     </div>
-                    {/* 描述 — 未展开时最多两行，展开后全文 */}
                     <p
-                      className={`text-sm text-[var(--muted-text)] leading-relaxed mt-1.5 ${
-                        isExpanded ? "" : "line-clamp-2"
-                      }`}
-                      style={{ maxWidth: "720px" }}
+                      className="text-sm text-[var(--muted-text)] leading-relaxed mt-1.5"
+                      style={{
+                        maxWidth: "95%",
+                        display: "-webkit-box",
+                        WebkitLineClamp: isExpanded ? undefined : 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: isExpanded ? "visible" : "hidden",
+                      }}
                     >
-                      {descText}
+                      {model.description}
                     </p>
                     <div className="flex items-center gap-4 mt-2 text-sm text-[var(--muted-text)]">
                       <span className="flex items-center gap-1">
                         <DollarSign className="h-3.5 w-3.5" />
-                        {t("inputPrice", { price: model.inputPrice })}
-                        <span className="text-[var(--muted-text)]/60">/ 1M</span>
+                        {model.inputPrice}
+                        <span className="text-[var(--muted-text)]/60">/ 1M in</span>
                       </span>
                       <span className="flex items-center gap-1">
                         <DollarSign className="h-3.5 w-3.5" />
-                        {t("outputPrice", { price: model.outputPrice })}
-                        <span className="text-[var(--muted-text)]/60">/ 1M</span>
+                        {model.outputPrice}
+                        <span className="text-[var(--muted-text)]/60">/ 1M out</span>
                       </span>
                       <span className="flex items-center gap-1">
                         <Cpu className="h-3.5 w-3.5" />
@@ -260,7 +337,6 @@ export default function ModelsPage() {
                     </div>
                   </div>
 
-                  {/* 展开按钮 */}
                   <button className="text-[var(--muted-text)] hover:text-[var(--body-text)] transition-colors shrink-0 mt-1">
                     {isExpanded ? (
                       <ChevronUp className="h-4 w-4" />
@@ -325,22 +401,24 @@ export default function ModelsPage() {
                   </div>
 
                   {/* 所有特性 */}
-                  <div>
-                    <h4 className="text-sm font-medium text-[var(--muted-text)] mb-2 flex items-center gap-1">
-                      <Tag className="h-3.5 w-3.5" />
-                      {t("supportedFeatures")}
-                    </h4>
-                    <div className="flex gap-1.5 flex-wrap">
-                      {model.features.map((f) => (
-                        <span
-                          key={f}
-                          className="text-sm px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-300"
-                        >
-                          {f}
-                        </span>
-                      ))}
+                  {(model.features || []).length > 0 && (
+                    <div>
+                      <h4 className="text-sm font-medium text-[var(--muted-text)] mb-2 flex items-center gap-1">
+                        <Tag className="h-3.5 w-3.5" />
+                        {t("supportedFeatures")}
+                      </h4>
+                      <div className="flex gap-1.5 flex-wrap">
+                        {model.features.map((f) => (
+                          <span
+                            key={f}
+                            className="text-sm px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-300"
+                          >
+                            {f}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* 使用场景 + 优势 */}
                   {((model.useCases?.length ?? 0) > 0 ||
@@ -384,52 +462,54 @@ export default function ModelsPage() {
                   )}
 
                   {/* 代码示例 */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-sm font-medium text-[var(--muted-text)] flex items-center gap-1">
-                        <Zap className="h-3.5 w-3.5" />
-                        {t("codeExample")}
-                      </h4>
-                      <div className="flex rounded-lg bg-[var(--surface-raised)] p-0.5">
-                        {(["curl", "python", "nodejs"] as const).map(
-                          (lang) => (
-                            <button
-                              key={lang}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setCodeLang(lang);
-                              }}
-                              className={`px-2 py-1 text-sm rounded-md transition-colors ${
-                                codeLang === lang
-                                  ? "bg-brand-600 text-white"
-                                  : "text-[var(--muted-text)] hover:text-[var(--body-text)]"
-                              }`}
-                            >
-                              {lang === "nodejs" ? "Node.js" : lang}
-                            </button>
-                          )
-                        )}
+                  {model.enriched && (
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="text-sm font-medium text-[var(--muted-text)] flex items-center gap-1">
+                          <Zap className="h-3.5 w-3.5" />
+                          {t("codeExample")}
+                        </h4>
+                        <div className="flex rounded-lg bg-[var(--surface-raised)] p-0.5">
+                          {(["curl", "python", "nodejs"] as const).map(
+                            (lang) => (
+                              <button
+                                key={lang}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setCodeLang(lang);
+                                }}
+                                className={`px-2 py-1 text-sm rounded-md transition-colors ${
+                                  codeLang === lang
+                                    ? "bg-brand-600 text-white"
+                                    : "text-[var(--muted-text)] hover:text-[var(--body-text)]"
+                                }`}
+                              >
+                                {lang === "nodejs" ? "Node.js" : lang}
+                              </button>
+                            )
+                          )}
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <pre className="bg-[var(--page-bg)] rounded-lg p-4 text-sm text-[var(--body-text)] overflow-x-auto font-mono leading-relaxed">
+                          {model.codeExample[codeLang]}
+                        </pre>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCopy(model.codeExample[codeLang], model.id);
+                          }}
+                          className="absolute top-2 right-2 p-1.5 rounded bg-[var(--surface-raised)] hover:bg-[var(--border-color)] text-[var(--muted-text)] hover:text-[var(--body-text)] transition-colors"
+                        >
+                          {copiedId === model.id ? (
+                            <Check className="h-4 w-4 text-brand-300" />
+                          ) : (
+                            <Copy className="h-4 w-4" />
+                          )}
+                        </button>
                       </div>
                     </div>
-                    <div className="relative">
-                      <pre className="bg-[var(--page-bg)] rounded-lg p-4 text-sm text-[var(--body-text)] overflow-x-auto font-mono leading-relaxed">
-                        {model.codeExample[codeLang]}
-                      </pre>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCopy(model.codeExample[codeLang], model.id);
-                        }}
-                        className="absolute top-2 right-2 p-1.5 rounded bg-[var(--surface-raised)] hover:bg-[var(--border-color)] text-[var(--muted-text)] hover:text-[var(--body-text)] transition-colors"
-                      >
-                        {copiedId === model.id ? (
-                          <Check className="h-4 w-4 text-brand-300" />
-                        ) : (
-                          <Copy className="h-4 w-4" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>
