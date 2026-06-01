@@ -34,13 +34,13 @@ export const PLATFORM_MODELS: Record<string, PlatformModelMeta> = {
     displayName: "DeepSeek V4 Flash",
     provider: "DeepSeek",
     enrichedId: "deepseek/deepseek-v4-flash",
-    category: "chat",
+    category: "code",
   },
   "deepseek-v4-pro": {
     displayName: "DeepSeek V4 Pro",
     provider: "DeepSeek",
     enrichedId: "deepseek/deepseek-v4-pro",
-    category: "chat",
+    category: "code",
   },
 
   // ── Zhipu (BigModel) ─────────────────────

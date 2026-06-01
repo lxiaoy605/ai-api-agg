@@ -375,7 +375,7 @@
         ]
       }
     },
-    "searchPlaceholder": "Modelleri ada, sağlayıcıya göre ara...",
+    "searchPlaceholder": "İsim veya ID ile model ara...",
     "features": "Özellikler",
     "useCases": "Kullanım Alanları",
     "strengths": "Güçlü Yönler"

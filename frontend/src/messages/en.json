@@ -345,7 +345,7 @@
         ]
       }
     },
-    "searchPlaceholder": "Search models by name, provider, feature...",
+    "searchPlaceholder": "Search models by name or ID...",
     "features": "Features",
     "useCases": "Use Cases",
     "strengths": "Strengths"

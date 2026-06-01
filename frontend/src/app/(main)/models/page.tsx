@@ -374,7 +374,7 @@ export default function ModelsPage() {
 
               {/* 展开详情 */}
               {isExpanded && (
-                <div className="border-t border-[var(--border-color)] px-5 py-4 space-y-4 bg-[var(--card-bg)]/50">
+                <div className="border-t border-[var(--border-color)] pl-[4.5rem] sm:pl-[4.75rem] pr-5 py-4 space-y-4 bg-[var(--card-bg)]/50">
                   {/* 规格网格 */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div className="bg-[var(--surface-raised)] rounded-lg p-3">
