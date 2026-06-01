@@ -1,20 +1,21 @@
 #!/usr/bin/python3 -u
 """
-enrich-models.py — 用 LLM 批量生成模型多语言介绍（增量 + 分页输出）
+enrich-models.py — 为平台上线的模型生成多语言介绍 + 下载厂商 logo
 
-输入: scripts/model-raw.json (fetch-models.py 产出)
-输出: frontend/src/data/models/page-{1..N}.json (每页 --pages 个模型)
+输入: 内嵌的 PLATFORM_MODELS 列表（与 OneAPI 渠道同步）
+输出: frontend/src/data/models/page-*.json + frontend/public/logos/
 
-增量逻辑:
-  - 读取已有分页文件，识别已富化的模型
-  - 只对新模型调用 LLM
-  - 已有模型直接复用
+特性:
+  - --skip-enriched: 跳过已有完整富化数据的模型（默认开）
+  - --force-all: 强制全量重新生成
+  - --model N: 只处理指定模型
+  - --download-logos: 下载厂商 logo
+  - --dry-run: 预览模式
 
 用法:
-  python3 scripts/enrich-models.py                     # 增量处理，不分页
-  python3 scripts/enrich-models.py --pages 15          # 每页 15 个模型（推荐）
-  python3 scripts/enrich-models.py --dry-run           # 预览模式
-  python3 scripts/enrich-models.py --force-all         # 强制全量重新处理
+  python3 scripts/enrich-models.py --download-logos     # 常规增量
+  python3 scripts/enrich-models.py --force-all           # 全量重跑
+  python3 scripts/enrich-models.py --model deepseek-v4-flash  # 只跑一个
 """
 
 import json
@@ -22,16 +23,70 @@ import os
 import sys
 import time
 import urllib.request
+import urllib.error
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-RAW_INPUT = PROJECT_ROOT / "scripts" / "model-raw.json"
 PAGES_DIR = PROJECT_ROOT / "frontend" / "src" / "data" / "models"
+LOGOS_DIR = PROJECT_ROOT / "frontend" / "public" / "logos"
 
 DEFAULT_API_BASE = os.environ.get("ENRICH_API_BASE", "https://api.deepseek.com/v1")
 DEFAULT_API_KEY = os.environ.get("ENRICH_API_KEY") or os.environ.get("DEEPSEEK_API_KEY", "")
 DEFAULT_MODEL = os.environ.get("ENRICH_MODEL", "deepseek-chat")
 
+PAGE_SIZE = 15
+
+# ──────────────────────────────────────────────────────────────────────
+#  平台上线模型列表（与 OneAPI 渠道同步）
+#  新增模型时只需在这里加一行即可
+# ──────────────────────────────────────────────────────────────────────
+PLATFORM_MODELS = [
+    # DeepSeek
+    {"id": "deepseek-chat",      "name": "DeepSeek V3",     "provider": "DeepSeek",     "category": "chat"},
+    {"id": "deepseek-reasoner",  "name": "DeepSeek R1",     "provider": "DeepSeek",     "category": "reasoning"},
+    {"id": "deepseek-v4-flash",  "name": "DeepSeek V4 Flash","provider": "DeepSeek",     "category": "chat"},
+    {"id": "deepseek-v4-pro",    "name": "DeepSeek V4 Pro",  "provider": "DeepSeek",     "category": "chat"},
+    # Zhipu GLM
+    {"id": "glm-4",              "name": "GLM-4",           "provider": "Zhipu",        "category": "chat"},
+    {"id": "glm-4-flash",        "name": "GLM-4 Flash",     "provider": "Zhipu",        "category": "chat"},
+    {"id": "glm-4v",             "name": "GLM-4V",          "provider": "Zhipu",        "category": "multimodal"},
+    {"id": "glm-4.5",            "name": "GLM-4.5",         "provider": "Zhipu",        "category": "chat"},
+    {"id": "glm-4.5-air",        "name": "GLM-4.5 Air",     "provider": "Zhipu",        "category": "chat"},
+    {"id": "glm-4.6",            "name": "GLM-4.6",         "provider": "Zhipu",        "category": "chat"},
+    {"id": "glm-4.7",            "name": "GLM-4.7",         "provider": "Zhipu",        "category": "chat"},
+    {"id": "glm-5",              "name": "GLM-5",           "provider": "Zhipu",        "category": "chat"},
+    {"id": "glm-5-turbo",        "name": "GLM-5 Turbo",     "provider": "Zhipu",        "category": "chat"},
+    {"id": "glm-5.1",            "name": "GLM-5.1",         "provider": "Zhipu",        "category": "chat"},
+    # MiniMax
+    {"id": "abab6.5s-chat",      "name": "ABAB 6.5s",       "provider": "MiniMax",      "category": "chat"},
+    {"id": "abab7-chat",         "name": "ABAB 7",          "provider": "MiniMax",      "category": "chat"},
+    # Xiaomi MiMo
+    {"id": "mimo-v2-flash",      "name": "MiMo V2 Flash",   "provider": "Xiaomi MiMo",  "category": "chat"},
+    {"id": "mimo-v2-omni",       "name": "MiMo V2 Omni",    "provider": "Xiaomi MiMo",  "category": "multimodal"},
+    {"id": "mimo-v2-pro",        "name": "MiMo V2 Pro",     "provider": "Xiaomi MiMo",  "category": "chat"},
+    {"id": "mimo-v2.5",          "name": "MiMo V2.5",       "provider": "Xiaomi MiMo",  "category": "chat"},
+    {"id": "mimo-v2.5-pro",      "name": "MiMo V2.5 Pro",   "provider": "Xiaomi MiMo",  "category": "chat"},
+]
+
+# 厂商 logo URL
+PROVIDER_LOGOS = {
+    "DeepSeek": [
+        "https://cdn.deepseek.com/logo.png",
+        "https://deepseek.com/favicon.ico",
+    ],
+    "Zhipu": [
+        "https://open.bigmodel.cn/favicon.ico",
+        "https://zhipuai.cn/favicon.ico",
+    ],
+    "MiniMax": [
+        "https://minimax.chat/favicon.ico",
+    ],
+    "Xiaomi MiMo": [
+        "https://xiaomimimo.com/favicon.ico",
+    ],
+}
+
+# ──────────────────────────────────────────────────────────────────────
 
 def load_json(path: Path):
     with open(path, encoding="utf-8") as f:
@@ -44,7 +99,7 @@ def save_json(path: Path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def load_existing_enriched():
+def load_existing():
     """读取已有分页文件，返回 {model_id: model_data}"""
     existing = {}
     if PAGES_DIR.exists():
@@ -52,89 +107,99 @@ def load_existing_enriched():
             try:
                 models = load_json(f)
                 for m in models:
-                    existing[m["id"]] = m
+                    if m.get("enriched"):
+                        existing[m["id"]] = m
             except Exception:
                 pass
     return existing
 
 
-def find_raw_for_existing(raw_models: list, existing: dict) -> list:
-    """在 raw 中找到已有模型对应的条目（供补缺失字段用）"""
-    result = []
-    for eid in existing:
-        for r in raw_models:
-            if r["id"] == eid:
-                result.append(r)
-                break
-    return result
+def is_complete(model_data: dict) -> bool:
+    """检查模型是否已有完整的四语言富化数据"""
+    desc = model_data.get("descriptions", {})
+    langs = ["zh", "en", "ru", "tr"]
+    for lang in langs:
+        if not desc.get(lang) or len(desc.get(lang, "")) < 40:
+            return False
+    if not model_data.get("features"):
+        return False
+    if not model_data.get("strengths"):
+        return False
+    if not model_data.get("useCases"):
+        return False
+    return True
 
 
-def build_prompt(model: dict) -> str:
+def build_prompt(model: dict, existing_ids: list) -> str:
     model_id = model["id"]
     provider = model["provider"]
-    ctx = model.get("contextWindow", "?")
-    price_in = model.get("inputPrice", "?")
-    price_out = model.get("outputPrice", "?")
-    or_desc = model.get("orDescription", "")
-    features = ", ".join(model.get("features", []))
-    params = ", ".join(model.get("supportedParameters", [])[:8])
+    model_name = model["name"]
+    category = model["category"]
+    provider_models = [m["id"] for m in PLATFORM_MODELS if m["provider"] == provider]
 
-    return f"""你是一个 AI 模型聚合平台的产品文案专家。你的用户是新兴市场（东欧、中亚、高加索地区）的开发者。
+    return f"""你是 AI 模型领域的产品专家。请为以下模型生成产品级多语言介绍文案。
 
-请为以下模型生成产品级介绍文案，必须同时提供中文、英文、俄语、土耳其语四个版本。
-
-## 模型基本信息
+## 模型信息
 - 模型 ID: {model_id}
+- 显示名: {model_name}
 - 厂商: {provider}
-- 上下文窗口: {ctx}
-- 输入价格 (每百万 token): {price_in}
-- 输出价格 (每百万 token): {price_out}
-- 功能: {features}
-- 参数支持: {params}
+- 分类: {category}
+- 同厂商其他模型: {', '.join([m for m in provider_models if m != model_id])}
 
-## OpenRouter 原始描述（仅供参考）
-{or_desc[:600]}
+## 对用户的定位
+这是一个面向东欧、中亚和高加索地区开发者的 AI 模型聚合平台 (AiFlowHub)。用户通过单一 API 即可调用多家中国 AI 厂商的模型，按量付费，无需分别注册。
+
+## 你了解的信息
+请根据你对 {model_name} ({model_id}) 的已知信息，包括：
+- 上下文窗口大小
+- 最大输出 token 数
+- 定价
+- 支持的特性（JSON Mode, Function Calling, Vision, Streaming 等）
+- 适用场景
+
+生成以下内容。
 
 ## 输出要求
-返回纯 JSON（不要 markdown 代码块），字段如下：
+返回纯 JSON（不要 markdown 代码块，不要 ```json 包裹）：
 
 ```json
 {{
   "descriptions": {{
-    "zh": "中文产品介绍。80-150字。像产品落地页文案——说清楚这模型是什么、为什么好、适合谁用。不要列参数。（内部参考用）",
-    "en": "English product intro. 60-120 words. Write like a SaaS landing page — what this model is, why it matters, who it's for. Don't list specs. Target audience: developers in Armenia, Georgia, and Central Asia.",
-    "ru": "Описание на русском. 60-120 слов. В стиле страницы продукта — что это за модель, чем хороша, для кого. Без перечисления характеристик. Целевая аудитория: разработчики из Казахстана и Центральной Азии.",
-    "tr": "Türkçe ürün tanıtımı. 60-120 kelime. Bir SaaS ürün sayfası gibi yazın — bu model nedir, neden önemli, kimler için. Özellikleri listelemeyin. Hedef kitle: Türkiye'deki geliştiriciler."
+    "zh": "中文产品介绍。80-180字。像产品落地页文案——说清楚这模型是什么、为什么好、适合谁用。不要列参数。",
+    "en": "English product intro. 80-180 words. Write like a SaaS landing page — what this model is, why it matters, who it's for. Don't list specs. Target: developers in Armenia, Georgia, Kazakhstan.",
+    "ru": "Описание на русском. 80-180 слов. В стиле страницы продукта. Целевая аудитория: разработчики из СНГ.",
+    "tr": "Türkçe ürün tanıtımı. 80-180 kelime. SaaS ürün sayfası tarzında. Hedef kitle: Türkiye'deki geliştiriciler."
   }},
+  "contextWindow": "128K",
+  "maxTokens": "16K",
+  "inputPrice": "$0.14/1M",
+  "outputPrice": "$0.28/1M",
+  "features": ["Function Calling", "JSON Mode", "Streaming"],
   "strengths": ["优势1(中文)", "优势2", "优势3"],
   "useCases": ["推荐场景1(中文)", "推荐场景2", "推荐场景3"],
   "whyChoose": {{
-    "en": "One sentence why choose this model (English, 10-20 words)",
-    "ru": "Одно предложение почему выбрать эту модель (русский, 10-20 слов)",
-    "tr": "Bu model neden seçilmeli — tek cümle (Türkçe, 10-20 kelime)"
-  }},
-  "category": "chat | code | reasoning | multimodal",
-  "features": ["功能标签1", "功能标签2", ...]
+    "en": "One sentence — why this model. 10-20 words.",
+    "ru": "Одно предложение — почему эту модель. 10-20 слов.",
+    "tr": "Tek cümle — neden bu model. 10-20 kelime."
+  }}
 }}
 ```
 
-重要规则：
-1. 中文文案要自然，有产品感，不要机翻腔
-2. 英文文案要 native，能打动海外开发者
-3. 俄语文案要通顺，适合俄语区开发者阅读
-4. 土耳其语文案要地道，适合土耳其开发者
-5. strengths/useCases 用中文
-6. category 从 chat/code/reasoning/multimodal 四选一
-7. features 保留 3-5 个关键功能标签（中文）
+重要：
+1. contextWindow/maxTokens/inputPrice/outputPrice 请填写你已知的最新数据（价格按每百万 token）。如果不知道，填 "—"
+2. features 用英文标签（如 "Function Calling", "Streaming", "Vision"）
+3. strengths/useCases 用中文
+4. 中文文案要自然，不要机翻腔
+5. 英文要 native SaaS 风格
 
-只返回 JSON，不要任何额外文字。"""
+只返回 JSON，不要额外文字。"""
 
 
 def call_llm(prompt: str, api_base: str, api_key: str, model: str) -> dict:
     body = json.dumps({
         "model": model,
         "messages": [
-            {"role": "system", "content": "你是一个精确的 JSON 生成器。只输出合法 JSON，不输出任何其他内容。"},
+            {"role": "system", "content": "你是一个精确的 JSON 生成器。只输出合法 JSON 对象，不输出任何其他内容。"},
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.7,
@@ -157,45 +222,84 @@ def call_llm(prompt: str, api_base: str, api_key: str, model: str) -> dict:
                     content = content[:-3]
             return json.loads(content)
     except json.JSONDecodeError:
-        print(f"   ⚠️ JSON 解析失败: {content[:200]}")
+        print(f"   ⚠️ JSON 解析失败，原始内容: {content[:300]}")
         raise
     except Exception as e:
         body_str = e.read().decode() if hasattr(e, "read") else str(e)
-        print(f"   ❌ API 调用失败: {body_str[:300]}")
+        print(f"   ❌ API 调用失败: {body_str[:400]}")
         raise
 
 
-def merge_model(raw: dict, enriched: dict) -> dict:
-    desc_enriched = enriched.get("descriptions", {})
+def build_code_example(model_id: str) -> dict:
     return {
-        "id": raw["id"],
-        "name": raw["name"],
-        "provider": raw["provider"],
-        "providerLogo": raw["providerLogo"],
-        "description": desc_enriched.get("zh", raw.get("orDescription", "")),
-        "descriptions": {
-            "zh": desc_enriched.get("zh", ""),
-            "en": desc_enriched.get("en", ""),
-            "ru": desc_enriched.get("ru", ""),
-            "tr": desc_enriched.get("tr", ""),
-        },
-        "inputPrice": raw.get("inputPrice", "—"),
-        "outputPrice": raw.get("outputPrice", "—"),
-        "contextWindow": raw.get("contextWindow", "—"),
-        "maxTokens": raw.get("maxTokens", "—"),
-        "status": raw.get("status", "available"),
-        "category": enriched.get("category", raw.get("category", "chat")),
-        "features": enriched.get("features", raw.get("features", [])),
-        "useCases": enriched.get("useCases", []),
-        "strengths": enriched.get("strengths", []),
-        "whyChoose": enriched.get("whyChoose", {"en": "", "ru": "", "tr": ""}),
-        "codeExample": raw.get("codeExample", {}),
+        "curl": f'curl https://api.aiflowhub.ai/v1/chat/completions \\\n  -H "Content-Type: application/json" \\\n  -H "Authorization: Bearer $AIFLOWHUB_API_KEY" \\\n  -d \'{{"model":"{model_id}","messages":[{{"role":"user","content":"Hello"}}]}}\'',
+        "python": f'import requests\n\nresponse = requests.post(\n    "https://api.aiflowhub.ai/v1/chat/completions",\n    headers={{"Authorization": f"Bearer AIFLOWHUB_API_KEY"}},\n    json={{"model": "{model_id}", "messages": [{{"role": "user", "content": "Hello"}}]}}\n)',
+        "nodejs": f'const response = await fetch("https://api.aiflowhub.ai/v1/chat/completions", {{\n  method: "POST",\n  headers: {{ "Authorization": "Bearer " + process.env.AIFLOWHUB_API_KEY }},\n  body: JSON.stringify({{ model: "{model_id}", messages: [{{ role: "user", content: "Hello" }}] }})\n}});',
     }
 
 
-def write_pages(all_models: list, page_size: int):
-    """写入分页 JSON 文件，同时保留单文件兼容"""
-    # 清理旧分页文件
+def merge_model(platform: dict, llm_result: dict) -> dict:
+    desc = llm_result.get("descriptions", {})
+    return {
+        "id": platform["id"],
+        "name": platform["name"],
+        "provider": platform["provider"],
+        "providerLogo": f"/logos/{_provider_slug(platform['provider'])}.png",
+        "description": desc.get("zh", ""),
+        "descriptions": {
+            "zh": desc.get("zh", ""),
+            "en": desc.get("en", ""),
+            "ru": desc.get("ru", ""),
+            "tr": desc.get("tr", ""),
+        },
+        "inputPrice": llm_result.get("inputPrice", "—"),
+        "outputPrice": llm_result.get("outputPrice", "—"),
+        "contextWindow": llm_result.get("contextWindow", "—"),
+        "maxTokens": llm_result.get("maxTokens", "—"),
+        "status": "available",
+        "category": platform.get("category", llm_result.get("category", "chat")),
+        "features": llm_result.get("features", []),
+        "useCases": llm_result.get("useCases", []),
+        "strengths": llm_result.get("strengths", []),
+        "whyChoose": llm_result.get("whyChoose", {"en": "", "ru": "", "tr": ""}),
+        "codeExample": build_code_example(platform["id"]),
+        "enriched": True,
+    }
+
+
+def _provider_slug(provider: str) -> str:
+    return provider.lower().replace(" ", "-").replace(".", "")
+
+
+def download_logos():
+    """下载所有厂商 logo 到 public/logos/"""
+    LOGOS_DIR.mkdir(parents=True, exist_ok=True)
+    for provider, urls in PROVIDER_LOGOS.items():
+        slug = _provider_slug(provider)
+        dest = LOGOS_DIR / f"{slug}.png"
+        if dest.exists():
+            print(f"  ✅ {provider}: 已存在 → {dest}")
+            continue
+        downloaded = False
+        for url in urls:
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "AiFlowHub/1.0"})
+                with urllib.request.urlopen(req, timeout=10) as resp:
+                    data = resp.read()
+                    # 即使是 ICO 也存为 png 扩展名（浏览器能识别）
+                    with open(dest, "wb") as f:
+                        f.write(data)
+                    print(f"  ✅ {provider}: {url} → {dest} ({len(data)} bytes)")
+                    downloaded = True
+                    break
+            except Exception as e:
+                print(f"  ⚠️ {provider}: {url} 失败 ({e})")
+        if not downloaded:
+            print(f"  ❌ {provider}: 所有 URL 均下载失败")
+
+
+def write_pages(all_models: list):
+    """写入分页 JSON 文件"""
     if PAGES_DIR.exists():
         for f in PAGES_DIR.glob("page-*.json"):
             f.unlink()
@@ -203,130 +307,123 @@ def write_pages(all_models: list, page_size: int):
     # 排序
     all_models.sort(key=lambda x: (x["provider"], x["name"]))
 
-    # 写入分页
     total = len(all_models)
-    num_pages = (total + page_size - 1) // page_size
+    num_pages = (total + PAGE_SIZE - 1) // PAGE_SIZE
     for i in range(num_pages):
-        start = i * page_size
-        end = min(start + page_size, total)
+        start = i * PAGE_SIZE
+        end = min(start + PAGE_SIZE, total)
         page = all_models[start:end]
-        save_json(PAGES_DIR / f"page-{i+1}.json", page)
+        save_json(PAGES_DIR / f"page-{i + 1}.json", page)
 
-    # 也写入一个 index.json (元信息)
     save_json(PAGES_DIR / "index.json", {
         "total": total,
-        "pageSize": page_size,
+        "pageSize": PAGE_SIZE,
         "pages": num_pages,
         "updatedAt": int(time.time()),
     })
 
-    print(f"\n📄 已写入 {num_pages} 个分页文件 ({PAGES_DIR / 'page-*.json'})")
-    print(f"   每页 {page_size} 个模型，共 {total} 个")
+    print(f"\n📄 已写入 {num_pages} 个分页文件 → {PAGES_DIR}")
+    print(f"   每页 {PAGE_SIZE} 个模型，共 {total} 个")
 
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="用 LLM 增量生成模型多语言介绍")
-    parser.add_argument("-i", "--input", type=str, help="输入 raw JSON")
-    parser.add_argument("--pages", type=int, default=0, help="分页大小（如 15）")
+    parser = argparse.ArgumentParser(description="为平台上线的模型生成多语言介绍")
     parser.add_argument("--api-base", type=str, default=DEFAULT_API_BASE)
     parser.add_argument("--api-key", type=str, default=DEFAULT_API_KEY)
     parser.add_argument("--model", type=str, default=DEFAULT_MODEL)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--force-all", action="store_true", help="强制全量重新生成")
+    parser.add_argument("--skip-enriched", action="store_true", default=True, help="跳过已有完整数据的模型（默认开）")
+    parser.add_argument("--no-skip", action="store_true", help="不跳过已有模型")
+    parser.add_argument("--only", type=str, help="只处理指定模型 ID（逗号分隔）")
+    parser.add_argument("--download-logos", action="store_true", help="下载厂商 logo")
     parser.add_argument("--delay", type=float, default=1.0)
-    parser.add_argument("--limit", type=int, default=0)
     args = parser.parse_args()
 
-    input_path = Path(args.input) if args.input else RAW_INPUT
+    # 先下载 logo
+    if args.download_logos:
+        print("🖼️  下载厂商 logo...")
+        download_logos()
+        print()
 
-    if not input_path.exists():
-        print(f"❌ 输入文件不存在: {input_path}")
-        sys.exit(1)
+    existing = load_existing()
+    print(f"📂 已有富化数据: {len(existing)} 个模型")
 
-    raw_models = load_json(input_path)
-    raw_by_id = {m["id"]: m for m in raw_models}
-    print(f"📋 raw 数据: {len(raw_models)} 个模型")
+    # 确定哪些模型需要处理
+    skip = args.skip_enriched and not args.no_skip and not args.force_all
+    to_process = []
+    skipped = []
 
-    # 加载已有富化数据
-    existing = load_existing_enriched()
-    if existing:
-        print(f"📂 已有富化: {len(existing)} 个模型（{PAGES_DIR}/）")
+    for pm in PLATFORM_MODELS:
+        mid = pm["id"]
+        if args.only:
+            only_ids = [x.strip() for x in args.only.split(",")]
+            if mid not in only_ids:
+                continue
+        existing_data = existing.get(mid)
+        if skip and existing_data and is_complete(existing_data):
+            skipped.append(mid)
+        else:
+            to_process.append(pm)
 
-    # 确定需处理的模型
-    if args.force_all:
-        to_process = raw_models
-        print("🔄 强制全量重新生成")
-    else:
-        to_process = [m for m in raw_models if m["id"] not in existing]
-        if existing:
-            print(f"📌 增量处理: {len(to_process)} 个新模型（跳过 {len(existing)} 个已有）")
+    if skipped:
+        print(f"⏭️  跳过 {len(skipped)} 个（已有完整数据）: {', '.join(skipped)}")
+    print(f"🎯 待处理: {len(to_process)} 个模型")
+    if to_process:
+        print(f"   {', '.join(m['id'] for m in to_process)}")
 
-    if args.limit:
-        to_process = to_process[:args.limit]
-
-    # dry-run
     if args.dry_run:
-        sample = to_process[0] if to_process else raw_models[0]
-        print(f"\n{'='*60}")
-        print(f"示例 prompt (模型: {sample['name']})")
-        print(f"{'='*60}")
-        print(build_prompt(sample))
-        print(f"\n📊 需处理 {len(to_process)} 个 / 已有 {len(existing)} 个")
+        if to_process:
+            sample = to_process[0]
+            print(f"\n{'='*60}")
+            print(f"示例 prompt (模型: {sample['name']})")
+            print(f"{'='*60}")
+            print(build_prompt(sample, []))
         return
 
     if not to_process:
-        print("\n✅ 所有模型已是最新，无需处理")
-        # 仍写入分页
+        print("\n✅ 所有模型已是最新")
+        # 仍然写入分页（用已有数据）
         all_models = list(existing.values())
-        if args.pages:
-            write_pages(all_models, args.pages)
+        write_pages(all_models)
         return
 
     if not args.api_key:
-        print("❌ 未设置 API Key")
+        print("❌ 未设置 API Key（设置 ENRICH_API_KEY 或 DEEPSEEK_API_KEY 环境变量）")
         sys.exit(1)
 
-    # 开始处理新模型
-    print(f"\n🚀 开始处理 {len(to_process)} 个新模型 (模型: {args.model})")
-    enriched_new = {}
+    print(f"\n🚀 开始 LLM 富化 (模型: {args.model})")
     success = 0
 
-    for i, raw in enumerate(to_process):
-        name = raw["name"]
-        model_id = raw["id"]
-        print(f"\n[{i+1}/{len(to_process)}] {name} ({model_id})")
+    for i, pm in enumerate(to_process):
+        name = pm["name"]
+        mid = pm["id"]
+        print(f"\n[{i + 1}/{len(to_process)}] {name} ({mid})")
 
         try:
-            prompt = build_prompt(raw)
+            existing_ids = list(existing.keys())
+            prompt = build_prompt(pm, existing_ids)
             llm_result = call_llm(prompt, args.api_base, args.api_key, args.model)
-            final = merge_model(raw, llm_result)
-            enriched_new[model_id] = final
+            final = merge_model(pm, llm_result)
+            existing[mid] = final
             success += 1
-
-            desc_preview = final["descriptions"]["zh"][:60]
+            desc_preview = final["descriptions"]["zh"][:70]
             print(f"   ✅ {desc_preview}...")
-
         except Exception as e:
             print(f"   ❌ 失败: {e}")
-            # 保存中间结果
-            all_partial = {**existing, **enriched_new}
-            if args.pages:
-                write_pages(list(all_partial.values()), args.pages)
+            all_current = list(existing.values())
+            write_pages(all_current)
             if i < len(to_process) - 1:
-                print(f"   等待 5 秒...")
+                print(f"   等待 5 秒继续...")
                 time.sleep(5)
-
         time.sleep(args.delay)
 
-    # 合并 + 写入分页
-    all_models = {**existing, **enriched_new}
-    final_list = list(all_models.values())
+    # 写入分页
+    all_models = list(existing.values())
     print(f"\n{'='*60}")
-    print(f"✅ 完成! {success}/{len(to_process)} 新增成功, 共 {len(final_list)} 个模型")
-
-    if args.pages:
-        write_pages(final_list, args.pages)
+    print(f"✅ 完成! {success}/{len(to_process)} 成功, 共 {len(all_models)} 个模型")
+    write_pages(all_models)
 
 
 if __name__ == "__main__":

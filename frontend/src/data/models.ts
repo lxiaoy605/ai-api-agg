@@ -5,9 +5,6 @@ import page2 from "./models/page-2.json";
 import page3 from "./models/page-3.json";
 import page4 from "./models/page-4.json";
 import page5 from "./models/page-5.json";
-import page6 from "./models/page-6.json";
-import page7 from "./models/page-7.json";
-import page8 from "./models/page-8.json";
 
 /** 多语言模型介绍 — 对应平台 UI 语言 (en/ru/tr) */
 export interface ModelDescriptions {
@@ -46,16 +43,13 @@ export interface ModelInfo {
   };
 }
 
-/** 所有模型（自动聚合全部页面） */
+/** 所有模型（自动聚合全部页面，空页跳过） */
 export const models: ModelInfo[] = [
   ...(page1 as ModelInfo[]),
   ...(page2 as ModelInfo[]),
   ...(page3 as ModelInfo[]),
   ...(page4 as ModelInfo[]),
   ...(page5 as ModelInfo[]),
-  ...(page6 as ModelInfo[]),
-  ...(page7 as ModelInfo[]),
-  ...(page8 as ModelInfo[]),
 ];
 
 /**

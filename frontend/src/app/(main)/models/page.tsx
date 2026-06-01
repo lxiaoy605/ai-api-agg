@@ -50,6 +50,8 @@ interface ModelView {
   category: string;
   /** 厂商 */
   provider: string;
+  /** Logo 路径 */
+  providerLogo?: string;
   /** 上下文窗口 */
   contextWindow: string;
   /** 最大输出 */
@@ -99,6 +101,7 @@ function buildModelViews(locale: string): ModelView[] {
         strengths: enriched.strengths,
         useCases: enriched.useCases,
         codeExample: enriched.codeExample,
+        providerLogo: enriched.providerLogo,
         enriched: true,
       };
     }
@@ -281,11 +284,22 @@ export default function ModelsPage() {
                 onClick={() => setExpandedId(isExpanded ? null : model.id)}
               >
                 <div className="flex items-start gap-4">
-                  {/* 模型图标 */}
+                  {/* 模型图标 — 优先用真实 logo，加载失败回退到图标 */}
                   <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${colorClass}`}
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${colorClass} overflow-hidden`}
                   >
-                    <ProviderIcon className="h-5 w-5" />
+                    {model.providerLogo ? (
+                      <img
+                        src={model.providerLogo}
+                        alt={model.provider}
+                        className="w-7 h-7 object-contain"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = "none";
+                          (e.target as HTMLImageElement).nextElementSibling?.classList.remove("hidden");
+                        }}
+                      />
+                    ) : null}
+                    <ProviderIcon className={`h-5 w-5 ${model.providerLogo ? "hidden" : ""}`} />
                   </div>
 
                   {/* 模型信息 */}

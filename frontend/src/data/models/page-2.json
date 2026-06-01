@@ -1,702 +1,290 @@
 [
   {
-    "id": "minimax/minimax-m2.1",
-    "name": "MiniMax: MiniMax M2.1",
-    "provider": "MiniMax",
-    "providerLogo": "MM",
-    "description": "MiniMax-M2.1 是新一代轻量级大语言模型，专为智能编码、Agent 工作流和现代应用打造。仅 10B 激活参数，却在真实任务中实现性能飞跃——支持 204K 超长上下文、深度思考与结构化输出。无论是构建智能代理、处理复杂代码，还是开发高并发 API，它都能以极低成本提供媲美大模型的精准度。适合追求效率与性价比的开发者。",
+    "id": "glm-4.5-air",
+    "name": "Z.ai: GLM 4.5 Air",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "/logos/智谱-z.ai.png",
+    "description": "GLM-4.5-Air 是智谱最新旗舰系列的轻量版，专为智能体应用打造。采用 MoE 架构，在保持强大性能的同时大幅降低成本。支持 131K 超长上下文、多语言、函数调用和流式输出，是构建高性价比 AI 产品的理想选择。适合需要稳定、高效语言能力的开发者，尤其适合内容生成、对话系统和工具调用场景。",
     "descriptions": {
-      "zh": "MiniMax-M2.1 是新一代轻量级大语言模型，专为智能编码、Agent 工作流和现代应用打造。仅 10B 激活参数，却在真实任务中实现性能飞跃——支持 204K 超长上下文、深度思考与结构化输出。无论是构建智能代理、处理复杂代码，还是开发高并发 API，它都能以极低成本提供媲美大模型的精准度。适合追求效率与性价比的开发者。",
-      "en": "MiniMax-M2.1 is a lightweight, high-performance LLM built for coding, agentic workflows, and modern app development. With only 10B activated parameters, it punches far above its weight—delivering near-flagship accuracy on real-world tasks. It handles 204K context, deep reasoning, and structured outputs natively. For developers in Armenia, Georgia, and Central Asia building smart agents, automation tools, or high-throughput APIs: this model gives you enterprise-grade results without the enterprise price tag.",
-      "ru": "MiniMax-M2.1 — это легковесная LLM нового поколения, оптимизированная для кодинга, агентных сценариев и современных приложений. При активации всего 10B параметров она демонстрирует прорывную точность в реальных задачах. Поддерживает контекст до 204K токенов, глубокое рассуждение и структурированный вывод. Для разработчиков из Казахстана и Центральной Азии, создающих интеллектуальных агентов, инструменты автоматизации или высоконагруженные API: эта модель даёт результат уровня enterprise по доступной цене.",
-      "tr": "MiniMax-M2.1, kodlama, ajan iş akışları ve modern uygulama geliştirme için optimize edilmiş yeni nesil, hafif bir büyük dil modelidir. Yalnızca 10B aktif parametreyle, gerçek dünya görevlerinde çığır açan bir performans sunar. 204K token bağlam, derin düşünme ve yapılandırılmış çıktıyı yerel olarak destekler. Türkiye'de akıllı ajanlar, otomasyon araçları veya yüksek verimli API'ler geliştiren geliştiriciler için: bu model, kurumsal fiyat etiketi olmadan kurumsal düzeyde sonuçlar sağlar."
+      "zh": "GLM-4.5-Air 是智谱最新旗舰系列的轻量版，专为智能体应用打造。采用 MoE 架构，在保持强大性能的同时大幅降低成本。支持 131K 超长上下文、多语言、函数调用和流式输出，是构建高性价比 AI 产品的理想选择。适合需要稳定、高效语言能力的开发者，尤其适合内容生成、对话系统和工具调用场景。",
+      "en": "GLM-4.5-Air is the lightweight powerhouse from Zhipu AI's latest flagship family, engineered for agent-driven applications. With Mixture-of-Experts architecture, it delivers exceptional performance at a fraction of the cost. It handles 131K context, multilingual tasks, function calling, and streaming—all you need to build production-ready AI products. Ideal for developers in emerging markets who want top-tier language capabilities without breaking the bank.",
+      "ru": "GLM-4.5-Air — легковесная версия флагманской серии от Zhipu AI, созданная для агентных приложений. Архитектура Mixture-of-Experts обеспечивает высокую производительность при низкой стоимости. Модель поддерживает контекст до 131K токенов, мультиязычность, вызов функций и потоковый вывод. Это идеальный выбор для разработчиков, которые ищут мощную и экономичную языковую модель для чат-ботов, генерации контента и интеграции с инструментами.",
+      "tr": "GLM-4.5-Air, Zhipu AI'nın en yeni amiral gemisi serisinin hafif versiyonudur ve ajan tabanlı uygulamalar için özel olarak tasarlanmıştır. Mixture-of-Experts mimarisi sayesinde düşük maliyetle yüksek performans sunar. 131K token bağlam, çok dilli destek, fonksiyon çağırma ve akışlı çıktı gibi özelliklerle üretime hazır AI ürünleri geliştirmek için idealdir. Özellikle maliyet etkin ve güçlü bir dil modeli arayan geliştiriciler için uygundur."
     },
-    "inputPrice": "$0.29",
-    "outputPrice": "$0.95",
-    "contextWindow": "204K",
-    "maxTokens": "196K",
+    "inputPrice": "$0.12",
+    "outputPrice": "$0.85",
+    "contextWindow": "131K",
+    "maxTokens": "131K",
     "status": "available",
-    "category": "code",
+    "category": "chat",
     "features": [
+      "多语言支持",
       "函数调用",
-      "JSON模式",
-      "结构化输出",
-      "深度思考",
-      "流式输出"
+      "流式输出",
+      "高性价比",
+      "超长上下文"
     ],
     "useCases": [
-      "智能编码助手与代码审查",
-      "Agent工作流与自动化工具",
-      "高并发API与实时应用"
+      "多语言客服与对话机器人",
+      "工具调用与自动化工作流（函数调用）",
+      "长文档理解与内容生成"
     ],
     "strengths": [
-      "轻量高效，10B激活参数媲美大模型性能",
-      "204K超长上下文，支持深度思考与结构化输出",
-      "极低成本，输入$0.29/M，输出$0.95/M"
+      "超长上下文窗口（131K token）",
+      "极致的性价比，输入仅 $0.12/百万 token",
+      "支持多语言、函数调用和流式输出",
+      "专为智能体应用优化，响应稳定高效"
     ],
     "whyChoose": {
-      "en": "Get flagship-level accuracy at a fraction of the cost with a model designed for real-world performance.",
-      "ru": "Получите точность уровня флагмана по цене значительно ниже — модель, созданная для реальных задач.",
-      "tr": "Gerçek dünya performansı için tasarlanmış bir modelle, çok daha düşük maliyetle amiral gemisi seviyesinde doğruluk elde edin."
+      "en": "Top-tier agent performance at a fraction of the cost—ideal for emerging markets.",
+      "ru": "Производительность уровня флагмана по доступной цене — идеально для развивающихся рынков.",
+      "tr": "Düşük maliyetle üst düzey ajan performansı—gelişmekte olan pazarlar için ideal."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"minimax/minimax-m2.1\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"minimax/minimax-m2.1\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"minimax/minimax-m2.1\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    },
+    "enriched": true
   },
   {
-    "id": "minimax/minimax-m2.5",
-    "name": "MiniMax: MiniMax M2.5",
-    "provider": "MiniMax",
-    "providerLogo": "MM",
-    "description": "MiniMax-M2.5 是一款专为真实生产力场景打造的领先大语言模型。它在复杂的数字工作环境中训练，擅长深度思考、结构化输出和函数调用，能无缝融入你的开发工作流。无论是构建智能助手、自动化业务流程，还是处理长文档分析，M2.5 都能以极低的延迟和成本，提供稳定可靠的表现。适合追求效率与质量的开发者。",
+    "id": "glm-4.6",
+    "name": "Z.ai: GLM 4.6",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "/logos/智谱-z.ai.png",
+    "description": "GLM-4.6 是智谱最新一代大语言模型，上下文窗口扩展至 202K tokens，可轻松处理长文档、复杂对话和大型代码库。在推理、多语言理解和工具调用方面显著提升，尤其适合需要深度上下文和函数调用的企业级应用。无论是构建智能客服、自动化工作流，还是开发多语言 SaaS 产品，GLM-4.6 都能以极低的成本提供稳定、高效的输出。",
     "descriptions": {
-      "zh": "MiniMax-M2.5 是一款专为真实生产力场景打造的领先大语言模型。它在复杂的数字工作环境中训练，擅长深度思考、结构化输出和函数调用，能无缝融入你的开发工作流。无论是构建智能助手、自动化业务流程，还是处理长文档分析，M2.5 都能以极低的延迟和成本，提供稳定可靠的表现。适合追求效率与质量的开发者。",
-      "en": "MiniMax-M2.5 is a state-of-the-art large language model built for real-world productivity. Trained in complex digital environments, it excels at deep reasoning, structured outputs, and function calling — seamlessly integrating into your development workflow. Whether you're building intelligent assistants, automating business processes, or analyzing long documents, M2.5 delivers reliable performance with low latency and cost efficiency. Ideal for developers in Armenia, Georgia, and Central Asia who demand quality and speed.",
-      "ru": "MiniMax-M2.5 — это современная большая языковая модель, созданная для реальной продуктивности. Обученная в сложных цифровых средах, она отлично справляется с глубокими рассуждениями, структурированными выводами и вызовом функций, легко встраиваясь в ваш рабочий процесс. Создавайте интеллектуальных ассистентов, автоматизируйте бизнес-процессы или анализируйте длинные документы — M2.5 обеспечивает стабильную производительность с низкой задержкой и экономией затрат. Идеально подходит для разработчиков из Казахстана и Центральной Азии.",
-      "tr": "MiniMax-M2.5, gerçek dünya üretkenliği için tasarlanmış son teknoloji bir büyük dil modelidir. Karmaşık dijital ortamlarda eğitilmiş olup derin düşünme, yapılandırılmış çıktılar ve fonksiyon çağırma konularında mükemmeldir — geliştirme iş akışınıza sorunsuz entegre olur. Akıllı asistanlar oluşturmak, iş süreçlerini otomatikleştirmek veya uzun belgeleri analiz etmek için M2.5, düşük gecikme ve maliyet verimliliğiyle güvenilir performans sunar. Türkiye'deki geliştiriciler için idealdir."
+      "zh": "GLM-4.6 是智谱最新一代大语言模型，上下文窗口扩展至 202K tokens，可轻松处理长文档、复杂对话和大型代码库。在推理、多语言理解和工具调用方面显著提升，尤其适合需要深度上下文和函数调用的企业级应用。无论是构建智能客服、自动化工作流，还是开发多语言 SaaS 产品，GLM-4.6 都能以极低的成本提供稳定、高效的输出。",
+      "en": "GLM-4.6 is Zhipu AI's latest large language model, now with a 202K token context window—perfect for processing long documents, complex conversations, and large codebases. It delivers significant improvements in reasoning, multilingual understanding, and tool use. Ideal for developers building intelligent chatbots, automated workflows, or multi-language SaaS products. With competitive pricing and robust function calling, GLM-4.6 is a reliable, cost-effective choice for production-grade AI applications in emerging markets.",
+      "ru": "GLM-4.6 — новейшая языковая модель от Zhipu AI с контекстным окном в 202K токенов, идеально подходящая для обработки длинных документов, сложных диалогов и больших кодовых баз. Модель демонстрирует значительные улучшения в рассуждении, многоязычном понимании и использовании инструментов. Отличный выбор для разработчиков, создающих интеллектуальных чат-ботов, автоматизированные рабочие процессы или многоязычные SaaS-продукты. Благодаря конкурентоспособным ценам и мощному вызову функций, GLM-4.6 — надёжное и экономичное решение для AI-приложений на производственном уровне.",
+      "tr": "GLM-4.6, Zhipu AI'nın en yeni büyük dil modelidir ve 202K token bağlam penceresiyle uzun belgeleri, karmaşık konuşmaları ve büyük kod tabanlarını işlemek için idealdir. Akıl yürütme, çok dilli anlama ve araç kullanımında önemli iyileştirmeler sunar. Akıllı sohbet robotları, otomatik iş akışları veya çok dilli SaaS ürünleri geliştirenler için mükemmel bir seçimdir. Rekabetçi fiyatlandırması ve güçlü fonksiyon çağırma özelliğiyle GLM-4.6, üretim düzeyindeki yapay zeka uygulamaları için güvenilir ve uygun maliyetli bir çözümdür."
     },
-    "inputPrice": "$0.15",
-    "outputPrice": "$1.15",
-    "contextWindow": "204K",
-    "maxTokens": "196K",
+    "inputPrice": "$0.43",
+    "outputPrice": "$1.74",
+    "contextWindow": "202K",
+    "maxTokens": "131K",
     "status": "available",
-    "category": "reasoning",
+    "category": "chat",
     "features": [
-      "深度思考",
+      "多语言",
       "函数调用",
-      "JSON模式",
-      "结构化输出",
+      "工具使用",
+      "流式输出",
       "长上下文"
     ],
     "useCases": [
-      "智能客服与对话助手",
-      "复杂文档分析与摘要",
-      "自动化工作流与API集成"
-    ],
-    "strengths": [
-      "深度思考与推理能力",
-      "204K超长上下文窗口",
-      "结构化输出与函数调用",
-      "极低输入价格，高性价比"
-    ],
-    "whyChoose": {
-      "en": "Best value for deep reasoning and long-context tasks with production-ready reliability.",
-      "ru": "Лучшее соотношение цены и качества для задач глубокого рассуждения и длинного контекста с надежностью, готовой к производству.",
-      "tr": "Derin düşünme ve uzun bağlam gerektiren görevler için üretime hazır güvenilirlikle en iyi değer."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"minimax/minimax-m2.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"minimax/minimax-m2.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"minimax/minimax-m2.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "minimax/minimax-m2.7",
-    "name": "MiniMax: MiniMax M2.7",
-    "provider": "MiniMax",
-    "providerLogo": "MM",
-    "description": "MiniMax-M2.7 是专为自主生产力打造的新一代大语言模型，具备深度思考与多智能体协作能力。它不仅能处理复杂推理任务，还能通过函数调用和结构化输出无缝集成到你的工作流中。204K 超长上下文让分析长篇文档、对话历史变得轻松。适合构建智能助手、自动化系统和需要可靠推理的应用程序。",
-    "descriptions": {
-      "zh": "MiniMax-M2.7 是专为自主生产力打造的新一代大语言模型，具备深度思考与多智能体协作能力。它不仅能处理复杂推理任务，还能通过函数调用和结构化输出无缝集成到你的工作流中。204K 超长上下文让分析长篇文档、对话历史变得轻松。适合构建智能助手、自动化系统和需要可靠推理的应用程序。",
-      "en": "MiniMax-M2.7 is a next-generation LLM engineered for autonomous productivity and real-world tasks. It combines deep reasoning with multi-agent capabilities, enabling complex problem-solving and seamless integration via function calling and structured outputs. With a 204K context window, it handles lengthy documents and conversations effortlessly. Ideal for developers building intelligent assistants, automation tools, and applications that demand reliable reasoning. Choose M2.7 for a model that actively improves and adapts to your needs.",
-      "ru": "MiniMax-M2.7 — это LLM нового поколения, созданная для автономной продуктивности и реальных задач. Она сочетает глубокое рассуждение с возможностями мультиагентного взаимодействия, что позволяет решать сложные проблемы и легко интегрироваться через вызов функций и структурированный вывод. Окно контекста в 204K токенов позволяет без усилий обрабатывать длинные документы и диалоги. Идеально подходит для разработчиков, создающих интеллектуальных ассистентов, инструменты автоматизации и приложения, требующие надежного рассуждения.",
-      "tr": "MiniMax-M2.7, özerk üretkenlik ve gerçek dünya görevleri için tasarlanmış yeni nesil bir büyük dil modelidir. Derin düşünme ve çoklu ajan yeteneklerini birleştirerek karmaşık problem çözmeyi ve fonksiyon çağrıları ile yapılandırılmış çıktılar aracılığıyla sorunsuz entegrasyonu sağlar. 204K tokenlık bağlam penceresi, uzun belgeleri ve diyalogları zahmetsizce işler. Akıllı asistanlar, otomasyon araçları ve güvenilir muhakeme gerektiren uygulamalar geliştirenler için idealdir."
-    },
-    "inputPrice": "$0.26",
-    "outputPrice": "$1.20",
-    "contextWindow": "204K",
-    "maxTokens": "—",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "函数调用",
-      "JSON 模式",
-      "深度思考",
-      "流式输出",
-      "超长上下文"
-    ],
-    "useCases": [
-      "构建智能客服与虚拟助手",
-      "自动化文档分析与摘要",
-      "复杂工作流编排与多步骤推理"
-    ],
-    "strengths": [
-      "深度思考与推理能力",
-      "超长上下文窗口（204K）",
-      "多智能体协作与函数调用",
-      "结构化输出与 JSON 模式",
-      "高性价比（输入 $0.26/M）"
-    ],
-    "whyChoose": {
-      "en": "Best value for deep reasoning and long context in emerging markets.",
-      "ru": "Лучшее соотношение цены и качества для глубокого рассуждения и длинного контекста.",
-      "tr": "Derin düşünme ve uzun bağlam için en iyi fiyat-performans oranı."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"minimax/minimax-m2.7\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"minimax/minimax-m2.7\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"minimax/minimax-m2.7\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "minimax/minimax-m3",
-    "name": "MiniMax: MiniMax M3",
-    "provider": "MiniMax",
-    "providerLogo": "MM",
-    "description": "MiniMax-M3 是 MiniMax 推出的多模态基础模型，支持文本、图像和视频输入，输出文本。拥有 1048K 的超长上下文窗口，适合处理复杂的长文本任务。它具备深度思考能力，支持函数调用和 JSON 模式输出，价格极具竞争力。无论是构建智能代理、处理大规模文档，还是进行代码生成，M3 都能以低成本提供高性能。适合需要长上下文、多模态理解和结构化输出的开发者。",
-    "descriptions": {
-      "zh": "MiniMax-M3 是 MiniMax 推出的多模态基础模型，支持文本、图像和视频输入，输出文本。拥有 1048K 的超长上下文窗口，适合处理复杂的长文本任务。它具备深度思考能力，支持函数调用和 JSON 模式输出，价格极具竞争力。无论是构建智能代理、处理大规模文档，还是进行代码生成，M3 都能以低成本提供高性能。适合需要长上下文、多模态理解和结构化输出的开发者。",
-      "en": "MiniMax-M3 is a multimodal foundation model that processes text, images, and video to produce text output. With a massive 1048K context window and built-in reasoning capabilities, it excels at long-horizon agentic tasks, complex document analysis, and code generation. Supporting function calling and JSON mode, it integrates seamlessly into your workflows. At just $0.30 per million input tokens, it delivers exceptional value for developers building intelligent applications in emerging markets. Whether you're automating workflows, analyzing large datasets, or building next-gen AI products, M3 provides the performance and flexibility you need.",
-      "ru": "MiniMax-M3 — это мультимодальная фундаментальная модель от MiniMax, работающая с текстом, изображениями и видео и выдающая текст. Благодаря контекстному окну в 1048K и встроенным возможностям рассуждения, она идеально подходит для длительных агентских задач, анализа сложных документов и генерации кода. Поддержка вызова функций и JSON-режима позволяет легко интегрировать модель в ваши рабочие процессы. При цене всего $0,30 за миллион входных токенов она обеспечивает исключительную ценность для разработчиков, создающих интеллектуальные приложения на развивающихся рынках. Будь то автоматизация, анализ больших данных или создание AI-продуктов нового поколения — M3 даёт необходимую производительность и гибкость.",
-      "tr": "MiniMax-M3, MiniMax tarafından geliştirilen ve metin, görsel ve video girdilerini işleyerek metin çıktısı üreten çok modlu bir temel modeldir. 1048K'lık devasa bağlam penceresi ve yerleşik muhakeme yetenekleri sayesinde uzun vadeli ajan görevleri, karmaşık belge analizi ve kod üretiminde mükemmeldir. Fonksiyon çağırma ve JSON modu desteğiyle iş akışlarınıza sorunsuz entegre olur. Milyon giriş token başına sadece $0,30 fiyatıyla, gelişmekte olan pazarlarda akıllı uygulamalar geliştiren geliştiriciler için olağanüstü değer sunar. İster iş akışlarını otomatikleştirin, ister büyük veri kümelerini analiz edin, ister yeni nesil AI ürünleri oluşturun, M3 ihtiyacınız olan performansı ve esnekliği sağlar."
-    },
-    "inputPrice": "$0.30",
-    "outputPrice": "$1.20",
-    "contextWindow": "1048K",
-    "maxTokens": "512K",
-    "status": "available",
-    "category": "multimodal",
-    "features": [
-      "函数调用",
-      "JSON模式",
-      "深度思考",
-      "流式输出",
-      "多模态输入"
-    ],
-    "useCases": [
       "长文档分析与摘要",
-      "智能代理与自动化工作流",
-      "多模态内容理解与生成"
+      "多语言客户支持机器人",
+      "自动化代码审查与生成"
     ],
     "strengths": [
-      "超长上下文窗口（1048K）",
-      "多模态输入支持",
-      "深度思考与推理能力"
+      "超长上下文窗口，支持202K tokens",
+      "高性价比，输入仅$0.43/百万tokens",
+      "多语言能力强，覆盖东欧、中亚语言",
+      "函数调用与工具使用能力突出"
     ],
     "whyChoose": {
-      "en": "Unmatched context length and multimodal capabilities at a fraction of the cost.",
-      "ru": "Непревзойденная длина контекста и мультимодальные возможности по доступной цене.",
-      "tr": "Rakiplerine göre çok düşük maliyetle benzersiz bağlam uzunluğu ve çok modlu yetenekler."
+      "en": "Best price-performance ratio for long-context, multilingual AI applications in emerging markets.",
+      "ru": "Лучшее соотношение цены и производительности для многоязычных AI-приложений с длинным контекстом на развивающихся рынках.",
+      "tr": "Gelişmekte olan pazarlarda uzun bağlamlı, çok dilli yapay zeka uygulamaları için en iyi fiyat-performans oranı."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"minimax/minimax-m3\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"minimax/minimax-m3\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"minimax/minimax-m3\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.6\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.6\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.6\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    },
+    "enriched": true
   },
   {
-    "id": "minimax/minimax-01",
-    "name": "MiniMax: MiniMax-01",
-    "provider": "MiniMax",
-    "providerLogo": "MM",
-    "description": "MiniMax-01 是 MiniMax 最新一代多模态大模型，专为需要超长上下文和图像理解的任务打造。它融合文本生成与视觉理解能力，能一口气处理近百万 token 的内容，非常适合分析长篇文档、技术报告或结合图像的多轮对话。性能强劲且价格实惠，是构建智能客服、内容总结、视觉问答等应用的理想选择。",
+    "id": "glm-4.7",
+    "name": "Z.ai: GLM 4.7",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "/logos/智谱-z.ai.png",
+    "description": "GLM-4.7 是智谱最新旗舰模型，专为复杂任务而生。编程能力大幅提升，多步推理更稳定，轻松驾驭智能体工作流。适合需要高精度代码生成、逻辑推理和稳定输出的开发者。免费使用，快速响应，流式输出，助你高效构建下一代 AI 应用。",
     "descriptions": {
-      "zh": "MiniMax-01 是 MiniMax 最新一代多模态大模型，专为需要超长上下文和图像理解的任务打造。它融合文本生成与视觉理解能力，能一口气处理近百万 token 的内容，非常适合分析长篇文档、技术报告或结合图像的多轮对话。性能强劲且价格实惠，是构建智能客服、内容总结、视觉问答等应用的理想选择。",
-      "en": "MiniMax-01 is the next-generation multimodal model from MiniMax, designed for tasks requiring ultra-long context and image understanding. It combines text generation with vision comprehension, handling nearly 1M tokens in one go—perfect for analyzing lengthy documents, technical reports, or multi-turn conversations involving images. With strong performance and affordable pricing, it's the ideal choice for building smart chatbots, content summarizers, and visual Q&A systems.",
-      "ru": "MiniMax-01 — это новейшая мультимодальная модель от MiniMax, созданная для задач, требующих сверхдлинного контекста и понимания изображений. Она объединяет генерацию текста и визуальное восприятие, обрабатывая почти 1 миллион токенов за раз — идеально для анализа длинных документов, технических отчётов или многотуровых диалогов с изображениями. Благодаря высокой производительности и доступной цене, это отличный выбор для создания умных чат-ботов, суммаризаторов контента и систем визуального Q&A.",
-      "tr": "MiniMax-01, MiniMax'ın en yeni çok modlu modelidir ve ultra uzun bağlam ve görüntü anlama gerektiren görevler için tasarlanmıştır. Metin oluşturma ile görsel anlama yeteneklerini birleştirerek tek seferde neredeyse 1 milyon token işleyebilir; bu da onu uzun belgeleri, teknik raporları veya görseller içeren çok turlu diyalogları analiz etmek için mükemmel kılar. Güçlü performansı ve uygun fiyatlandırmasıyla akıllı sohbet robotları, içerik özetleyiciler ve görsel soru-cevap sistemleri oluşturmak için ideal bir seçimdir."
+      "zh": "GLM-4.7 是智谱最新旗舰模型，专为复杂任务而生。编程能力大幅提升，多步推理更稳定，轻松驾驭智能体工作流。适合需要高精度代码生成、逻辑推理和稳定输出的开发者。免费使用，快速响应，流式输出，助你高效构建下一代 AI 应用。",
+      "en": "GLM-4.7 is Z.ai's latest flagship, built for developers who need reliable, multi-step reasoning and top-tier code generation. It excels at complex agent tasks, delivering stable outputs and faster responses. Whether you're building tools, automating workflows, or integrating AI into your product, GLM-4.7 gives you the precision and speed to ship with confidence. Free to use, streaming support included.",
+      "ru": "GLM-4.7 — новый флагман от Z.ai, созданный для разработчиков, которым нужно надежное многошаговое рассуждение и генерация кода высокого уровня. Модель отлично справляется с комплексными агентными задачами, обеспечивая стабильные результаты и быстрый ответ. Бесплатно, с поддержкой потокового вывода. Идеально для создания инструментов, автоматизации и интеграции ИИ в продукты.",
+      "tr": "GLM-4.7, Z.ai'nin en yeni amiral gemisi modelidir. Karmaşık görevler için tasarlanmış olup, kod üretimi ve çok adımlı akıl yürütme konusunda üstün performans sunar. Geliştiricilere güvenilir, hızlı ve akış çıktılı bir yapay zeka deneyimi sağlar. Ücretsiz kullanım, hızlı yanıt ve akış desteğiyle öne çıkar."
     },
-    "inputPrice": "$0.20",
-    "outputPrice": "$1.10",
-    "contextWindow": "1000K",
-    "maxTokens": "1000K",
+    "inputPrice": "$0.40",
+    "outputPrice": "$1.75",
+    "contextWindow": "202K",
+    "maxTokens": "131K",
     "status": "available",
-    "category": "multimodal",
+    "category": "code",
     "features": [
-      "超长上下文",
-      "多模态理解",
+      "免费使用",
+      "快速响应",
       "流式输出",
-      "高性价比",
-      "灵活参数调节"
+      "编程优化",
+      "多步推理"
     ],
     "useCases": [
-      "长篇文档分析与总结",
-      "技术报告与学术论文解读",
-      "结合图像的智能客服与问答系统"
-    ],
-    "strengths": [
-      "超长上下文窗口，一次处理近百万token",
-      "多模态能力，融合文本与图像理解",
-      "性能强劲，价格实惠，性价比极高"
-    ],
-    "whyChoose": {
-      "en": "Unmatched context length and multimodal prowess at a fraction of the cost — ideal for complex, document-heavy AI applications.",
-      "ru": "Непревзойдённая длина контекста и мультимодальные возможности по доступной цене — идеально для сложных AI-приложений с большими документами.",
-      "tr": "Eşsiz bağlam uzunluğu ve çok modlu yetenekler, düşük maliyetle — belge yoğun karmaşık AI uygulamaları için ideal."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"minimax/minimax-01\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"minimax/minimax-01\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"minimax/minimax-01\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "nvidia/llama-3.3-nemotron-super-49b-v1.5",
-    "name": "NVIDIA: Llama 3.3 Nemotron Super 49B V1.5",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "NVIDIA与DeepSeek联合打造的推理与对话模型，基于Llama架构深度优化。专为智能代理工作流设计，在数学、编程、科学等场景中展现卓越的推理能力。支持131K超长上下文，轻松处理复杂文档与多轮对话。适合需要高精度推理、工具调用与结构化输出的开发者。",
-    "descriptions": {
-      "zh": "NVIDIA与DeepSeek联合打造的推理与对话模型，基于Llama架构深度优化。专为智能代理工作流设计，在数学、编程、科学等场景中展现卓越的推理能力。支持131K超长上下文，轻松处理复杂文档与多轮对话。适合需要高精度推理、工具调用与结构化输出的开发者。",
-      "en": "Meet the Llama-3.3-Nemotron-Super-49B-v1.5 — a next-gen reasoning and chat model co-developed by NVIDIA and DeepSeek. Built for agentic workflows, it excels at complex reasoning, tool calling, and structured outputs. With a 131K context window, it handles massive documents and long conversations effortlessly. Perfect for developers building intelligent assistants, RAG pipelines, or automation tools in Armenia, Georgia, and Central Asia.",
-      "ru": "Llama-3.3-Nemotron-Super-49B-v1.5 — это модель рассуждения и чата нового поколения, созданная NVIDIA и DeepSeek. Оптимизирована для агентных рабочих процессов: отличное рассуждение, вызов инструментов и структурированный вывод. Контекстное окно 131K позволяет обрабатывать огромные документы и длинные диалоги. Идеально подходит для разработчиков в Казахстане и Центральной Азии, создающих интеллектуальных ассистентов, RAG-пайплайны и инструменты автоматизации.",
-      "tr": "Llama-3.3-Nemotron-Super-49B-v1.5 — NVIDIA ve DeepSeek tarafından geliştirilmiş yeni nesil bir akıl yürütme ve sohbet modeli. Ajan iş akışları için optimize edilmiştir; karmaşık akıl yürütme, araç çağırma ve yapılandırılmış çıktılarda mükemmeldir. 131K bağlam penceresi sayesinde büyük belgeleri ve uzun diyalogları kolayca işler. Türkiye'deki geliştiriciler için akıllı asistanlar, RAG boru hatları ve otomasyon araçları oluşturmak için idealdir."
-    },
-    "inputPrice": "$0.10",
-    "outputPrice": "$0.40",
-    "contextWindow": "131K",
-    "maxTokens": "16K",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "函数调用",
-      "JSON模式",
-      "深度思考",
-      "流式输出",
-      "超长上下文"
-    ],
-    "useCases": [
-      "构建智能客服与对话助手",
-      "开发自动化工作流与RAG系统",
-      "执行复杂数据分析与代码生成任务"
-    ],
-    "strengths": [
-      "卓越的推理能力，尤其在数学、编程、科学领域",
-      "131K超长上下文，适合处理大型文档与复杂对话",
-      "针对智能代理工作流优化，支持工具调用与结构化输出"
-    ],
-    "whyChoose": {
-      "en": "Best-in-class reasoning for agentic workflows at a fraction of the cost.",
-      "ru": "Лучшее в своем классе рассуждение для агентных рабочих процессов по доступной цене.",
-      "tr": "Ajan iş akışları için en iyi akıl yürütme performansı, çok uygun maliyetle."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/llama-3.3-nemotron-super-49b-v1.5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/llama-3.3-nemotron-super-49b-v1.5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/llama-3.3-nemotron-super-49b-v1.5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "nvidia/nemotron-3-nano-30b-a3b",
-    "name": "NVIDIA: Nemotron 3 Nano 30B A3B",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "NVIDIA Nemotron 3 Nano 30B A3B 是一款专为构建智能代理 AI 系统而设计的高效小语言模型。它采用 MoE 架构，在保持高精度的同时实现极优的计算效率。支持 262K 超长上下文、函数调用与深度思考，能以极低成本（输入仅 $0.05/百万 token）提供卓越性能。适合中东欧、中亚开发者快速打造企业级 AI 应用。",
-    "descriptions": {
-      "zh": "NVIDIA Nemotron 3 Nano 30B A3B 是一款专为构建智能代理 AI 系统而设计的高效小语言模型。它采用 MoE 架构，在保持高精度的同时实现极优的计算效率。支持 262K 超长上下文、函数调用与深度思考，能以极低成本（输入仅 $0.05/百万 token）提供卓越性能。适合中东欧、中亚开发者快速打造企业级 AI 应用。",
-      "en": "NVIDIA Nemotron 3 Nano 30B A3B is a compact, high-efficiency MoE language model built for specialized agentic AI systems. With a 262K context window, function calling, and deep reasoning, it delivers enterprise-grade performance at a fraction of the cost—just $0.05 per million input tokens. Perfect for developers in emerging markets who need powerful, affordable AI to build production-ready applications.",
-      "ru": "NVIDIA Nemotron 3 Nano 30B A3B — это компактная высокоэффективная языковая модель на архитектуре MoE, предназначенная для создания специализированных агентных AI-систем. С окном контекста в 262K, поддержкой вызова функций и глубокого мышления она обеспечивает производительность корпоративного уровня по цене всего $0,05 за миллион входных токенов. Идеально подходит для разработчиков из Казахстана и Центральной Азии, которым нужна мощная и доступная модель для создания готовых к эксплуатации приложений.",
-      "tr": "NVIDIA Nemotron 3 Nano 30B A3B, özel ajan tabanlı AI sistemleri oluşturmak için tasarlanmış, yüksek verimli bir MoE dil modelidir. 262K bağlam penceresi, fonksiyon çağırma ve derin düşünme desteğiyle, milyon giriş token başına yalnızca $0,05 gibi düşük bir maliyetle kurumsal düzeyde performans sunar. Türkiye'deki geliştiriciler için güçlü ve uygun fiyatlı bir model."
-    },
-    "inputPrice": "$0.05",
-    "outputPrice": "$0.20",
-    "contextWindow": "262K",
-    "maxTokens": "228K",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "函数调用",
-      "深度思考",
-      "JSON模式",
-      "流式输出",
-      "超长上下文"
-    ],
-    "useCases": [
-      "构建企业级智能客服与助手",
-      "自动化代码生成与调试",
-      "复杂文档分析与知识检索"
-    ],
-    "strengths": [
-      "极低推理成本，性价比极高",
-      "超长上下文支持（262K），适合复杂任务",
-      "深度思考与函数调用能力，适合构建智能代理"
-    ],
-    "whyChoose": {
-      "en": "Unmatched cost-efficiency with enterprise-grade reasoning for agentic AI.",
-      "ru": "Непревзойденная экономическая эффективность с рассуждениями корпоративного уровня для агентного ИИ.",
-      "tr": "Ajan tabanlı AI için kurumsal düzeyde akıl yürütme ile eşsiz maliyet verimliliği."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/nemotron-3-nano-30b-a3b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-3-nano-30b-a3b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/nemotron-3-nano-30b-a3b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "nvidia/nemotron-3-nano-30b-a3b:free",
-    "name": "NVIDIA: Nemotron 3 Nano 30B A3B (free)",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "NVIDIA Nemotron 3 Nano 30B A3B 是一款专为智能体 AI 系统打造的高效小模型。它采用 MoE 架构，在极低算力需求下实现卓越性能，支持 256K 超长上下文和深度推理。完全免费，适合东欧、中亚开发者快速构建智能助手、自动化流程和复杂推理应用。无需高昂成本，即可获得企业级 AI 能力。",
-    "descriptions": {
-      "zh": "NVIDIA Nemotron 3 Nano 30B A3B 是一款专为智能体 AI 系统打造的高效小模型。它采用 MoE 架构，在极低算力需求下实现卓越性能，支持 256K 超长上下文和深度推理。完全免费，适合东欧、中亚开发者快速构建智能助手、自动化流程和复杂推理应用。无需高昂成本，即可获得企业级 AI 能力。",
-      "en": "NVIDIA Nemotron 3 Nano 30B A3B is a compact MoE model designed for building specialized agentic AI systems. It delivers exceptional compute efficiency and accuracy, with 256K context and deep reasoning capabilities—all completely free. Perfect for developers in emerging markets who want to create intelligent assistants, automate workflows, or tackle complex reasoning tasks without breaking the bank. Start building smarter, faster, and at zero cost.",
-      "ru": "NVIDIA Nemotron 3 Nano 30B A3B — это компактная MoE-модель для создания специализированных агентных ИИ-систем. Она обеспечивает высокую вычислительную эффективность и точность, поддерживает контекст до 256K и глубокое мышление — и всё это совершенно бесплатно. Идеально подходит разработчикам из Казахстана и Центральной Азии, желающим создавать интеллектуальных ассистентов, автоматизировать процессы или решать сложные задачи рассуждения без больших затрат.",
-      "tr": "NVIDIA Nemotron 3 Nano 30B A3B, özel ajan AI sistemleri oluşturmak için tasarlanmış kompakt bir MoE modelidir. Yüksek hesaplama verimliliği ve doğruluk sunar, 256K bağlam ve derin düşünme yeteneklerini tamamen ücretsiz olarak sağlar. Türkiye'deki geliştiriciler için akıllı asistanlar oluşturmak, iş akışlarını otomatikleştirmek veya karmaşık akıl yürütme görevlerini çözmek için idealdir. Sıfır maliyetle daha akıllı ve hızlı inşa etmeye başlayın."
-    },
-    "inputPrice": "免费",
-    "outputPrice": "免费",
-    "contextWindow": "256K",
-    "maxTokens": "—",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "函数调用",
-      "深度思考",
-      "流式输出",
-      "超长上下文",
-      "免费使用"
-    ],
-    "useCases": [
-      "智能客服与对话助手",
-      "自动化工作流与Agent系统",
-      "复杂推理与数据分析"
-    ],
-    "strengths": [
-      "极致性价比，完全免费",
-      "超长上下文与深度推理",
-      "MoE架构，高效低耗"
-    ],
-    "whyChoose": {
-      "en": "Free, efficient, and powerful — the ideal MoE model for building agentic AI without budget constraints.",
-      "ru": "Бесплатно, эффективно и мощно — идеальная MoE-модель для создания агентного ИИ без ограничений бюджета.",
-      "tr": "Ücretsiz, verimli ve güçlü — bütçe kısıtlaması olmadan ajan AI oluşturmak için ideal MoE modeli."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/nemotron-3-nano-30b-a3b:free\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-3-nano-30b-a3b:free\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/nemotron-3-nano-30b-a3b:free\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
-    "name": "NVIDIA: Nemotron 3 Nano Omni (free)",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "NVIDIA Nemotron 3 Nano Omni 是一个轻量级的多模态 AI 模型，能够同时理解文本、图像、音频和视频，并输出文本结果。它专为智能代理系统设计，可作为感知和上下文处理的子代理。模型采用 30B 参数但仅激活 3B，效率极高，适合在资源受限的环境下部署。支持深度思考、函数调用和流式输出，让开发者能构建更智能、更交互的应用。对于东欧、中亚地区的开发者，它免费使用，是构建多模态 AI 应用的理想选择。",
-    "descriptions": {
-      "zh": "NVIDIA Nemotron 3 Nano Omni 是一个轻量级的多模态 AI 模型，能够同时理解文本、图像、音频和视频，并输出文本结果。它专为智能代理系统设计，可作为感知和上下文处理的子代理。模型采用 30B 参数但仅激活 3B，效率极高，适合在资源受限的环境下部署。支持深度思考、函数调用和流式输出，让开发者能构建更智能、更交互的应用。对于东欧、中亚地区的开发者，它免费使用，是构建多模态 AI 应用的理想选择。",
-      "en": "NVIDIA Nemotron 3 Nano Omni is a compact yet powerful multimodal AI model that processes text, images, audio, and video to generate text responses. Designed as a perception and context sub-agent for enterprise agent systems, it delivers remarkable efficiency with 30B parameters but only 3B activated. It supports deep reasoning, function calling, and streaming output, enabling developers to build responsive and intelligent applications. Best of all, it's free to use. Ideal for developers in Armenia, Georgia, and Central Asia looking to integrate multimodal capabilities without high costs.",
-      "ru": "NVIDIA Nemotron 3 Nano Omni — это компактная мультимодальная модель ИИ, которая обрабатывает текст, изображения, аудио и видео, генерируя текстовые ответы. Разработана как суб-агент восприятия и контекста для корпоративных агентных систем. Модель имеет 30 миллиардов параметров, но активирует только 3 миллиарда, что обеспечивает высокую эффективность. Поддерживает глубокое рассуждение, вызов функций и потоковый вывод. Полностью бесплатна. Идеально подходит для разработчиков из Казахстана и Центральной Азии, стремящихся внедрить мультимодальные возможности без больших затрат.",
-      "tr": "NVIDIA Nemotron 3 Nano Omni, metin, görüntü, ses ve videoyu işleyerek metin çıktısı üreten kompakt ama güçlü bir çok modlu AI modelidir. Kurumsal ajan sistemleri için algılama ve bağlam alt-ajanı olarak tasarlanmıştır. 30 milyar parametreye sahip olmasına rağmen yalnızca 3 milyarını aktifleştirerek yüksek verimlilik sunar. Derin düşünme, fonksiyon çağırma ve akış çıktısını destekler. Tamamen ücretsizdir. Türkiye'deki geliştiriciler için çok modlu yetenekleri düşük maliyetle entegre etmek idealdir."
-    },
-    "inputPrice": "免费",
-    "outputPrice": "免费",
-    "contextWindow": "256K",
-    "maxTokens": "65K",
-    "status": "available",
-    "category": "multimodal",
-    "features": [
-      "多模态输入（文本+图像+音频+视频）",
-      "深度思考（Reasoning）",
-      "函数调用（Function Calling）",
-      "流式输出（Streaming）",
-      "256K上下文窗口"
-    ],
-    "useCases": [
-      "智能客服系统：理解用户上传的图片、语音和视频，提供精准回复",
-      "内容审核：分析多模态内容，自动识别违规信息",
-      "多模态数据分析：从混合数据中提取洞察，支持决策"
-    ],
-    "strengths": [
-      "极致效率：30B参数仅激活3B，推理速度快，资源消耗低",
-      "多模态感知：同时处理文本、图像、音频和视频，统一输出文本",
-      "完全免费：输入输出均免费，降低开发成本"
-    ],
-    "whyChoose": {
-      "en": "Free, efficient multimodal reasoning with deep thinking — perfect for building intelligent agent systems on a budget.",
-      "ru": "Бесплатная, эффективная мультимодальная обработка с глубоким рассуждением — идеально для создания интеллектуальных агентных систем с ограниченным бюджетом.",
-      "tr": "Ücretsiz, verimli çok modlu akıl yürütme ve derin düşünme — bütçe dostu akıllı ajan sistemleri oluşturmak için mükemmel."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "nvidia/nemotron-3-super-120b-a12b",
-    "name": "NVIDIA: Nemotron 3 Super",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "NVIDIA Nemotron 3 Super 是一款专为复杂多智能体应用打造的 120B 参数混合 MoE 模型，实际激活仅 12B 参数，兼顾极致计算效率与高精度。基于创新的 Mamba-Transformer 混合架构，支持 100 万 token 超长上下文，适合深度推理、函数调用与流式输出。面向需要高效处理大规模任务、追求低延迟与低成本的新兴市场开发者。",
-    "descriptions": {
-      "zh": "NVIDIA Nemotron 3 Super 是一款专为复杂多智能体应用打造的 120B 参数混合 MoE 模型，实际激活仅 12B 参数，兼顾极致计算效率与高精度。基于创新的 Mamba-Transformer 混合架构，支持 100 万 token 超长上下文，适合深度推理、函数调用与流式输出。面向需要高效处理大规模任务、追求低延迟与低成本的新兴市场开发者。",
-      "en": "NVIDIA Nemotron 3 Super is a 120B-parameter hybrid MoE model that activates only 12B parameters, delivering exceptional compute efficiency and accuracy for complex multi-agent workflows. Built on a hybrid Mamba-Transformer architecture, it supports up to 1M token context, function calling, and streaming. Ideal for developers in emerging markets who need powerful reasoning without breaking the bank.",
-      "ru": "NVIDIA Nemotron 3 Super — это 120B-параметрическая гибридная MoE-модель, активирующая всего 12B параметров для максимальной вычислительной эффективности и точности в сложных мультиагентных приложениях. Основана на гибридной архитектуре Mamba-Transformer, поддерживает контекст до 1M токенов, вызов функций и потоковый вывод. Идеально подходит для разработчиков, которым нужна мощная модель без высоких затрат.",
-      "tr": "NVIDIA Nemotron 3 Super, yalnızca 12B parametreyi etkinleştiren 120B parametreli hibrit bir MoE modelidir. Karmaşık çoklu ajan uygulamalarında maksimum hesaplama verimliliği ve doğruluk sunar. Hibrit Mamba-Transformer mimarisiyle 1M token bağlam, fonksiyon çağırma ve akış çıktısını destekler. Düşük maliyetle güçlü akıl yürütme arayan geliştiriciler için idealdir."
-    },
-    "inputPrice": "$0.09",
-    "outputPrice": "$0.45",
-    "contextWindow": "1000K",
-    "maxTokens": "—",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "函数调用",
-      "JSON 模式",
-      "深度思考",
-      "流式输出",
-      "超长上下文"
-    ],
-    "useCases": [
-      "多智能体协作系统",
-      "长文档问答与摘要",
       "复杂代码生成与调试",
-      "实时对话与流式输出应用"
+      "多步骤推理与智能体工作流",
+      "自动化工具与 AI 集成开发"
     ],
     "strengths": [
-      "极致效率：仅激活 12B 参数，实现 120B 级别精度",
-      "超长上下文：支持 100 万 token，适合深度文档分析",
-      "混合架构：Mamba-Transformer 结合，推理更稳定",
-      "低成本：输入 $0.09/M，输出 $0.45/M，性价比极高"
+      "编程能力大幅提升，代码生成更精准",
+      "多步推理更稳定，智能体任务执行可靠",
+      "免费使用，快速响应，支持流式输出"
     ],
     "whyChoose": {
-      "en": "Unmatched efficiency: 12B active parameters for 120B-level performance at a fraction of the cost.",
-      "ru": "Непревзойденная эффективность: 12B активных параметров обеспечивают производительность уровня 120B по минимальной цене.",
-      "tr": "Eşsiz verimlilik: 12B aktif parametreyle 120B seviyesinde performans, çok düşük maliyetle."
+      "en": "Reliable multi-step reasoning and top-tier code generation — free and fast.",
+      "ru": "Надёжное многошаговое рассуждение и генерация кода высшего уровня — бесплатно и быстро.",
+      "tr": "Güvenilir çok adımlı akıl yürütme ve üst düzey kod üretimi — ücretsiz ve hızlı."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/nemotron-3-super-120b-a12b\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-3-super-120b-a12b\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/nemotron-3-super-120b-a12b\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-4.7\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-4.7\",\n    messages=[{\"role\": \"user\", \"content\": \"今天天气如何\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-4.7\",\n  messages: [{ role: \"user\", content: \"今天天气如何\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    },
+    "enriched": true
   },
   {
-    "id": "nvidia/nemotron-3-super-120b-a12b:free",
-    "name": "NVIDIA: Nemotron 3 Super (free)",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "NVIDIA Nemotron 3 Super 是一款拥有 120B 参数的混合 MoE 模型，但每次推理仅激活 12B 参数，兼顾极致效率与精准度。基于创新的 Mamba-Transformer 混合架构，支持 100 万 token 超长上下文，轻松应对复杂多智能体任务。适合需要深度推理、结构化输出和高吞吐量的开发者。免费使用，零成本接入。",
+    "id": "glm-5",
+    "name": "Z.ai: GLM 5",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "/logos/智谱-z.ai.png",
+    "description": "GLM-5 是智谱 Z.ai 推出的旗舰开源基础模型，专为复杂系统设计和长期智能体工作流打造。它提供生产级性能，尤其擅长大规模编程任务，同时支持多语言、函数调用和超长上下文。适合需要构建可靠、高效 AI 应用的专家开发者。",
     "descriptions": {
-      "zh": "NVIDIA Nemotron 3 Super 是一款拥有 120B 参数的混合 MoE 模型，但每次推理仅激活 12B 参数，兼顾极致效率与精准度。基于创新的 Mamba-Transformer 混合架构，支持 100 万 token 超长上下文，轻松应对复杂多智能体任务。适合需要深度推理、结构化输出和高吞吐量的开发者。免费使用，零成本接入。",
-      "en": "NVIDIA Nemotron 3 Super is a 120B-parameter hybrid MoE model that activates only 12B parameters per inference, delivering exceptional efficiency without sacrificing accuracy. Built on a novel Mamba-Transformer architecture, it handles up to 1M tokens of context, making it ideal for complex multi-agent workflows, deep reasoning, and structured outputs. Free to use with no rate limits—perfect for developers in Armenia, Georgia, and Central Asia who need high-performance AI without the cost.",
-      "ru": "NVIDIA Nemotron 3 Super — это гибридная MoE-модель на 120 миллиардов параметров, которая при каждом вызове активирует лишь 12 миллиардов, обеспечивая максимальную эффективность и точность. Благодаря архитектуре Mamba-Transformer она поддерживает контекст до 1 миллиона токенов, что идеально подходит для сложных мультиагентных сценариев, глубоких рассуждений и структурированных выводов. Бесплатно и без ограничений — для разработчиков из Казахстана и Центральной Азии.",
-      "tr": "NVIDIA Nemotron 3 Super, 120 milyar parametreli hibrit bir MoE modelidir ve her çıkarımda yalnızca 12 milyar parametreyi etkinleştirerek maksimum verimlilik ve doğruluk sunar. Yenilikçi Mamba-Transformer mimarisi sayesinde 1 milyon token'a kadar bağlamı işleyebilir; karmaşık çoklu ajan uygulamaları, derin düşünme ve yapılandırılmış çıktılar için idealdir. Tamamen ücretsiz ve sınırsız kullanım — Türkiye'deki geliştiriciler için."
+      "zh": "GLM-5 是智谱 Z.ai 推出的旗舰开源基础模型，专为复杂系统设计和长期智能体工作流打造。它提供生产级性能，尤其擅长大规模编程任务，同时支持多语言、函数调用和超长上下文。适合需要构建可靠、高效 AI 应用的专家开发者。",
+      "en": "GLM-5 is Z.ai's flagship open-source foundation model, built for complex system design and long-horizon agent workflows. It delivers production-grade performance on large-scale programming tasks and excels in multilingual communication, function calling, and handling massive contexts. Ideal for expert developers building reliable, high-performance AI applications in emerging markets.",
+      "ru": "GLM-5 — флагманская открытая фундаментальная модель от Z.ai, созданная для проектирования сложных систем и долгосрочных агентных рабочих процессов. Она обеспечивает производительность производственного уровня в крупномасштабных задачах программирования, а также отлично справляется с многоязычным общением, вызовом функций и обработкой огромных контекстов. Идеально подходит для опытных разработчиков, создающих надежные и высокопроизводительные AI-приложения.",
+      "tr": "GLM-5, Z.ai'nin amiral gemisi açık kaynak temel modelidir ve karmaşık sistem tasarımı ile uzun vadeli ajan iş akışları için üretilmiştir. Büyük ölçekli programlama görevlerinde üretim düzeyinde performans sunar; çok dilli iletişim, fonksiyon çağrısı ve devasa bağlamları işlemede üstündür. Güvenilir ve yüksek performanslı AI uygulamaları geliştiren uzman geliştiriciler için idealdir."
     },
-    "inputPrice": "免费",
-    "outputPrice": "免费",
-    "contextWindow": "1000K",
-    "maxTokens": "262K",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "函数调用",
-      "JSON 模式",
-      "结构化输出",
-      "深度思考",
-      "流式输出"
-    ],
-    "useCases": [
-      "多智能体协作系统：需要多个模型实例协同完成复杂任务",
-      "长文档理解与生成：如合同分析、书籍摘要、代码库级推理",
-      "结构化输出应用：函数调用、JSON 模式、可约束的生成"
-    ],
-    "strengths": [
-      "极致效率：120B 参数仅激活 12B，推理速度快、成本极低",
-      "超长上下文：支持 100 万 token，适合长文档和多轮对话",
-      "深度推理能力强：Mamba-Transformer 混合架构，兼顾序列建模与注意力机制"
-    ],
-    "whyChoose": {
-      "en": "Unmatched efficiency with 120B MoE activating only 12B parameters—free, fast, and built for complex reasoning.",
-      "ru": "Непревзойденная эффективность: 120B MoE активирует всего 12B параметров — бесплатно, быстро и для сложных задач.",
-      "tr": "120B MoE yalnızca 12B parametreyi etkinleştirerek benzersiz verimlilik sağlar — ücretsiz, hızlı ve karmaşık akıl yürütme için tasarlandı."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/nemotron-3-super-120b-a12b:free\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-3-super-120b-a12b:free\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/nemotron-3-super-120b-a12b:free\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "nvidia/nemotron-nano-12b-v2-vl:free",
-    "name": "NVIDIA: Nemotron Nano 12B 2 VL (free)",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "Nemotron Nano 2 VL 是 NVIDIA 与 DeepSeek 联合打造的多模态推理模型。它不仅能看懂文字，还能理解视频和文档，就像给 AI 装上了“眼睛”和“大脑”。12B 参数，混合 Transformer-Mamba 架构，在精度和效率上取得绝佳平衡。128K 超大上下文，一次处理整本小说。适合构建智能视频分析、文档问答、多模态 Agent 等应用。完全免费，无任何隐藏费用。",
-    "descriptions": {
-      "zh": "Nemotron Nano 2 VL 是 NVIDIA 与 DeepSeek 联合打造的多模态推理模型。它不仅能看懂文字，还能理解视频和文档，就像给 AI 装上了“眼睛”和“大脑”。12B 参数，混合 Transformer-Mamba 架构，在精度和效率上取得绝佳平衡。128K 超大上下文，一次处理整本小说。适合构建智能视频分析、文档问答、多模态 Agent 等应用。完全免费，无任何隐藏费用。",
-      "en": "Nemotron Nano 2 VL is a free, state-of-the-art multimodal reasoning model from NVIDIA and DeepSeek. It understands text, images, and videos, making it perfect for building intelligent video analysis, document Q&A, and multimodal agents. With 12B parameters, a hybrid Transformer-Mamba architecture, and 128K context window, it delivers exceptional accuracy and efficiency. No cost, no limits. Ideal for developers in Armenia, Georgia, and Central Asia looking to innovate without breaking the bank.",
-      "ru": "Nemotron Nano 2 VL — это бесплатная мультимодальная модель рассуждения от NVIDIA и DeepSeek. Она понимает текст, изображения и видео, что делает её идеальной для создания интеллектуального анализа видео, вопросно-ответных систем по документам и мультимодальных агентов. 12B параметров, гибридная архитектура Transformer-Mamba и контекстное окно 128K обеспечивают исключительную точность и эффективность. Без затрат, без ограничений. Идеально подходит для разработчиков из Казахстана и Центральной Азии.",
-      "tr": "Nemotron Nano 2 VL, NVIDIA ve DeepSeek tarafından geliştirilen ücretsiz, son teknoloji bir çok modlu akıl yürütme modelidir. Metin, görüntü ve videoları anlar; akıllı video analizi, belge soru-cevap ve çok modlu ajanlar oluşturmak için mükemmeldir. 12B parametre, hibrit Transformer-Mamba mimarisi ve 128K bağlam penceresi ile olağanüstü doğruluk ve verimlilik sunar. Hiçbir maliyet, hiçbir sınırlama. Türkiye'deki geliştiriciler için idealdir."
-    },
-    "inputPrice": "免费",
-    "outputPrice": "免费",
-    "contextWindow": "128K",
-    "maxTokens": "128K",
-    "status": "available",
-    "category": "multimodal",
-    "features": [
-      "多模态推理",
-      "函数调用",
-      "深度思考",
-      "流式输出"
-    ],
-    "useCases": [
-      "智能视频内容分析与摘要",
-      "文档级问答与信息抽取",
-      "多模态对话与AI助手",
-      "教育场景中的视频理解"
-    ],
-    "strengths": [
-      "多模态理解：文本+图像+视频，一次搞定",
-      "混合架构：Transformer精度 + Mamba效率",
-      "128K超长上下文，处理复杂场景无压力",
-      "完全免费，零成本部署"
-    ],
-    "whyChoose": {
-      "en": "Free multimodal reasoning with NVIDIA's cutting-edge architecture — no cost, no limits.",
-      "ru": "Бесплатное мультимодальное рассуждение с передовой архитектурой NVIDIA — без затрат и ограничений.",
-      "tr": "NVIDIA'nın son teknoloji mimarisiyle ücretsiz çok modlu akıl yürütme — hiçbir maliyet, hiçbir sınırlama."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/nemotron-nano-12b-v2-vl:free\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-nano-12b-v2-vl:free\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/nemotron-nano-12b-v2-vl:free\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "nvidia/nemotron-nano-9b-v2",
-    "name": "NVIDIA: Nemotron Nano 9B V2",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "NVIDIA Nemotron-Nano 9B v2 是一款专为推理与非推理任务统一设计的高效语言模型。它拥有 131K 超长上下文窗口，轻松处理复杂对话与深度分析。支持函数调用、JSON 模式及深度思考，适合构建智能助手、代码生成与数据提取等场景。输入仅 $0.04/M token，输出 $0.16/M token，性价比极高，是新兴市场开发者的理想选择。",
-    "descriptions": {
-      "zh": "NVIDIA Nemotron-Nano 9B v2 是一款专为推理与非推理任务统一设计的高效语言模型。它拥有 131K 超长上下文窗口，轻松处理复杂对话与深度分析。支持函数调用、JSON 模式及深度思考，适合构建智能助手、代码生成与数据提取等场景。输入仅 $0.04/M token，输出 $0.16/M token，性价比极高，是新兴市场开发者的理想选择。",
-      "en": "Meet NVIDIA Nemotron-Nano 9B v2 — a unified model built for both reasoning and everyday tasks. With a 131K context window, it handles long conversations and deep analysis effortlessly. Supports function calling, JSON mode, and reasoning, making it perfect for building smart assistants, generating code, or extracting structured data. At just $0.04/M input tokens and $0.16/M output, it delivers enterprise-grade performance at indie-friendly prices. Ideal for developers in Armenia, Georgia, and Central Asia who need a powerful, cost-effective AI.",
-      "ru": "NVIDIA Nemotron-Nano 9B v2 — это универсальная языковая модель, разработанная для задач как рассуждения, так и общего назначения. Благодаря контекстному окну в 131K токенов, она легко справляется с длинными диалогами и глубоким анализом. Поддерживает вызов функций, JSON-режим и режим рассуждений, что идеально подходит для создания интеллектуальных ассистентов, генерации кода и извлечения данных. Цена всего $0.04 за миллион входных токенов и $0.16 за выходные — отличное соотношение цены и производительности для разработчиков из Казахстана и Центральной Азии.",
-      "tr": "NVIDIA Nemotron-Nano 9B v2, hem akıl yürütme hem de genel görevler için tasarlanmış çok yönlü bir dil modelidir. 131K tokenlık bağlam penceresi sayesinde uzun sohbetleri ve derin analizleri kolayca işler. Fonksiyon çağırma, JSON modu ve akıl yürütme desteğiyle akıllı asistanlar oluşturmak, kod üretmek veya yapılandırılmış veri çıkarmak için idealdir. Girişte milyon token başına yalnızca $0.04, çıkışta $0.16 fiyatla kurumsal düzeyde performansı uygun maliyetle sunar. Türkiye'deki geliştiriciler için güçlü ve ekonomik bir yapay zeka çözümü."
-    },
-    "inputPrice": "$0.04",
-    "outputPrice": "$0.16",
-    "contextWindow": "131K",
-    "maxTokens": "16K",
-    "status": "available",
-    "category": "reasoning",
-    "features": [
-      "函数调用",
-      "JSON模式",
-      "深度思考",
-      "流式输出",
-      "131K上下文"
-    ],
-    "useCases": [
-      "智能客服与对话系统",
-      "代码生成与函数调用",
-      "结构化数据提取（JSON模式）"
-    ],
-    "strengths": [
-      "超长上下文窗口131K",
-      "推理与非推理任务统一模型",
-      "高性价比，输入$0.04/M token"
-    ],
-    "whyChoose": {
-      "en": "Best value for long-context reasoning and function calling with enterprise reliability at indie prices.",
-      "ru": "Лучшее соотношение цены и производительности для длинных контекстов и вызова функций.",
-      "tr": "Uzun bağlamda akıl yürütme ve fonksiyon çağırma için en iyi fiyat/performans oranı."
-    },
-    "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/nemotron-nano-9b-v2\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-nano-9b-v2\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/nemotron-nano-9b-v2\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
-  },
-  {
-    "id": "nvidia/nemotron-nano-9b-v2:free",
-    "name": "NVIDIA: Nemotron Nano 9B V2 (free)",
-    "provider": "NVIDIA (DeepSeek)",
-    "providerLogo": "NV",
-    "description": "NVIDIA Nemotron-Nano 9B v2 是 NVIDIA 专为推理与通用任务打造的统一模型。它采用全新架构训练，在复杂逻辑推理、代码生成和结构化输出方面表现突出，同时支持 128K 超长上下文。完全免费，无速率限制，适合构建智能客服、代码助手、数据分析等应用。为追求高性能推理的开发团队而生。",
-    "descriptions": {
-      "zh": "NVIDIA Nemotron-Nano 9B v2 是 NVIDIA 专为推理与通用任务打造的统一模型。它采用全新架构训练，在复杂逻辑推理、代码生成和结构化输出方面表现突出，同时支持 128K 超长上下文。完全免费，无速率限制，适合构建智能客服、代码助手、数据分析等应用。为追求高性能推理的开发团队而生。",
-      "en": "NVIDIA Nemotron-Nano 9B v2 is a unified reasoning model built from scratch for developers who need deep thinking without the cost. It excels at complex logic, code generation, and structured outputs with a 128K context window. Completely free and rate-limit free, it's perfect for building intelligent agents, coding assistants, and data analysis tools in emerging markets. Get enterprise-grade reasoning at zero cost.",
-      "ru": "NVIDIA Nemotron-Nano 9B v2 — универсальная модель рассуждений, созданная с нуля для разработчиков, которым нужно глубокое мышление без затрат. Она отлично справляется со сложной логикой, генерацией кода и структурированными выводами, поддерживая контекст до 128K. Полностью бесплатна и без ограничений по запросам. Идеально подходит для создания интеллектуальных агентов, помощников по коду и инструментов анализа данных на развивающихся рынках. Получите рассуждения корпоративного уровня бесплатно.",
-      "tr": "NVIDIA Nemotron-Nano 9B v2, sıfırdan eğitilmiş, maliyetsiz derin düşünme ihtiyacı duyan geliştiriciler için birleşik bir akıl yürütme modelidir. Karmaşık mantık, kod oluşturma ve yapılandırılmış çıktılarda üstün performans gösterir; 128K bağlam penceresi sunar. Tamamen ücretsiz ve hız sınırı olmadan, gelişmekte olan pazarlarda akıllı ajanlar, kod asistanları ve veri analizi araçları oluşturmak için idealdir. Kurumsal düzeyde akıl yürütmeyi sıfır maliyetle elde edin."
-    },
-    "inputPrice": "免费",
-    "outputPrice": "免费",
-    "contextWindow": "128K",
+    "inputPrice": "$0.60",
+    "outputPrice": "$1.92",
+    "contextWindow": "202K",
     "maxTokens": "—",
     "status": "available",
-    "category": "reasoning",
+    "category": "code",
     "features": [
+      "多语言",
       "函数调用",
-      "JSON模式",
-      "结构化输出",
-      "深度思考",
+      "工具使用",
+      "长文档处理",
       "流式输出"
     ],
     "useCases": [
-      "智能客服与对话系统",
-      "代码生成与辅助编程",
-      "数据分析与结构化输出"
+      "复杂软件系统开发与调试",
+      "长文档分析与智能体工作流",
+      "多语言客户支持与自动化工具"
     ],
     "strengths": [
-      "免费且无速率限制",
-      "深度推理能力",
-      "128K超长上下文"
+      "生产级编程性能",
+      "超长上下文窗口（202K）",
+      "多语言与函数调用支持",
+      "开源可定制"
     ],
     "whyChoose": {
-      "en": "Get NVIDIA-grade reasoning for free, with no rate limits and 128K context.",
-      "ru": "Получите рассуждения уровня NVIDIA бесплатно, без ограничений и с контекстом 128K.",
-      "tr": "NVIDIA seviyesinde akıl yürütmeyi ücretsiz, hız sınırı olmadan ve 128K bağlamla elde edin."
+      "en": "Production-grade performance for complex programming and agent workflows, with 202K context and open-source flexibility.",
+      "ru": "Производительность производственного уровня для сложного программирования и агентных рабочих процессов с контекстом 202K и гибкостью открытого исходного кода.",
+      "tr": "Karmaşık programlama ve ajan iş akışları için üretim düzeyinde performans, 202K bağlam ve açık kaynak esnekliği."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"nvidia/nemotron-nano-9b-v2:free\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"nvidia/nemotron-nano-9b-v2:free\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"nvidia/nemotron-nano-9b-v2:free\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    },
+    "enriched": true
   },
   {
-    "id": "bytedance-seed/seed-1.6",
-    "name": "ByteDance Seed: Seed 1.6",
-    "provider": "字节跳动豆包",
-    "providerLogo": "DB",
-    "description": "Seed 1.6 是字节跳动豆包推出的通用多模态模型，专为需要深度理解与生成的应用场景设计。它不仅支持文本、图像、视频输入，还能进行自适应深度思考，在复杂推理任务中表现出色。262K 的超长上下文窗口让开发者能够处理大规模文档或对话历史。无论是构建智能客服、内容分析工具，还是需要结构化输出的企业级应用，Seed 1.6 都能以极低的成本提供稳定可靠的性能。适合追求性价比与多模态能力的开发团队。",
+    "id": "glm-5-turbo",
+    "name": "Z.ai: GLM 5 Turbo",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "/logos/智谱-z.ai.png",
+    "description": "GLM-5 Turbo 是智谱最新推出的高性能推理模型，专为智能体驱动的复杂场景深度优化。它拥有超长上下文窗口，能够高效处理海量文档与多轮交互，同时在函数调用与工具使用上表现出色。无论是搭建自动化工作流、构建知识密集型应用，还是开发多语言服务，GLM-5 Turbo 都能以极速响应和稳定输出，成为你项目落地的强力引擎。适合追求效率与可靠性的开发者。",
     "descriptions": {
-      "zh": "Seed 1.6 是字节跳动豆包推出的通用多模态模型，专为需要深度理解与生成的应用场景设计。它不仅支持文本、图像、视频输入，还能进行自适应深度思考，在复杂推理任务中表现出色。262K 的超长上下文窗口让开发者能够处理大规模文档或对话历史。无论是构建智能客服、内容分析工具，还是需要结构化输出的企业级应用，Seed 1.6 都能以极低的成本提供稳定可靠的性能。适合追求性价比与多模态能力的开发团队。",
-      "en": "Seed 1.6 is a state-of-the-art multimodal model from ByteDance, designed for developers who need deep understanding and generation across text, images, and video. With adaptive deep thinking and a 262K context window, it excels at complex reasoning tasks like document analysis, code generation, and structured data extraction. It's perfect for building intelligent assistants, content moderation tools, or enterprise applications that require high accuracy and low cost. If you're a developer in Armenia, Georgia, or Central Asia looking for a reliable, affordable model that handles multimodal inputs and outputs with ease, Seed 1.6 is your go-to solution.",
-      "ru": "Seed 1.6 — это мультимодальная модель от ByteDance, созданная для разработчиков, которым нужно глубокое понимание и генерация текста, изображений и видео. Благодаря адаптивному глубокому мышлению и контекстному окну в 262K токенов, она отлично справляется со сложными задачами, такими как анализ документов, генерация кода и извлечение структурированных данных. Модель идеально подходит для создания интеллектуальных ассистентов, систем модерации контента и корпоративных приложений, требующих высокой точности и низкой стоимости. Для разработчиков из Казахстана и Центральной Азии, ищущих надежную и доступную мультимодальную модель, Seed 1.6 — лучший выбор.",
-      "tr": "Seed 1.6, ByteDance tarafından geliştirilmiş, metin, görüntü ve video girdilerini derinlemesine anlayıp üretebilen çok modlu bir modeldir. Uyarlanabilir derin düşünme ve 262K token bağlam penceresi sayesinde belge analizi, kod oluşturma ve yapılandırılmış veri çıkarma gibi karmaşık akıl yürütme görevlerinde mükemmeldir. Akıllı asistanlar, içerik denetleme araçları veya yüksek doğruluk ve düşük maliyet gerektiren kurumsal uygulamalar oluşturmak için idealdir. Türkiye'deki geliştiriciler için güvenilir, uygun fiyatlı ve çok modlu girdi/çıktıları kolayca işleyen bir model arıyorsanız, Seed 1.6 tam size göre."
+      "zh": "GLM-5 Turbo 是智谱最新推出的高性能推理模型，专为智能体驱动的复杂场景深度优化。它拥有超长上下文窗口，能够高效处理海量文档与多轮交互，同时在函数调用与工具使用上表现出色。无论是搭建自动化工作流、构建知识密集型应用，还是开发多语言服务，GLM-5 Turbo 都能以极速响应和稳定输出，成为你项目落地的强力引擎。适合追求效率与可靠性的开发者。",
+      "en": "GLM-5 Turbo is Z.ai's latest high-performance reasoning model, purpose-built for agent-driven workflows and complex real-world tasks. With an ultra-long context window and deep optimization for function calling and tool use, it excels in processing massive documents, orchestrating multi-step automation, and powering multilingual applications. Designed for developers who need speed, reliability, and seamless integration, GLM-5 Turbo turns your ambitious ideas into production-ready solutions. Perfect for teams in Armenia, Georgia, and Central Asia building the next generation of intelligent systems.",
+      "ru": "GLM-5 Turbo — новейшая высокопроизводительная модель от Z.ai, созданная для агентных сценариев и сложных задач реального мира. Благодаря сверхдлинному контекстному окну и глубокой оптимизации вызова функций и использования инструментов, она отлично справляется с обработкой больших документов, автоматизацией многошаговых процессов и созданием многоязычных приложений. Для разработчиков из Казахстана и Центральной Азии, которые ценят скорость, надёжность и лёгкую интеграцию, GLM-5 Turbo станет надёжным двигателем для воплощения амбициозных проектов.",
+      "tr": "GLM-5 Turbo, Z.ai'nin ajan odaklı iş akışları ve karmaşık gerçek dünya görevleri için özel olarak geliştirilmiş yeni nesil yüksek performanslı akıl yürütme modelidir. Devasa bağlam penceresi, fonksiyon çağırma ve araç kullanımındaki derin optimizasyon sayesinde büyük belgeleri işleme, çok adımlı otomasyonu yönetme ve çok dilli uygulamalar geliştirme konusunda üstün performans sunar. Hız, güvenilirlik ve sorunsuz entegrasyon arayan geliştiriciler için GLM-5 Turbo, iddialı fikirlerinizi üretime hazır çözümlere dönüştürür. Türkiye'deki geliştiriciler için ideal."
     },
-    "inputPrice": "$0.25",
-    "outputPrice": "$2.00",
-    "contextWindow": "262K",
-    "maxTokens": "32K",
+    "inputPrice": "$1.20",
+    "outputPrice": "$4.00",
+    "contextWindow": "202K",
+    "maxTokens": "131K",
     "status": "available",
-    "category": "multimodal",
+    "category": "reasoning",
     "features": [
-      "多模态",
-      "深度思考",
+      "长上下文",
       "函数调用",
-      "结构化输出",
-      "超长上下文"
+      "工具使用",
+      "流式输出",
+      "多语言支持"
     ],
     "useCases": [
-      "多模态文档分析与摘要",
-      "智能客服与对话系统",
-      "代码生成与辅助编程",
-      "内容审核与安全过滤",
-      "结构化数据提取与处理"
+      "构建自动化智能体与工作流",
+      "长文档分析与知识库问答",
+      "多语言客服与内容生成系统"
     ],
     "strengths": [
-      "超长上下文窗口，支持 262K token",
-      "多模态输入（文本+图像+视频），输出文本",
-      "自适应深度思考，复杂推理能力强",
-      "极低价格，输入仅 $0.25/百万 token",
-      "支持函数调用、结构化输出等企业级功能"
+      "超长上下文处理，轻松应对海量文档",
+      "深度优化的智能体工作流支持",
+      "出色的函数调用与工具使用能力",
+      "多语言场景下的稳定表现"
     ],
     "whyChoose": {
-      "en": "Best value for multimodal reasoning with a massive context window and deep thinking.",
-      "ru": "Лучшее соотношение цены и качества для мультимодальных рассуждений с огромным контекстным окном и глубоким мышлением.",
-      "tr": "Devasa bağlam penceresi ve derin düşünme ile çok modlu akıl yürütmede en iyi değer."
+      "en": "Best balance of speed, context length, and agentic capability for production workloads.",
+      "ru": "Лучший баланс скорости, длины контекста и агентных возможностей для продакшн-нагрузок.",
+      "tr": "Üretim iş yükleri için hız, bağlam uzunluğu ve ajan yetenekleri arasında en iyi denge."
     },
     "codeExample": {
-      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"bytedance-seed/seed-1.6\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
-      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"bytedance-seed/seed-1.6\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
-      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"bytedance-seed/seed-1.6\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
-    }
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    },
+    "enriched": true
+  },
+  {
+    "id": "glm-5.1",
+    "name": "Z.ai: GLM 5.1",
+    "provider": "智谱 Z.ai",
+    "providerLogo": "/logos/智谱-z.ai.png",
+    "description": "GLM-5.1 是智谱最新一代大语言模型，专为需要深度推理和长程任务处理的场景打造。它不仅能流畅处理超过20万token的上下文，还能独立、持续地完成复杂编码任务，大幅提升开发效率。无论是构建智能代理、处理海量文档，还是实现多语言应用，GLM-5.1 都以更低的成本带来更稳定的表现。适合追求可靠性与性价比的开发者。",
+    "descriptions": {
+      "zh": "GLM-5.1 是智谱最新一代大语言模型，专为需要深度推理和长程任务处理的场景打造。它不仅能流畅处理超过20万token的上下文，还能独立、持续地完成复杂编码任务，大幅提升开发效率。无论是构建智能代理、处理海量文档，还是实现多语言应用，GLM-5.1 都以更低的成本带来更稳定的表现。适合追求可靠性与性价比的开发者。",
+      "en": "GLM-5.1 is Zhipu AI's latest leap in large language models, designed for deep reasoning and long-horizon tasks. With a 202K context window, it handles massive documents and complex coding projects with ease. It works independently and continuously, not just in short interactions. Perfect for developers building intelligent agents, multilingual apps, or automation tools in emerging markets. Cost-effective at $0.98/M input tokens. Built for reliability and performance.",
+      "ru": "GLM-5.1 — это новейшая языковая модель от Zhipu AI, созданная для глубокого анализа и длительных задач. Окно контекста в 202K токенов позволяет обрабатывать огромные документы и сложные проекты по кодированию. Модель работает автономно и непрерывно, а не только в коротких диалогах. Идеально подходит для разработчиков, создающих интеллектуальных агентов, мультиязычные приложения или инструменты автоматизации. Экономически эффективна: $0,98 за миллион входных токенов.",
+      "tr": "GLM-5.1, Zhipu AI'nın derin mantıksal çıkarım ve uzun vadeli görevler için tasarlanmış en yeni dil modelidir. 202K token bağlam penceresi ile büyük belgeleri ve karmaşık kodlama projelerini kolayca işler. Kısa etkileşimlerle sınırlı kalmayıp bağımsız ve sürekli çalışır. Akıllı ajanlar, çok dilli uygulamalar veya otomasyon araçları geliştiren geliştiriciler için idealdir. Giriş token başına $0,98 ile uygun maliyetlidir."
+    },
+    "inputPrice": "$0.98",
+    "outputPrice": "$3.08",
+    "contextWindow": "202K",
+    "maxTokens": "—",
+    "status": "available",
+    "category": "code",
+    "features": [
+      "长上下文处理",
+      "函数调用",
+      "工具使用",
+      "流式输出",
+      "多语言支持"
+    ],
+    "useCases": [
+      "智能代理与自动化工作流",
+      "长文档分析与摘要",
+      "多语言代码生成与调试",
+      "复杂逻辑推理与问题解决"
+    ],
+    "strengths": [
+      "超长上下文处理能力",
+      "独立持续执行复杂任务",
+      "卓越的编码与推理性能",
+      "高性价比，降低开发成本"
+    ],
+    "whyChoose": {
+      "en": "Best value for long-context, autonomous coding and reasoning tasks in emerging markets.",
+      "ru": "Лучшее соотношение цены и качества для длинных контекстов, автономного кодирования и задач логического вывода на развивающихся рынках.",
+      "tr": "Gelişmekte olan pazarlarda uzun bağlam, otonom kodlama ve mantıksal çıkarım görevleri için en iyi değer."
+    },
+    "codeExample": {
+      "curl": "curl {API_BASE}/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $API_KEY\" \\\n  -d '{\n    \"model\": \"glm-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"你好\"}]\n  }'",
+      "python": "import openai\n\nclient = openai.OpenAI(\n    base_url=\"{API_BASE}\",\n    api_key=\"your-api-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"glm-5\",\n    messages=[{\"role\": \"user\", \"content\": \"你好\"}]\n)\nprint(response.choices[0].message.content)",
+      "nodejs": "import OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"{API_BASE}\",\n  apiKey: \"your-api-key\",\n});\n\nconst response = await client.chat.completions.create({\n  model: \"glm-5\",\n  messages: [{ role: \"user\", content: \"你好\" }],\n});\nconsole.log(response.choices[0].message.content);"
+    },
+    "enriched": true
   }
 ]
