@@ -35,7 +35,7 @@ export default {
         method: "POST",
         headers: {
           "Content-Type": "text/plain",
-          "X-Inbound-Secret": secret,
+          "Authorization": "Bearer " + secret,
         },
         body: raw,
       });
