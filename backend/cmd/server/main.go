@@ -81,6 +81,7 @@ func main() {
 
 	// Telegram Bot 命令处理器
 	botHandler := notify.NewBotHandler(tg, db, cfg.MailgunAPIKey, cfg.MailgunDomain)
+	botHandler.StartPolling() // 轮询模式，不依赖 webhook
 
 	// 创建支付处理器（NOWPayments）
 	paymentHandler := payment.NewHandler(db, cfg.NowPaymentsAPIKey, cfg.NowPaymentsSecret, cfg.NowPaymentsURL)
