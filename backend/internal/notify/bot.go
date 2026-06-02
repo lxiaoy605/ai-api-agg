@@ -126,9 +126,9 @@ func (h *BotHandler) processCommand(chatID int64, text string) {
 	switch {
 	case text == "/start":
 		h.cmdStart(chatID)
-	case text == "/help" || text == "/emails" || text == "/emails_list":
+	case text == "/help" || text == "/emails":
 		h.cmdHelp(chatID)
-	case text == "/emails_list" || strings.HasPrefix(text, "/emails_list"):
+	case strings.HasPrefix(text, "/emails_list"):
 		h.cmdList(chatID)
 	case strings.HasPrefix(text, "/search "):
 		h.cmdSearch(chatID, strings.TrimPrefix(text, "/search "))
@@ -170,7 +170,7 @@ func (h *BotHandler) cmdHelp(chatID int64) {
 
 func (h *BotHandler) cmdList(chatID int64) {
 	rows, err := h.db.Query(
-		`SELECT id, "from", subject, created_at FROM emails ORDER BY created_at DESC LIMIT 10`,
+		`SELECT id, "from", subject, created_at FROM emails ORDER BY created_at DESC LIMIT 50`,
 	)
 	if err != nil {
 		h.sendToChat(chatID, "❌ 查询失败: "+err.Error())
@@ -212,7 +212,7 @@ func (h *BotHandler) cmdSearch(chatID int64, query string) {
 	rows, err := h.db.Query(
 		`SELECT id, "from", subject, created_at FROM emails
 		 WHERE subject LIKE ? OR body_text LIKE ? OR "from" LIKE ?
-		 ORDER BY created_at DESC LIMIT 10`,
+		 ORDER BY created_at DESC LIMIT 50`,
 		like, like, like,
 	)
 	if err != nil {
