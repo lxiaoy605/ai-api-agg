@@ -93,7 +93,12 @@ function parseEmailBody(raw) {
   const body = raw.slice(blankLine).trim();
 
   const bMatch = headers.match(/boundary\s*=\s*"?([^";\s\r\n]+)/i);
-  if (!bMatch) return { text: stripQuoted(body), attachCount: 0 };
+  if (!bMatch) {
+    // 非 multipart：提取 Content-Transfer-Encoding 并解码
+    const ceMatch = headers.match(/content-transfer-encoding:\s*(\S+)/i);
+    const enc = ceMatch ? ceMatch[1].replace(/;$/, "") : "";
+    return { text: stripQuoted(decodeTransfer(body, enc)), attachCount: 0 };
+  }
 
   const boundary = bMatch[1];
   const result = parseMIMEParts(body, boundary);
