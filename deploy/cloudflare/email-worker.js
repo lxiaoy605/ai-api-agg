@@ -87,19 +87,25 @@ function stripQuoted(text) {
 
 function parseEmailBody(raw) {
   const blankLine = raw.search(/\r?\n\r?\n/);
-  if (blankLine === -1) return decodeTransfer(raw, "");
+  if (blankLine === -1) return { text: decodeTransfer(raw, ""), attachCount: 0 };
 
   const headers = raw.slice(0, blankLine);
   const body = raw.slice(blankLine).trim();
 
   const bMatch = headers.match(/boundary\s*=\s*"?([^";\s\r\n]+)/i);
-  if (!bMatch) return stripQuoted(body);
+  if (!bMatch) return { text: stripQuoted(body), attachCount: 0 };
 
   const boundary = bMatch[1];
-  const parts = body.split("--" + boundary);
+  const result = parseMIMEParts(body, boundary);
+  return result;
+}
 
+// 递归解析 MIME parts，提取文本和附件数量
+function parseMIMEParts(body, boundary) {
+  const parts = body.split("--" + boundary);
   let textBody = "";
   let htmlBody = "";
+  let attachCount = 0;
 
   for (const part of parts) {
     const headerEnd = part.search(/\r?\n\r?\n/);
@@ -107,11 +113,27 @@ function parseEmailBody(raw) {
     const pHeaders = part.slice(0, headerEnd);
     const pBody = part.slice(headerEnd).trim();
 
+    // 检查 Content-Disposition: attachment
+    const dispMatch = pHeaders.match(/content-disposition:\s*([^;\r\n]+)/i);
+    if (dispMatch && dispMatch[1].toLowerCase().includes("attachment")) {
+      attachCount++;
+      continue;
+    }
+
+    // 嵌套 multipart
+    const subBoundary = pHeaders.match(/boundary\s*=\s*"?([^";\s\r\n]+)/i);
+    if (subBoundary) {
+      const sub = parseMIMEParts(pBody, subBoundary[1]);
+      if (sub.text) textBody = sub.text;
+      if (!textBody && sub.htmlBody) htmlBody = sub.htmlBody;
+      attachCount += sub.attachCount;
+      continue;
+    }
+
     const ctMatch = pHeaders.match(/content-type:\s*text\/(plain|html)/i);
     if (!ctMatch) continue;
 
-    const ceMatch = pHeaders.match(
-      /content-transfer-encoding:\s*(\S+)/i);
+    const ceMatch = pHeaders.match(/content-transfer-encoding:\s*(\S+)/i);
     const enc = ceMatch ? ceMatch[1].replace(/;$/, "") : "";
 
     if (ctMatch[1].toLowerCase() === "plain") {
@@ -121,9 +143,11 @@ function parseEmailBody(raw) {
     }
   }
 
-  if (textBody) return stripQuoted(textBody).trim();
-  if (htmlBody) return stripQuoted(stripHTML(htmlBody));
-  return stripQuoted(body.slice(0, 500));
+  return {
+    text: textBody ? stripQuoted(textBody).trim()
+      : (htmlBody ? stripQuoted(stripHTML(htmlBody)) : stripQuoted(body.slice(0, 500))),
+    attachCount: attachCount,
+  };
 }
 
 // 转发邮件到后端 API 持久化存储
@@ -178,7 +202,7 @@ export default {
       raw = "read error: " + e.message;
     }
 
-    const parsedBody = parseEmailBody(raw);
+    const { text: parsedBody, attachCount } = parseEmailBody(raw);
     const body = escapeHTML(parsedBody);
 
     // 1. 转发到 Telegram（保持现有行为）
@@ -199,6 +223,7 @@ export default {
       to: decodeMIME(message.to || message.headers.get("to") || ""),
       subject: decodeMIME(message.headers.get("subject") || ""),
       body_text: parsedBody,
+      attach_count: attachCount,
       raw_eml: raw,
     }));
   },

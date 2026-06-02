@@ -1,11 +1,10 @@
 package notify
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 )
@@ -16,20 +15,18 @@ func mailgunSend(apiKey, domain, to, origSubj, origMsgID, body string) error {
 		origSubj = "Re: " + origSubj
 	}
 
-	payload := map[string]string{
-		"from":            fmt.Sprintf("AiFlowHub <noreply@%s>", domain),
-		"to":              to,
-		"subject":         origSubj,
-		"text":            body,
-		"h:In-Reply-To": origMsgID,
-		"h:References":    origMsgID,
-	}
+	form := url.Values{}
+	form.Set("from", fmt.Sprintf("AiFlowHub <noreply@%s>", domain))
+	form.Set("to", to)
+	form.Set("subject", origSubj)
+	form.Set("text", body)
+	form.Set("h:In-Reply-To", origMsgID)
+	form.Set("h:References", origMsgID)
 
-	b, _ := json.Marshal(payload)
-	url := fmt.Sprintf("https://api.eu.mailgun.net/v3/%s/messages", domain)
-	req, _ := http.NewRequest("POST", url, bytes.NewReader(b))
+	apiURL := fmt.Sprintf("https://api.eu.mailgun.net/v3/%s/messages", domain)
+	req, _ := http.NewRequest("POST", apiURL, strings.NewReader(form.Encode()))
 	req.SetBasicAuth("api", apiKey)
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	client := &http.Client{Timeout: 15 * time.Second}
 	resp, err := client.Do(req)

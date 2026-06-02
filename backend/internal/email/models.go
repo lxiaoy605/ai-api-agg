@@ -20,9 +20,10 @@ type InboundRequest struct {
 	From      string `json:"from"`
 	To        string `json:"to"`
 	Subject   string `json:"subject"`
-	BodyText  string `json:"body_text"`
-	BodyHTML  string `json:"body_html,omitempty"`
-	RawEML    string `json:"raw_eml,omitempty"`
+	BodyText    string `json:"body_text"`
+	BodyHTML    string `json:"body_html,omitempty"`
+	AttachCount int    `json:"attach_count"`
+	RawEML      string `json:"raw_eml,omitempty"`
 }
 
 // ReplyRequest 回复邮件请求

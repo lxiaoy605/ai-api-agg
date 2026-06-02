@@ -134,10 +134,13 @@ func (h *BotHandler) processCommand(chatID int64, text string) {
 		h.cmdSearch(chatID, strings.TrimPrefix(text, "/search "))
 	case strings.HasPrefix(text, "/emails search "):
 		h.cmdSearch(chatID, strings.TrimPrefix(text, "/emails search "))
-	case strings.HasPrefix(text, "/emails show ") || strings.HasPrefix(text, "/show "):
+	case strings.HasPrefix(text, "/emails show ") || strings.HasPrefix(text, "/show ") || strings.HasPrefix(text, "/show_"):
 		arg := strings.TrimPrefix(text, "/emails show ")
 		if arg == text {
 			arg = strings.TrimPrefix(text, "/show ")
+		}
+		if arg == text {
+			arg = strings.TrimPrefix(text, "/show_")
 		}
 		h.cmdShow(chatID, arg)
 	case strings.HasPrefix(text, "/reply "):
@@ -187,7 +190,7 @@ func (h *BotHandler) cmdList(chatID int64) {
 		}
 		subj := truncStr(subject, 40)
 		fromName := truncStr(from, 25)
-		lines = append(lines, fmt.Sprintf("/show_%d — <code>#%d</code> %s\n          <i>%s</i>", id, id, subj, fromName))
+		lines = append(lines, fmt.Sprintf("/emails\\_show\\_%d — <code>#%d</code> %s\n          <i>%s</i>", id, id, subj, fromName))
 		hasRows = true
 	}
 

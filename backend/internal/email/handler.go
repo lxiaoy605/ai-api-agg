@@ -92,11 +92,11 @@ func (h *Handler) Receive(c *gin.Context) {
 
 	// 写入 SQLite
 	res, err := h.db.Exec(
-		`INSERT INTO emails (message_id, "from", "to", subject, body_text, body_html, eml_path, created_at)
-		 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+		`INSERT INTO emails (message_id, "from", "to", subject, body_text, body_html, attach_count, eml_path, created_at)
+		 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 		req.MessageID, req.From, req.To,
 		truncateForDB(req.Subject, 500),
-		req.BodyText, req.BodyHTML,
+		req.BodyText, req.BodyHTML, req.AttachCount,
 		emlPath, now,
 	)
 	if err != nil {
