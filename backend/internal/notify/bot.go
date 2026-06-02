@@ -231,7 +231,7 @@ func (h *BotHandler) cmdSearch(chatID int64, query string) {
 		if err := rows.Scan(&id, &from, &subject, &ts); err != nil {
 			continue
 		}
-		lines = append(lines, fmt.Sprintf("/show_%d — %s", id, truncStr(subject, 40)))
+		lines = append(lines, fmt.Sprintf("/emails\\_show\\_%d — %s", id, truncStr(subject, 40)))
 		hasRows = true
 	}
 	if !hasRows {
