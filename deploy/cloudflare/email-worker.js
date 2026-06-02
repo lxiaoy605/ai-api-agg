@@ -205,18 +205,28 @@ export default {
     const { text: parsedBody, attachCount } = parseEmailBody(raw);
     const body = escapeHTML(parsedBody);
 
-    // 1. 转发到 Telegram（保持现有行为）
+    // 1. 转发到 Telegram + 存储到后端（保持现有行为）
     const lines = [];
     lines.push(`📧 <b>${truncate(subject, 100)}</b>`);
     lines.push(`<b>From:</b> ${truncate(from, 80)}`);
     lines.push(`<b>To:</b> ${truncate(to, 80)}`);
     if (date) lines.push(`<b>Date:</b> ${truncate(date, 30)}`);
+    if (attachCount > 0) lines.push(`<b>附件:</b> ${attachCount} 个`);
     lines.push("");
     lines.push(truncate(body, 1500));
 
     await sendTelegram(lines.join("\n"));
 
-    // 2. 持久化到后端（异步，不阻塞 Telegram 通知）
+    // 2. 转发到 Gmail 以便阅读完整内容和附件（需在 Cloudflare Email Routing 添加验证过的目标地址）
+    if (env.FORWARD_EMAIL) {
+      try {
+        await message.forward(env.FORWARD_EMAIL);
+      } catch (e) {
+        console.log(`[email-worker] 转发失败: ${e.message}`);
+      }
+    }
+
+    // 3. 持久化到后端（异步，不阻塞 Telegram 通知）
     ctx.waitUntil(saveToBackend(env, {
       message_id: message.headers.get("message-id") || "",
       from: decodeMIME(message.from || message.headers.get("from") || ""),

@@ -108,6 +108,20 @@ func (h *Handler) Receive(c *gin.Context) {
 	emailID, _ := res.LastInsertId()
 	log.Printf("[email] 已接收 #%d: %s — %s", emailID, req.Subject, req.From)
 
+	// 异步提取附件
+	go func() {
+		attachDir := filepath.Join(h.dataDir, "attachments", monthDir, fmt.Sprintf("%d", emailID))
+		n, warns := extractAttachments(emlPath, attachDir, emailID)
+		for _, w := range warns {
+			log.Printf("[email] 附件警告 #%d: %s", emailID, w)
+		}
+		if n > 0 {
+			if _, err := h.db.Exec(`UPDATE emails SET attach_count = ? WHERE id = ?`, n, emailID); err != nil {
+				log.Printf("[email] 更新 attach_count #%d 失败: %v", emailID, err)
+			}
+		}
+	}()
+
 	middleware.Success(c, gin.H{"id": emailID, "stored": true})
 
 	// 关键词监听（异步，不阻塞响应）
