@@ -95,7 +95,7 @@ function parseEmailBody(raw) {
   const bMatch = headers.match(/boundary\s*=\s*"?([^";\s\r\n]+)/i);
   if (!bMatch) {
     // 非 multipart：提取 Content-Transfer-Encoding 并解码
-    const ceMatch = headers.match(/content-transfer-encoding:\s*(\S+)/i);
+    const ceMatch = headers.match(/^content-transfer-encoding:\s*(\S+)/im);
     const enc = ceMatch ? ceMatch[1].replace(/;$/, "") : "";
     return { text: stripQuoted(decodeTransfer(body, enc)), attachCount: 0 };
   }
