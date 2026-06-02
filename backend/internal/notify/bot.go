@@ -188,8 +188,8 @@ func (h *BotHandler) cmdList(chatID int64) {
 		if err := rows.Scan(&id, &from, &subject, &ts); err != nil {
 			continue
 		}
-		subj := truncStr(subject, 40)
-		fromName := truncStr(from, 25)
+		subj := escapeHTMLBot(truncStr(subject, 40))
+		fromName := escapeHTMLBot(truncStr(from, 25))
 		lines = append(lines, fmt.Sprintf("/emails_show_%d — <code>#%d</code> %s\n          <i>%s</i>", id, id, subj, fromName))
 		hasRows = true
 	}
@@ -231,7 +231,7 @@ func (h *BotHandler) cmdSearch(chatID int64, query string) {
 		if err := rows.Scan(&id, &from, &subject, &ts); err != nil {
 			continue
 		}
-		lines = append(lines, fmt.Sprintf("/emails_show_%d — %s", id, truncStr(subject, 40)))
+		lines = append(lines, fmt.Sprintf("/emails_show_%d — %s", id, escapeHTMLBot(truncStr(subject, 40))))
 		hasRows = true
 	}
 	if !hasRows {
@@ -277,7 +277,7 @@ func (h *BotHandler) cmdShow(chatID int64, idStr string) {
 			"<b>附件:</b> %d\n\n"+
 			"%s\n\n"+
 			"<i>回复: /reply_%d 内容</i>",
-		id, subject, from, to, attachCount, truncStr(body, 1000), id,
+		id, escapeHTMLBot(subject), escapeHTMLBot(from), escapeHTMLBot(to), attachCount, escapeHTMLBot(truncStr(body, 1000)), id,
 	)
 	h.sendToChat(chatID, text)
 }
@@ -399,5 +399,12 @@ func truncStr(s string, max int) string {
 	if len(s) > max {
 		return s[:max] + "…"
 	}
+	return s
+}
+
+func escapeHTMLBot(s string) string {
+	s = strings.ReplaceAll(s, "&", "&amp;")
+	s = strings.ReplaceAll(s, "<", "&lt;")
+	s = strings.ReplaceAll(s, ">", "&gt;")
 	return s
 }
