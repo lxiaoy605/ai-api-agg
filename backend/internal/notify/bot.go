@@ -126,25 +126,25 @@ func (h *BotHandler) processCommand(chatID int64, text string) {
 	switch {
 	case text == "/start":
 		h.cmdStart(chatID)
-	case text == "/help" || text == "/emails":
+	case text == "/help" || text == "/emails" || text == "/emails_list":
 		h.cmdHelp(chatID)
-	case text == "/emails list" || strings.HasPrefix(text, "/emails list"):
+	case text == "/emails_list" || strings.HasPrefix(text, "/emails_list"):
 		h.cmdList(chatID)
 	case strings.HasPrefix(text, "/search "):
 		h.cmdSearch(chatID, strings.TrimPrefix(text, "/search "))
-	case strings.HasPrefix(text, "/emails search "):
-		h.cmdSearch(chatID, strings.TrimPrefix(text, "/emails search "))
-	case strings.HasPrefix(text, "/emails show ") || strings.HasPrefix(text, "/show ") || strings.HasPrefix(text, "/show_"):
-		arg := strings.TrimPrefix(text, "/emails show ")
-		if arg == text {
-			arg = strings.TrimPrefix(text, "/show ")
-		}
+	case strings.HasPrefix(text, "/emails_search "):
+		h.cmdSearch(chatID, strings.TrimPrefix(text, "/emails_search "))
+	case strings.HasPrefix(text, "/emails_search"):
+		// 仅命令无关键词
+		h.cmdSearch(chatID, "")
+	case strings.HasPrefix(text, "/emails_show_") || strings.HasPrefix(text, "/show_"):
+		arg := strings.TrimPrefix(text, "/emails_show_")
 		if arg == text {
 			arg = strings.TrimPrefix(text, "/show_")
 		}
 		h.cmdShow(chatID, arg)
-	case strings.HasPrefix(text, "/reply "):
-		h.cmdReply(chatID, strings.TrimPrefix(text, "/reply "))
+	case strings.HasPrefix(text, "/reply_"):
+		h.cmdReply(chatID, strings.TrimPrefix(text, "/reply_"))
 	case strings.HasPrefix(text, "/keywords") || text == "/keywords":
 		h.cmdKeywords(chatID)
 	default:
@@ -156,10 +156,10 @@ func (h *BotHandler) cmdStart(chatID int64) {
 	h.sendToChat(chatID,
 		"👋 <b>AiFlowHub 管理 Bot</b>\n\n"+
 			"可用命令:\n"+
-			"/emails list — 列出最近邮件\n"+
-			"/emails search &lt;关键词&gt; — 搜索邮件\n"+
-			"/emails show &lt;ID&gt; — 查看详情\n"+
-			"/reply &lt;ID&gt; &lt;正文&gt; — 回复邮件\n"+
+			"/emails_list — 列出最近邮件\n"+
+			"/emails_search &lt;关键词&gt; — 搜索邮件\n"+
+			"/emails_show_&lt;ID&gt; — 查看详情\n"+
+			"/reply_&lt;ID&gt; &lt;正文&gt; — 回复邮件\n"+
 			"/keywords — 查看关键词规则",
 	)
 }
@@ -190,7 +190,7 @@ func (h *BotHandler) cmdList(chatID int64) {
 		}
 		subj := truncStr(subject, 40)
 		fromName := truncStr(from, 25)
-		lines = append(lines, fmt.Sprintf("/emails\\_show\\_%d — <code>#%d</code> %s\n          <i>%s</i>", id, id, subj, fromName))
+		lines = append(lines, fmt.Sprintf("/emails_show_%d — <code>#%d</code> %s\n          <i>%s</i>", id, id, subj, fromName))
 		hasRows = true
 	}
 
@@ -204,7 +204,7 @@ func (h *BotHandler) cmdList(chatID int64) {
 func (h *BotHandler) cmdSearch(chatID int64, query string) {
 	query = strings.TrimSpace(query)
 	if query == "" {
-		h.sendToChat(chatID, "用法: /emails search &lt;关键词&gt;")
+		h.sendToChat(chatID, "用法: /emails_search &lt;关键词&gt;")
 		return
 	}
 
@@ -231,7 +231,7 @@ func (h *BotHandler) cmdSearch(chatID int64, query string) {
 		if err := rows.Scan(&id, &from, &subject, &ts); err != nil {
 			continue
 		}
-		lines = append(lines, fmt.Sprintf("/emails\\_show\\_%d — %s", id, truncStr(subject, 40)))
+		lines = append(lines, fmt.Sprintf("/emails_show_%d — %s", id, truncStr(subject, 40)))
 		hasRows = true
 	}
 	if !hasRows {
@@ -244,7 +244,7 @@ func (h *BotHandler) cmdSearch(chatID int64, query string) {
 func (h *BotHandler) cmdShow(chatID int64, idStr string) {
 	idStr = strings.TrimSpace(idStr)
 	if idStr == "" {
-		h.sendToChat(chatID, "用法: /emails show &lt;ID&gt;")
+		h.sendToChat(chatID, "用法: /emails_show_&lt;ID&gt;")
 		return
 	}
 
@@ -276,7 +276,7 @@ func (h *BotHandler) cmdShow(chatID int64, idStr string) {
 			"<b>To:</b> %s\n"+
 			"<b>附件:</b> %d\n\n"+
 			"%s\n\n"+
-			"<i>回复: /reply %d 内容</i>",
+			"<i>回复: /reply_%d 内容</i>",
 		id, subject, from, to, attachCount, truncStr(body, 1000), id,
 	)
 	h.sendToChat(chatID, text)
@@ -285,7 +285,7 @@ func (h *BotHandler) cmdShow(chatID int64, idStr string) {
 func (h *BotHandler) cmdReply(chatID int64, args string) {
 	parts := strings.SplitN(args, " ", 2)
 	if len(parts) < 2 {
-		h.sendToChat(chatID, "用法: /reply &lt;ID&gt; &lt;回复正文&gt;")
+		h.sendToChat(chatID, "用法: /reply_&lt;ID&gt; &lt;回复正文&gt;")
 		return
 	}
 
