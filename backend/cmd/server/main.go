@@ -200,7 +200,7 @@ func main() {
 	r.POST("/api/email/inbound", emailHandler.InboundAuth(), emailHandler.Receive)
 
 	// Telegram Bot webhook（由 Telegram 服务器调用）
-	r.POST("/telegram/webhook", botHandler.HandleWebhook)
+	r.POST("/api/telegram/webhook", botHandler.HandleWebhook)
 
 	// 邮件管理（JWT + 管理员）
 	emailGroup := r.Group("/api/email")

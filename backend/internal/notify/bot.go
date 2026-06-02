@@ -46,6 +46,9 @@ func (h *BotHandler) HandleWebhook(c *gin.Context) {
 		return
 	}
 
+	// 去掉 Telegram 客户端自动补上的 @bot_username
+	text = stripBotUsername(text)
+
 	// 只响应管理员的 chat
 	if chatID != h.adminChatID() {
 		h.reply(c, chatID, "⛔ 未经授权的用户")
@@ -295,6 +298,23 @@ func (h *BotHandler) reply(c *gin.Context, chatID int64, text string) {
 	// 通过 Telegram API 直接回复
 	go h.tg.sendToChat(chatID, text)
 	c.Status(http.StatusOK)
+}
+
+// stripBotUsername 去掉 Telegram 命令中的 @bot_username 后缀
+// 例如 "emails@AiFlowHubBot list" → "emails list"
+func stripBotUsername(text string) string {
+	// 去掉 /command@botname 中的 @botname 部分
+	i := strings.Index(text, "@")
+	if i < 0 {
+		return text
+	}
+	// 找到 @ 后面的空格位置（用户名结束位置）
+	end := strings.Index(text[i:], " ")
+	if end < 0 {
+		// 没有空格，整个 @name 都在末尾
+		return text[:i]
+	}
+	return text[:i] + text[i+end:]
 }
 
 func truncStr(s string, max int) string {
