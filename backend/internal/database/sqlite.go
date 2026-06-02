@@ -131,8 +131,37 @@ func migrate(db *sql.DB) error {
 		`CREATE INDEX IF NOT EXISTS idx_payment_created ON payment_log(created_at)`,
 		`CREATE INDEX IF NOT EXISTS idx_usage_api_key ON usage_logs(api_key_id)`,
 		`CREATE INDEX IF NOT EXISTS idx_usage_recorded ON usage_logs(recorded_at)`,
+		`CREATE INDEX IF NOT EXISTS idx_emails_created ON emails(created_at)`,
+		`CREATE INDEX IF NOT EXISTS idx_emails_message_id ON emails(message_id)`,
 	} {
 		db.Exec(idx)
+	}
+
+	// 邮件模块表
+	for _, m := range []string{
+		`CREATE TABLE IF NOT EXISTS emails (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			message_id TEXT NOT NULL,
+			"from" TEXT NOT NULL DEFAULT '',
+			"to" TEXT NOT NULL DEFAULT '',
+			subject TEXT NOT NULL DEFAULT '',
+			body_text TEXT NOT NULL DEFAULT '',
+			body_html TEXT DEFAULT '',
+			eml_path TEXT DEFAULT '',
+			attach_count INTEGER DEFAULT 0,
+			created_at INTEGER NOT NULL
+		)`,
+		`CREATE TABLE IF NOT EXISTS email_keywords (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			keyword TEXT NOT NULL,
+			action TEXT NOT NULL DEFAULT 'alert',
+			enabled INTEGER NOT NULL DEFAULT 1,
+			created_at INTEGER NOT NULL
+		)`,
+	} {
+		if _, err := db.Exec(m); err != nil {
+			return fmt.Errorf("执行邮件表迁移失败: %w", err)
+		}
 	}
 
 	// 迁移：为现有用户创建默认工作组

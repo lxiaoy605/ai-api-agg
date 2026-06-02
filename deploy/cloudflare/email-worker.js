@@ -2,6 +2,9 @@
 
 const BOT_TOKEN = "8812183039:AAHOB6OkhQVrSQy40ijeE_GHwoqz-FlELK8";
 const CHAT_ID = "8798788738";
+// 环境变量（在 Cloudflare Dashboard 配置）:
+//   BACKEND_URL = https://aiflowhub.ai/api/email/inbound
+//   INBOUND_SECRET = 共享密钥（后端 EMAIL_INBOUND_SECRET 一致）
 
 function escapeHTML(str) {
   return String(str || "")
@@ -123,6 +126,31 @@ function parseEmailBody(raw) {
   return stripQuoted(body.slice(0, 500));
 }
 
+// 转发邮件到后端 API 持久化存储
+async function saveToBackend(env, emailData) {
+  const backendUrl = env.BACKEND_URL;
+  const inboundSecret = env.INBOUND_SECRET;
+  if (!backendUrl || !inboundSecret) {
+    console.log("[email-worker] BACKEND_URL 或 INBOUND_SECRET 未配置，跳过持久化");
+    return;
+  }
+  try {
+    const resp = await fetch(backendUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${inboundSecret}`,
+      },
+      body: JSON.stringify(emailData),
+    });
+    if (!resp.ok) {
+      console.log(`[email-worker] 后端返回 ${resp.status}: ${await resp.text()}`);
+    }
+  } catch (err) {
+    console.log(`[email-worker] 后端存储失败: ${err.message}`);
+  }
+}
+
 async function sendTelegram(text) {
   await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: "POST",
@@ -150,8 +178,10 @@ export default {
       raw = "read error: " + e.message;
     }
 
-    const body = escapeHTML(parseEmailBody(raw));
+    const parsedBody = parseEmailBody(raw);
+    const body = escapeHTML(parsedBody);
 
+    // 1. 转发到 Telegram（保持现有行为）
     const lines = [];
     lines.push(`📧 <b>${truncate(subject, 100)}</b>`);
     lines.push(`<b>From:</b> ${truncate(from, 80)}`);
@@ -161,5 +191,15 @@ export default {
     lines.push(truncate(body, 1500));
 
     await sendTelegram(lines.join("\n"));
+
+    // 2. 持久化到后端（异步，不阻塞 Telegram 通知）
+    ctx.waitUntil(saveToBackend(env, {
+      message_id: message.headers.get("message-id") || "",
+      from: decodeMIME(message.from || message.headers.get("from") || ""),
+      to: decodeMIME(message.to || message.headers.get("to") || ""),
+      subject: decodeMIME(message.headers.get("subject") || ""),
+      body_text: parsedBody,
+      raw_eml: raw,
+    }));
   },
 };

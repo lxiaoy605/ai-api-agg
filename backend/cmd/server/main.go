@@ -16,6 +16,7 @@ import (
 	"github.com/ai-api-agg/backend/internal/auth"
 	"github.com/ai-api-agg/backend/internal/config"
 	"github.com/ai-api-agg/backend/internal/database"
+	"github.com/ai-api-agg/backend/internal/email"
 	"github.com/ai-api-agg/backend/internal/middleware"
 	"github.com/ai-api-agg/backend/internal/notify"
 	"github.com/ai-api-agg/backend/internal/payment"
@@ -74,6 +75,9 @@ func main() {
 		projectDir = filepath.Join(cwd, "..")
 	}
 	adminHandler := admin.NewHandler(db, projectDir)
+
+	// 邮件处理器
+	emailHandler := email.NewHandler(db, filepath.Join(projectDir, "data"), tg)
 
 	// 创建支付处理器（NOWPayments）
 	paymentHandler := payment.NewHandler(db, cfg.NowPaymentsAPIKey, cfg.NowPaymentsSecret, cfg.NowPaymentsURL)
@@ -189,7 +193,23 @@ func main() {
 		}
 	}
 
-	// 模型目录管理（管理员导入）
+	// 邮件接收（Worker → 后端，使用共享密钥）
+	r.POST("/api/email/inbound", emailHandler.InboundAuth(), emailHandler.Receive)
+
+	// 邮件管理（JWT + 管理员）
+	emailGroup := r.Group("/api/email")
+	emailGroup.Use(middleware.JWTAuth(cfg.JWTSecret))
+	emailGroup.Use(middleware.AdminAuth())
+	{
+		emailGroup.GET("/list", emailHandler.List)
+		emailGroup.GET("/search", emailHandler.Search)
+		emailGroup.GET("/:id", emailHandler.Show)
+		emailGroup.POST("/reply", emailHandler.Reply)
+		emailGroup.GET("/keywords", emailHandler.ListKeywords)
+		emailGroup.POST("/keywords", emailHandler.AddKeyword)
+		emailGroup.DELETE("/keywords/:id", emailHandler.DeleteKeyword)
+	}
+
 	// 模型代理路由（通过 API Key 认证，不需要 JWT）
 	r.POST("/v1/chat/completions", proxyHandler.ChatCompletions)
 

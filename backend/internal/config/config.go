@@ -26,6 +26,9 @@ type Config struct {
 	GitHubClientSecret string // GitHub OAuth Client Secret
 	PublicURL          string // 站点公开 URL（用于 OAuth 回调）
 	FrontendURL        string // 前端 URL（OAuth 登入后重定向目标）
+	MailgunDomain      string // Mailgun 发送域名
+	MailgunAPIKey      string // Mailgun API Key
+	EmailInboundSecret string // Worker → 后端的共享密钥
 }
 
 // Load 从环境变量加载配置
@@ -50,6 +53,9 @@ func Load() *Config {
 		GitHubClientSecret: getEnv("GITHUB_CLIENT_SECRET", ""),
 		PublicURL:          getEnv("PUBLIC_URL", "http://localhost:8082"),
 		FrontendURL:        getEnv("FRONTEND_URL", "http://localhost:3000"),
+		MailgunDomain:      getEnv("MAILGUN_DOMAIN", "aiflowhub.ai"),
+		MailgunAPIKey:      getEnv("MAILGUN_API_KEY", ""),
+		EmailInboundSecret: getEnv("EMAIL_INBOUND_SECRET", ""),
 	}
 }
 
