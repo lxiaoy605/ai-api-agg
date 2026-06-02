@@ -199,6 +199,7 @@ func main() {
 
 	// 邮件接收（Worker → 后端，使用共享密钥）
 	r.POST("/api/email/inbound", emailHandler.InboundAuth(), emailHandler.Receive)
+	r.POST("/api/email/raw", emailHandler.InboundAuth(), emailHandler.ReceiveRaw)
 
 	// Telegram Bot webhook（由 Telegram 服务器调用）
 	r.POST("/api/telegram/webhook", botHandler.HandleWebhook)

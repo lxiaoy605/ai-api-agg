@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -126,6 +127,117 @@ func (h *Handler) Receive(c *gin.Context) {
 
 	// 关键词监听（异步，不阻塞响应）
 	go h.checkKeywords(req)
+}
+
+// ReceiveRaw 接收原始 EML（Worker 极简模式），后端完成全部解析
+func (h *Handler) ReceiveRaw(c *gin.Context) {
+	raw, err := io.ReadAll(c.Request.Body)
+	if err != nil || len(raw) < 50 {
+		middleware.BadRequest(c, "empty or invalid raw email")
+		return
+	}
+
+	parsed := ParseRawEML(string(raw))
+	if parsed == nil {
+		middleware.BadRequest(c, "failed to parse email")
+		return
+	}
+
+	now := time.Now().Unix()
+	monthDir := time.Now().Format("2006-01")
+	emailDir := filepath.Join(h.dataDir, "emails", monthDir)
+	os.MkdirAll(emailDir, 0755)
+
+	// 保存 .eml
+	emlName := sanitizeMessageID(parsed.MessageID) + ".eml"
+	emlPath := filepath.Join(emailDir, emlName)
+	os.WriteFile(emlPath, raw, 0644)
+
+	from := strings.Join(parsed.From, ", ")
+	to := strings.Join(parsed.To, ", ")
+
+	res, err := h.db.Exec(
+		`INSERT INTO emails (message_id, "from", "to", subject, body_text, body_html, attach_count, eml_path, created_at)
+		 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+		parsed.MessageID, from, to,
+		truncateForDB(parsed.Subject, 500),
+		parsed.BodyText, parsed.BodyHTML, parsed.AttachCount,
+		emlPath, now,
+	)
+	if err != nil {
+		log.Printf("[email] 写入数据库失败: %v", err)
+		middleware.InternalError(c, "保存邮件失败")
+		return
+	}
+
+	emailID, _ := res.LastInsertId()
+	log.Printf("[email] 已接收 #%d: %s — %s", emailID, parsed.Subject, from)
+
+	// 异步提取附件
+	go func() {
+		attachDir := filepath.Join(h.dataDir, "attachments", monthDir, fmt.Sprintf("%d", emailID))
+		n, warns := extractAttachments(emlPath, attachDir, emailID)
+		for _, w := range warns {
+			log.Printf("[email] 附件警告 #%d: %s", emailID, w)
+		}
+		if n > 0 {
+			if _, err := h.db.Exec(`UPDATE emails SET attach_count = ? WHERE id = ?`, n, emailID); err != nil {
+				log.Printf("[email] 更新 attach_count #%d 失败: %v", emailID, err)
+			}
+		}
+	}()
+
+	// 异步 Telegram 通知
+	go h.notifyNewEmail(parsed, emailID)
+
+	middleware.Success(c, gin.H{"id": emailID, "stored": true})
+}
+
+// notifyNewEmail 发送新邮件 Telegram 通知
+func (h *Handler) notifyNewEmail(e *ParsedEmail, emailID int64) {
+	if h.tgNotifier == nil {
+		return
+	}
+	tg, ok := h.tgNotifier.(interface{ Send(string) })
+	if !ok || tg == nil {
+		return
+	}
+
+	from := strings.Join(e.From, ", ")
+	to := strings.Join(e.To, ", ")
+
+	body := e.BodyText
+	if body == "" && e.BodyHTML != "" {
+		body = stripHTML(e.BodyHTML)
+	}
+
+	lines := []string{}
+	lines = append(lines, fmt.Sprintf("📧 <b>%s</b>", escapeHTML(truncateStr(e.Subject, 100))))
+	lines = append(lines, fmt.Sprintf("<b>From:</b> %s", escapeHTML(truncateStr(from, 80))))
+	lines = append(lines, fmt.Sprintf("<b>To:</b> %s", escapeHTML(truncateStr(to, 80))))
+	if e.AttachCount > 0 {
+		lines = append(lines, fmt.Sprintf("<b>附件:</b> %d 个", e.AttachCount))
+	}
+	lines = append(lines, "")
+	lines = append(lines, escapeHTML(truncateStr(body, 1500)))
+	lines = append(lines, "")
+	lines = append(lines, fmt.Sprintf("/emails_show_%d", emailID))
+
+	tg.Send(strings.Join(lines, "\n"))
+}
+
+func escapeHTML(s string) string {
+	s = strings.ReplaceAll(s, "&", "&amp;")
+	s = strings.ReplaceAll(s, "<", "&lt;")
+	s = strings.ReplaceAll(s, ">", "&gt;")
+	return s
+}
+
+func truncateStr(s string, max int) string {
+	if len(s) <= max {
+		return s
+	}
+	return s[:max] + "…"
 }
 
 // List 列出最近邮件
