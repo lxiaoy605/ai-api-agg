@@ -91,7 +91,7 @@ export default function LoginPage() {
               </label>
               <input
                 id="email"
-                type="email"
+                type="email" maxLength={254}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -108,7 +108,7 @@ export default function LoginPage() {
               </label>
               <input
                 id="password"
-                type="password"
+                type="password" maxLength={128}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

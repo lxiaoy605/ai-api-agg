@@ -73,12 +73,12 @@ func (h *Handler) CreatePayment(c *gin.Context) {
 
 	var req CreatePaymentReq
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "请提供有效金额（最低 $5.00）")
+		middleware.BadRequest(c, "Please provide a valid amount (min $5.00)")
 		return
 	}
 
 	if h.client.apiKey == "" {
-		middleware.InternalError(c, "支付服务未配置")
+		middleware.InternalError(c, "Payment service not configured")
 		return
 	}
 
@@ -152,7 +152,7 @@ func (h *Handler) CreatePayment(c *gin.Context) {
 func (h *Handler) PaymentStatus(c *gin.Context) {
 	paymentID := c.Param("payment_id")
 	if paymentID == "" {
-		middleware.BadRequest(c, "缺少 payment_id")
+		middleware.BadRequest(c, "Missing payment_id")
 		return
 	}
 
@@ -160,7 +160,7 @@ func (h *Handler) PaymentStatus(c *gin.Context) {
 	npResp, err := h.client.GetPaymentStatus(paymentID)
 	if err != nil {
 		log.Printf("[支付] 查询状态失败: payment_id=%s err=%v", paymentID, err)
-		middleware.InternalError(c, "查询支付状态失败")
+		middleware.InternalError(c, "Failed to query payment status")
 		return
 	}
 
@@ -278,13 +278,13 @@ func (h *Handler) MinAmount(c *gin.Context) {
 func (h *Handler) EstimateAmount(c *gin.Context) {
 	amountStr := c.Query("amount")
 	if amountStr == "" {
-		middleware.BadRequest(c, "缺少 amount 参数")
+		middleware.BadRequest(c, "Missing amount parameter")
 		return
 	}
 
 	amount, err := strconv.ParseFloat(amountStr, 64)
 	if err != nil || amount <= 0 {
-		middleware.BadRequest(c, "amount 参数无效")
+		middleware.BadRequest(c, "Invalid amount parameter")
 		return
 	}
 

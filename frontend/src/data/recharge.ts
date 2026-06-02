@@ -53,7 +53,7 @@ export const amountOptions: AmountOption[] = [
   { value: 20, label: "$20", tokens: "2,200" },
   { value: 50, label: "$50", tokens: "5,750" },
   { value: 100, label: "$100", tokens: "12,000" },
-  { value: -1, label: "其他", tokens: "" },
+  { value: -1, label: "Other", tokens: "" },
 ];
 
 // ========== 网络配置 ==========

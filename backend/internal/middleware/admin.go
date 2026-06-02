@@ -13,7 +13,7 @@ func AdminAuth() gin.HandlerFunc {
 		if role != "admin" {
 			c.JSON(http.StatusForbidden, gin.H{
 				"code":    403,
-				"message": "需要管理员权限",
+				"message": "Admin privileges required",
 			})
 			c.Abort()
 			return

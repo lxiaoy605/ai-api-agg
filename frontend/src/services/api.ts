@@ -106,4 +106,26 @@ export function apiDelete<T = unknown>(path: string): Promise<T> {
   return request<T>(path, { method: "DELETE" });
 }
 
+/** PUT 请求 */
+export function apiPut<T = unknown>(
+  path: string,
+  body?: unknown
+): Promise<T> {
+  return request<T>(path, {
+    method: "PUT",
+    body: body ? JSON.stringify(body) : undefined,
+  });
+}
+
+/** PATCH 请求 */
+export function apiPatch<T = unknown>(
+  path: string,
+  body?: unknown
+): Promise<T> {
+  return request<T>(path, {
+    method: "PATCH",
+    body: body ? JSON.stringify(body) : undefined,
+  });
+}
+
 export { ApiError };

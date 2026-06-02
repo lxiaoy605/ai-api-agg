@@ -38,13 +38,13 @@ type LoginRequest struct {
 func (h *Handler) Register(c *gin.Context) {
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "请提供有效的邮箱和密码（密码至少6位）")
+		middleware.BadRequest(c, "Please provide email and password (min 6 characters)")
 		return
 	}
 
 	// 校验邮箱格式
 	if _, err := mail.ParseAddress(req.Email); err != nil {
-		middleware.BadRequest(c, "邮箱格式无效")
+		middleware.BadRequest(c, "Invalid email format")
 		return
 	}
 
@@ -52,14 +52,14 @@ func (h *Handler) Register(c *gin.Context) {
 	var existingID int64
 	err := h.db.QueryRow("SELECT id FROM users WHERE email = ?", req.Email).Scan(&existingID)
 	if err == nil {
-		middleware.BadRequest(c, "该邮箱已被注册")
+		middleware.BadRequest(c, "Email already registered")
 		return
 	}
 
 	// bcrypt 哈希密码
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
-		middleware.InternalError(c, "密码加密失败")
+		middleware.InternalError(c, "Failed to hash password")
 		return
 	}
 
@@ -71,16 +71,22 @@ func (h *Handler) Register(c *gin.Context) {
 		req.Email, string(hashedPassword), defaultQuota, now, now,
 	)
 	if err != nil {
-		middleware.InternalError(c, "创建用户失败")
+		middleware.InternalError(c, "Failed to create user")
 		return
 	}
 
 	userID, _ := result.LastInsertId()
 
+	// 创建用户默认工作组
+	h.db.Exec(
+		"INSERT INTO workgroups (user_id, name, description, created_at) VALUES (?, ?, ?, ?)",
+		userID, "Default", "System default workgroup", now,
+	)
+
 	// 生成 JWT token
 	token, err := h.generateToken(userID, "user")
 	if err != nil {
-		middleware.InternalError(c, "生成令牌失败")
+		middleware.InternalError(c, "Failed to generate token")
 		return
 	}
 
@@ -95,7 +101,7 @@ func (h *Handler) Register(c *gin.Context) {
 func (h *Handler) Login(c *gin.Context) {
 	var req LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "请提供邮箱和密码")
+		middleware.BadRequest(c, "Please provide email and password")
 		return
 	}
 
@@ -105,24 +111,24 @@ func (h *Handler) Login(c *gin.Context) {
 	err := h.db.QueryRow("SELECT id, email, password_hash, role FROM users WHERE email = ?", req.Email).
 		Scan(&id, &email, &passwordHash, &role)
 	if err == sql.ErrNoRows {
-		middleware.Unauthorized(c, "邮箱或密码错误")
+		middleware.Unauthorized(c, "Invalid email or password")
 		return
 	}
 	if err != nil {
-		middleware.InternalError(c, "查询用户失败")
+		middleware.InternalError(c, "Failed to query user")
 		return
 	}
 
 	// 验证密码
 	if err := bcrypt.CompareHashAndPassword([]byte(passwordHash), []byte(req.Password)); err != nil {
-		middleware.Unauthorized(c, "邮箱或密码错误")
+		middleware.Unauthorized(c, "Invalid email or password")
 		return
 	}
 
 	// 生成 JWT token
 	token, err := h.generateToken(id, role)
 	if err != nil {
-		middleware.InternalError(c, "生成令牌失败")
+		middleware.InternalError(c, "Failed to generate token")
 		return
 	}
 
@@ -144,11 +150,11 @@ func (h *Handler) Me(c *gin.Context) {
 	err := h.db.QueryRow("SELECT id, email, role, quota, created_at, updated_at FROM users WHERE id = ?", userID).
 		Scan(&id, &email, &role, &quota, &createdAt, &updatedAt)
 	if err == sql.ErrNoRows {
-		middleware.NotFound(c, "用户不存在")
+		middleware.NotFound(c, "User not found")
 		return
 	}
 	if err != nil {
-		middleware.InternalError(c, "查询用户失败")
+		middleware.InternalError(c, "Failed to query user")
 		return
 	}
 
@@ -189,7 +195,7 @@ type ResetPasswordRequest struct {
 func (h *Handler) ForgotPassword(c *gin.Context) {
 	var req ForgotPasswordRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "请提供邮箱地址")
+		middleware.BadRequest(c, "Please provide email")
 		return
 	}
 
@@ -199,11 +205,11 @@ func (h *Handler) ForgotPassword(c *gin.Context) {
 	err := h.db.QueryRow("SELECT id, role FROM users WHERE email = ?", req.Email).Scan(&userID, &role)
 	if err == sql.ErrNoRows {
 		// 不透露用户是否存在，统一返回成功
-		middleware.Success(c, gin.H{"message": "如果该邮箱已注册，重置链接将发送到您的邮箱"})
+		middleware.Success(c, gin.H{"message": "If the email is registered, a reset link will be sent"})
 		return
 	}
 	if err != nil {
-		middleware.InternalError(c, "查询用户失败")
+		middleware.InternalError(c, "Failed to query user")
 		return
 	}
 
@@ -217,13 +223,13 @@ func (h *Handler) ForgotPassword(c *gin.Context) {
 	}
 	resetToken, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte(h.jwtSecret))
 	if err != nil {
-		middleware.InternalError(c, "生成重置令牌失败")
+		middleware.InternalError(c, "Failed to generate reset token")
 		return
 	}
 
 	// TODO: 发送邮件（当前开发环境直接返回 token）
 	middleware.Success(c, gin.H{
-		"message":     "如果该邮箱已注册，重置链接将发送到您的邮箱",
+		"message":     "If the email is registered, a reset link will be sent",
 		"reset_token": resetToken, // 开发阶段直接返回，后续改为邮件发送
 	})
 }
@@ -232,7 +238,7 @@ func (h *Handler) ForgotPassword(c *gin.Context) {
 func (h *Handler) ResetPassword(c *gin.Context) {
 	var req ResetPasswordRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "请提供令牌和新密码（密码至少6位）")
+		middleware.BadRequest(c, "Please provide token and new password (min 6 chars)")
 		return
 	}
 
@@ -241,26 +247,26 @@ func (h *Handler) ResetPassword(c *gin.Context) {
 		return []byte(h.jwtSecret), nil
 	})
 	if err != nil || !token.Valid {
-		middleware.BadRequest(c, "重置令牌无效或已过期")
+		middleware.BadRequest(c, "Reset token is invalid or expired")
 		return
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		middleware.BadRequest(c, "重置令牌格式错误")
+		middleware.BadRequest(c, "Invalid reset token format")
 		return
 	}
 
 	// 验证用途
 	purpose, _ := claims["purpose"].(string)
 	if purpose != "reset_password" {
-		middleware.BadRequest(c, "令牌用途不正确")
+		middleware.BadRequest(c, "Invalid token purpose")
 		return
 	}
 
 	userIDFloat, ok := claims["user_id"].(float64)
 	if !ok {
-		middleware.BadRequest(c, "令牌缺少用户信息")
+		middleware.BadRequest(c, "Token missing user info")
 		return
 	}
 	userID := int64(userIDFloat)
@@ -268,7 +274,7 @@ func (h *Handler) ResetPassword(c *gin.Context) {
 	// 加密新密码
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.NewPassword), bcrypt.DefaultCost)
 	if err != nil {
-		middleware.InternalError(c, "密码加密失败")
+		middleware.InternalError(c, "Failed to hash password")
 		return
 	}
 
@@ -277,9 +283,9 @@ func (h *Handler) ResetPassword(c *gin.Context) {
 	_, err = h.db.Exec("UPDATE users SET password_hash = ?, updated_at = ? WHERE id = ?",
 		string(hashedPassword), now, userID)
 	if err != nil {
-		middleware.InternalError(c, "更新密码失败")
+		middleware.InternalError(c, "Failed to update password")
 		return
 	}
 
-	middleware.Success(c, gin.H{"message": "密码重置成功，请使用新密码登录"})
+	middleware.Success(c, gin.H{"message": "Password reset successfully"})
 }

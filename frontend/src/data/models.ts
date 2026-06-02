@@ -88,11 +88,11 @@ export function searchModels(
 }
 
 export const errorCodes = [
-  { code: 200, message: "成功", description: "请求已成功处理" },
-  { code: 400, message: "请求参数错误", description: "请求体格式不正确或缺少必填参数" },
-  { code: 401, message: "认证失败", description: "API Key 无效或已过期" },
-  { code: 402, message: "额度不足", description: "账户余额不足以完成本次请求" },
-  { code: 429, message: "请求过于频繁", description: "超出速率限制，请稍后重试" },
-  { code: 500, message: "服务器内部错误", description: "服务器内部错误，请稍后重试" },
-  { code: 503, message: "服务暂不可用", description: "模型服务暂时不可用或正在维护" },
+  { code: 200, message: "Success", description: "Request processed successfully" },
+  { code: 400, message: "Bad Request", description: "Invalid request body or missing required parameters" },
+  { code: 401, message: "Unauthorized", description: "API Key is invalid or expired" },
+  { code: 402, message: "Insufficient Quota", description: "Account balance insufficient for this request" },
+  { code: 429, message: "Rate Limited", description: "Too many requests, please retry later" },
+  { code: 500, message: "Internal Server Error", description: "Internal server error, please retry later" },
+  { code: 503, message: "Service Unavailable", description: "Model service temporarily unavailable or under maintenance" },
 ];

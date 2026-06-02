@@ -8,16 +8,11 @@ import { useAuth } from "@/context/AuthContext";
 import BrandLogo from "@/components/brand/BrandLogo";
 import ThemeSwitcher from "@/components/theme/ThemeSwitcher";
 import LocaleSwitcher from "@/components/layout/LocaleSwitcher";
-import { Mail } from "lucide-react";
-
-const SUPPORT_EMAIL = "user@aiflowhub.com";
-
 export default function TopNav() {
   const t = useTranslations();
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showMail, setShowMail] = useState(false);
 
   const isLoggedIn = !!user;
 
@@ -66,24 +61,6 @@ export default function TopNav() {
 
         {/* Desktop auth + theme */}
         <div className="hidden md:flex items-center gap-3">
-          {/* 客服邮箱 */}
-          <div className="relative">
-            <button
-              onClick={() => setShowMail(!showMail)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--muted-text)] hover:text-[var(--body-text)] hover:bg-[var(--surface-raised)] transition-colors"
-              aria-label="Contact support"
-            >
-              <Mail className="h-4 w-4" />
-            </button>
-            {showMail && (
-              <div className="absolute right-0 mt-2 w-56 rounded-lg border border-[var(--border-color)] bg-[var(--card-bg)] py-2 px-3 shadow-lg">
-                <p className="text-xs text-[var(--muted-text)]">Support</p>
-                <a href={`mailto:${SUPPORT_EMAIL}`} className="text-sm text-brand-400 hover:text-brand-300 break-all">
-                  {SUPPORT_EMAIL}
-                </a>
-              </div>
-            )}
-          </div>
           <LocaleSwitcher />
           <ThemeSwitcher />
           {isLoggedIn ? (

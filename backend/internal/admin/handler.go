@@ -58,12 +58,12 @@ func (h *Handler) Stats(c *gin.Context) {
 func (h *Handler) Topup(c *gin.Context) {
 	var req models.TopupRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "请提供 user_id 和 amount_cents")
+		middleware.BadRequest(c, "Please provide user_id and amount_cents")
 		return
 	}
 
 	if req.AmountCents <= 0 {
-		middleware.BadRequest(c, "充值金额必须大于0")
+		middleware.BadRequest(c, "Amount must be greater than 0")
 		return
 	}
 
@@ -71,11 +71,11 @@ func (h *Handler) Topup(c *gin.Context) {
 	var email string
 	err := h.db.QueryRow("SELECT email FROM users WHERE id = ?", req.UserID).Scan(&email)
 	if err == sql.ErrNoRows {
-		middleware.NotFound(c, "用户不存在")
+		middleware.NotFound(c, "User not found")
 		return
 	}
 	if err != nil {
-		middleware.InternalError(c, "查询用户失败")
+		middleware.InternalError(c, "Failed to query user")
 		return
 	}
 
@@ -83,7 +83,7 @@ func (h *Handler) Topup(c *gin.Context) {
 	_, err = h.db.Exec("UPDATE users SET quota = quota + ?, updated_at = ? WHERE id = ?",
 		req.AmountCents, time.Now().Unix(), req.UserID)
 	if err != nil {
-		middleware.InternalError(c, "充值失败")
+		middleware.InternalError(c, "Failed to top up")
 		return
 	}
 
@@ -107,7 +107,7 @@ func (h *Handler) Channels(c *gin.Context) {
 
 	data, err := os.ReadFile(configPath)
 	if err != nil {
-		middleware.InternalError(c, "渠道配置文件读取失败")
+		middleware.InternalError(c, "Failed to read channel config file")
 		return
 	}
 
@@ -115,7 +115,7 @@ func (h *Handler) Channels(c *gin.Context) {
 		Channels []map[string]interface{} `json:"channels"`
 	}
 	if err := json.Unmarshal(data, &config); err != nil {
-		middleware.InternalError(c, "渠道配置解析失败")
+		middleware.InternalError(c, "Failed to parse channel config")
 		return
 	}
 
@@ -178,7 +178,7 @@ func (h *Handler) AuditLog(c *gin.Context) {
 		limit, offset,
 	)
 	if err != nil {
-		middleware.InternalError(c, "查询审计日志失败")
+		middleware.InternalError(c, "Failed to query audit log")
 		return
 	}
 	defer rows.Close()
@@ -187,7 +187,7 @@ func (h *Handler) AuditLog(c *gin.Context) {
 	for rows.Next() {
 		var entry models.AuditEntry
 		if err := rows.Scan(&entry.ID, &entry.Timestamp, &entry.Action, &entry.Actor, &entry.Target, &entry.Details, &entry.IP); err != nil {
-			middleware.InternalError(c, "读取审计日志失败")
+			middleware.InternalError(c, "Failed to read audit log")
 			return
 		}
 		entries = append(entries, entry)
@@ -204,7 +204,7 @@ func (h *Handler) Backup(c *gin.Context) {
 	cmd.Dir = h.projectDir
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		middleware.InternalError(c, "备份失败: "+err.Error()+" 输出: "+string(output))
+		middleware.InternalError(c, "Backup failed: "+err.Error()+" output: "+string(output))
 		return
 	}
 
@@ -215,7 +215,7 @@ func (h *Handler) Backup(c *gin.Context) {
 	backupDir := filepath.Join(h.projectDir, "backups")
 	entries, err := os.ReadDir(backupDir)
 	if err != nil {
-		middleware.InternalError(c, "备份目录读取失败")
+		middleware.InternalError(c, "Failed to read backup directory")
 		return
 	}
 
@@ -251,7 +251,7 @@ func (h *Handler) Restore(c *gin.Context) {
 		BackupID string `json:"backup_id" binding:"required"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "请提供 backup_id")
+		middleware.BadRequest(c, "Please provide backup_id")
 		return
 	}
 
@@ -268,7 +268,7 @@ func (h *Handler) Restore(c *gin.Context) {
 	cmd.Dir = h.projectDir
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		middleware.InternalError(c, "恢复失败: "+err.Error()+" 输出: "+string(output))
+		middleware.InternalError(c, "Restore failed: "+err.Error()+" output: "+string(output))
 		return
 	}
 

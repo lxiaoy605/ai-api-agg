@@ -20,7 +20,9 @@ import (
 	"github.com/ai-api-agg/backend/internal/notify"
 	"github.com/ai-api-agg/backend/internal/payment"
 	"github.com/ai-api-agg/backend/internal/proxy"
+	"github.com/ai-api-agg/backend/internal/usage"
 	"github.com/ai-api-agg/backend/internal/usdt"
+	"github.com/ai-api-agg/backend/internal/workgroup"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -63,6 +65,8 @@ func main() {
 	}
 	oauthHandler := auth.NewOAuthHandler(db, cfg.JWTSecret, oauthConfig, cfg.FrontendURL)
 	apikeyHandler := apikey.NewHandler(db, cfg.EncryptionKey)
+	workgroupHandler := workgroup.NewHandler(db)
+	usageHandler := usage.NewHandler(db)
 
 	// 确定项目根目录（从 backend/ 运行，项目根是 ..）
 	projectDir := filepath.Join(filepath.Dir(os.Args[0]), "..")
@@ -142,6 +146,16 @@ func main() {
 		authRequired.GET("/api-keys", apikeyHandler.List)
 		authRequired.DELETE("/api-keys/:id", apikeyHandler.Delete)
 		authRequired.GET("/api-keys/:id/usage", apikeyHandler.Usage)
+		authRequired.PATCH("/api-keys/:id/toggle", apikeyHandler.Toggle)
+
+		// 工作组管理
+		authRequired.GET("/workgroups", workgroupHandler.List)
+		authRequired.POST("/workgroups", workgroupHandler.Create)
+		authRequired.PUT("/workgroups/:id", workgroupHandler.Update)
+		authRequired.DELETE("/workgroups/:id", workgroupHandler.Delete)
+
+		// 用量统计
+		authRequired.GET("/user/usage", usageHandler.Overview)
 	}
 
 	// 需要管理员权限的路由（JWT + admin role）

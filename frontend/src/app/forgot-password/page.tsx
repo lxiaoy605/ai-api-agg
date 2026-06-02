@@ -91,7 +91,7 @@ export default function ForgotPasswordPage() {
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-text)]" />
                 <input
-                  type="email"
+                  type="email" maxLength={254}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"

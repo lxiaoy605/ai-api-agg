@@ -105,7 +105,7 @@ export default function RegisterPage() {
               </label>
               <input
                 id="email"
-                type="email"
+                type="email" maxLength={254}
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); if (fieldErrors.email) setFieldErrors((p) => ({ ...p, email: "" })); }}
                 required
@@ -125,7 +125,7 @@ export default function RegisterPage() {
               </label>
               <input
                 id="password"
-                type="password"
+                type="password" maxLength={128}
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); if (fieldErrors.password) setFieldErrors((p) => ({ ...p, password: "" })); }}
                 required
@@ -144,7 +144,7 @@ export default function RegisterPage() {
               </label>
               <input
                 id="confirmPassword"
-                type="password"
+                type="password" maxLength={128}
                 value={confirmPassword}
                 onChange={(e) => { setConfirmPassword(e.target.value); if (fieldErrors.confirmPassword) setFieldErrors((p) => ({ ...p, confirmPassword: "" })); }}
                 required

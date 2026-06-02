@@ -36,21 +36,45 @@ func (h *Handler) Create(c *gin.Context) {
 
 	var req models.CreateApiKeyRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		// 允许 name 为空
+		// allow empty name
 		req.Name = ""
+	}
+
+	// 如果未指定工作组，使用用户的默认工作组
+	wgID := req.WorkgroupID
+	if wgID == nil {
+		var defaultWgID int64
+		err := h.db.QueryRow("SELECT id FROM workgroups WHERE user_id = ? ORDER BY id LIMIT 1", userID).Scan(&defaultWgID)
+		if err == nil {
+			wgID = &defaultWgID
+		}
+	}
+
+	// 如果指定了工作组，验证归属权
+	if wgID != nil {
+		var ownerID int64
+		err := h.db.QueryRow("SELECT user_id FROM workgroups WHERE id = ?", *wgID).Scan(&ownerID)
+		if err == sql.ErrNoRows {
+			middleware.BadRequest(c, "Workgroup not found")
+			return
+		}
+		if ownerID != userID {
+			middleware.BadRequest(c, "Workgroup does not belong to current user")
+			return
+		}
 	}
 
 	// 生成随机 Key
 	fullKey, err := generateAPIKey()
 	if err != nil {
-		middleware.InternalError(c, "生成密钥失败")
+		middleware.InternalError(c, "Failed to generate key")
 		return
 	}
 
 	// AES-256-GCM 加密
 	encryptedKey, err := encrypt(fullKey, h.encryptionKey)
 	if err != nil {
-		middleware.InternalError(c, "加密密钥失败")
+		middleware.InternalError(c, "Failed to encrypt key")
 		return
 	}
 
@@ -59,11 +83,11 @@ func (h *Handler) Create(c *gin.Context) {
 
 	now := time.Now().Unix()
 	result, err := h.db.Exec(
-		"INSERT INTO api_keys (user_id, name, key_prefix, encrypted_key, status, created_at) VALUES (?, ?, ?, ?, 'active', ?)",
-		userID, req.Name, prefix, encryptedKey, now,
+		"INSERT INTO api_keys (user_id, name, key_prefix, encrypted_key, status, workgroup_id, created_at) VALUES (?, ?, ?, ?, 'active', ?, ?)",
+		userID, req.Name, prefix, encryptedKey, wgID, now,
 	)
 	if err != nil {
-		middleware.InternalError(c, "创建密钥失败")
+		middleware.InternalError(c, "Failed to create key")
 		return
 	}
 
@@ -72,7 +96,7 @@ func (h *Handler) Create(c *gin.Context) {
 	// 审计日志
 	actor := "user:" + strconv.FormatInt(userID, 10)
 	audit.Log(h.db, "apikey.create", actor, "key:"+strconv.FormatInt(keyID, 10),
-		"名称:"+req.Name, c.ClientIP())
+		"name:"+req.Name, c.ClientIP())
 
 	middleware.Success(c, models.CreateApiKeyResponse{
 		ID:        keyID,
@@ -88,11 +112,16 @@ func (h *Handler) List(c *gin.Context) {
 	userID := c.GetInt64("user_id")
 
 	rows, err := h.db.Query(
-		"SELECT id, user_id, name, key_prefix, status, created_at, last_used_at FROM api_keys WHERE user_id = ? ORDER BY created_at DESC",
+		`SELECT k.id, k.user_id, k.name, k.key_prefix, k.status, k.workgroup_id,
+		        COALESCE(w.name, ''), k.created_at, k.last_used_at
+		 FROM api_keys k
+		 LEFT JOIN workgroups w ON k.workgroup_id = w.id
+		 WHERE k.user_id = ?
+		 ORDER BY k.created_at DESC`,
 		userID,
 	)
 	if err != nil {
-		middleware.InternalError(c, "查询密钥列表失败")
+		middleware.InternalError(c, "Failed to list keys")
 		return
 	}
 	defer rows.Close()
@@ -100,8 +129,8 @@ func (h *Handler) List(c *gin.Context) {
 	keys := make([]models.ApiKey, 0)
 	for rows.Next() {
 		var key models.ApiKey
-		if err := rows.Scan(&key.ID, &key.UserID, &key.Name, &key.KeyPrefix, &key.Status, &key.CreatedAt, &key.LastUsedAt); err != nil {
-			middleware.InternalError(c, "读取密钥数据失败")
+		if err := rows.Scan(&key.ID, &key.UserID, &key.Name, &key.KeyPrefix, &key.Status, &key.WorkgroupID, &key.WorkgroupName, &key.CreatedAt, &key.LastUsedAt); err != nil {
+			middleware.InternalError(c, "Failed to read key data")
 			return
 		}
 		keys = append(keys, key)
@@ -119,21 +148,21 @@ func (h *Handler) Delete(c *gin.Context) {
 	var ownerID int64
 	err := h.db.QueryRow("SELECT user_id FROM api_keys WHERE id = ?", keyID).Scan(&ownerID)
 	if err == sql.ErrNoRows {
-		middleware.NotFound(c, "密钥不存在")
+		middleware.NotFound(c, "Key not found")
 		return
 	}
 	if err != nil {
-		middleware.InternalError(c, "查询密钥失败")
+		middleware.InternalError(c, "Failed to query key")
 		return
 	}
 
 	if ownerID != userID {
-		middleware.NotFound(c, "密钥不存在")
+		middleware.NotFound(c, "Key not found")
 		return
 	}
 
 	if _, err := h.db.Exec("DELETE FROM api_keys WHERE id = ?", keyID); err != nil {
-		middleware.InternalError(c, "删除密钥失败")
+		middleware.InternalError(c, "Failed to delete key")
 		return
 	}
 
@@ -145,6 +174,40 @@ func (h *Handler) Delete(c *gin.Context) {
 	middleware.Success(c, gin.H{"deleted": true})
 }
 
+// Toggle 切换状态 PATCH /api-keys/:id/toggle
+func (h *Handler) Toggle(c *gin.Context) {
+	userID := c.GetInt64("user_id")
+	keyID := c.Param("id")
+
+	var ownerID int64
+	var currentStatus string
+	err := h.db.QueryRow("SELECT user_id, status FROM api_keys WHERE id = ?", keyID).Scan(&ownerID, &currentStatus)
+	if err == sql.ErrNoRows {
+		middleware.NotFound(c, "Key not found")
+		return
+	}
+	if err != nil {
+		middleware.InternalError(c, "Failed to query key")
+		return
+	}
+	if ownerID != userID {
+		middleware.NotFound(c, "Key not found")
+		return
+	}
+
+	newStatus := "disabled"
+	if currentStatus == "disabled" {
+		newStatus = "active"
+	}
+
+	if _, err := h.db.Exec("UPDATE api_keys SET status = ? WHERE id = ?", newStatus, keyID); err != nil {
+		middleware.InternalError(c, "Failed to toggle key status")
+		return
+	}
+
+	middleware.Success(c, gin.H{"id": keyID, "status": newStatus})
+}
+
 // Usage 用量统计 GET /api-keys/:id/usage
 func (h *Handler) Usage(c *gin.Context) {
 	userID := c.GetInt64("user_id")
@@ -154,16 +217,16 @@ func (h *Handler) Usage(c *gin.Context) {
 	var ownerID int64
 	err := h.db.QueryRow("SELECT user_id FROM api_keys WHERE id = ?", keyID).Scan(&ownerID)
 	if err == sql.ErrNoRows {
-		middleware.NotFound(c, "密钥不存在")
+		middleware.NotFound(c, "Key not found")
 		return
 	}
 	if err != nil {
-		middleware.InternalError(c, "查询密钥失败")
+		middleware.InternalError(c, "Failed to query key")
 		return
 	}
 
 	if ownerID != userID {
-		middleware.NotFound(c, "密钥不存在")
+		middleware.NotFound(c, "Key not found")
 		return
 	}
 
@@ -174,7 +237,7 @@ func (h *Handler) Usage(c *gin.Context) {
 		keyID,
 	).Scan(&stats.TotalRequests, &stats.TotalTokens)
 	if err != nil {
-		middleware.InternalError(c, "查询用量失败")
+		middleware.InternalError(c, "Failed to query usage")
 		return
 	}
 
@@ -230,7 +293,7 @@ func Decrypt(cipherHex string, key []byte) (string, error) {
 
 	nonceSize := gcm.NonceSize()
 	if len(ciphertext) < nonceSize {
-		return "", fmt.Errorf("密文过短")
+		return "", fmt.Errorf("Ciphertext too short")
 	}
 
 	nonce, ciphertext := ciphertext[:nonceSize], ciphertext[nonceSize:]

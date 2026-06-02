@@ -91,7 +91,7 @@ export default function UsagePage() {
       const accounted = breakdown.reduce((s, m) => s + m.value, 0);
       if (accounted < 100 && breakdown.length > 0) {
         breakdown.push({
-          name: "其他",
+          name: "Other",
           value: Math.round((100 - accounted) * 10) / 10,
           color: "#6b7280",
         });

@@ -223,6 +223,7 @@ h2 { line-height: 1.2; }
   --card-bg: #111118;
   --card-border: #1E293B;
   --surface-raised: #161622;
+  --tooltip-bg: rgba(22, 22, 34, 0.92);
   --input-bg: #111118;
   color-scheme: dark;
 }
@@ -236,6 +237,7 @@ h2 { line-height: 1.2; }
   --card-bg: #FFFFFF;
   --card-border: #DDD6FE;
   --surface-raised: #EDE9FE;
+  --tooltip-bg: rgba(255, 255, 255, 0.92);
   --input-bg: #FFFFFF;
   color-scheme: light;
 }
@@ -315,3 +317,21 @@ button:disabled {
 }
 
 /* prefers-reduced-motion — already declared above; respected globally */
+
+/* Force select/option dark theming to avoid white flash */
+html.dark select,
+html.dark select option {
+  background-color: #161622 !important;
+  color: #E2E8F0 !important;
+}
+html.dark select:focus {
+  outline: none;
+  border-color: rgba(99, 102, 241, 0.5) !important;
+}
+@media (prefers-color-scheme: dark) {
+  html:not(.light) select,
+  html:not(.light) select option {
+    background-color: #161622 !important;
+    color: #E2E8F0 !important;
+  }
+}

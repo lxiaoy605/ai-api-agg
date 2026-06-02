@@ -196,7 +196,7 @@ export default function ModelsPage() {
         <div className="relative flex-1 min-w-[200px] max-w-[360px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-text)]" />
           <input
-            type="text"
+            type="text" maxLength={50}
             placeholder={t("searchPlaceholder") || "Search models by name or ID..."}
             value={searchQuery}
             onChange={(e) => {

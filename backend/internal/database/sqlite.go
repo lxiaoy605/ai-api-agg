@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	_ "modernc.org/sqlite"
 )
@@ -76,6 +77,14 @@ func migrate(db *sql.DB) error {
 			details TEXT NOT NULL DEFAULT '',
 			ip TEXT NOT NULL DEFAULT ''
 		)`,
+		`CREATE TABLE IF NOT EXISTS workgroups (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			user_id INTEGER NOT NULL,
+			name TEXT NOT NULL,
+			description TEXT NOT NULL DEFAULT '',
+			created_at INTEGER NOT NULL,
+			FOREIGN KEY (user_id) REFERENCES users(id)
+		)`,
 		`CREATE TABLE IF NOT EXISTS payment_log (
 			id            INTEGER PRIMARY KEY AUTOINCREMENT,
 			user_id       INTEGER NOT NULL,
@@ -101,6 +110,7 @@ func migrate(db *sql.DB) error {
 	alterStatements := []string{
 		`ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'user'`,
 		`ALTER TABLE users ADD COLUMN quota INTEGER NOT NULL DEFAULT 0`,
+		`ALTER TABLE api_keys ADD COLUMN workgroup_id INTEGER DEFAULT NULL`,
 	}
 
 	for _, m := range migrations {
@@ -119,9 +129,55 @@ func migrate(db *sql.DB) error {
 		`CREATE INDEX IF NOT EXISTS idx_payment_status ON payment_log(status)`,
 		`CREATE INDEX IF NOT EXISTS idx_payment_tx_hash ON payment_log(tx_hash)`,
 		`CREATE INDEX IF NOT EXISTS idx_payment_created ON payment_log(created_at)`,
+		`CREATE INDEX IF NOT EXISTS idx_usage_api_key ON usage_logs(api_key_id)`,
+		`CREATE INDEX IF NOT EXISTS idx_usage_recorded ON usage_logs(recorded_at)`,
 	} {
 		db.Exec(idx)
 	}
 
+	// 迁移：为现有用户创建默认工作组
+	migrateWorkgroups(db)
+
 	return nil
+}
+
+// migrateWorkgroups 为没有工作组的用户创建默认工作组，并将现有 keys 分配到默认组
+func migrateWorkgroups(db *sql.DB) {
+	now := time.Now().Unix()
+
+	// 1. 为没有工作组的用户创建默认工作组（避免重名）
+	rows, err := db.Query(
+		`SELECT u.id FROM users u
+		 WHERE NOT EXISTS (SELECT 1 FROM workgroups w WHERE w.user_id = u.id)
+		 LIMIT 1000`,
+	)
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var userID int64
+		if err := rows.Scan(&userID); err != nil {
+			continue
+		}
+		db.Exec(
+			"INSERT INTO workgroups (user_id, name, description, created_at) VALUES (?, ?, ?, ?)",
+			userID, "Default", "System default workgroup", now,
+		)
+	}
+
+	// 2. 将 workgroup_id 为 NULL 的 key 分配到默认工作组
+	db.Exec(`
+		UPDATE api_keys
+		SET workgroup_id = (
+			SELECT w.id FROM workgroups w
+			WHERE w.user_id = api_keys.user_id
+			ORDER BY w.id LIMIT 1
+		)
+		WHERE workgroup_id IS NULL
+	`)
+
+	// 3. 重命名旧中文工作组名为 Default
+	db.Exec(`UPDATE workgroups SET name = 'Default' WHERE name = '默认工作组'`)
 }

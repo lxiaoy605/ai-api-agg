@@ -15,7 +15,7 @@ func JWTAuth(secret string) gin.HandlerFunc {
 		if authHeader == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code":    401,
-				"message": "未提供认证令牌",
+				"message": "Missing authentication token",
 			})
 			c.Abort()
 			return
@@ -25,7 +25,7 @@ func JWTAuth(secret string) gin.HandlerFunc {
 		if tokenString == authHeader {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code":    401,
-				"message": "认证格式错误，需要 Bearer token",
+				"message": "Invalid auth format, Bearer token required",
 			})
 			c.Abort()
 			return
@@ -41,7 +41,7 @@ func JWTAuth(secret string) gin.HandlerFunc {
 		if err != nil || !token.Valid {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code":    401,
-				"message": "认证令牌无效或已过期",
+				"message": "Invalid or expired token",
 			})
 			c.Abort()
 			return
@@ -51,7 +51,7 @@ func JWTAuth(secret string) gin.HandlerFunc {
 		if !ok {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code":    401,
-				"message": "无法解析令牌载荷",
+				"message": "Failed to parse token claims",
 			})
 			c.Abort()
 			return
@@ -61,7 +61,7 @@ func JWTAuth(secret string) gin.HandlerFunc {
 		if !ok {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code":    401,
-				"message": "令牌缺少用户标识",
+				"message": "Token missing user identity",
 			})
 			c.Abort()
 			return

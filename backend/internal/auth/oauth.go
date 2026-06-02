@@ -81,18 +81,18 @@ func (h *OAuthHandler) oauthLogin(c *gin.Context, provider string, authURL strin
 	case "github":
 		cfg = h.config.GitHub
 	default:
-		middleware.BadRequest(c, "不支持的 OAuth 提供方")
+		middleware.BadRequest(c, "Unsupported OAuth provider")
 		return
 	}
 
 	if cfg.ClientID == "" {
-		middleware.InternalError(c, fmt.Sprintf("%s OAuth 未配置", provider))
+		middleware.InternalError(c, fmt.Sprintf("%s OAuth not configured", provider))
 		return
 	}
 
 	state, err := generateState()
 	if err != nil {
-		middleware.InternalError(c, "生成 state 失败")
+		middleware.InternalError(c, "Failed to generate state")
 		return
 	}
 
@@ -114,7 +114,7 @@ func (h *OAuthHandler) oauthLogin(c *gin.Context, provider string, authURL strin
 func (h *OAuthHandler) CallbackGoogle(c *gin.Context) {
 	code := c.Query("code")
 	if code == "" {
-		middleware.BadRequest(c, "缺少授权 code")
+		middleware.BadRequest(c, "Missing authorization code")
 		return
 	}
 
@@ -125,14 +125,14 @@ func (h *OAuthHandler) CallbackGoogle(c *gin.Context) {
 		code,
 	)
 	if err != nil {
-		middleware.InternalError(c, "换取 token 失败: "+err.Error())
+		middleware.InternalError(c, "Failed to exchange token: "+err.Error())
 		return
 	}
 
 	// 获取用户信息
 	userInfo, err := h.fetchGoogleUser(tokenResp.AccessToken)
 	if err != nil {
-		middleware.InternalError(c, "获取用户信息失败: "+err.Error())
+		middleware.InternalError(c, "Failed to get user info: "+err.Error())
 		return
 	}
 
@@ -143,21 +143,21 @@ func (h *OAuthHandler) CallbackGoogle(c *gin.Context) {
 func (h *OAuthHandler) CallbackGitHub(c *gin.Context) {
 	code := c.Query("code")
 	if code == "" {
-		middleware.BadRequest(c, "缺少授权 code")
+		middleware.BadRequest(c, "Missing authorization code")
 		return
 	}
 
 	// 用 code 换 access token
 	tokenResp, err := h.exchangeGitHubCode(code)
 	if err != nil {
-		middleware.InternalError(c, "换取 token 失败: "+err.Error())
+		middleware.InternalError(c, "Failed to exchange token: "+err.Error())
 		return
 	}
 
 	// 获取用户信息
 	userInfo, err := h.fetchGitHubUser(tokenResp.AccessToken)
 	if err != nil {
-		middleware.InternalError(c, "获取用户信息失败: "+err.Error())
+		middleware.InternalError(c, "Failed to get user info: "+err.Error())
 		return
 	}
 
@@ -340,7 +340,7 @@ func (h *OAuthHandler) fetchGitHubEmails(accessToken string) ([]string, error) {
 // handleOAuthUser 统一处理 OAuth 用户：查找或创建 → 返回 JWT
 func (h *OAuthHandler) handleOAuthUser(c *gin.Context, email, name, provider string) {
 	if email == "" {
-		middleware.BadRequest(c, fmt.Sprintf("无法从 %s 获取邮箱地址", provider))
+		middleware.BadRequest(c, fmt.Sprintf("Cannot get email from %s", provider))
 		return
 	}
 
@@ -360,21 +360,26 @@ func (h *OAuthHandler) handleOAuthUser(c *gin.Context, email, name, provider str
 			email, "oauth:"+provider, defaultQuota, now, now,
 		)
 		if err != nil {
-			middleware.InternalError(c, "创建 OAuth 用户失败")
+			middleware.InternalError(c, "Failed to create OAuth user")
 			return
 		}
 		userID, _ = result.LastInsertId()
+		// 创建默认工作组
+		h.db.Exec(
+			"INSERT INTO workgroups (user_id, name, description, created_at) VALUES (?, ?, ?, ?)",
+			userID, "Default", "System default workgroup", now,
+		)
 		role = "user"
 		quota = defaultQuota
 	} else if err != nil {
-		middleware.InternalError(c, "查询用户失败")
+		middleware.InternalError(c, "Failed to query user")
 		return
 	}
 
 	// 生成 JWT
 	token, err := h.generateOAuthToken(userID, role)
 	if err != nil {
-		middleware.InternalError(c, "生成令牌失败")
+		middleware.InternalError(c, "Failed to generate token")
 		return
 	}
 

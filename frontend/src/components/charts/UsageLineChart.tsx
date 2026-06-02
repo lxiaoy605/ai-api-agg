@@ -24,11 +24,13 @@ interface Props {
   data?: UsageDataPoint[];
   /** 数据加载中 */
   loading?: boolean;
+  /** 标题行右侧额外控件（如工作组筛选） */
+  extraControls?: React.ReactNode;
 }
 
 type Range = "today" | "7d" | "30d";
 
-export default function UsageLineChart({ data = [], loading = false }: Props) {
+export default function UsageLineChart({ data = [], loading = false, extraControls }: Props) {
   const tc = useTranslations("chart");
   const [range, setRange] = useState<Range>("7d");
   const [metric, setMetric] = useState<"requests" | "tokens">("requests");
@@ -83,7 +85,8 @@ export default function UsageLineChart({ data = [], loading = false }: Props) {
           {" "}
           {tc("time")}
         </h3>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          {extraControls}
           <div className="flex rounded-lg bg-[var(--surface-raised)] p-0.5">
             <button
               onClick={() => setMetric("requests")}
