@@ -61,6 +61,31 @@ func (t *Telegram) Sendf(format string, args ...interface{}) {
 	t.Send(fmt.Sprintf(format, args...))
 }
 
+// sendToChat 发送消息到指定 chat（用于 Bot 命令回复）
+func (t *Telegram) sendToChat(chatID int64, text string) {
+	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", t.botToken)
+	payload := map[string]interface{}{
+		"chat_id":    chatID,
+		"text":       text,
+		"parse_mode": "HTML",
+	}
+	body, _ := json.Marshal(payload)
+	resp, err := t.client.Post(url, "application/json", bytes.NewReader(body))
+	if err != nil {
+		log.Printf("[TG] sendToChat 失败: %v", err)
+		return
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("[TG] sendToChat 返回 %d", resp.StatusCode)
+	}
+}
+
+// ChatID 返回配置的 chat ID（供 bot 鉴权用）
+func (t *Telegram) ChatID() string {
+	return t.chatID
+}
+
 // NotifyUSDTReceived USDT 到账通知
 func (t *Telegram) NotifyUSDTReceived(userID int64, amount float64, tokens int64, txHash string) {
 	t.Sendf(
