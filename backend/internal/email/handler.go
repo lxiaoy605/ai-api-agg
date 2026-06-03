@@ -1,14 +1,11 @@
 package email
 
 import (
-	"bytes"
 	"crypto/subtle"
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	"io"
 	"log"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -16,6 +13,7 @@ import (
 	"time"
 
 	"github.com/ai-api-agg/backend/internal/middleware"
+	"github.com/ai-api-agg/backend/internal/notify"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,10 +26,11 @@ type Handler struct {
 	mgAPIKey   string
 	mgAPIBase  string
 	tgNotifier interface{ Send(string) } // 通知接口
+	es         *notify.EmailSender       // 邮件发送器
 }
 
 // NewHandler 创建邮件处理器
-func NewHandler(db *sql.DB, dataDir string, tgNotifier interface{ Send(string) }) *Handler {
+func NewHandler(db *sql.DB, dataDir string, tgNotifier interface{ Send(string) }, es *notify.EmailSender) *Handler {
 	mgDomain := os.Getenv("MAILGUN_DOMAIN")
 	if mgDomain == "" {
 		mgDomain = "aiflowhub.ai"
@@ -44,6 +43,7 @@ func NewHandler(db *sql.DB, dataDir string, tgNotifier interface{ Send(string) }
 		mgAPIKey:   os.Getenv("MAILGUN_API_KEY"),
 		mgAPIBase:  "https://api.eu.mailgun.net/v3",
 		tgNotifier: tgNotifier,
+		es:         es,
 	}
 }
 
@@ -349,8 +349,8 @@ func (h *Handler) Reply(c *gin.Context) {
 		return
 	}
 
-	if h.mgAPIKey == "" {
-		middleware.InternalError(c, "MAILGUN_API_KEY 未配置")
+	if h.es == nil || !h.es.Enabled() {
+		middleware.InternalError(c, "邮件发送未配置")
 		return
 	}
 
@@ -368,42 +368,10 @@ func (h *Handler) Reply(c *gin.Context) {
 		return
 	}
 
-	// 调用 Mailgun API
-	from := fmt.Sprintf("AiFlowHub <noreply@%s>", h.mgDomain)
-	replySubject := origSubj
-	if !strings.HasPrefix(strings.ToLower(replySubject), "re:") {
-		replySubject = "Re: " + replySubject
-	}
-
-	payload := map[string]string{
-		"from":       from,
-		"to":         origFrom,
-		"subject":    replySubject,
-		"text":       req.Body,
-		"h:In-Reply-To": origMsgID,
-		"h:References":  origMsgID,
-	}
-
-	body, _ := json.Marshal(payload)
-	url := fmt.Sprintf("%s/%s/messages", h.mgAPIBase, h.mgDomain)
-	httpReq, _ := http.NewRequest("POST", url, bytes.NewReader(body))
-	httpReq.SetBasicAuth("api", h.mgAPIKey)
-	httpReq.Header.Set("Content-Type", "application/json")
-
-	client := &http.Client{Timeout: 15 * time.Second}
-	resp, err := client.Do(httpReq)
-	if err != nil {
-		log.Printf("[email] Mailgun API 调用失败: %v", err)
+	// 通过统一发送器发送
+	if err := h.es.SendReply(origFrom, origSubj, origMsgID, req.Body); err != nil {
+		log.Printf("[email] 发送失败: %v", err)
 		middleware.InternalError(c, "发送失败: "+err.Error())
-		return
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != 200 {
-		var errBody bytes.Buffer
-		errBody.ReadFrom(resp.Body)
-		log.Printf("[email] Mailgun 返回 %d: %s", resp.StatusCode, errBody.String())
-		middleware.InternalError(c, fmt.Sprintf("Mailgun 返回 %d", resp.StatusCode))
 		return
 	}
 

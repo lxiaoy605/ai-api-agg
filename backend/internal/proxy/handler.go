@@ -107,10 +107,16 @@ func (h *Handler) ChatCompletions(c *gin.Context) {
 	// 判断是否 streaming
 	var reqBody map[string]interface{}
 	isStream := false
+	var modelName string
 	if json.Unmarshal(bodyBytes, &reqBody) == nil {
 		if s, ok := reqBody["stream"]; ok {
 			if b, ok := s.(bool); ok {
 				isStream = b
+			}
+		}
+		if m, ok := reqBody["model"]; ok {
+			if ms, ok := m.(string); ok {
+				modelName = ms
 			}
 		}
 	}
@@ -138,8 +144,8 @@ func (h *Handler) ChatCompletions(c *gin.Context) {
 	// 每次调用扣 1 配额（实际 token 计数后续完善）
 	h.db.Exec("UPDATE users SET quota = quota - 1 WHERE id = ? AND quota > 0", userID)
 	h.db.Exec(
-		"INSERT INTO usage_logs (api_key_id, request_count, token_count, recorded_at) VALUES (?, 1, 0, ?)",
-		keyID, time.Now().Unix(),
+		"INSERT INTO usage_logs (api_key_id, request_count, token_count, model, recorded_at) VALUES (?, 1, 0, ?, ?)",
+		keyID, modelName, time.Now().Unix(),
 	)
 
 	// 审计

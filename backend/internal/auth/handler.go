@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/ai-api-agg/backend/internal/middleware"
+	"github.com/ai-api-agg/backend/internal/notify"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
@@ -13,19 +14,20 @@ import (
 
 // Handler 认证处理器
 type Handler struct {
-	db        *sql.DB
-	jwtSecret string
+	db          *sql.DB
+	jwtSecret   string
+	emailSender *notify.EmailSender
 }
 
 // NewHandler 创建认证处理器
-func NewHandler(db *sql.DB, jwtSecret string) *Handler {
-	return &Handler{db: db, jwtSecret: jwtSecret}
+func NewHandler(db *sql.DB, jwtSecret string, emailSender *notify.EmailSender) *Handler {
+	return &Handler{db: db, jwtSecret: jwtSecret, emailSender: emailSender}
 }
 
 // RegisterRequest 注册请求
 type RegisterRequest struct {
 	Email    string `json:"email" binding:"required"`
-	Password string `json:"password" binding:"required,min=6"`
+	Password string `json:"password" binding:"required,min=8"`
 }
 
 // LoginRequest 登录请求
@@ -34,17 +36,45 @@ type LoginRequest struct {
 	Password string `json:"password" binding:"required"`
 }
 
+// validatePasswordStrength 验证密码强度
+// 要求：至少 8 个字符，包含至少 1 个大写字母和 1 个数字
+func validatePasswordStrength(password string) bool {
+	if len(password) < 8 {
+		return false
+	}
+	hasUpper := false
+	hasDigit := false
+	for _, c := range password {
+		if c >= 'A' && c <= 'Z' {
+			hasUpper = true
+		}
+		if c >= '0' && c <= '9' {
+			hasDigit = true
+		}
+		if hasUpper && hasDigit {
+			return true
+		}
+	}
+	return false
+}
+
 // Register 用户注册 POST /auth/register
 func (h *Handler) Register(c *gin.Context) {
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "Please provide email and password (min 6 characters)")
+		middleware.BadRequest(c, "Please provide email and password (min 8 characters with 1 uppercase letter and 1 digit)")
 		return
 	}
 
 	// 校验邮箱格式
 	if _, err := mail.ParseAddress(req.Email); err != nil {
 		middleware.BadRequest(c, "Invalid email format")
+		return
+	}
+
+	// 校验密码强度
+	if !validatePasswordStrength(req.Password) {
+		middleware.BadRequest(c, "Password must be at least 8 characters with 1 uppercase letter and 1 digit")
 		return
 	}
 
@@ -89,6 +119,14 @@ func (h *Handler) Register(c *gin.Context) {
 		middleware.InternalError(c, "Failed to generate token")
 		return
 	}
+
+	// 发送欢迎邮件（异步，不阻塞注册响应）
+	go func() {
+		subject, html := notify.BuildWelcomeEmail(req.Email)
+		if err := h.emailSender.Send(req.Email, subject, html); err != nil {
+			// 邮件发送失败不影响注册流程
+		}
+	}()
 
 	middleware.Success(c, gin.H{
 		"user_id": userID,
@@ -188,7 +226,7 @@ type ForgotPasswordRequest struct {
 // ResetPasswordRequest 重置密码请求
 type ResetPasswordRequest struct {
 	Token       string `json:"token" binding:"required"`
-	NewPassword string `json:"new_password" binding:"required,min=6"`
+	NewPassword string `json:"new_password" binding:"required,min=8"`
 }
 
 // ForgotPassword 发送重置密码令牌 POST /auth/forgot-password
@@ -227,10 +265,18 @@ func (h *Handler) ForgotPassword(c *gin.Context) {
 		return
 	}
 
-	// TODO: 发送邮件（当前开发环境直接返回 token）
+	// 发送密码重置邮件（异步）
+	go func() {
+		resetLink := "https://aiflowhub.ai/reset-password?token=" + resetToken
+		subject, html := notify.BuildPasswordResetEmail(req.Email, resetLink)
+		if err := h.emailSender.Send(req.Email, subject, html); err != nil {
+			// 邮件发送失败不影响重置流程
+		}
+	}()
+
 	middleware.Success(c, gin.H{
 		"message":     "If the email is registered, a reset link will be sent",
-		"reset_token": resetToken, // 开发阶段直接返回，后续改为邮件发送
+		"reset_token": resetToken, // 开发阶段直接返回，后续改为仅邮件发送
 	})
 }
 
@@ -238,7 +284,7 @@ func (h *Handler) ForgotPassword(c *gin.Context) {
 func (h *Handler) ResetPassword(c *gin.Context) {
 	var req ResetPasswordRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		middleware.BadRequest(c, "Please provide token and new password (min 6 chars)")
+		middleware.BadRequest(c, "Please provide token and new password (min 8 chars with 1 uppercase letter and 1 digit)")
 		return
 	}
 
@@ -270,6 +316,12 @@ func (h *Handler) ResetPassword(c *gin.Context) {
 		return
 	}
 	userID := int64(userIDFloat)
+
+	// 校验新密码强度
+	if !validatePasswordStrength(req.NewPassword) {
+		middleware.BadRequest(c, "Password must be at least 8 characters with 1 uppercase letter and 1 digit")
+		return
+	}
 
 	// 加密新密码
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.NewPassword), bcrypt.DefaultCost)

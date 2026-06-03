@@ -162,7 +162,7 @@ export default function LoginPage() {
                 type="button"
                 onClick={() => {
                   const backend = window.location.hostname === 'localhost' ? 'http://localhost:8082' : '';
-                  window.location.href = `${backend}/auth/oauth/github`;
+                  window.location.href = `${backend}/api/auth/oauth/github`;
                 }}
                 className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[var(--border-color)] text-[var(--body-text)] text-sm font-medium hover:bg-[var(--surface-raised)] transition-colors"
               >
@@ -175,7 +175,7 @@ export default function LoginPage() {
                 type="button"
                 onClick={() => {
                   const backend = window.location.hostname === 'localhost' ? 'http://localhost:8082' : '';
-                  window.location.href = `${backend}/auth/oauth/google`;
+                  window.location.href = `${backend}/api/auth/oauth/google`;
                 }}
                 className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[var(--border-color)] text-[var(--body-text)] text-sm font-medium hover:bg-[var(--surface-raised)] transition-colors"
               >

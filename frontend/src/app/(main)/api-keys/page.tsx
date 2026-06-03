@@ -79,8 +79,8 @@ export default function ApiKeysPage() {
       setLoading(true);
       setError(null);
       const [keyData, wgData] = await Promise.all([
-        apiGet<ApiKey[]>("/api-keys"),
-        apiGet<WorkgroupOption[]>("/workgroups").catch(() => [] as WorkgroupOption[]),
+        apiGet<ApiKey[]>("/api/api-keys"),
+        apiGet<WorkgroupOption[]>("/api/workgroups").catch(() => [] as WorkgroupOption[]),
       ]);
       setKeys(keyData || []);
       setWorkgroups(wgData || []);
@@ -140,10 +140,10 @@ export default function ApiKeysPage() {
       setError(null);
       const body: Record<string, unknown> = { name: newKeyName.trim() };
       if (newKeyWg) body.workgroup_id = newKeyWg;
-      const key = await apiPost<ApiKey>("/api-keys", body);
+      const key = await apiPost<ApiKey>("/api/api-keys", body);
       setNewKey(key);
       // Refresh full list to get workgroup_name
-      const fresh = await apiGet<ApiKey[]>("/api-keys");
+      const fresh = await apiGet<ApiKey[]>("/api/api-keys");
       setKeys(fresh || []);
       setNewKeyName("");
       setNewKeyWg(null);
@@ -164,7 +164,7 @@ export default function ApiKeysPage() {
     try {
       setDeleting(true);
       setError(null);
-      await apiDelete(`/api-keys/${id}`);
+      await apiDelete(`/api/api-keys/${id}`);
       setKeys((prev) => prev.filter((k) => k.id !== id));
       setDeleteTarget(null);
     } catch (err) {
@@ -176,7 +176,7 @@ export default function ApiKeysPage() {
 
   const handleToggleStatus = async (id: string) => {
     try {
-      const res = await apiPatch<{ id: string; status: string }>(`/api-keys/${id}/toggle`);
+      const res = await apiPatch<{ id: string; status: string }>(`/api/api-keys/${id}/toggle`);
       setKeys((prev) =>
         prev.map((k) => (k.id === id ? { ...k, status: res.status as "active" | "disabled" } : k))
       );
@@ -193,7 +193,7 @@ export default function ApiKeysPage() {
     try {
       setWgCreating(true);
       setError(null);
-      await apiPost("/workgroups", { name: wgName.trim(), description: wgDesc.trim() });
+      await apiPost("/api/workgroups", { name: wgName.trim(), description: wgDesc.trim() });
       setShowWgDialog(false);
       setWgName("");
       setWgDesc("");
@@ -210,7 +210,7 @@ export default function ApiKeysPage() {
     try {
       setEditWgSaving(true);
       setError(null);
-      await apiPut(`/workgroups/${editWgId}`, { name: editWgName.trim(), description: editWgDesc.trim() });
+      await apiPut(`/api/workgroups/${editWgId}`, { name: editWgName.trim(), description: editWgDesc.trim() });
       setShowEditWg(false);
       await loadKeys();
     } catch (err) {

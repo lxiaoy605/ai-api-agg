@@ -255,10 +255,8 @@ services:
     - 9093:9093
     volumes:
     - ../monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    - ../monitoring/alertmanager-entrypoint.sh:/alertmanager-entrypoint.sh:ro
     - alertmanager_data:/alertmanager
-    command:
-    - --config.file=/etc/alertmanager/alertmanager.yml
-    - --storage.path=/alertmanager
     networks:
     - app-net
     logging:
@@ -266,6 +264,10 @@ services:
       options:
         max-size: 10m
         max-file: '3'
+    entrypoint: ["/bin/sh", "/alertmanager-entrypoint.sh"]
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
   blackbox-exporter:
     image: prom/blackbox-exporter:latest
     container_name: ai-api-agg-blackbox

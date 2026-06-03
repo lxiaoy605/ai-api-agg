@@ -20,13 +20,14 @@ import (
 
 // Monitor USDT 自动监听引擎
 type Monitor struct {
-	db           *sql.DB
-	tg           *notify.Telegram
-	walletAddr   string // TRC-20 收款地址
-	tronGridKey  string // TronGrid Pro API Key（可选）
-	minConfirm   int    // 最少确认数
-	minUSDT      float64
-	centsPerToken float64
+	db             *sql.DB
+	tg             *notify.Telegram
+	notif          *notify.Center
+	walletAddr     string // TRC-20 收款地址
+	tronGridKey    string // TronGrid Pro API Key（可选）
+	minConfirm     int    // 最少确认数
+	minUSDT        float64
+	centsPerToken  float64
 
 	// 轮询控制
 	mu         sync.Mutex
@@ -38,10 +39,11 @@ type Monitor struct {
 }
 
 // NewMonitor 创建 USDT 监听器
-func NewMonitor(db *sql.DB, tg *notify.Telegram) *Monitor {
+func NewMonitor(db *sql.DB, tg *notify.Telegram, notifCenter *notify.Center) *Monitor {
 	return &Monitor{
 		db:            db,
 		tg:            tg,
+		notif:         notifCenter,
 		walletAddr:    os.Getenv("USDT_TRC20_WALLET"),
 		tronGridKey:   os.Getenv("TRON_PRO_API_KEY"),
 		minConfirm:    getEnvInt("USDT_MIN_CONFIRM", 12),
@@ -206,6 +208,11 @@ func (m *Monitor) processTransaction(tx tronGridTransaction) {
 			"无有效Memo，待人工核对", time.Now().Unix(),
 		)
 		m.tg.NotifyUSDTManualReview(txHash, usdtAmount, "无法解析 Memo，无有效 USER_ID")
+		m.notif.Notify(notify.EventPaymentFailed, notify.SeverityWarning,
+			fmt.Sprintf("USDT 交易待人工审核"),
+			fmt.Sprintf("交易 %s\n金额: $%.2f USDT\n原因: 无法解析 Memo，无有效 USER_ID",
+				txHash[:16], usdtAmount),
+			map[string]interface{}{"tx_hash": txHash, "amount": usdtAmount})
 		return
 	}
 
@@ -220,6 +227,11 @@ func (m *Monitor) processTransaction(tx tronGridTransaction) {
 			fmt.Sprintf("用户ID %d 不存在，待核对", userID), time.Now().Unix(),
 		)
 		m.tg.NotifyUSDTManualReview(txHash, usdtAmount, fmt.Sprintf("用户 ID %d 不存在", userID))
+		m.notif.Notify(notify.EventPaymentFailed, notify.SeverityWarning,
+			fmt.Sprintf("USDT 交易待人工审核"),
+			fmt.Sprintf("交易 %s\n金额: $%.2f USDT\n原因: 用户 ID %d 不存在",
+				txHash[:16], usdtAmount, userID),
+			map[string]interface{}{"tx_hash": txHash, "amount": usdtAmount})
 		return
 	} else if err != nil {
 		log.Printf("[USDT] 查询用户失败: %v", err)
@@ -271,8 +283,21 @@ func (m *Monitor) processTransaction(tx tronGridTransaction) {
 	log.Printf("[USDT] 自动到账: user=%d amount=$%.2f tokens=%d(+%d) tx=%s",
 		userID, usdtAmount, totalTokens, bonus, txHash[:16])
 
-	// 通知用户和管理员
+	// 通知（旧通道 + 新通知中心）
 	go m.tg.NotifyUSDTReceived(int64(userID), usdtAmount, int64(totalTokens), txHash)
+	m.notif.Notify(notify.EventPaymentConfirmed, notify.SeverityInfo,
+		fmt.Sprintf("USDT 自动到账"),
+		fmt.Sprintf("用户 %d 收到 $%.2f USDT → %d Token (+%d 赠送)\n交易: %s",
+			userID, usdtAmount, totalTokens, bonus, txHash[:16]),
+		map[string]interface{}{
+			"user_id":    userID,
+			"email":      userEmail,
+			"tx_hash":    txHash,
+			"amount_usd": usdtAmount,
+			"tokens":     totalTokens,
+			"bonus":      bonus,
+			"amount":     usdtAmount,
+		})
 }
 
 // getConfirmations 获取交易确认数

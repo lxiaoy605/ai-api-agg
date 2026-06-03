@@ -14,6 +14,7 @@ import (
 
 	"github.com/ai-api-agg/backend/internal/audit"
 	"github.com/ai-api-agg/backend/internal/middleware"
+	"github.com/ai-api-agg/backend/internal/notify"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,15 +22,17 @@ import (
 
 // Handler 支付 HTTP 处理器
 type Handler struct {
-	db     *sql.DB
-	client *Client
+	db      *sql.DB
+	client  *Client
+	notif   *notify.Center
 }
 
 // NewHandler 创建支付处理器
-func NewHandler(db *sql.DB, apiKey, ipnSecret, baseURL string) *Handler {
+func NewHandler(db *sql.DB, apiKey, ipnSecret, baseURL string, notifCenter *notify.Center) *Handler {
 	return &Handler{
 		db:     db,
 		client: NewClient(apiKey, ipnSecret, baseURL),
+		notif:  notifCenter,
 	}
 }
 
@@ -132,6 +135,23 @@ func (h *Handler) CreatePayment(c *gin.Context) {
 	// 审计日志
 	audit.Log(h.db, "payment_create", fmt.Sprintf("user:%d", userID), npResp.PaymentID.String(),
 		fmt.Sprintf("金额:$%.2f Token:%d 币种:%s 状态:%s", priceAmount, totalTokens, payCurrency, npResp.PaymentStatus), "")
+
+	// 通知：支付已创建
+	var userEmail string
+	h.db.QueryRow("SELECT email FROM users WHERE id = ?", userID).Scan(&userEmail)
+	h.notif.Notify(notify.EventPaymentCreated, notify.SeverityInfo,
+		fmt.Sprintf("新充值订单 #%s", npResp.PaymentID.String()),
+		fmt.Sprintf("用户 %d 创建了一笔充值\n金额: $%.2f → %d Token (+%d)\n币种: %s\n地址: %s",
+			userID, priceAmount, totalTokens, bonus, payCurrency, npResp.PayAddress),
+		map[string]interface{}{
+			"user_id":      userID,
+			"email":        userEmail,
+			"payment_id":   npResp.PaymentID.String(),
+			"amount_usd":   priceAmount,
+			"tokens":       totalTokens,
+			"bonus":         bonus,
+			"pay_currency": payCurrency,
+		})
 
 	middleware.Success(c, PaymentInfo{
 		PaymentID:   npResp.PaymentID.String(),
@@ -383,6 +403,22 @@ func (h *Handler) tryCompletePayment(paymentID string, npResp *PaymentResponse) 
 
 		log.Printf("[支付] 自动到账: user=%d amount=$%.2f tokens=%d(+%d) payment_id=%s",
 			userID, float64(amountCents)/100.0, tokens, bonus, paymentID)
+
+		// 通知：支付已完成
+		var userEmail string
+		h.db.QueryRow("SELECT email FROM users WHERE id = ?", userID).Scan(&userEmail)
+		h.notif.Notify(notify.EventPaymentConfirmed, notify.SeverityInfo,
+			fmt.Sprintf("充值到账 #%s", paymentID),
+			fmt.Sprintf("用户 %d 充值已到账\n金额: $%.2f → %d Token (+%d 赠送)",
+				userID, float64(amountCents)/100.0, tokens, bonus),
+			map[string]interface{}{
+				"user_id":    userID,
+				"email":      userEmail,
+				"payment_id": paymentID,
+				"amount_usd": float64(amountCents) / 100.0,
+				"tokens":     tokens,
+				"bonus":      bonus,
+			})
 	}
 }
 

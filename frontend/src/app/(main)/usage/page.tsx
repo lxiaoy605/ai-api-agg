@@ -45,7 +45,7 @@ export default function UsagePage() {
       setLoading(true);
       setError(null);
 
-      const keys = await apiGet<ApiKey[]>("/api-keys");
+      const keys = await apiGet<ApiKey[]>("/api/api-keys");
       const keyList = keys || [];
       setKeyCount(keyList.length);
 
@@ -58,7 +58,7 @@ export default function UsagePage() {
       if (keyList.length > 0) {
         const results = await Promise.all(
           keyList.map((k) =>
-            apiGet<KeyUsage>(`/api-keys/${k.id}/usage`).catch(() => ({
+            apiGet<KeyUsage>(`/api/api-keys/${k.id}/usage`).catch(() => ({
               total_requests: 0,
               total_tokens: 0,
             }))

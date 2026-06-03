@@ -1,28 +1,29 @@
 # Alertmanager 配置 — AI API 聚合平台
-# 开发环境：无外部通知渠道，所有告警通过自身日志输出
-# 生产环境：取消注释 Telegram 配置段并填入实际 Token/Chat ID
+# 通过 Telegram 推送基础设施告警（服务宕机、错误率飙升等）
+# 使用与业务通知相同的 Bot（TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID）
+# alertmanager-entrypoint.sh 在容器启动时用 envsubst 替换占位符
 
 global:
-  # 全局配置不在此层放 send_resolved
+  resolve_timeout: 5m
 
 route:
   group_by: ['alertname']
   group_wait: 10s
   group_interval: 5m
   repeat_interval: 30m
-  receiver: 'dev-null'
+  receiver: 'telegram-warning'
 
   routes:
     - match:
         severity: critical
-      receiver: 'dev-null'
+      receiver: 'telegram-critical'
       group_wait: 5s
       group_interval: 2m
       repeat_interval: 15m
 
     - match:
         severity: warning
-      receiver: 'dev-null'
+      receiver: 'telegram-warning'
 
 inhibit_rules:
   - source_match:
@@ -40,24 +41,27 @@ inhibit_rules:
     equal: ['job']
 
 receivers:
-  # 开发环境：空接收器，告警仅通过 --log.level=debug 输出到日志
-  - name: 'dev-null'
+  - name: 'telegram-critical'
+    telegram_configs:
+      - send_resolved: true
+        bot_token: '${TELEGRAM_BOT_TOKEN:-YOUR_BOT_TOKEN_HERE}'
+        chat_id: ${TELEGRAM_CHAT_ID:-YOUR_CHAT_ID_HERE}
+        parse_mode: 'HTML'
+        message: |
+          🔴 <b>{{ .CommonLabels.alertname }}</b>
+          <b>Severity:</b> {{ .CommonLabels.severity }}
+          <b>Description:</b> {{ .CommonAnnotations.description }}
+          {{- if .CommonAnnotations.summary }}
+          <b>Summary:</b> {{ .CommonAnnotations.summary }}
+          {{- end }}
 
-  # 生产环境取消注释以下 Telegram 配置段：
-  #
-  # - name: 'telegram-critical'
-  #   telegram_configs:
-  #     - send_resolved: true
-  #       bot_token: 'YOUR_BOT_TOKEN'
-  #       chat_id: 123456789
-  #       parse_mode: 'HTML'
-  #       message: |
-  #         <b>{{ .CommonLabels.alertname }}</b>
-  #         {{ .CommonAnnotations.description }}
-  #
-  # - name: 'telegram-warning'
-  #   telegram_configs:
-  #     - send_resolved: true
-  #       bot_token: 'YOUR_BOT_TOKEN'
-  #       chat_id: 123456789
-  #       parse_mode: 'HTML'
+  - name: 'telegram-warning'
+    telegram_configs:
+      - send_resolved: true
+        bot_token: '${TELEGRAM_BOT_TOKEN:-YOUR_BOT_TOKEN_HERE}'
+        chat_id: ${TELEGRAM_CHAT_ID:-YOUR_CHAT_ID_HERE}
+        parse_mode: 'HTML'
+        message: |
+          🟡 <b>{{ .CommonLabels.alertname }}</b>
+          <b>Severity:</b> {{ .CommonLabels.severity }}
+          <b>Description:</b> {{ .CommonAnnotations.description }}

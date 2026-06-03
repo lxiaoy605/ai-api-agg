@@ -6,6 +6,7 @@ import Link from "next/link";
 import {
   LayoutDashboard,
   Key,
+  Folders,
   Zap,
   BookOpen,
   Wallet,
@@ -16,6 +17,7 @@ import {
 const navItems = [
   { href: "/dashboard", key: "dashboard", icon: LayoutDashboard },
   { href: "/api-keys", key: "apiKeys", icon: Key },
+  { href: "/workgroups", key: "workgroups", icon: Folders },
   { href: "/models", key: "models", icon: Zap },
   { href: "/docs", key: "docs", icon: BookOpen },
   { href: "/recharge", key: "recharge", icon: Wallet },

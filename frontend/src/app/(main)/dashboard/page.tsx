@@ -131,10 +131,10 @@ export default function DashboardPage() {
     try {
       setLoading(true);
       const [userInfo, apiKeys, wkgs, usageResp] = await Promise.all([
-        apiGet<UserInfo>("/auth/me"),
-        apiGet<ApiKey[]>("/api-keys"),
-        apiGet<WorkgroupResponse[]>("/workgroups").catch(() => []),
-        apiGet<UsageResponse>("/user/usage").catch(() => null),
+        apiGet<UserInfo>("/api/auth/me"),
+        apiGet<ApiKey[]>("/api/api-keys"),
+        apiGet<WorkgroupResponse[]>("/api/workgroups").catch(() => []),
+        apiGet<UsageResponse>("/api/user/usage").catch(() => null),
       ]);
 
       setUser(userInfo);

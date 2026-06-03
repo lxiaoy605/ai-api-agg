@@ -16,16 +16,15 @@ import (
 
 // BotHandler 处理 Telegram Bot 命令（轮询 + webhook 双模式）
 type BotHandler struct {
-	tg      *Telegram
-	db      *sql.DB
-	mgAPI   string
-	mgDom   string
-	offset  int64 // getUpdates 偏移
+	tg          *Telegram
+	db          *sql.DB
+	emailSender *EmailSender
+	offset      int64 // getUpdates 偏移
 }
 
 // NewBotHandler 创建 Bot 命令处理器
-func NewBotHandler(tg *Telegram, db *sql.DB, mgAPI, mgDom string) *BotHandler {
-	return &BotHandler{tg: tg, db: db, mgAPI: mgAPI, mgDom: mgDom}
+func NewBotHandler(tg *Telegram, db *sql.DB, emailSender *EmailSender) *BotHandler {
+	return &BotHandler{tg: tg, db: db, emailSender: emailSender}
 }
 
 // StartPolling 启动轮询方式监听命令（不依赖 webhook）
@@ -313,7 +312,7 @@ func (h *BotHandler) cmdReply(chatID int64, args string) {
 		return
 	}
 
-	if err := mailgunSend(h.mgAPI, h.mgDom, origFrom, origSubj, origMsgID, replyBody); err != nil {
+	if err := h.emailSender.SendReply(origFrom, origSubj, origMsgID, replyBody); err != nil {
 		log.Printf("[TG-bot] Mailgun 发送失败: %v", err)
 		h.sendToChat(chatID, "❌ 发送失败: "+err.Error())
 		return

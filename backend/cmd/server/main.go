@@ -15,12 +15,14 @@ import (
 	"github.com/ai-api-agg/backend/internal/apikey"
 	"github.com/ai-api-agg/backend/internal/auth"
 	"github.com/ai-api-agg/backend/internal/config"
+	"github.com/ai-api-agg/backend/internal/cron"
 	"github.com/ai-api-agg/backend/internal/database"
 	"github.com/ai-api-agg/backend/internal/email"
 	"github.com/ai-api-agg/backend/internal/middleware"
 	"github.com/ai-api-agg/backend/internal/notify"
 	"github.com/ai-api-agg/backend/internal/payment"
 	"github.com/ai-api-agg/backend/internal/proxy"
+	"github.com/ai-api-agg/backend/internal/scheduler"
 	"github.com/ai-api-agg/backend/internal/usage"
 	"github.com/ai-api-agg/backend/internal/usdt"
 	"github.com/ai-api-agg/backend/internal/workgroup"
@@ -42,14 +44,19 @@ func main() {
 
 	// 创建 Telegram 通知器（全局共享）
 	tg := notify.NewTelegram()
-	if tg.Enabled() {
-		log.Println("Telegram 通知已启用")
-	} else {
-		log.Println("Telegram 通知未配置（缺少 TELEGRAM_BOT_TOKEN 或 TELEGRAM_CHAT_ID）")
-	}
+
+	// 创建邮件发送器
+	emailSender := notify.NewEmailSender(cfg.MailgunAPIKey, cfg.MailgunDomain, "")
+
+	// 创建统一通知中心
+	notifCenter := notify.NewCenter()
+	notifCenter.Register(notify.NewTelegramChannel(tg))       // Telegram → 后台管理通知
+	notifCenter.Register(notify.NewEmailChannel(emailSender)) // 邮件 → 用户通知
+	notifCenter.Register(&notify.LogChannel{})                // 日志 → 开发调试
+	log.Println("通知中心已初始化")
 
 	// 创建处理器
-	authHandler := auth.NewHandler(db, cfg.JWTSecret)
+	authHandler := auth.NewHandler(db, cfg.JWTSecret, emailSender)
 
 	// OAuth handler
 	oauthConfig := auth.OAuthConfig{
@@ -77,20 +84,26 @@ func main() {
 	adminHandler := admin.NewHandler(db, projectDir)
 
 	// 邮件处理器
-	emailHandler := email.NewHandler(db, filepath.Join(projectDir, "data"), tg)
+	emailHandler := email.NewHandler(db, filepath.Join(projectDir, "data"), tg, emailSender)
+
+	// 定时任务处理器（由外部 cron 触发）
+	cronHandler := cron.NewHandler(db, emailSender, tg)
 
 	// Telegram Bot 命令处理器
-	botHandler := notify.NewBotHandler(tg, db, cfg.MailgunAPIKey, cfg.MailgunDomain)
+	botHandler := notify.NewBotHandler(tg, db, emailSender)
 	botHandler.StartPolling() // 轮询模式，不依赖 webhook
 
 	// 创建支付处理器（NOWPayments）
-	paymentHandler := payment.NewHandler(db, cfg.NowPaymentsAPIKey, cfg.NowPaymentsSecret, cfg.NowPaymentsURL)
+	paymentHandler := payment.NewHandler(db, cfg.NowPaymentsAPIKey, cfg.NowPaymentsSecret, cfg.NowPaymentsURL, notifCenter)
 
 	// 创建代理处理器（OneAPI 转发）
 	proxyHandler := proxy.NewHandler(db, cfg.EncryptionKey, cfg.OneAPIURL, cfg.OneAPIKey)
 
+	// 内置任务调度器（替代外部 OpenClaw cron）
+	scheduler.Start(cronHandler)
+
 	// 启动 USDT 监听引擎（goroutine）
-	usdtMonitor := usdt.NewMonitor(db, tg)
+	usdtMonitor := usdt.NewMonitor(db, tg, notifCenter)
 	go usdtMonitor.Start(30 * time.Second) // 每 30 秒轮询
 
 	// 创建 Gin 引擎（启用方法不匹配告警以处理 OPTIONS preflight）
@@ -125,7 +138,7 @@ func main() {
 	})
 
 	// 认证路由（无需 JWT）
-	authGroup := r.Group("/auth")
+	authGroup := r.Group("/api/auth")
 	{
 		authGroup.POST("/register", authHandler.Register)
 		authGroup.POST("/login", authHandler.Login)
@@ -147,23 +160,23 @@ func main() {
 	authRequired.Use(middleware.JWTAuth(cfg.JWTSecret))
 	{
 		// 用户信息
-		authRequired.GET("/auth/me", authHandler.Me)
+		authRequired.GET("/api/auth/me", authHandler.Me)
 
 		// API Key 管理
-		authRequired.POST("/api-keys", apikeyHandler.Create)
-		authRequired.GET("/api-keys", apikeyHandler.List)
-		authRequired.DELETE("/api-keys/:id", apikeyHandler.Delete)
-		authRequired.GET("/api-keys/:id/usage", apikeyHandler.Usage)
-		authRequired.PATCH("/api-keys/:id/toggle", apikeyHandler.Toggle)
+		authRequired.POST("/api/api-keys", apikeyHandler.Create)
+		authRequired.GET("/api/api-keys", apikeyHandler.List)
+		authRequired.DELETE("/api/api-keys/:id", apikeyHandler.Delete)
+		authRequired.GET("/api/api-keys/:id/usage", apikeyHandler.Usage)
+		authRequired.PATCH("/api/api-keys/:id/toggle", apikeyHandler.Toggle)
 
 		// 工作组管理
-		authRequired.GET("/workgroups", workgroupHandler.List)
-		authRequired.POST("/workgroups", workgroupHandler.Create)
-		authRequired.PUT("/workgroups/:id", workgroupHandler.Update)
-		authRequired.DELETE("/workgroups/:id", workgroupHandler.Delete)
+		authRequired.GET("/api/workgroups", workgroupHandler.List)
+		authRequired.POST("/api/workgroups", workgroupHandler.Create)
+		authRequired.PUT("/api/workgroups/:id", workgroupHandler.Update)
+		authRequired.DELETE("/api/workgroups/:id", workgroupHandler.Delete)
 
 		// 用量统计
-		authRequired.GET("/user/usage", usageHandler.Overview)
+		authRequired.GET("/api/user/usage", usageHandler.Overview)
 	}
 
 	// 需要管理员权限的路由（JWT + admin role）
@@ -177,7 +190,19 @@ func main() {
 		adminGroup.GET("/audit-log", adminHandler.AuditLog)
 		adminGroup.POST("/backup", adminHandler.Backup)
 		adminGroup.POST("/restore", adminHandler.Restore)
+
+		// Provider 管理
+		adminGroup.GET("/admin/providers", adminHandler.ListProviders)
+		adminGroup.POST("/admin/providers", adminHandler.AddProvider)
+		adminGroup.PUT("/admin/providers/:name/balance", adminHandler.UpdateProviderBalance)
+		adminGroup.DELETE("/admin/providers/:name", adminHandler.DeleteProvider)
 	}
+
+	// Cron 端点（使用共享密钥 x-cron-secret 认证，不走 JWT）
+	r.GET("/admin/cron/balance-check", cronHandler.BalanceCheck)
+	r.POST("/admin/cron/balance-check", cronHandler.BalanceCheck)
+	r.GET("/admin/cron/balance-warning", cronHandler.UserBalanceWarning)
+	r.GET("/admin/cron/provider-check", cronHandler.ProviderCheck)
 
 	// 支付路由（部分需要 JWT，webhook 不需要）
 	paymentGroup := r.Group("/api/payment")

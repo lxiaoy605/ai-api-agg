@@ -146,7 +146,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     (async () => {
       try {
-        const user = await apiFetch<User>("/auth/me");
+        const user = await apiFetch<User>("/api/auth/me");
         if (!cancelled) setState({ user, loading: false, error: null });
       } catch (_err) {
         clearStoredToken();
@@ -166,14 +166,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, loading: true, error: null }));
     try {
       const data = await apiFetch<{ user_id: number; email: string; token: string }>(
-        "/auth/login",
+        "/api/auth/login",
         {
           method: "POST",
           body: JSON.stringify({ email, password }),
         },
       );
       setStoredToken(data.token);
-      const user = await apiFetch<User>("/auth/me");
+      const user = await apiFetch<User>("/api/auth/me");
       setState({ user, loading: false, error: null });
     } catch (err) {
       setState((s) => ({
@@ -190,14 +190,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setState((s) => ({ ...s, loading: true, error: null }));
       try {
         const data = await apiFetch<{ user_id: number; email: string; token: string }>(
-          "/auth/register",
+          "/api/auth/register",
           {
             method: "POST",
             body: JSON.stringify({ email, password }),
           },
         );
         setStoredToken(data.token);
-        const user = await apiFetch<User>("/auth/me");
+        const user = await apiFetch<User>("/api/auth/me");
         setState({ user, loading: false, error: null });
       } catch (err) {
         setState((s) => ({
@@ -218,7 +218,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refreshUser = useCallback(async () => {
     try {
-      const user = await apiFetch<User>("/auth/me");
+      const user = await apiFetch<User>("/api/auth/me");
       setState((s) => ({ ...s, user, error: null }));
     } catch (err) {
       if (err instanceof AuthError && err.status === 401) {

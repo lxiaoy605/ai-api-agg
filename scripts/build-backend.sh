@@ -208,6 +208,9 @@ do_deploy() {
     fi
     echo ""
 
+    # 清理孤儿 docker-proxy（Docker 偶发 bug，旧 proxy 残留在宿主端口）
+    "$SCRIPT_DIR/cleanup-orphan-proxies.sh" || true
+
     # 2. 启动 inactive 实例
     echo -e "${BOLD}[2/4] 启动 inactive 实例${NC}"
     local compose_svc

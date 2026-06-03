@@ -104,6 +104,15 @@ func migrate(db *sql.DB) error {
 			completed_at  INTEGER DEFAULT 0,
 			FOREIGN KEY (user_id) REFERENCES users(id)
 		)`,
+		`CREATE TABLE IF NOT EXISTS provider_balances (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT NOT NULL UNIQUE,
+			balance REAL NOT NULL DEFAULT 0,
+			alert_threshold REAL NOT NULL DEFAULT 50,
+			notes TEXT DEFAULT '',
+			updated_at INTEGER NOT NULL,
+			created_at INTEGER NOT NULL
+		)`,
 	}
 
 	// 兼容旧表：尝试添加可能缺失的列
@@ -111,6 +120,7 @@ func migrate(db *sql.DB) error {
 		`ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'user'`,
 		`ALTER TABLE users ADD COLUMN quota INTEGER NOT NULL DEFAULT 0`,
 		`ALTER TABLE api_keys ADD COLUMN workgroup_id INTEGER DEFAULT NULL`,
+		`ALTER TABLE usage_logs ADD COLUMN model TEXT DEFAULT ''`,
 	}
 
 	for _, m := range migrations {

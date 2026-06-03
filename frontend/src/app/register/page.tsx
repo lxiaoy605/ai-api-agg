@@ -29,8 +29,9 @@ export default function RegisterPage() {
   const validate = (): boolean => {
     const errors: Record<string, string> = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) errors.email = t("auth.passwordMinLength");
-    if (password.length < 6) errors.password = t("auth.passwordMinLength");
+    if (!emailRegex.test(email)) errors.email = t("auth.invalidEmailFormat");
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(password)) errors.password = t("auth.passwordMinLength");
     if (password !== confirmPassword) errors.confirmPassword = t("auth.passwordsMismatch");
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
@@ -57,7 +58,7 @@ export default function RegisterPage() {
           if (body.includes("已注册") || body.includes("already") || body.includes("registered") || body.includes("exist")) {
             msg = t("auth.alreadyRegistered") + " " + t("auth.signInInstead");
           } else if (body.includes("邮箱") || body.includes("invalid email") || body.includes("format")) {
-            setFieldErrors({ email: t("auth.passwordMinLength") });
+            setFieldErrors({ email: t("auth.invalidEmailFormat") });
             return;
           }
         }
